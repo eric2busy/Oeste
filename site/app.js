@@ -137,7 +137,133 @@ const COMPONENTS = [
     contract: { format: "oeste.component.v1", component: "Progress", props: { value: "number", min: "number", max: "number" }, a11y: { role: "progressbar", values: "aria-valuenow/min/max", text: "visible value" } },
     prompt: "Build an Oeste Progress with role=progressbar + aria-valuenow/min/max, visible label + value text, value clamped to min–max. Never show a bar without its number.",
     cli: "npx @oeste/ui add progress",
-    code: "import { Progress } from \"@oeste/ui\";\n\nexport function Upload({ done }) {\n  return <Progress label=\"Upload\" value={done} />;\n}\n// Dark mode: built in via dark: classes." }
+    code: "import { Progress } from \"@oeste/ui\";\n\nexport function Upload({ done }) {\n  return <Progress label=\"Upload\" value={done} />;\n}\n// Dark mode: built in via dark: classes." },
+  { id: "avatar", name: "Avatar", tagline: "A face or initials. Fallback always shows.",
+    anatomy: ["Image (optional)", "Fallback initials", "Accessible name"],
+    props: [["src", "string", "No", "Photo URL. When it fails, the fallback shows."], ["name", "string", "Yes", "Full name — used for initials + accessible name."], ["alt", "string", "No — name", "Image alt text."], ["size", "md | lg", "No — md", "44px or 64px."]],
+    keyboard: [["—", "Avatar is not interactive. No keyboard behavior."]],
+    invariants: ["Fallback initials always render when the image is missing or fails.", "Accessible name is the person's name, never empty.", "Initials are derived from the name, never hardcoded per instance."],
+    contract: { format: "oeste.component.v1", component: "Avatar", props: { src: "string?", name: "string", size: ["md", "lg"] }, a11y: { name: "person name", fallback: "initials when image fails" } },
+    prompt: "Build an Oeste Avatar: photo with an initials fallback that always renders when the image is missing or fails. Accessible name is the person's name. Sizes md (44px) and lg (64px). Never leave an empty circle.",
+    cli: "npx @oeste/ui add avatar",
+    code: "import { Avatar } from \"@oeste/ui\";\n\nexport function Teammate() {\n  return <Avatar name=\"Hidden Inwest\" src=\"/photos/member.jpg\" />;\n}\n// If the photo fails, initials show. Dark mode: built in." },
+  { id: "separator", name: "Separator", tagline: "A hairline that divides. Decorative or semantic.",
+    anatomy: ["Line", "Orientation"],
+    props: [["orientation", "horizontal | vertical", "No — horizontal", "Line direction."], ["decorative", "boolean", "No — true", "True = aria-hidden. False = role=separator with a label."]],
+    keyboard: [["—", "Separator is not interactive. No keyboard behavior."]],
+    invariants: ["Decorative separators are aria-hidden.", "Semantic separators use role=separator.", "A separator never replaces a heading or a labeled section."],
+    contract: { format: "oeste.component.v1", component: "Separator", props: { orientation: ["horizontal", "vertical"], decorative: "boolean" }, a11y: { decorative: "aria-hidden", semantic: "role=separator" } },
+    prompt: "Build an Oeste Separator: a hairline rule, horizontal or vertical. Decorative separators are aria-hidden; semantic ones use role=separator. Never use a separator in place of a heading.",
+    cli: "npx @oeste/ui add separator",
+    code: "import { Separator } from \"@oeste/ui\";\n\nexport function Sections() {\n  return (<><p>First section.</p><Separator /><p>Second section.</p></>);\n}" },
+  { id: "slider", name: "Slider", tagline: "Pick a number by dragging. Arrows work too.",
+    anatomy: ["Label", "Track + fill", "Thumb", "Value text"],
+    props: [["label", "string", "Yes", "Visible label."], ["value / onChange", "number / (v) => void", "Yes", "Controlled value."], ["min", "number", "No — 0", "Minimum."], ["max", "number", "No — 100", "Maximum."], ["step", "number", "No — 1", "Step size."]],
+    keyboard: [["Tab", "Move focus to the thumb."], ["ArrowLeft / ArrowRight / ArrowUp / ArrowDown", "Decrease / increase by one step."], ["Home / End", "Jump to min / max."], ["PageUp / PageDown", "Move by 10 steps."]],
+    invariants: ["Native <input type=range>, never a div thumb.", "Value is shown as text, never slider alone.", "aria-valuenow/min/max always reflect the value."],
+    contract: { format: "oeste.component.v1", component: "Slider", props: { label: "string", value: "number", min: "number", max: "number", step: "number" }, a11y: { native: "input[type=range]", values: "aria-valuenow/min/max" } },
+    prompt: "Build an Oeste Slider with a native <input type=range>, visible label, visible value text, aria-valuenow/min/max. Arrow keys step, Home/End jump. Never build a slider thumb from a div.",
+    cli: "npx @oeste/ui add slider",
+    code: "import { useState } from \"react\";\nimport { Slider } from \"@oeste/ui\";\n\nexport function Volume() {\n  const [value, setValue] = useState(40);\n  return <Slider label=\"Volume\" value={value} onChange={setValue} min={0} max={100} />;\n}" },
+  { id: "tooltip", name: "Tooltip", tagline: "A hint on hover and focus. Never the only way to know.",
+    anatomy: ["Trigger", "Bubble", "Text"],
+    props: [["children", "ReactNode", "Yes", "Trigger element."], ["content", "string", "Yes", "Hint text."], ["side", "top | bottom", "No — top", "Bubble placement."]],
+    keyboard: [["Tab", "Focus the trigger to show the tooltip."], ["Escape", "Dismiss the tooltip."], ["Tab away / blur", "Hide the tooltip."]],
+    invariants: ["Tooltip shows on hover AND on focus.", "Tooltip content uses role=tooltip + aria-describedby.", "The hint is never the only place its information lives.", "Escape dismisses; blur hides."],
+    contract: { format: "oeste.component.v1", component: "Tooltip", props: { content: "string", side: ["top", "bottom"] }, a11y: { role: "tooltip", describedby: "trigger aria-describedby", dismiss: "Escape / blur" } },
+    prompt: "Build an Oeste Tooltip: shows on hover AND focus, role=tooltip + aria-describedby on the trigger, Escape dismisses, blur hides. Never put information only in a tooltip.",
+    cli: "npx @oeste/ui add tooltip",
+    code: "import { Tooltip } from \"@oeste/ui\";\n\nexport function Help() {\n  return <Tooltip content=\"Saves to this project.\"><button type=\"button\">Save</button></Tooltip>;\n}" },
+  { id: "popover", name: "Popover", tagline: "A small panel anchored to a trigger. Escape closes.",
+    anatomy: ["Trigger", "Panel", "Content"],
+    props: [["children", "ReactNode", "Yes", "Trigger + panel content."], ["open / onOpenChange", "boolean / (v) => void", "No", "Controlled open state. Uncontrolled by default."], ["label", "string", "Yes", "Accessible name for the panel."]],
+    keyboard: [["Tab", "Move focus into the panel when open."], ["Escape", "Close and return focus to the trigger."], ["Click outside", "Close the panel."]],
+    invariants: ["Panel is labelled by its trigger or label.", "Escape closes and returns focus to the trigger.", "Clicking outside closes; content behind stays interactive.", "Popover is non-modal — unlike Dialog, it does not trap focus or make the page inert."],
+    contract: { format: "oeste.component.v1", component: "Popover", props: { label: "string", open: "boolean" }, a11y: { panel: "labelled", dismiss: "Escape / outside click", focus: "returns to trigger" } },
+    prompt: "Build an Oeste Popover: trigger-anchored panel, Escape closes and returns focus to the trigger, outside click closes. Non-modal — no focus trap, page stays interactive. Panel is labelled.",
+    cli: "npx @oeste/ui add popover",
+    code: "import { Popover } from \"@oeste/ui\";\n\nexport function Details() {\n  return <Popover label=\"Project details\"><button type=\"button\">Details</button><p>Topanga theme, 29 components.</p></Popover>;\n}" },
+  { id: "dropdown-menu", name: "Dropdown Menu", tagline: "Actions in a list. Arrows move, Escape closes.",
+    anatomy: ["Trigger", "Menu", "Menu items", "Separator (optional)"],
+    props: [["label", "string", "Yes", "Accessible name for the menu."], ["items", "{ label, onSelect?, separator? }[]", "Yes", "Menu items."], ["children", "ReactNode", "Yes", "Trigger element."]],
+    keyboard: [["Enter / Space / ArrowDown", "Open the menu, focus the first item."], ["ArrowDown / ArrowUp", "Move between items."], ["Enter / Space", "Activate the focused item."], ["Escape", "Close and return focus to the trigger."]],
+    invariants: ["Menu uses role=menu, items use role=menuitem.", "Trigger uses aria-haspopup=menu + aria-expanded.", "Escape closes and returns focus to the trigger.", "Menu items are real buttons, never divs."],
+    contract: { format: "oeste.component.v1", component: "DropdownMenu", props: { label: "string", items: "array" }, a11y: { menu: "role=menu", items: "role=menuitem", trigger: "aria-haspopup + aria-expanded" } },
+    prompt: "Build an Oeste DropdownMenu: trigger with aria-haspopup=menu + aria-expanded, role=menu with role=menuitem buttons, Arrow keys move, Enter activates, Escape closes and returns focus. Items are real buttons, never divs.",
+    cli: "npx @oeste/ui add dropdown-menu",
+    code: "import { DropdownMenu } from \"@oeste/ui\";\n\nexport function Actions() {\n  return <DropdownMenu label=\"Project actions\" items={[{ label: \"Rename\", onSelect: () => {} }, { label: \"Duplicate\", onSelect: () => {} }]}><button type=\"button\">Actions</button></DropdownMenu>;\n}" },
+  { id: "toggle", name: "Toggle", tagline: "A button that stays pressed. Fill + label, not color alone.",
+    anatomy: ["Button", "Pressed state", "Label"],
+    props: [["children", "ReactNode", "Yes", "Toggle label."], ["pressed / onPressedChange", "boolean / (v) => void", "Yes", "Controlled pressed state."], ["disabled", "boolean", "No — false", "Blocks toggling."]],
+    keyboard: [["Tab", "Move focus to the toggle."], ["Enter / Space", "Toggle pressed state."]],
+    invariants: ["Uses aria-pressed.", "Pressed state is visible by fill + label, never color alone.", "Toggle is a real <button>, never a div."],
+    contract: { format: "oeste.component.v1", component: "Toggle", props: { pressed: "boolean" }, a11y: { pressed: "aria-pressed", state: "fill + label, never color alone" } },
+    prompt: "Build an Oeste Toggle: a real <button> with aria-pressed, pressed state visible by fill + label, never color alone. Tab focuses, Enter/Space toggles.",
+    cli: "npx @oeste/ui add toggle",
+    code: "import { useState } from \"react\";\nimport { Toggle } from \"@oeste/ui\";\n\nexport function Bold() {\n  const [pressed, setPressed] = useState(false);\n  return <Toggle pressed={pressed} onPressedChange={setPressed}>Bold</Toggle>;\n}" },
+  { id: "collapsible", name: "Collapsible", tagline: "One section that opens and closes. Accordion's simpler sibling.",
+    anatomy: ["Trigger button", "Panel"],
+    props: [["title", "string", "Yes", "Trigger label."], ["children", "ReactNode", "Yes", "Panel content."], ["open / onOpenChange", "boolean / (v) => void", "No", "Controlled open state. Uncontrolled by default."]],
+    keyboard: [["Tab", "Move focus to the trigger."], ["Enter / Space", "Toggle the panel."]],
+    invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel is hidden when closed.", "State is visible by indicator + panel, never color alone.", "Reduced motion: no height animation."],
+    contract: { format: "oeste.component.v1", component: "Collapsible", props: { title: "string", open: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
+    prompt: "Build an Oeste Collapsible: one trigger button with aria-expanded + aria-controls, one panel hidden when closed, state visible by indicator + panel. Reduced motion: no height animation.",
+    cli: "npx @oeste/ui add collapsible",
+    code: "import { Collapsible } from \"@oeste/ui\";\n\nexport function Details() {\n  return <Collapsible title=\"Show details\"><p>Topanga theme, 29 components.</p></Collapsible>;\n}" },
+  { id: "skeleton", name: "Skeleton", tagline: "A placeholder while content loads. Never flashing.",
+    anatomy: ["Shape", "aria-busy region"],
+    props: [["width", "string", "No — 100%", "Placeholder width."], ["height", "string", "No — 16px", "Placeholder height."], ["label", "string", "Yes", "What is loading, e.g. \"Loading project\"."]],
+    keyboard: [["—", "Skeleton is not interactive. No keyboard behavior."]],
+    invariants: ["Container has aria-busy=true while loading.", "Skeleton is labelled with what is loading.", "No flashing, no shimmer that strobes. Reduced motion: no pulse.", "Real content replaces the skeleton — never both at once."],
+    contract: { format: "oeste.component.v1", component: "Skeleton", props: { width: "string", height: "string", label: "string" }, a11y: { busy: "aria-busy=true", label: "what is loading" } },
+    prompt: "Build an Oeste Skeleton: placeholder shape with aria-busy=true, labelled with what is loading. No flashing, no strobing shimmer. Reduced motion: no pulse. Real content replaces it.",
+    cli: "npx @oeste/ui add skeleton",
+    code: "import { Skeleton } from \"@oeste/ui\";\n\nexport function LoadingCard() {\n  return <Skeleton label=\"Loading project\" width=\"100%\" height=\"96px\" />;\n}" },
+  { id: "label", name: "Label", tagline: "A label that stands on its own. Links to its control.",
+    anatomy: ["Text", "Required indicator (optional)"],
+    props: [["htmlFor", "string", "Yes", "Id of the control it labels."], ["children", "ReactNode", "Yes", "Label text."], ["required", "boolean", "No — false", "Shows a visible required indicator + aria."]],
+    keyboard: [["—", "Label is not interactive. Clicking it focuses its control."]],
+    invariants: ["Always linked via htmlFor to a real control id.", "Required is shown with a visible indicator AND text, never color alone.", "Label text is visible, never sr-only except when the control already has a visible label."],
+    contract: { format: "oeste.component.v1", component: "Label", props: { htmlFor: "string", required: "boolean" }, a11y: { link: "htmlFor", required: "visible indicator + text" } },
+    prompt: "Build an Oeste Label: standalone label linked via htmlFor to a real control id. Required shows a visible indicator plus text, never color alone. Clicking the label focuses its control.",
+    cli: "npx @oeste/ui add label",
+    code: "import { Label } from \"@oeste/ui\";\n\nexport function NameRow() {\n  return (<div><Label htmlFor=\"name\" required>Project name</Label><input id=\"name\" type=\"text\" /></div>);\n}" },
+  { id: "breadcrumb", name: "Breadcrumb", tagline: "Where you are, and how you got here.",
+    anatomy: ["List", "Links", "Current page"],
+    props: [["items", "{ label, href? }[]", "Yes", "Trail. Last item is the current page."], ["ariaLabel", "string", "No — \"Breadcrumb\"", "Nav label."]],
+    keyboard: [["Tab", "Move focus through the links. Current page is not a link."]],
+    invariants: ["Wrapped in <nav aria-label=\"Breadcrumb\"> with an <ol>.", "Current page uses aria-current=\"page\" and is not a link.", "Separators are aria-hidden."],
+    contract: { format: "oeste.component.v1", component: "Breadcrumb", props: { items: "array" }, a11y: { nav: "aria-label=Breadcrumb", current: "aria-current=page, not a link" } },
+    prompt: "Build an Oeste Breadcrumb: <nav aria-label=\"Breadcrumb\"> with an <ol>, links for every step except the current page, current page uses aria-current=\"page\" and is not a link. Separators are aria-hidden.",
+    cli: "npx @oeste/ui add breadcrumb",
+    code: "import { Breadcrumb } from \"@oeste/ui\";\n\nexport function Trail() {\n  return <Breadcrumb items={[{ label: \"Home\", href: \"#/home\" }, { label: \"Components\", href: \"#/components/button\" }, { label: \"Button\" }]} />;\n}" },
+  { id: "pagination", name: "Pagination", tagline: "Page through a list. Current page is unmistakable.",
+    anatomy: ["Previous", "Page buttons", "Ellipsis", "Next"],
+    props: [["page", "number", "Yes", "Current page (1-based)."], ["totalPages", "number", "Yes", "Total pages."], ["onChange", "(page) => void", "Yes", "Fires when the page changes."]],
+    keyboard: [["Tab", "Move focus through Previous, pages, Next."], ["Enter / Space", "Go to the focused page."]],
+    invariants: ["Wrapped in <nav aria-label=\"Pagination\">.", "Current page uses aria-current=\"page\".", "Previous is disabled on page 1; Next is disabled on the last page.", "Ellipsis is aria-hidden, never a button."],
+    contract: { format: "oeste.component.v1", component: "Pagination", props: { page: "number", totalPages: "number" }, a11y: { nav: "aria-label=Pagination", current: "aria-current=page", ellipsis: "aria-hidden" } },
+    prompt: "Build an Oeste Pagination: <nav aria-label=\"Pagination\">, Previous / page buttons / Next, current page uses aria-current=\"page\", Previous disabled on page 1, Next disabled on the last page, ellipsis is aria-hidden, never a button.",
+    cli: "npx @oeste/ui add pagination",
+    code: "import { useState } from \"react\";\nimport { Pagination } from \"@oeste/ui\";\n\nexport function Pages() {\n  const [page, setPage] = useState(1);\n  return <Pagination page={page} totalPages={9} onChange={setPage} />;\n}" },
+  { id: "table", name: "Table", tagline: "Rows and columns that screen readers can follow.",
+    anatomy: ["Caption", "Header row", "Body rows"],
+    props: [["caption", "string", "Yes", "What the table shows."], ["columns", "{ key, header }[]", "Yes", "Columns."], ["rows", "Record[]", "Yes", "Rows."]],
+    keyboard: [["Tab", "Move focus through interactive cells, if any."]],
+    invariants: ["<caption> describes what the table shows.", "Header cells use <th scope=\"col\">; row headers use <th scope=\"row\">.", "No layout tables, ever.", "Sticky header keeps column labels visible on long tables."],
+    contract: { format: "oeste.component.v1", component: "Table", props: { caption: "string", columns: "array", rows: "array" }, a11y: { caption: "describes the table", headers: "th scope col/row" } },
+    prompt: "Build an Oeste Table: semantic <table> with a <caption> describing what it shows, <th scope=\"col\"> headers (scope=\"row\" for row headers), sticky header on long tables. Never use a table for layout.",
+    cli: "npx @oeste/ui add table",
+    code: "import { Table } from \"@oeste/ui\";\n\nexport function Tokens() {\n  return <Table caption=\"Topanga tokens\" columns={[{ key: \"token\", header: \"Token\" }, { key: \"light\", header: \"Light\" }]} rows={[{ token: \"accent\", light: \"#C47D3B\" }]} />;\n}" },
+  { id: "empty-state", name: "Empty State", tagline: "Nothing here yet — and a clear next step.",
+    anatomy: ["Icon (decorative)", "Heading", "Text", "Action"],
+    props: [["title", "string", "Yes", "What is empty."], ["description", "string", "Yes", "Why it is empty + what to do."], ["actionLabel", "string", "No", "Action button label."], ["onAction", "() => void", "No", "Action handler."]],
+    keyboard: [["Tab", "Move focus to the action when present."], ["Enter / Space", "Activate the action."]],
+    invariants: ["Icon is aria-hidden.", "Heading says what is empty, in plain words.", "There is always a next step: an action or a link.", "Empty state never blames the user."],
+    contract: { format: "oeste.component.v1", component: "EmptyState", props: { title: "string", description: "string", actionLabel: "string?" }, a11y: { icon: "aria-hidden", action: "focusable button" } },
+    prompt: "Build an Oeste Empty State: aria-hidden icon, heading that says what is empty in plain words, description with a next step, and a focusable action button. Never blame the user for an empty screen.",
+    cli: "npx @oeste/ui add empty-state",
+    code: "import { EmptyState } from \"@oeste/ui\";\n\nexport function NoProjects() {\n  return <EmptyState title=\"No projects yet\" description=\"Create your first project to see it here.\" actionLabel=\"New project\" onAction={() => {}} />;\n}" }
 ];
 
 const TOKENS = [
@@ -156,6 +282,98 @@ const TOKENS = [
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const $ = (sel) => document.querySelector(sel);
+
+/* ---------- Menu auto-close ---------- */
+function closeMenu() {
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.getElementById("menuBtn");
+  if (!sidebar || !menuBtn) return;
+  sidebar.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", "false");
+}
+
+/* ---------- Syntax highlighting (dependency-free) ----------
+   Tokenizes raw code and emits escaped spans. Colors come from --code-*
+   vars in tokens.css (both themes). Light-mode keyword/number use darker
+   same-hue derivatives so code text passes WCAG AA 4.5:1 on surface. */
+function hlSpan(cls, raw) { return '<span class="' + cls + '">' + esc(raw) + "</span>"; }
+
+function highlightJSX(raw) {
+  const re = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|(`(?:\\.|[^`\\])*`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|\b(\d[\d_]*(?:\.\d+)?)\b|\b(import|export|from|default|const|let|var|function|return|if|else|for|of|in|new|typeof|true|false|null|undefined|async|await)\b|(<\/?)([A-Za-z][\w.]*)|([A-Za-z_$][\w$-]*)(?=\s*=)/g;
+  let out = "", pos = 0, m;
+  while ((m = re.exec(raw)) !== null) {
+    out += esc(raw.slice(pos, m.index));
+    pos = m.index + m[0].length;
+    if (m[1]) out += hlSpan("tok-com", m[1]);
+    else if (m[2]) out += hlSpan("tok-str", m[2]);
+    else if (m[3]) out += hlSpan("tok-num", m[3]);
+    else if (m[4]) out += hlSpan("tok-kw", m[4]);
+    else if (m[5]) out += hlSpan("tok-punct", m[5]) + hlSpan("tok-tag", m[6]);
+    else if (m[7]) out += hlSpan("tok-prop", m[7]);
+  }
+  out += esc(raw.slice(pos));
+  return out;
+}
+function highlightJSON(raw) {
+  const re = /("(?:\\.|[^"\\])*")(\s*:)?|\b(\d[\d.]*(?:[eE][+-]?\d+)?)\b|\b(true|false|null)\b/g;
+  let out = "", pos = 0, m;
+  while ((m = re.exec(raw)) !== null) {
+    out += esc(raw.slice(pos, m.index));
+    pos = m.index + m[0].length;
+    if (m[1]) out += m[2] ? hlSpan("tok-key", m[1]) + esc(m[2]) : hlSpan("tok-str", m[1]);
+    else if (m[3]) out += hlSpan("tok-num", m[3]);
+    else if (m[4]) out += hlSpan("tok-kw", m[4]);
+  }
+  out += esc(raw.slice(pos));
+  return out;
+}
+function highlightBash(raw) {
+  return raw.split("\n").map((line) => {
+    const first = line.match(/^(\s*)([^\s]+)([\s\S]*)$/);
+    if (!first) return esc(line);
+    const re = /(--[\w-]+)|("[^"]*"|'[^']*')|(\b\d+\b)/g;
+    let out = "", pos = 0, m;
+    const rest = first[3];
+    while ((m = re.exec(rest)) !== null) {
+      out += esc(rest.slice(pos, m.index));
+      pos = m.index + m[0].length;
+      if (m[1]) out += hlSpan("tok-str", m[1]);
+      else if (m[2]) out += hlSpan("tok-str", m[2]);
+      else if (m[3]) out += hlSpan("tok-num", m[3]);
+    }
+    out += esc(rest.slice(pos));
+    return esc(first[1]) + hlSpan("tok-kw", first[2]) + out;
+  }).join("\n");
+}
+function highlightCSS(raw) {
+  return esc(raw)
+    .replace(/(@[\w-]+)/g, (m) => '<span class="tok-kw">' + m + "</span>")
+    .replace(/(&quot;[^&]*?&quot;)/g, (m) => '<span class="tok-str">' + m + "</span>");
+}
+function detectLang(text) {
+  const t = text.trim();
+  if (t.startsWith("{")) return "json";
+  if (/^(npx|npm|pnpm|yarn)\b/.test(t)) return "bash";
+  if (t.startsWith("@")) return "css";
+  if (/^(import|export|const|let|var|function)\b/.test(t)) return "jsx";
+  if (t.includes("<") && (t.includes("return") || t.includes("=>") || t.includes("from"))) return "jsx";
+  return "text";
+}
+function highlightCode(raw, lang) {
+  if (lang === "json") return highlightJSON(raw);
+  if (lang === "bash") return highlightBash(raw);
+  if (lang === "css") return highlightCSS(raw);
+  if (lang === "text") return esc(raw);
+  return highlightJSX(raw);
+}
+function highlightAll() {
+  document.querySelectorAll("#view pre").forEach((pre) => {
+    if (pre.dataset.hl) return;
+    pre.dataset.hl = "1";
+    const raw = pre.textContent;
+    pre.innerHTML = highlightCode(raw, detectLang(raw));
+  });
+}
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -231,6 +449,24 @@ function demoHTML(c) {
     + '<label class="radio-row"><input type="radio" name="demoSize" value="lg"> Large</label></fieldset><p class="muted" id="demoRadioOut" aria-live="polite" style="margin-top:12px">Selected: Medium</p></div>';
   if (c.id === "progress") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><p style="margin:0 0 8px"><strong>Upload</strong> — <span id="demoProgressLabel">40%</span></p><div class="progress-track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress"><div class="progress-fill" id="demoProgressFill" style="width:40%"></div></div><button type="button" class="btn btn-secondary" style="margin-top:16px" data-progress-advance>Advance 10%</button></div>';
   if (c.id === "switch") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" role="switch" aria-checked="false" class="btn btn-secondary" data-demo-switch aria-label="Dark mode switch demo">Dark mode: off</button></div>';
+  if (c.id === "avatar") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Toggle the photo to see the fallback.</p><div class="demo-row">'
+    + '<span class="avatar" title="Hidden Inwest"><span data-avatar-fallback>HI</span><img data-avatar-img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2744%27 height=%2744%27%3E%3Crect width=%2744%27 height=%2744%27 fill=%27%23C47D3B%27/%3E%3C/svg%3E" alt="Hidden Inwest" style="display:none"></span>'
+    + '<span class="avatar avatar-lg" title="Topanga Canyon"><span>TC</span></span></div>'
+    + '<button type="button" class="btn btn-secondary" style="margin-top:16px" data-avatar-toggle>Show photo</button></div>';
+  if (c.id === "separator") return '<div class="demo"><p class="demo-caption">Hairlines, horizontal and vertical.</p><p style="margin:0">First section.</p><hr class="separator-h" aria-hidden="true"><p style="margin:0">Second section.</p>'
+    + '<div style="display:flex;gap:16px;align-items:center;margin-top:16px"><span>Left</span><span class="separator-v" aria-hidden="true"></span><span>Right</span></div></div>';
+  if (c.id === "slider") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Arrow keys step by 1.</p><div class="field" style="max-width:420px"><label for="demoSlider">Volume</label><input id="demoSlider" class="slider" type="range" min="0" max="100" step="1" value="40" aria-valuetext="40 percent"><p class="muted" id="demoSliderOut" aria-live="polite">Volume: 40%</p></div></div>';
+  if (c.id === "tooltip") return '<div class="demo"><p class="demo-caption">Hover or Tab to the button. Escape dismisses.</p><span class="tooltip-wrap"><button type="button" class="btn btn-primary" data-tooltip-trigger aria-describedby="demoTooltip">Save</button><span class="tooltip-bubble" role="tooltip" id="demoTooltip" hidden>Saves to this project.</span></span></div>';
+  if (c.id === "popover") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Escape or outside click closes.</p><span class="popover-wrap"><button type="button" class="btn btn-primary" data-popover-trigger aria-expanded="false" aria-controls="demoPopover">Details</button><div class="popover-panel" id="demoPopover" hidden><p style="margin:0 0 8px"><strong>Project details</strong></p><p style="margin:0" class="muted">Topanga theme, 29 components.</p></div></span></div>';
+  if (c.id === "dropdown-menu") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Enter opens, arrows move, Escape closes.</p><span class="dropdown-wrap"><button type="button" class="btn btn-primary" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-controls="demoDropdown">Actions</button><ul class="dropdown-menu" role="menu" id="demoDropdown" aria-label="Project actions" hidden><li><button type="button" role="menuitem" data-menu-item>Rename</button></li><li><button type="button" role="menuitem" data-menu-item>Duplicate</button></li><li><button type="button" role="menuitem" data-menu-item>Archive</button></li></ul></span><p class="muted" id="demoMenuOut" aria-live="polite" style="margin-top:12px"></p></div>';
+  if (c.id === "toggle") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" class="toggle-btn" data-demo-toggle aria-pressed="false">Bold</button><p class="muted" id="demoToggleOut" aria-live="polite" style="margin-top:12px">Bold: off</p></div>';
+  if (c.id === "collapsible") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" class="collapsible-trigger" data-collapsible-trigger aria-expanded="false" aria-controls="demoCollapsiblePanel">Show details <span aria-hidden="true">+</span></button><div id="demoCollapsiblePanel" hidden><p style="margin:12px 0 0">Topanga theme, 29 components. One trigger, one panel.</p></div></div>';
+  if (c.id === "skeleton") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Load the content to replace the skeleton.</p><div id="demoSkeletonWrap" aria-busy="true" aria-label="Loading project"><div class="skeleton" style="height:20px;width:60%;margin-bottom:12px"></div><div class="skeleton" style="height:16px;width:100%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:80%"></div></div><button type="button" class="btn btn-secondary" style="margin-top:16px" data-skeleton-load>Load content</button></div>';
+  if (c.id === "label") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Click the label — focus moves to the input.</p><div class="field" style="max-width:420px"><label for="demoLabelInput">Project name <span aria-hidden="true">*</span> <span class="muted">(required)</span></label><input id="demoLabelInput" type="text" aria-required="true" placeholder="Topanga"></div></div>';
+  if (c.id === "breadcrumb") return '<div class="demo"><p class="demo-caption">Real navigation. Current page is not a link.</p><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#/home">Home</a></li><li><a href="#/components/button">Components</a></li><li><a href="#/components/avatar">Avatar</a></li><li aria-current="page">Breadcrumb</li></ol></nav></div>';
+  if (c.id === "pagination") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Pick a page.</p><nav class="pagination" aria-label="Pagination"><button type="button" class="page-btn" data-page-prev disabled>Previous</button><button type="button" class="page-btn" data-page-num aria-current="page">1</button><button type="button" class="page-btn" data-page-num>2</button><button type="button" class="page-btn" data-page-num>3</button><span aria-hidden="true">…</span><button type="button" class="page-btn" data-page-num>9</button><button type="button" class="page-btn" data-page-next>Next</button></nav><p class="muted" id="demoPageOut" aria-live="polite" style="margin-top:12px">Page 1 of 9</p></div>';
+  if (c.id === "table") return '<div class="demo"><p class="demo-caption">Semantic table. Caption describes it; headers carry scope.</p><div style="overflow-x:auto"><table class="data-table"><caption>Topanga tokens — light values</caption><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Use</th></tr></thead><tbody><tr><th scope="row">accent</th><td><code>#C47D3B</code></td><td>Primary actions</td></tr><tr><th scope="row">danger</th><td><code>#A83E22</code></td><td>Errors</td></tr></tbody></table></div></div>';
+  if (c.id === "empty-state") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="empty-state"><p class="empty-state-icon" aria-hidden="true">○</p><h3 style="margin:12px 0 8px">No projects yet</h3><p class="muted" style="margin:0 0 16px">Create your first project to see it here.</p><button type="button" class="btn btn-primary" data-empty-action>New project</button></div></div>';
   return "";
 }
 
@@ -299,11 +535,128 @@ function bindDemos() {
     document.getElementById("demoProgressFill").style.width = next + "%";
     document.getElementById("demoProgressLabel").textContent = next + "%";
   });
+  // New in v0.3.0 — Avatar, Slider, Tooltip, Popover, Dropdown, Toggle, Collapsible, Skeleton, Pagination, Empty State
+  const avatarToggle = document.querySelector("[data-avatar-toggle]");
+  if (avatarToggle) avatarToggle.addEventListener("click", () => {
+    const img = document.querySelector("[data-avatar-img]");
+    const showing = img.style.display !== "none";
+    img.style.display = showing ? "none" : "block";
+    avatarToggle.textContent = showing ? "Show photo" : "Show fallback";
+  });
+  const slider = document.getElementById("demoSlider");
+  if (slider) slider.addEventListener("input", () => {
+    slider.setAttribute("aria-valuetext", slider.value + " percent");
+    document.getElementById("demoSliderOut").textContent = "Volume: " + slider.value + "%";
+  });
+  const tipTrigger = document.querySelector("[data-tooltip-trigger]");
+  if (tipTrigger) {
+    const bubble = document.getElementById("demoTooltip");
+    const show = () => { bubble.hidden = false; };
+    const hide = () => { bubble.hidden = true; };
+    tipTrigger.addEventListener("mouseenter", show);
+    tipTrigger.addEventListener("focus", show);
+    tipTrigger.addEventListener("mouseleave", hide);
+    tipTrigger.addEventListener("blur", hide);
+    tipTrigger.addEventListener("keydown", (e) => { if (e.key === "Escape") { hide(); tipTrigger.blur(); } });
+  }
+  const popTrigger = document.querySelector("[data-popover-trigger]");
+  if (popTrigger) {
+    const panel = document.getElementById("demoPopover");
+    const close = () => { panel.hidden = true; popTrigger.setAttribute("aria-expanded", "false"); };
+    popTrigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = panel.hidden;
+      panel.hidden = !open;
+      popTrigger.setAttribute("aria-expanded", String(open));
+      if (open) panel.querySelector("p").focus?.();
+    });
+    document.addEventListener("click", (e) => { if (!panel.hidden && !panel.contains(e.target) && e.target !== popTrigger) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) { close(); popTrigger.focus(); } });
+  }
+  const menuTrigger = document.querySelector("[data-menu-trigger]");
+  if (menuTrigger) {
+    const menu = document.getElementById("demoDropdown");
+    const items = [...menu.querySelectorAll("[role=menuitem]")];
+    const close = () => { menu.hidden = true; menuTrigger.setAttribute("aria-expanded", "false"); items.forEach((i) => i.removeAttribute("data-active")); };
+    const open = () => { menu.hidden = false; menuTrigger.setAttribute("aria-expanded", "true"); items[0].setAttribute("data-active", "true"); items[0].focus(); };
+    menuTrigger.addEventListener("click", (e) => { e.stopPropagation(); menu.hidden ? open() : close(); });
+    menuTrigger.addEventListener("keydown", (e) => { if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+    items.forEach((item, i) => {
+      item.addEventListener("click", () => { document.getElementById("demoMenuOut").textContent = "Chose: " + item.textContent.trim(); close(); menuTrigger.focus(); });
+      item.addEventListener("keydown", (e) => {
+        let next = null;
+        if (e.key === "ArrowDown") next = items[(i + 1) % items.length];
+        if (e.key === "ArrowUp") next = items[(i + items.length - 1) % items.length];
+        if (e.key === "Escape") { close(); menuTrigger.focus(); return; }
+        if (e.key === "Home") next = items[0];
+        if (e.key === "End") next = items[items.length - 1];
+        if (next) { e.preventDefault(); items.forEach((x) => x.removeAttribute("data-active")); next.setAttribute("data-active", "true"); next.focus(); }
+      });
+    });
+    document.addEventListener("click", (e) => { if (!menu.hidden && !menu.contains(e.target) && e.target !== menuTrigger) close(); });
+  }
+  const toggleBtn = document.querySelector("[data-demo-toggle]");
+  if (toggleBtn) toggleBtn.addEventListener("click", () => {
+    const on = toggleBtn.getAttribute("aria-pressed") === "true";
+    toggleBtn.setAttribute("aria-pressed", String(!on));
+    document.getElementById("demoToggleOut").textContent = "Bold: " + (!on ? "on" : "off");
+  });
+  const collTrigger = document.querySelector("[data-collapsible-trigger]");
+  if (collTrigger) collTrigger.addEventListener("click", () => {
+    const open = collTrigger.getAttribute("aria-expanded") === "true";
+    collTrigger.setAttribute("aria-expanded", String(!open));
+    document.getElementById("demoCollapsiblePanel").hidden = open;
+    collTrigger.querySelector("span").textContent = open ? "+" : "−";
+  });
+  const skelBtn = document.querySelector("[data-skeleton-load]");
+  if (skelBtn) skelBtn.addEventListener("click", () => {
+    const wrap = document.getElementById("demoSkeletonWrap");
+    wrap.setAttribute("aria-busy", "false");
+    wrap.innerHTML = "<p style=\"margin:0\"><strong>Field notes</strong></p><p style=\"margin:8px 0 0\">Room to think.</p>";
+  });
+  const pageBtns = [...document.querySelectorAll("[data-page-num]")];
+  if (pageBtns.length) {
+    const prev = document.querySelector("[data-page-prev]");
+    const next = document.querySelector("[data-page-next]");
+    const out = document.getElementById("demoPageOut");
+    const go = (n) => {
+      pageBtns.forEach((b) => { const on = parseInt(b.textContent, 10) === n; b.toggleAttribute("aria-current", on); if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+      prev.disabled = n === 1;
+      next.disabled = n === 9;
+      out.textContent = "Page " + n + " of 9";
+    };
+    pageBtns.forEach((b) => b.addEventListener("click", () => go(parseInt(b.textContent, 10))));
+    prev.addEventListener("click", () => { const cur = pageBtns.find((b) => b.hasAttribute("aria-current")); go(parseInt(cur.textContent, 10) - 1); });
+    next.addEventListener("click", () => { const cur = pageBtns.find((b) => b.hasAttribute("aria-current")); go(parseInt(cur.textContent, 10) + 1); });
+  }
+  const emptyBtn = document.querySelector("[data-empty-action]");
+  if (emptyBtn) emptyBtn.addEventListener("click", () => showToast("New project started. Nothing was sent or stored."));
   // Patterns demos
   const patSave = document.querySelector("[data-pattern-save]");
   if (patSave) patSave.addEventListener("click", () => showToast("Settings saved. Nothing was sent or stored."));
   const patOpen = document.querySelector("[data-pattern-open]");
   if (patOpen) { const d = document.getElementById("patternDialog"); patOpen.addEventListener("click", () => d.showModal()); d.querySelectorAll("[data-pattern-close]").forEach((b) => b.addEventListener("click", () => d.close())); const form = document.getElementById("patternEditForm"); if (form) form.addEventListener("submit", (e) => { e.preventDefault(); d.close(); showToast("Project renamed. Nothing was sent or stored."); }); }
+  // Form pattern: validate on submit, error summary + field error, Toast on success.
+  const formPat = document.getElementById("patternForm");
+  if (formPat) formPat.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("formName");
+    const summary = document.getElementById("patternFormErrors");
+    const fieldErr = document.getElementById("formNameError");
+    if (name.value.trim().length < 3) {
+      name.setAttribute("aria-invalid", "true");
+      fieldErr.textContent = "Enter at least 3 characters.";
+      summary.hidden = false;
+      summary.innerHTML = '<p style="margin:0"><strong>Fix 1 error to continue:</strong> <a href="#formName">Project name — enter at least 3 characters.</a></p>';
+      name.focus();
+    } else {
+      name.removeAttribute("aria-invalid");
+      fieldErr.textContent = "";
+      summary.hidden = true;
+      summary.innerHTML = "";
+      showToast("Project created. Nothing was sent or stored.");
+    }
+  });
   document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", () => copyText(b.dataset.copy, "Copied")));
 }
 
@@ -413,11 +766,25 @@ function renderPatterns() {
     + '<dialog class="site-dialog" id="patternDialog"><form id="patternEditForm"><h3 style="margin-top:0">Edit project</h3><p class="muted">Rename this project.</p><div class="field" style="margin-top:16px"><label for="patEditInput">Project name</label><input id="patEditInput" type="text" value="Field notes"></div><div class="demo-row" style="margin-top:20px"><button type="submit" class="btn btn-primary">Save</button><button type="button" class="btn btn-secondary" data-pattern-close>Cancel</button></div></form></dialog></div>'
     + '<h3>Human notes</h3><ul><li>The Card holds the current state; the Dialog holds the edit.</li><li>Escape closes the Dialog and returns focus to Edit project.</li><li>Save closes the Dialog and confirms with a Toast.</li></ul>'
     + '<h3>Agent prompt</h3><pre>Compose an Oeste Project edit flow from Card + Button + Dialog + Input + Toast. Dialog: native &lt;dialog&gt;, Escape closes, focus traps inside, focus returns to trigger. Save closes and confirms with a manual-dismiss Toast. Never invent props beyond the component contracts.</pre>'
-    + '<h3>Vibe</h3><p>Copy Dialog + Input from their Vibe lenses, wrap the edit in the Dialog, confirm with Toast. The React snippets work today.</p>';
+    + '<h3>Vibe</h3><p>Copy Dialog + Input from their Vibe lenses, wrap the edit in the Dialog, confirm with Toast. The React snippets work today.</p>'
+    + '<h2>Form</h2><p>Label + Input + Select + Checkbox + RadioGroup + Button + error summary. One form, one submit, errors announced in one place.</p>'
+    + '<div class="demo"><form id="patternForm" novalidate><div class="form-error-summary" id="patternFormErrors" role="alert" aria-live="assertive" hidden></div>'
+    + '<div class="field" style="max-width:480px"><label for="formName">Project name <span aria-hidden="true">*</span> <span class="muted">(required)</span></label><input id="formName" type="text" aria-required="true" aria-describedby="formNameError"><p class="error" id="formNameError" role="status"></p></div>'
+    + '<div class="field" style="max-width:320px;margin-top:16px"><label for="formTheme">Theme</label><select id="formTheme"><option>Topanga</option><option>Paper</option></select></div>'
+    + '<label style="display:flex;gap:12px;align-items:flex-start;margin-top:16px"><input type="checkbox" id="formNotify" style="margin-top:4px;width:20px;height:20px;accent-color:var(--color-accent)"> <span><strong>Email me updates</strong><br><span class="muted">One email per change.</span></span></label>'
+    + '<fieldset style="border:0;margin:16px 0 0;padding:0"><legend style="font-weight:600;margin-bottom:8px">Size</legend>'
+    + '<label class="radio-row"><input type="radio" name="formSize" value="sm"> Small</label>'
+    + '<label class="radio-row"><input type="radio" name="formSize" value="md" checked> Medium</label>'
+    + '<label class="radio-row"><input type="radio" name="formSize" value="lg"> Large</label></fieldset>'
+    + '<button type="submit" class="btn btn-primary" style="margin-top:20px">Create project</button></form></div>'
+    + '<h3>Human notes</h3><ul><li>Every field has a persistent visible label. No placeholder-only fields.</li><li>Errors are announced twice, in sync: once in the error summary (role=alert), once at the field (role=status). The summary links to the field.</li><li>Submit validates, then confirms with a Toast the user dismisses.</li></ul>'
+    + '<h3>Agent prompt</h3><pre>Compose an Oeste Form from Label + Input + Select + Checkbox + RadioGroup + Button. Persistent labels. Required fields marked with a visible indicator + text. On submit, validate and show one error summary (role=alert, aria-live=assertive) that links to each field error, plus described errors at the fields. Success confirms with a manual-dismiss Toast. Never invent props beyond the component contracts.</pre>'
+    + '<h3>Vibe</h3><p>Copy Label + Input + Select + Checkbox + RadioGroup + Button from their Vibe lenses, compose in one form, wire submit to the error summary + Toast. The React snippets work today.</p>';
 }
 
 function renderChangelog() {
   return '<p class="eyebrow">Docs</p><h1>Changelog</h1><p class="lede">What changed, when, and what it means for you. No rewritten history — entries land here when they ship.</p>'
+    + '<h2>v0.3.0 — 2026-10-14</h2><ul><li><strong>Menu auto-close:</strong> tapping any sidebar link navigates and closes the menu. Escape also closes the menu when it is open.</li><li><strong>Syntax highlighting:</strong> every code block is now colorized (keywords, strings, numbers, comments, JSON keys, JSX tags/props, CLI flags) in light and dark, with code-text colors that pass WCAG AA 4.5:1 on the code background.</li><li><strong>Display typography:</strong> display type is now Manrope 800, 48px mobile → 72px desktop (clamp), line-height 1.05, letter-spacing -0.025em. Headings are weight 700 with tight leading. Body and code type unchanged.</li><li><strong>New primitives (14):</strong> Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State — React + Tailwind in <code>src/index.js</code>, full docs pages with demos. Total: 29 components.</li><li><strong>Form pattern:</strong> a third Patterns entry — Label + Input + Select + Checkbox + RadioGroup + Button + error summary (role=alert) + Toast confirm.</li><li><strong>Breaking:</strong> none for consumers. Additive-only release.</li></ul>'
     + '<h2>v0.2.0 — 2026-10-14</h2><ul><li><strong>New primitives:</strong> Alert, Accordion, RadioGroup, Progress — React + Tailwind in <code>src/index.js</code>, full docs pages with demos.</li><li><strong>New docs pages:</strong> Textarea and Select (implementations existed; docs did not). Total: 15 components.</li><li><strong>New routes:</strong> Patterns (Settings form + Project edit flow), Changelog, Migration.</li><li><strong>Accessibility page:</strong> per-component keyboard + ARIA checklist for all 15 components, full contrast table, reduced-motion / focus / touch-target / live-region rules.</li><li><strong>Home:</strong> fuller Oeste / Topanga brand story.</li><li><strong>Header + lens pills:</strong> on mobile/tablet, Menu is far right with the theme toggle as an icon to its left (desktop shows the sidebar, so no Menu button is needed); lens pills are pill-only (no underline), text centered.</li><li><strong>Breaking:</strong> none for consumers. Docs-only + additive release.</li></ul>'
     + '<h2>v0.1.0 — 2026-10-14</h2><ul><li><strong>Foundation:</strong> single token source of truth (<code>src/tokens.css</code> + <code>src/tokens.json</code> + <code>DESIGN_TOKENS</code>), verified by <code>scripts/verify.mjs</code>.</li><li><strong>Canonical tokens:</strong> Warm Ochre accent #C47D3B, Canyon Rust #B85B35 decorative-only, Danger #A83E22 / #E07A52 at 5.66:1 / 6.35:1, Focus = ink/paper.</li><li><strong>9 primitives:</strong> Button, Input, Dialog, Card, Tabs, Toast, Badge, Checkbox, Switch — plus Textarea + Select implementations.</li><li><strong>Docs site:</strong> static, hash routes, Human / Agent / Vibe lenses, lens in URL, Getting started / Theming / Tokens / Accessibility.</li><li><strong>CLI:</strong> reference commands only. No npm package yet — the React snippets work today.</li></ul>';
 }
@@ -425,13 +792,15 @@ function renderChangelog() {
 function renderMigration() {
   return '<p class="eyebrow">Docs</p><h1>Migration</h1><p class="lede">Adopting Oeste, from scratch or from the earlier 6-component Pally preview.</p>'
     + '<h2>From scratch</h2><ol><li>Import <code>src/tokens.css</code> once, or copy <code>src/tokens.json</code>.</li><li>Copy the components you need from <code>src/index.js</code> (React 18+, Tailwind, JSX transform).</li><li>Read the Agent prompt + JSON contract for each component before generating code with an agent.</li></ol>'
-    + '<h2>From the 6-component Pally preview</h2><p>The preview had Button, Input, Dialog, Card, Tabs, Toast. Oeste v0.1.0 kept all six and added Badge, Checkbox, Switch (plus Textarea + Select implementations). v0.2.0 adds Alert, Accordion, RadioGroup, Progress, and docs for Textarea + Select.</p>'
+    + '<h2>From the 6-component Pally preview</h2><p>The preview had Button, Input, Dialog, Card, Tabs, Toast. Oeste v0.1.0 kept all six and added Badge, Checkbox, Switch (plus Textarea + Select implementations). v0.2.0 adds Alert, Accordion, RadioGroup, Progress, and docs for Textarea + Select. v0.3.0 adds 14 more primitives (Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State) plus a Form pattern.</p>'
+    + '<h2>v0.3.0 notes (additive only, no breaking changes)</h2><ul><li><strong>Menu behavior:</strong> tapping a sidebar link now closes the menu automatically. If you copied the old menu code, add the close-on-navigate + close-on-Escape behavior.</li><li><strong>Display type:</strong> display headings are now Manrope 800, 48px → 72px, line-height 1.05, letter-spacing -0.025em. If you hardcoded the old display scale, update to the new tokens.</li><li><strong>Code blocks:</strong> syntax highlighting is docs-site-only. The React snippets are unchanged.</li></ul>'
     + '<h2>Breaking notes</h2><ul><li><strong>Token renames:</strong> one canonical name per color. <code>clay</code> is gone — use <code>accent</code> (Warm Ochre #C47D3B) for actions, <code>rust</code> (Canyon Rust #B85B35) for large decorative accents only, <code>danger</code> (#A83E22 / #E07A52) for errors. If your preview code used #C25E38 or #E08244 for errors, switch to Danger.</li><li><strong>Danger darkened:</strong> light Danger is now #A83E22 (was #C25E38) to meet 4.5:1 on paper. Update any hardcoded error colors.</li><li><strong>Focus is not danger:</strong> focus outline is ink/paper (2px), never the Danger color.</li><li><strong>Lens pills:</strong> pill-only, no underline. If you copied the old pill + underline style, drop the underline.</li><li><strong>Header:</strong> on mobile/tablet, Menu is far right with the theme toggle as an icon to its left (desktop shows the sidebar, so no Menu button). If you copied the old header, reorder to wordmark / Topanga / search / theme icon / Menu.</li><li><strong>CLI:</strong> still reference commands. Do not treat <code>npx @oeste/ui</code> as a published package yet.</li></ul>'
     + '<h2>What did not change</h2><p>Component contracts (<code>oeste.component.v1</code>), keyboard behaviors, lens URLs (<code>#/components/&lt;id&gt;?lens=</code>), and the token file layout are unchanged from v0.1.0.</p>';
 }
 
 function render() {
   const { route, id, lens } = parseHash();
+  closeMenu();
   const view = $(" #view".trim());
   document.querySelectorAll(".nav-link").forEach((a) => a.classList.remove("active"));
   if (route === "home") view.innerHTML = renderHome();
@@ -447,6 +816,7 @@ function render() {
   const active = document.querySelector('.nav-link[href="#/' + route + '"]');
   if (active) active.classList.add("active");
   document.querySelectorAll("#componentNav a").forEach((a) => a.classList.toggle("active", route === "components" && a.getAttribute("href").includes(id)));
+  highlightAll();
   bindDemos();
   view.focus({ preventScroll: true });
   window.scrollTo(0, 0);
@@ -484,6 +854,14 @@ function init() {
     const sidebar = document.getElementById("sidebar");
     const open = sidebar.classList.toggle("open");
     menuBtn.setAttribute("aria-expanded", String(open));
+  });
+  // Tapping any sidebar link opens its page and closes the menu.
+  document.getElementById("sidebar").addEventListener("click", (e) => {
+    if (e.target.closest("a")) closeMenu();
+  });
+  // Escape closes the menu when it is open.
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.getElementById("sidebar").classList.contains("open")) closeMenu();
   });
   initSearch();
   window.addEventListener("hashchange", render);

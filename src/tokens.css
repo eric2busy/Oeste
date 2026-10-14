@@ -21,18 +21,32 @@
   --color-success: #2f6b3a;
   --color-warning: #7a5a12;
   --color-focus: #1c1917;
+  /* Code highlighting (docs site only). Light-mode keyword/number are
+     darker derivatives of Warm Ochre / Canyon Rust: the decorative tokens
+     fail 4.5:1 on surface (#C47D3B = 3.18:1, #B85B35 = 4.40:1), so code
+     text uses darker same-hue shades that pass (see scripts/verify.mjs). */
+  --code-keyword: #8a5420;
+  --code-string: #5e6b5a;
+  --code-number: #8f3b1e;
+  --code-comment: #706963;
+  --code-key: #1c1917;
+  --code-punct: #706963;
   --font-body: 'Manrope', Arial, Helvetica, sans-serif;
   --font-display: var(--font-body);
   --font-mono: 'JetBrains Mono', Consolas, monospace;
-  /* Fluid type: mobile -> desktop via clamp(). */
-  --type-display: clamp(2.5rem, 6vw, 4.5rem);
+  /* Fluid type: mobile -> desktop via clamp(). Display = Manrope 800,
+     48px mobile to 72px desktop, line-height 1.05, tracking -0.025em. */
+  --type-display: clamp(3rem, 8vw, 4.5rem);
   --type-title: clamp(1.75rem, 4vw, 2.5rem);
   --type-heading: clamp(1.25rem, 2.5vw, 1.5rem);
   --type-body: 1rem;
   --type-label: 0.875rem;
   --type-caption: 0.75rem;
   --type-mono: 0.75rem;
-  --leading-display: 1.02;
+  --leading-display: 1.05;
+  --font-weight-display: 800;
+  --font-weight-heading: 700;
+  --tracking-display: -0.025em;
   --leading-title: 1.1;
   --leading-heading: 1.25;
   --leading-body: 1.625;
@@ -75,6 +89,14 @@
   --color-success: #6ba368;
   --color-warning: #d9a441;
   --color-focus: #f5f3ef;
+  /* Code highlighting (docs site only). Dark-mode decorative tokens already
+     pass on surface, so code colors match them directly. */
+  --code-keyword: #db914e;
+  --code-string: #8b9b87;
+  --code-number: #d98a63;
+  --code-comment: #9e968f;
+  --code-key: #f5f3ef;
+  --code-punct: #9e968f;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-dialog: 0 16px 64px rgba(0, 0, 0, 0.5);
 }

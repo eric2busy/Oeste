@@ -12,14 +12,14 @@ Tokens live in src/tokens.css + src/tokens.json + DESIGN_TOKENS in src/index.js 
 - Light: accent (Warm Ochre) #C47D3B, accent-alt (Sage) #5E6B5A, rust (Canyon Rust, decorative) #B85B35, danger #A83E22, success #2F6B3A, warning #7A5A12, focus #1C1917, on-accent #1C1917
 - Dark: bg #121110, surface #1C1917, text #F5F3EF, muted #9E968F, border rgba(245,243,239,0.10)
 - Dark: accent #DB914E, accent-alt #8B9B87, rust #D98A63, danger #E07A52, success #6BA368, warning #D9A441, focus #F5F3EF, on-accent #1C1917
-- Type: Manrope body/display, JetBrains Mono code. Display clamp(2.5rem,6vw,4.5rem), title clamp(1.75rem,4vw,2.5rem), heading clamp(1.25rem,2.5vw,1.5rem), body 1rem.
+- Type: Manrope body/display, JetBrains Mono code. Display Manrope 800, 48px mobile → 72px desktop clamp(3rem,8vw,4.5rem), line-height 1.05, tracking -0.025em; title clamp(1.75rem,4vw,2.5rem), heading clamp(1.25rem,2.5vw,1.5rem), headings weight 700, body 1rem.
 - Spacing: 4/8/12/16/24/32/40/48/64. Radii: 4/8/12 + 999 pill. Motion: 180ms in / 140ms out, cubic-bezier(.16,1,.3,1). Reduced motion: no animation. Breakpoints: mobile 0-640, tablet 641-1024, desktop 1025+. Touch targets: min 44px.
 - Naming rule: Canyon Rust is decorative only — NEVER use it for small error text. Danger is the semantic error token. Focus is ink/paper, distinct from danger.
 
 ## System prompt for AI editors
 You are implementing Oeste UI in a React + Tailwind application. Read the Oeste manifest and the selected component contract before generating code. Use the Topanga tokens and Manrope typography. Preserve native semantics, accessible names, described errors, visible focus, 44px touch targets, and reduced-motion preferences. Implement all documented keyboard behaviors, including focus restoration for dialogs and roving tabindex for tabs. Never invent component props or package exports beyond the contract. Keep demos local and never add authentication or network writes. Include an executable usage example and keyboard tests. If the reference CLI is unavailable, use the dependency-light React snippets. Return code and a short accessibility checklist.
 
-## Primitives (v0.2.0)
+## Primitives (v0.3.0)
 - Button — variants primary/secondary/ghost/danger, sizes sm/md/lg, disabled/loading/icon
 - Input — persistent label, described errors; plus Textarea and Select
 - Dialog — native <dialog>, focus trap + restore, Escape closes
@@ -35,6 +35,21 @@ You are implementing Oeste UI in a React + Tailwind application. Read the Oeste 
 - Accordion — real button triggers, aria-expanded + aria-controls, panel hidden when closed
 - RadioGroup — native radios in fieldset + legend, one shared name
 - Progress — role=progressbar + aria-valuenow/min/max, visible label + value text
+- Avatar — photo with initials fallback, accessible name is the person's name
+- Separator — hairline, horizontal/vertical, decorative aria-hidden or semantic role=separator
+- Slider — native input[type=range], visible label + value text, arrow keys step
+- Tooltip — hover + focus, role=tooltip, Escape dismisses, never the only source of info
+- Popover — trigger-anchored panel, Escape/outside-click closes, non-modal
+- Dropdown Menu — role=menu + role=menuitem, arrow keys move, Escape closes
+- Toggle — aria-pressed button, pressed state by fill + label
+- Collapsible — one trigger + panel, aria-expanded + aria-controls, reduced-motion safe
+- Skeleton — placeholder, aria-busy, labelled with what is loading, no strobing
+- Label — standalone label via htmlFor, visible required indicator + text
+- Breadcrumb — nav + ol, aria-current="page" on current page (not a link)
+- Pagination — nav + Previous/pages/Next, aria-current="page", aria-hidden ellipsis
+- Table — semantic table, caption, th scope, sticky header
+- Empty State — aria-hidden icon, plain-words heading, next-step action
+- Form (pattern, not a primitive) — Label + Input + Select + Checkbox + RadioGroup + Button + error summary (role=alert) + Toast confirm; see Patterns
 
 ## Docs site
 Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components/<id>?lens=human|agent|vibe, #/tokens, #/getting-started, #/theming, #/accessibility, #/patterns, #/changelog, #/migration. Lens persists in the URL. Component contracts use oeste.component.v1.

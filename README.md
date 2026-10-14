@@ -29,10 +29,10 @@ Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content
 | warning | `#7A5A12` | `#D9A441` | Warnings |
 | focus | `#1C1917` | `#F5F3EF` | 2px outline. Distinct from danger |
 
-Type: Manrope (display + body), JetBrains Mono (code). Fluid: display `clamp(2.5rem, 6vw, 4.5rem)`, title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`.
+Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 800, 48px mobile → 72px desktop `clamp(3rem, 8vw, 4.5rem)`, line-height 1.05, letter-spacing -0.025em. Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 700.
 Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
 
-## Components (v0.2.0)
+## Components (v0.3.0)
 - **Button**: variants primary / secondary / ghost / danger, sizes sm / md / lg, disabled / loading / icon.
 - **Input**: persistent label, described errors. Plus **Textarea** and **Select** with the same pattern.
 - **Dialog**: native `<dialog>`, focus trap + restore, Escape closes.
@@ -48,6 +48,21 @@ Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill.
 - **Accordion**: real button triggers, `aria-expanded` + `aria-controls`, panel hidden when closed.
 - **RadioGroup**: native radios in `fieldset` + `legend`, one shared name.
 - **Progress**: `role=progressbar` + `aria-valuenow/min/max`, visible label + value text.
+- **Avatar**: photo with initials fallback that always renders; accessible name is the person's name.
+- **Separator**: hairline rule, horizontal / vertical, decorative (`aria-hidden`) or semantic (`role=separator`).
+- **Slider**: native `input[type=range]`, visible label + value text, arrow keys step.
+- **Tooltip**: shows on hover AND focus, `role=tooltip`, Escape dismisses.
+- **Popover**: trigger-anchored panel, Escape / outside click closes, non-modal.
+- **Dropdown Menu**: `role=menu` + `role=menuitem`, arrow keys move, Escape closes.
+- **Toggle**: `aria-pressed` button, pressed state by fill + label.
+- **Collapsible**: one trigger + panel, `aria-expanded` + `aria-controls`, reduced-motion safe.
+- **Skeleton**: placeholder with `aria-busy`, labelled with what is loading, no strobing.
+- **Label**: standalone label via `htmlFor`, visible required indicator + text.
+- **Breadcrumb**: `nav` + `ol`, `aria-current="page"` on the current page (not a link).
+- **Pagination**: `nav` + Previous / pages / Next, `aria-current="page"`, aria-hidden ellipsis.
+- **Table**: semantic table, `caption`, `th scope`, sticky header.
+- **Empty State**: aria-hidden icon, plain-words heading, next-step action.
+- **Form** (pattern, not a primitive): Label + Input + Select + Checkbox + RadioGroup + Button + error summary (`role=alert`) + Toast confirm. See Patterns.
 
 Every component ships: Human docs (anatomy / props / keyboard / invariants), Agent JSON contract (`oeste.component.v1`) + prompt, Vibe CLI + React code (dark-mode-complete). Demos are local only — no network, no auth.
 
@@ -69,7 +84,7 @@ CLI strings are reference commands, not a guarantee of registry availability. Th
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.2.0, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.3.0, no runtime dependencies
 
 ## Verify
 ```bash
@@ -78,5 +93,6 @@ npm run verify
 Checks tokens agree across CSS / JSON / JS, and that danger, muted, and accent text pairs meet WCAG AA 4.5:1.
 
 ## Changelog
+- **v0.3.0 (2026-10-14)**: Menu auto-close on navigate + Escape; syntax highlighting in every code block (light + dark, 4.5:1 code text); display type Manrope 800, 48px → 72px, 1.05 / -0.025em; 14 new primitives (Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State); Form pattern. Total: 29 components. No breaking changes.
 - **v0.2.0 (2026-10-14)**: Alert, Accordion, RadioGroup, Progress; Textarea + Select docs pages; Patterns, Changelog, Migration routes; Accessibility page with per-component checklist + contrast table; fuller brand story. No breaking changes for consumers.
 - **v0.1.0 (2026-10-14)**: Token foundation + 9 primitives + docs site.

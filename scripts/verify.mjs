@@ -81,5 +81,18 @@ for (const [theme, label, fg, bg] of PAIRS) {
   check(`contrast ${theme} ${label} = ${r.toFixed(2)}:1 >= 4.5`, r >= 4.5, `${fg} on ${bg}`);
 }
 
+// --- Code highlighting colors: --code-* on surface, both themes ---
+const CODE_KEYS = ["keyword", "string", "number", "comment", "key", "punct"];
+for (const theme of ["light", "dark"]) {
+  const block = theme === "light" ? lightBlock : darkBlock;
+  const surf = theme === "light" ? json.color.light.surface : json.color.dark.surface;
+  for (const k of CODE_KEYS) {
+    const val = cssVar(block, "code-" + k);
+    if (!val) { check(`code color ${theme}.${k} present in css`, false, "missing --code-" + k); continue; }
+    const r = ratio(val, surf);
+    check(`contrast code ${theme}.${k} = ${r.toFixed(2)}:1 >= 4.5`, r >= 4.5, `${val} on ${surf}`);
+  }
+}
+
 if (failures > 0) { console.error(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nAll token + contrast checks passed.");

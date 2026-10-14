@@ -1,0 +1,18 @@
+# Oeste — Topanga
+
+A component reference for humans, AI agents, and vibe coders.
+Canonical brand: oeste.design
+
+## Usage
+Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; no visitor data is stored. CLI strings are reference commands, not a guarantee of registry availability. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.
+
+## System prompt for AI editors
+You are implementing Oeste UI in a React + Tailwind application. Read the Oeste manifest and the selected component contract before generating code. Use the Topanga tokens and Manrope typography. Preserve native semantics, accessible names, described errors, visible focus, 44px touch targets, and reduced-motion preferences. Implement all documented keyboard behaviors, including focus restoration for dialogs and roving tabindex for tabs. Never invent component props or package exports beyond the contract. Keep demos local and never add authentication or network writes. Include an executable usage example and keyboard tests. If the reference CLI is unavailable, use the dependency-light React snippets. Return code and a short accessibility checklist.
+
+## Primitives in v1
+- Button
+- Input
+- Dialog
+- Card
+- Tabs
+- Toast

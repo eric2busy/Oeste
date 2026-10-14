@@ -34,22 +34,25 @@
   --font-body: 'Manrope', Arial, Helvetica, sans-serif;
   --font-display: var(--font-body);
   --font-mono: 'JetBrains Mono', Consolas, monospace;
-  /* Fluid type: mobile -> desktop via clamp(). Display = Manrope 800,
-     48px mobile to 72px desktop, line-height 1.05, tracking -0.025em. */
-  --type-display: clamp(3rem, 8vw, 4.5rem);
+  /* Display type — Millie's exact treatment, verified from her Pally build:
+     Manrope 500, tracking -0.04em, leading 1.1. Headings (h2/h3) also 500,
+     tracking -0.025em. Size steps: 40px on phones (so the hero heading stays
+     exactly 2 lines), 48px at >=480px, 72px at >=720px. Body leading 1.55. */
+  --type-display: 2.5rem;
   --type-title: clamp(1.75rem, 4vw, 2.5rem);
   --type-heading: clamp(1.25rem, 2.5vw, 1.5rem);
   --type-body: 1rem;
   --type-label: 0.875rem;
   --type-caption: 0.75rem;
   --type-mono: 0.75rem;
-  --leading-display: 1.05;
-  --font-weight-display: 800;
-  --font-weight-heading: 700;
-  --tracking-display: -0.025em;
+  --leading-display: 1.1;
+  --font-weight-display: 500;
+  --font-weight-heading: 500;
+  --tracking-display: -0.04em;
+  --tracking-heading: -0.025em;
   --leading-title: 1.1;
   --leading-heading: 1.25;
-  --leading-body: 1.625;
+  --leading-body: 1.55;
   --leading-label: 1.5;
   --space-xs: 4px;
   --space-sm: 8px;
@@ -99,6 +102,15 @@
   --code-punct: #9e968f;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-dialog: 0 16px 64px rgba(0, 0, 0, 0.5);
+}
+
+/* Display size steps — Millie's scale: 40px phones, 48px >=480px, 72px >=720px.
+   The 40px phone step is what keeps the hero heading at exactly 2 lines. */
+@media (min-width: 480px) {
+  :root { --type-display: 3rem; }
+}
+@media (min-width: 720px) {
+  :root { --type-display: 4.5rem; }
 }
 
 * { box-sizing: border-box; }

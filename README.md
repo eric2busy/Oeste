@@ -29,7 +29,7 @@ Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content
 | warning | `#7A5A12` | `#D9A441` | Warnings |
 | focus | `#1C1917` | `#F5F3EF` | 2px outline. Distinct from danger |
 
-Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 800, 48px mobile → 72px desktop `clamp(3rem, 8vw, 4.5rem)`, line-height 1.05, letter-spacing -0.025em. Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 700.
+Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 500, 40px phones / 48px ≥480px / 72px ≥720px, line-height 1.1, letter-spacing -0.04em. Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 500, tracking -0.025em, body leading 1.55.
 Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
 
 ## Components (v0.3.0)
@@ -84,7 +84,7 @@ CLI strings are reference commands, not a guarantee of registry availability. Th
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.3.0, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.3.1, no runtime dependencies
 
 ## Verify
 ```bash
@@ -93,6 +93,7 @@ npm run verify
 Checks tokens agree across CSS / JSON / JS, and that danger, muted, and accent text pairs meet WCAG AA 4.5:1.
 
 ## Changelog
-- **v0.3.0 (2026-10-14)**: Menu auto-close on navigate + Escape; syntax highlighting in every code block (light + dark, 4.5:1 code text); display type Manrope 800, 48px → 72px, 1.05 / -0.025em; 14 new primitives (Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State); Form pattern. Total: 29 components. No breaking changes.
+- **v0.3.1 (2026-10-14)**: Typography correction — display/headings are Manrope 500, tracking -0.04em / -0.025em, leading 1.1 (Millie's actual Pally treatment, not the v0.3.0 800 / -0.025em / 1.05); wordmark 700 / 24px / -0.06em; body leading 1.55; hero locked to 2 lines (display 40px phones / 48px ≥480px / 72px ≥720px). No breaking changes.
+- **v0.3.0 (2026-10-14)**: Menu auto-close on navigate + Escape; syntax highlighting in every code block (light + dark, 4.5:1 code text); 14 new primitives (Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State); Form pattern. Total: 29 components. No breaking changes. (Its display-type values were corrected in v0.3.1.)
 - **v0.2.0 (2026-10-14)**: Alert, Accordion, RadioGroup, Progress; Textarea + Select docs pages; Patterns, Changelog, Migration routes; Accessibility page with per-component checklist + contrast table; fuller brand story. No breaking changes for consumers.
 - **v0.1.0 (2026-10-14)**: Token foundation + 9 primitives + docs site.

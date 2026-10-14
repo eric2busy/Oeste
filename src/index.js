@@ -1,4 +1,4 @@
-// Oeste Design System — Topanga theme (v0.3.0)
+// Oeste Design System — Topanga theme (v0.3.1)
 // React + Tailwind primitives, copy-paste ready.
 // Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.
 // Tokens in this file MUST match src/tokens.json and src/tokens.css exactly.
@@ -6,7 +6,7 @@
 
 export const DESIGN_TOKENS = Object.freeze({
   name: "oeste-topanga",
-  version: "0.3.0",
+  version: "0.3.1",
   color: {
     light: {
       bg: "#F6F4F1", surface: "#FCFAF7", text: "#1C1917", muted: "#706963",
@@ -25,13 +25,13 @@ export const DESIGN_TOKENS = Object.freeze({
     body: '"Manrope", Arial, Helvetica, sans-serif',
     display: '"Manrope", Arial, Helvetica, sans-serif',
     mono: '"JetBrains Mono", Consolas, monospace',
-    weightDisplay: 800,
-    weightHeading: 700,
+    weightDisplay: 500,
+    weightHeading: 500,
   },
-  tracking: { display: "-0.025em" },
-  leading: { display: 1.05, title: 1.1, heading: 1.25, body: 1.625, label: 1.5 },
+  tracking: { display: "-0.04em", heading: "-0.025em" },
+  leading: { display: 1.1, title: 1.1, heading: 1.25, body: 1.55, label: 1.5 },
   type: {
-    display: "clamp(3rem, 8vw, 4.5rem)", title: "clamp(1.75rem, 4vw, 2.5rem)",
+    display: "2.5rem (<480px) · 3rem (≥480px) · 4.5rem (≥720px)", title: "clamp(1.75rem, 4vw, 2.5rem)",
     heading: "clamp(1.25rem, 2.5vw, 1.5rem)", body: "1rem",
     label: "0.875rem", caption: "0.75rem", mono: "0.75rem",
   },

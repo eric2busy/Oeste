@@ -1,36 +1,91 @@
+/* Oeste — Topanga theme. Single token source of truth.
+   Values here MUST match src/tokens.json and DESIGN_TOKENS in src/index.js.
+   Canonical palette (2026-10-14): accent = Warm Ochre #C47D3B (Pally-verified,
+   more muted canyon ochre than the old #E08244). Canyon Rust is decorative
+   only — never use it for small error text. Danger is the semantic error
+   token, darkened to pass WCAG AA 4.5:1 for normal text on paper.
+   Focus is ink/paper, deliberately distinct from danger. */
+
 :root {
   color-scheme: light;
   --color-bg: #f6f4f1;
   --color-surface: #fcfaf7;
   --color-text: #1c1917;
   --color-muted: #706963;
-  --color-border: rgba(28,25,23,0.1);
-  --color-accent: #e08244;
+  --color-border: rgba(28, 25, 23, 0.1);
+  --color-accent: #c47d3b;
   --color-on-accent: #1c1917;
-  --color-danger: #c25e38;
-  --color-accent-alt: #6c7a68;
-  --color-focus: var(--color-danger);
+  --color-accent-alt: #5e6b5a;
+  --color-rust: #b85b35;
+  --color-danger: #a83e22;
+  --color-success: #2f6b3a;
+  --color-warning: #7a5a12;
+  --color-focus: #1c1917;
   --font-body: 'Manrope', Arial, Helvetica, sans-serif;
   --font-display: var(--font-body);
   --font-mono: 'JetBrains Mono', Consolas, monospace;
+  /* Fluid type: mobile -> desktop via clamp(). */
+  --type-display: clamp(2.5rem, 6vw, 4.5rem);
+  --type-title: clamp(1.75rem, 4vw, 2.5rem);
+  --type-heading: clamp(1.25rem, 2.5vw, 1.5rem);
+  --type-body: 1rem;
+  --type-label: 0.875rem;
+  --type-caption: 0.75rem;
+  --type-mono: 0.75rem;
+  --leading-display: 1.02;
+  --leading-title: 1.1;
+  --leading-heading: 1.25;
+  --leading-body: 1.625;
+  --leading-label: 1.5;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+  --space-4xl: 48px;
+  --space-5xl: 64px;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-pill: 999px;
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 40px;
+  --shadow-card: 0 1px 2px rgba(28, 25, 23, 0.06);
+  --shadow-dialog: 0 16px 64px rgba(28, 25, 23, 0.16);
+  --motion-in: 180ms;
+  --motion-out: 140ms;
+  --motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --container-narrow: 720px;
+  --container-wide: 1160px;
+  --touch-min: 44px;
 }
+
 :root[data-theme='dark'] {
   color-scheme: dark;
   --color-bg: #121110;
-  --color-surface: #1c1a18;
+  --color-surface: #1c1917;
   --color-text: #f5f3ef;
   --color-muted: #9e968f;
-  --color-border: rgba(245,243,239,0.1);
+  --color-border: rgba(245, 243, 239, 0.1);
   --color-accent: #db914e;
+  --color-on-accent: #1c1917;
   --color-accent-alt: #8b9b87;
-  --color-danger: #d16d45;
+  --color-rust: #d98a63;
+  --color-danger: #e07a52;
+  --color-success: #6ba368;
+  --color-warning: #d9a441;
+  --color-focus: #f5f3ef;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-dialog: 0 16px 64px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

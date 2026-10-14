@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oeste — One system. Three perspectives.</title>
+<meta name="description" content="Oeste is a design system for humans, AI agents, and vibe coders. Topanga theme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation">Menu</button>
+    <a class="wordmark" href="#/home" aria-label="Oeste home">Oeste</a>
+    <span class="theme-pill">Topanga</span>
+    <label class="search-wrap" for="siteSearch"><span class="sr-only">Find a component</span>
+      <input id="siteSearch" type="search" placeholder="Find a component…" autocomplete="off">
+    </label>
+    <div class="search-results" id="searchResults" hidden></div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Theme: Light. Switch to dark.">Light</button>
+  </div>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation">
+    <p class="nav-eyebrow">Oeste</p>
+    <a class="nav-link" href="#/home">Home</a>
+    <a class="nav-link" href="#/getting-started">Getting started</a>
+    <a class="nav-link" href="#/theming">Theming</a>
+    <a class="nav-link" href="#/tokens">Tokens</a>
+    <a class="nav-link" href="#/accessibility">Accessibility</a>
+    <p class="nav-eyebrow">Components</p>
+    <div id="componentNav"></div>
+    <p class="nav-foot">hiddeninwest · Los Angeles</p>
+  </nav>
+  <main id="view" tabindex="-1"></main>
+</div>
+<footer class="site-footer">
+  <p>Oeste — a quieter foundation. Topanga theme. Built for three ways of making.</p>
+  <p><a href="#/accessibility">Accessibility</a> · <a href="#/tokens">Tokens</a> · <a href="llms.txt">llms.txt</a></p>
+</footer>
+<div id="toastRegion" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

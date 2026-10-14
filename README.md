@@ -4,34 +4,69 @@
 
 Oeste is an open design system and component library built for three audiences at once:
 - **Humans** (designers & developers): Clear documentation, live demos, component anatomy, keyboard navigation tables, and accessibility notes.
-- **AI agents** (Cursor, Claude Composer, v0): Machine-readable JSON specifications, token schemas, accessibility invariants, and copyable prompt contexts to prevent hallucinations.
+- **AI agents** (Cursor, Claude, v0): Machine-readable JSON specifications, token schemas, accessibility invariants, and copyable prompt contexts to prevent hallucinations.
 - **Vibe coders**: Instant copy-paste code, zero config, and one-command CLI installation.
 
 ## Theme: Topanga
-Topanga is the debut theme for Oeste—inspired by the hidden canyon in Los Angeles where creatives retreat and build. Warm paper, canyon clay, ochre, sagebrush, and precision hairlines.
+Topanga is the debut theme for Oeste — inspired by the hidden canyon in Los Angeles where creatives retreat and build. Warm paper, canyon clay, ochre, sagebrush, and precision hairlines.
 
-- **Canvas / Paper**: `#F6F4F1` (Dark: `#121110`)
-- **Surface**: `#FCFAF7` (Dark: `#1C1A18`)
-- **Ink**: `#1C1917` (Dark: `#F5F3EF`)
-- **Terracotta Clay**: `#C25E38`
-- **Warm Ochre**: `#E08244`
-- **Sagebrush**: `#6C7A68`
+Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content, no precise locations.
 
-## Components (v1)
-- **Button**: One action. A clear hierarchy. Native focus ring and touch targets.
-- **Input**: Persistent accessible label, described errors, and validation states.
-- **Dialog**: Accessible modal dialog with native focus trap, Escape dismissal, and trigger restoration.
-- **Card**: Structural container with proper document heading hierarchy.
-- **Tabs**: Full roving tabindex and keyboard navigation (Arrow keys, Home, End).
-- **Toast**: Polite live region status notifications with manual dismissal.
+### Canonical tokens (single source of truth)
+`src/tokens.css` + `src/tokens.json` + `DESIGN_TOKENS` in `src/index.js` agree exactly. Run `npm run verify` to check.
+
+| Token | Light | Dark | Notes |
+|---|---|---|---|
+| bg | `#F6F4F1` | `#121110` | Page background |
+| surface | `#FCFAF7` | `#1C1917` | Cards, demos |
+| text | `#1C1917` | `#F5F3EF` | Body text |
+| muted | `#706963` | `#9E968F` | Secondary text |
+| accent (Warm Ochre) | `#C47D3B` | `#DB914E` | Primary actions |
+| accent-alt (Sage) | `#5E6B5A` | `#8B9B87` | Secondary accent |
+| rust (Canyon Rust) | `#B85B35` | `#D98A63` | Decorative only — never small error text |
+| danger | `#A83E22` | `#E07A52` | Semantic errors. WCAG AA 4.5:1 for normal text |
+| success | `#2F6B3A` | `#6BA368` | Success states |
+| warning | `#7A5A12` | `#D9A441` | Warnings |
+| focus | `#1C1917` | `#F5F3EF` | 2px outline. Distinct from danger |
+
+Type: Manrope (display + body), JetBrains Mono (code). Fluid: display `clamp(2.5rem, 6vw, 4.5rem)`, title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`.
+Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
+
+## Components (v0.1.0)
+- **Button**: variants primary / secondary / ghost / danger, sizes sm / md / lg, disabled / loading / icon.
+- **Input**: persistent label, described errors. Plus **Textarea** and **Select** with the same pattern.
+- **Dialog**: native `<dialog>`, focus trap + restore, Escape closes.
+- **Card**: native `<section>`, heading level matches outline.
+- **Tabs**: roving tabindex, Arrow / Home / End.
+- **Toast**: single clean card, `role=status`, manual dismiss, no auto-expiry.
+- **Badge**: tones neutral / accent / success / danger, meaning in text.
+- **Checkbox**: native input, clickable label.
+- **Switch**: `role=switch` + `aria-checked`.
+
+Every component ships: Human docs (anatomy / props / keyboard / invariants), Agent JSON contract (`oeste.component.v1`) + prompt, Vibe CLI + React code (dark-mode-complete). Demos are local only — no network, no auth.
+
+## Docs site
+Static, no build step, Vercel-ready — in `/site/` (`index.html` + `styles.css` + `app.js`).
+Routes: `#/home`, `#/components/<id>?lens=human|agent|vibe`, `#/tokens`, `#/getting-started`, `#/theming`, `#/accessibility`. Lens persists in the URL, Back button works, deep links work.
 
 ## Quickstart
 ```bash
 npx @oeste/ui init
 npx @oeste/ui add dialog
 ```
+CLI strings are reference commands, not a guarantee of registry availability. The React snippets in `src/index.js` and the Vibe lens work today in any React + Tailwind app (React 18+, JSX transform).
 
 ## Structure
-- `/src`: Core primitives and documentation site
-- `/tokens`: Topanga design tokens and CSS variables
-- `llms.txt`: Machine-readable protocol for AI code editors
+- `/src/index.js` — React primitives + `DESIGN_TOKENS` + `COMPONENT_DOCS`
+- `/src/tokens.css` — CSS variables (light + dark via `data-theme`)
+- `/src/tokens.json` — machine-readable tokens
+- `/site/` — static docs site (Vercel-ready)
+- `/scripts/verify.mjs` — checks token agreement + contrast
+- `llms.txt` — machine-readable protocol for AI editors
+- `package.json` — `@oeste/ui` v0.1.0, no runtime dependencies
+
+## Verify
+```bash
+npm run verify
+```
+Checks tokens agree across CSS / JSON / JS, and that danger, muted, and accent text pairs meet WCAG AA 4.5:1.

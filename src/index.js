@@ -1,4 +1,4 @@
-// Oeste Design System — Topanga theme (v0.3.1)
+// Oeste Design System — Topanga theme (v0.3.2)
 // React + Tailwind primitives, copy-paste ready.
 // Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.
 // Tokens in this file MUST match src/tokens.json and src/tokens.css exactly.
@@ -6,7 +6,7 @@
 
 export const DESIGN_TOKENS = Object.freeze({
   name: "oeste-topanga",
-  version: "0.3.1",
+  version: "0.3.2",
   color: {
     light: {
       bg: "#F6F4F1", surface: "#FCFAF7", text: "#1C1917", muted: "#706963",

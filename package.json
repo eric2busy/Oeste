@@ -1,1 +1,34 @@
-{"dependencies":{},"description":"Oeste design system — Topanga theme. Components for humans, AI agents, and vibe coders.","exports":{".":"./src/index.js","./tokens":"./src/tokens.json","./tokens.css":"./src/tokens.css"},"files":["src/","README.md","llms.txt"],"license":"MIT","name":"@oeste/ui","peerDependencies":{"react":">=18","tailwindcss":">=3"},"peerDependenciesMeta":{"react":{"optional":true},"tailwindcss":{"optional":true}},"scripts":{"tokens":"node scripts/verify.mjs","verify":"node scripts/verify.mjs"},"type":"module","version":"0.1.0"}
+{
+  "dependencies": {},
+  "description": "Oeste design system \u2014 Topanga theme. Components for humans, AI agents, and vibe coders.",
+  "exports": {
+    ".": "./src/index.js",
+    "./tokens": "./src/tokens.json",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "llms.txt"
+  ],
+  "license": "MIT",
+  "name": "@oeste/ui",
+  "peerDependencies": {
+    "react": ">=18",
+    "tailwindcss": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "tokens": "node scripts/verify.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "type": "module",
+  "version": "0.2.0"
+}

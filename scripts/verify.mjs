@@ -65,12 +65,16 @@ const PAIRS = [
   ["light", "warning on bg", json.color.light.warning, json.color.light.bg],
   ["light", "ink on accent", json.color.light.onAccent, json.color.light.accent],
   ["light", "bg on danger (reversed)", json.color.light.bg, json.color.light.danger],
+  ["light", "sage on bg", json.color.light.accentAlt, json.color.light.bg],
+  ["light", "text on surface", json.color.light.text, json.color.light.surface],
   ["dark", "text on bg", json.color.dark.text, json.color.dark.bg],
   ["dark", "muted on bg", json.color.dark.muted, json.color.dark.bg],
   ["dark", "danger on bg", json.color.dark.danger, json.color.dark.bg],
   ["dark", "success on bg", json.color.dark.success, json.color.dark.bg],
   ["dark", "warning on bg", json.color.dark.warning, json.color.dark.bg],
   ["dark", "ink on accent", json.color.dark.onAccent, json.color.dark.accent],
+  ["dark", "sage on bg", json.color.dark.accentAlt, json.color.dark.bg],
+  ["dark", "text on surface", json.color.dark.text, json.color.dark.surface],
 ];
 for (const [theme, label, fg, bg] of PAIRS) {
   const r = ratio(fg, bg);

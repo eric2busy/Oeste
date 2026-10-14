@@ -32,7 +32,7 @@ Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content
 Type: Manrope (display + body), JetBrains Mono (code). Fluid: display `clamp(2.5rem, 6vw, 4.5rem)`, title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`.
 Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
 
-## Components (v0.1.0)
+## Components (v0.2.0)
 - **Button**: variants primary / secondary / ghost / danger, sizes sm / md / lg, disabled / loading / icon.
 - **Input**: persistent label, described errors. Plus **Textarea** and **Select** with the same pattern.
 - **Dialog**: native `<dialog>`, focus trap + restore, Escape closes.
@@ -42,12 +42,18 @@ Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill.
 - **Badge**: tones neutral / accent / success / danger, meaning in text.
 - **Checkbox**: native input, clickable label.
 - **Switch**: `role=switch` + `aria-checked`.
+- **Textarea**: multi-line input, same label + error pattern as Input.
+- **Select**: native select, real label.
+- **Alert**: tones info / success / warning / danger, `role=status` (alert only for urgent errors), optional Dismiss.
+- **Accordion**: real button triggers, `aria-expanded` + `aria-controls`, panel hidden when closed.
+- **RadioGroup**: native radios in `fieldset` + `legend`, one shared name.
+- **Progress**: `role=progressbar` + `aria-valuenow/min/max`, visible label + value text.
 
 Every component ships: Human docs (anatomy / props / keyboard / invariants), Agent JSON contract (`oeste.component.v1`) + prompt, Vibe CLI + React code (dark-mode-complete). Demos are local only — no network, no auth.
 
 ## Docs site
 Static, no build step, Vercel-ready — in `/site/` (`index.html` + `styles.css` + `app.js`).
-Routes: `#/home`, `#/components/<id>?lens=human|agent|vibe`, `#/tokens`, `#/getting-started`, `#/theming`, `#/accessibility`. Lens persists in the URL, Back button works, deep links work.
+Routes: `#/home`, `#/components/<id>?lens=human|agent|vibe`, `#/tokens`, `#/getting-started`, `#/theming`, `#/accessibility`, `#/patterns`, `#/changelog`, `#/migration`. Lens persists in the URL, Back button works, deep links work.
 
 ## Quickstart
 ```bash
@@ -63,10 +69,14 @@ CLI strings are reference commands, not a guarantee of registry availability. Th
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.1.0, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.2.0, no runtime dependencies
 
 ## Verify
 ```bash
 npm run verify
 ```
 Checks tokens agree across CSS / JSON / JS, and that danger, muted, and accent text pairs meet WCAG AA 4.5:1.
+
+## Changelog
+- **v0.2.0 (2026-10-14)**: Alert, Accordion, RadioGroup, Progress; Textarea + Select docs pages; Patterns, Changelog, Migration routes; Accessibility page with per-component checklist + contrast table; fuller brand story. No breaking changes for consumers.
+- **v0.1.0 (2026-10-14)**: Token foundation + 9 primitives + docs site.

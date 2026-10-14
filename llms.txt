@@ -19,7 +19,7 @@ Tokens live in src/tokens.css + src/tokens.json + DESIGN_TOKENS in src/index.js 
 ## System prompt for AI editors
 You are implementing Oeste UI in a React + Tailwind application. Read the Oeste manifest and the selected component contract before generating code. Use the Topanga tokens and Manrope typography. Preserve native semantics, accessible names, described errors, visible focus, 44px touch targets, and reduced-motion preferences. Implement all documented keyboard behaviors, including focus restoration for dialogs and roving tabindex for tabs. Never invent component props or package exports beyond the contract. Keep demos local and never add authentication or network writes. Include an executable usage example and keyboard tests. If the reference CLI is unavailable, use the dependency-light React snippets. Return code and a short accessibility checklist.
 
-## Primitives (v0.1.0)
+## Primitives (v0.2.0)
 - Button — variants primary/secondary/ghost/danger, sizes sm/md/lg, disabled/loading/icon
 - Input — persistent label, described errors; plus Textarea and Select
 - Dialog — native <dialog>, focus trap + restore, Escape closes
@@ -29,6 +29,12 @@ You are implementing Oeste UI in a React + Tailwind application. Read the Oeste 
 - Badge — tones neutral/accent/success/danger, meaning in text
 - Checkbox — native input, clickable label
 - Switch — role=switch + aria-checked
+- Textarea — multi-line input, same label + error pattern as Input
+- Select — native select, real label
+- Alert — tones info/success/warning/danger, role=status (alert only for urgent errors), optional Dismiss
+- Accordion — real button triggers, aria-expanded + aria-controls, panel hidden when closed
+- RadioGroup — native radios in fieldset + legend, one shared name
+- Progress — role=progressbar + aria-valuenow/min/max, visible label + value text
 
 ## Docs site
-Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components/<id>?lens=human|agent|vibe, #/tokens, #/getting-started, #/theming, #/accessibility. Lens persists in the URL. Component contracts use oeste.component.v1.
+Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components/<id>?lens=human|agent|vibe, #/tokens, #/getting-started, #/theming, #/accessibility, #/patterns, #/changelog, #/migration. Lens persists in the URL. Component contracts use oeste.component.v1.

@@ -1,4 +1,4 @@
-// Oeste Design System — Topanga theme (v0.1.0)
+// Oeste Design System — Topanga theme (v0.2.0)
 // React + Tailwind primitives, copy-paste ready.
 // Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.
 // Tokens in this file MUST match src/tokens.json and src/tokens.css exactly.
@@ -6,7 +6,7 @@
 
 export const DESIGN_TOKENS = Object.freeze({
   name: "oeste-topanga",
-  version: "0.1.0",
+  version: "0.2.0",
   color: {
     light: {
       bg: "#F6F4F1", surface: "#FCFAF7", text: "#1C1917", muted: "#706963",
@@ -258,6 +258,84 @@ export function Switch({ label, checked, onChange, disabled = false, description
   );
 }
 
+
+/* ---------------- Alert ---------------- */
+
+const ALERT_TONES = {
+  info: "border-[#1c1917]/20 bg-[#1c1917]/5 text-[#1c1917] dark:border-[#f5f3ef]/20 dark:bg-[#f5f3ef]/5 dark:text-[#f5f3ef]",
+  success: "border-[#2f6b3a]/40 bg-[#2f6b3a]/10 text-[#2f6b3a] dark:border-[#6ba368]/40 dark:bg-[#6ba368]/10 dark:text-[#6ba368]",
+  warning: "border-[#7a5a12]/40 bg-[#7a5a12]/10 text-[#7a5a12] dark:border-[#d9a441]/40 dark:bg-[#d9a441]/10 dark:text-[#d9a441]",
+  danger: "border-[#a83e22]/40 bg-[#a83e22]/10 text-[#a83e22] dark:border-[#e07a52]/40 dark:bg-[#e07a52]/10 dark:text-[#e07a52]",
+};
+
+export function Alert({ children, tone = "info", role = "status", onDismiss }) {
+  return (
+    <div role={role} className={`flex items-start gap-3 rounded-lg border p-4 ${ALERT_TONES[tone]}`}>
+      <p className="flex-1">{children}</p>
+      {onDismiss && <button type="button" onClick={onDismiss} className={`${TOUCH} shrink-0 rounded-md border border-current px-3 text-sm ${FOCUS}`}>Dismiss</button>}
+    </div>
+  );
+}
+
+/* ---------------- Accordion ---------------- */
+
+export function Accordion({ items, allowMultiple = false }) {
+  const id = React.useId();
+  const [open, setOpen] = React.useState([]);
+  const toggle = (i) => setOpen((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : (allowMultiple ? [...prev, i] : [i]));
+  return (
+    <div className="divide-y divide-[#1c1917]/10 dark:divide-[#f5f3ef]/10">
+      {items.map((item, i) => {
+        const isOpen = open.includes(i);
+        return (
+          <div key={i}>
+            <h3 className="m-0">
+              <button type="button" aria-expanded={isOpen} aria-controls={`${id}-panel-${i}`} id={`${id}-trigger-${i}`} onClick={() => toggle(i)}
+                className={`${TOUCH} flex w-full items-center justify-between gap-3 py-3 text-left font-medium text-[#1c1917] dark:text-[#f5f3ef] ${FOCUS}`}>
+                {item.title}<span aria-hidden="true">{isOpen ? "−" : "+"}</span>
+              </button>
+            </h3>
+            <div id={`${id}-panel-${i}`} role="region" aria-labelledby={`${id}-trigger-${i}`} hidden={!isOpen} className="pb-4 text-[#1c1917] dark:text-[#f5f3ef]">{item.content}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ---------------- RadioGroup ---------------- */
+
+export function RadioGroup({ legend, name, options = [], value, onChange }) {
+  return (
+    <fieldset className="m-0 border-0 p-0">
+      <legend className="mb-2 text-sm font-medium text-[#1c1917] dark:text-[#f5f3ef]">{legend}</legend>
+      {options.map((o) => (
+        <label key={o.value} htmlFor={`${name}-${o.value}`} className="flex cursor-pointer items-start gap-3 py-2 text-[#1c1917] dark:text-[#f5f3ef]">
+          <input id={`${name}-${o.value}`} type="radio" name={name} value={o.value} checked={value === o.value} onChange={() => onChange(o.value)}
+            className={`mt-1 h-5 w-5 shrink-0 accent-[#c47d3b] ${FOCUS}`} />
+          <span><span className="block text-sm font-medium">{o.label}</span>{o.description && <span className="mt-0.5 block text-sm text-[#706963] dark:text-[#9e968f]">{o.description}</span>}</span>
+        </label>
+      ))}
+    </fieldset>
+  );
+}
+
+/* ---------------- Progress ---------------- */
+
+export function Progress({ value, min = 0, max = 100, label }) {
+  const clamped = Math.min(max, Math.max(min, value));
+  const pct = max === min ? 0 : Math.round(((clamped - min) / (max - min)) * 100);
+  return (
+    <div>
+      <p className="mb-2 text-sm font-medium text-[#1c1917] dark:text-[#f5f3ef]">{label} — {pct}%</p>
+      <div role="progressbar" aria-valuenow={clamped} aria-valuemin={min} aria-valuemax={max} aria-label={label}
+        className="h-2.5 overflow-hidden rounded-full bg-[#1c1917]/10 dark:bg-[#f5f3ef]/10">
+        <div className="h-full rounded-full bg-[#c47d3b] dark:bg-[#db914e]" style={{ width: `${pct}%` }} />
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Component docs: Human / Agent / Vibe ---------------- */
 /* Contracts use oeste.component.v1. Keep in sync with site/app.js and llms.txt. */
 
@@ -426,5 +504,118 @@ export const COMPONENT_DOCS = Object.freeze([
     prompt: "Build an Oeste Switch with role=switch + aria-checked, thumb position showing state, clickable label. State visible by position + label, never color alone.",
     cli: "npx @oeste/ui add switch",
     code: `import { useState } from "react";\nimport { Switch } from "@oeste/ui";\n\nexport function DarkMode() {\n  const [checked, setChecked] = useState(false);\n  return <Switch label="Dark mode" checked={checked} onChange={setChecked} />;\n}`,
+  },,
+  {
+    id: "textarea", name: "Textarea", tagline: "Multi-line input. Same label + error pattern as Input.",
+    anatomy: ["Label", "Field", "Hint", "Error message"],
+    props: [
+      { name: "label", type: "string", required: true, def: "—", desc: "Persistent visible label." },
+      { name: "value / onChange", type: "string / (v) => void", required: true, def: "—", desc: "Controlled value." },
+      { name: "rows", type: "number", required: false, def: "4", desc: "Visible rows." },
+      { name: "error", type: "string", required: false, def: "—", desc: "Sets aria-invalid + described error." },
+      { name: "disabled", type: "boolean", required: false, def: "false", desc: "Blocks editing." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus into / out of the field." },
+      { key: "Type", action: "Enter multi-line text." },
+    ],
+    invariants: ["Label is always visible, never placeholder-only.", "Errors use text + icon/role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
+    contract: { format: "oeste.component.v1", component: "Textarea", props: { label: "string", rows: "number", error: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
+    prompt: "Build an Oeste Textarea with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Same label + error pattern as Input. Never use placeholder as the label.",
+    cli: "npx @oeste/ui add textarea",
+    code: `import { Textarea } from "@oeste/ui";\n\nexport function Notes({ value, onChange }) {\n  return <Textarea label="Field notes" value={value} onChange={onChange} rows={4} hint="Anything worth keeping." />;\n}\n// Dark mode: built in via dark: classes.`,
   },
+  {
+    id: "select", name: "Select", tagline: "One choice from a list. Native select, real label.",
+    anatomy: ["Label", "Field", "Options"],
+    props: [
+      { name: "label", type: "string", required: true, def: "—", desc: "Persistent visible label." },
+      { name: "value / onChange", type: "string / (v) => void", required: true, def: "—", desc: "Controlled value." },
+      { name: "options", type: "{ value, label }[]", required: true, def: "—", desc: "Options list." },
+      { name: "disabled", type: "boolean", required: false, def: "false", desc: "Blocks changes." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus to the select." },
+      { key: "ArrowUp / ArrowDown", action: "Change the selected option." },
+      { key: "Enter / Space", action: "Open the native list." },
+    ],
+    invariants: ["Native <select>, never a custom listbox.", "Label is always visible and linked via htmlFor.", "Options carry real values, never index-only labels."],
+    contract: { format: "oeste.component.v1", component: "Select", props: { label: "string", options: "array", disabled: "boolean" }, a11y: { native: "select", label: "htmlFor" } },
+    prompt: "Build an Oeste Select with a native <select>, persistent visible label via htmlFor, options as { value, label } pairs. Never build a custom listbox when a native select will do.",
+    cli: "npx @oeste/ui add select",
+    code: `import { Select } from "@oeste/ui";\n\nexport function ThemePicker({ value, onChange }) {\n  return <Select label="Theme" value={value} onChange={onChange} options={[{ value: "topanga", label: "Topanga" }, { value: "paper", label: "Paper" }]} />;\n}`,
+  },
+  {
+    id: "alert", name: "Alert", tagline: "Status that stays put. Text first, tone second.",
+    anatomy: ["Tone border / tint", "Message", "Dismiss button (optional)"],
+    props: [
+      { name: "children", type: "ReactNode", required: true, def: "—", desc: "Alert message." },
+      { name: "tone", type: '"info" | "success" | "warning" | "danger"', required: false, def: '"info"', desc: "Status tone. Text always carries the meaning." },
+      { name: "role", type: '"alert" | "status"', required: false, def: '"status"', desc: "Use alert for urgent errors, status for the rest." },
+      { name: "onDismiss", type: "() => void", required: false, def: "—", desc: "Adds a Dismiss button." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus to Dismiss when present." },
+      { key: "Enter / Space", action: "Dismiss the alert." },
+    ],
+    invariants: ["Meaning is in the text, never color alone.", "role=alert only for urgent errors; status for everything else.", "Danger tone uses Danger token, not Canyon Rust.", "Dismissible alerts remove themselves from the DOM."],
+    contract: { format: "oeste.component.v1", component: "Alert", props: { tone: ["info", "success", "warning", "danger"], role: ["alert", "status"] }, a11y: { role: "alert or status", dismiss: "focusable Dismiss button" } },
+    prompt: "Build an Oeste Alert: tone info/success/warning/danger, role=status by default (role=alert only for urgent errors), message in text, optional Dismiss button. Danger tone uses Danger #A83E22 / #E07A52, never Canyon Rust.",
+    cli: "npx @oeste/ui add alert",
+    code: `import { Alert } from "@oeste/ui";\n\nexport function SaveError() {\n  return <Alert tone="danger" role="alert">Could not save. Your changes are still here.</Alert>;\n}\n// Dark mode: built in via dark: classes.`,
+  },
+  {
+    id: "accordion", name: "Accordion", tagline: "Stacked sections. One open at a time or many — your call.",
+    anatomy: ["Trigger button", "Panel", "Chevron / indicator"],
+    props: [
+      { name: "items", type: "{ title, content }[]", required: true, def: "—", desc: "Sections." },
+      { name: "allowMultiple", type: "boolean", required: false, def: "false", desc: "When true, more than one panel may stay open." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus between triggers." },
+      { key: "Enter / Space", action: "Toggle the focused panel." },
+    ],
+    invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel has a matching id and is hidden when closed.", "State is visible by indicator + expanded panel, never color alone."],
+    contract: { format: "oeste.component.v1", component: "Accordion", props: { items: "array", allowMultiple: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
+    prompt: "Build an Oeste Accordion: each trigger is a real <button> with aria-expanded + aria-controls, panel hidden when closed, state visible by indicator + panel. Tab moves between triggers, Enter/Space toggles.",
+    cli: "npx @oeste/ui add accordion",
+    code: `import { Accordion } from "@oeste/ui";\n\nexport function Faq() {\n  return <Accordion items={[{ title: "What is Oeste?", content: "A design system for humans, agents, and vibe coders." }]} />;\n}`,
+  },
+  {
+    id: "radiogroup", name: "RadioGroup", tagline: "One choice from a few. Native radios, real grouping.",
+    anatomy: ["Fieldset", "Legend", "Radio + label options"],
+    props: [
+      { name: "legend", type: "string", required: true, def: "—", desc: "Group label." },
+      { name: "name", type: "string", required: true, def: "—", desc: "Shared radio name." },
+      { name: "options", type: "{ value, label, description? }[]", required: true, def: "—", desc: "Options." },
+      { name: "value / onChange", type: "string / (v) => void", required: true, def: "—", desc: "Controlled value." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus into the group." },
+      { key: "ArrowUp / ArrowDown", action: "Move between options and select." },
+      { key: "Space", action: "Select the focused option." },
+    ],
+    invariants: ["Native <input type=radio> inside <fieldset> + <legend>.", "All radios share one name.", "Labels are clickable and linked via htmlFor."],
+    contract: { format: "oeste.component.v1", component: "RadioGroup", props: { legend: "string", name: "string", options: "array", value: "string" }, a11y: { native: "input[type=radio] in fieldset + legend", group: "shared name" } },
+    prompt: "Build an Oeste RadioGroup with native radios inside <fieldset> + <legend>, one shared name, clickable labels. Arrow keys move and select. Never build radios from divs.",
+    cli: "npx @oeste/ui add radiogroup",
+    code: `import { RadioGroup } from "@oeste/ui";\n\nexport function SizePicker({ value, onChange }) {\n  return <RadioGroup legend="Size" name="size" value={value} onChange={onChange} options={[{ value: "sm", label: "Small" }, { value: "md", label: "Medium" }, { value: "lg", label: "Large" }]} />;\n}`,
+  },
+  {
+    id: "progress", name: "Progress", tagline: "How far along. Number + bar, never bar alone.",
+    anatomy: ["Label", "Bar + fill", "Value text"],
+    props: [
+      { name: "value", type: "number", required: true, def: "—", desc: "Current value, 0–100 by default." },
+      { name: "min", type: "number", required: false, def: "0", desc: "Minimum." },
+      { name: "max", type: "number", required: false, def: "100", desc: "Maximum." },
+      { name: "label", type: "string", required: true, def: "—", desc: 'Visible label, e.g. "Upload".' },
+    ],
+    keyboard: [{ key: "—", action: "Progress is not interactive. No keyboard behavior." }],
+    invariants: ["Uses role=progressbar + aria-valuenow/min/max.", "Value is shown as text, never bar alone.", "Value is clamped to min–max."],
+    contract: { format: "oeste.component.v1", component: "Progress", props: { value: "number", min: "number", max: "number" }, a11y: { role: "progressbar", values: "aria-valuenow/min/max", text: "visible value" } },
+    prompt: "Build an Oeste Progress with role=progressbar + aria-valuenow/min/max, visible label + value text, value clamped to min–max. Never show a bar without its number.",
+    cli: "npx @oeste/ui add progress",
+    code: `import { Progress } from "@oeste/ui";\n\nexport function Upload({ done }) {\n  return <Progress label="Upload" value={done} />;\n}\n// Dark mode: built in via dark: classes.`,
+  },
+
 ]);

@@ -31,11 +31,19 @@ button { cursor: pointer; }
   width: 100%; min-height: var(--touch-min); border: 1px solid var(--color-border); border-radius: 8px;
   background: var(--color-surface); color: var(--color-text); padding: 0 12px;
 }
-.menu-btn, .theme-toggle {
+.menu-btn {
   min-height: var(--touch-min); border: 1px solid var(--color-border); border-radius: 8px;
   background: var(--color-surface); color: var(--color-text); padding: 0 14px; font-weight: 600;
 }
-.theme-toggle { margin-left: auto; }
+.theme-toggle {
+  margin-left: auto; width: var(--touch-min); height: var(--touch-min); min-height: var(--touch-min);
+  border: 1px solid var(--color-border); border-radius: 999px; padding: 0;
+  background: var(--color-surface); color: var(--color-text);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.theme-toggle .icon { display: block; }
+html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 .search-results {
   position: absolute; top: 100%; left: 16px; right: 16px; z-index: 60;
   background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px;
@@ -80,7 +88,7 @@ h3 { font-size: var(--type-heading); margin: 24px 0 8px; }
 .copy-btn { background: var(--color-text); color: var(--color-bg); font-size: 0.875rem; padding: 0 14px; }
 .copy-btn.secondary { background: transparent; color: var(--color-text); border-color: var(--color-border); }
 .lens-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
-.lens-btn { min-height: var(--touch-min); border-radius: 999px; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); padding: 0 18px; font-weight: 600; }
+.lens-btn { min-height: var(--touch-min); border-radius: 999px; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); padding: 0 18px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; line-height: 1; }
 .lens-btn.active { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
 .demo {
   border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface);

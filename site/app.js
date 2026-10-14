@@ -106,7 +106,6 @@ function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem("oeste-theme", theme);
   const btn = $(" #themeToggle".trim());
-  btn.textContent = theme === "light" ? "Light" : "Dark";
   btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
   btn.setAttribute("aria-label", "Theme: " + (theme === "light" ? "Light" : "Dark") + ". Switch to " + (theme === "light" ? "dark" : "light") + ".");
 }

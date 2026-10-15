@@ -32,7 +32,11 @@ button { cursor: pointer; }
   background: var(--color-surface); color: var(--color-text); padding: 0 12px;
 }
 /* The header Menu button IS the library's Ghost Button (.btn.btn-ghost) —
-   no one-off menu styles. Hidden on desktop via #menuBtn below. */
+   no one-off menu styles. Hidden on desktop via #menuBtn below.
+   Tightened cluster: pulls Menu 6px toward the theme toggle and trims its
+   left padding, so the sun/moon glyph-to-"Menu" gap drops from 41px to ~26px
+   (box-to-box gap 10px to 4px). The ghost component itself is untouched. */
+#menuBtn { margin-left: -6px; padding-left: 10px; }
 .theme-toggle {
   margin-left: auto; width: var(--touch-min); height: var(--touch-min); min-height: var(--touch-min);
   border: none; border-radius: 999px; padding: 0;

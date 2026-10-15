@@ -21,7 +21,7 @@ RDIR = ROOT / "r"
 SITE_BASE = "https://oeste.hiddeninwest.com"
 REGISTRY_BASE = SITE_BASE + "/r/"
 GITHUB_RAW = "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/"
-VERSION = "0.4.3"
+VERSION = "0.4.4"
 
 # Functional group per component id (used as tags in components.json).
 TAGS = {
@@ -40,7 +40,7 @@ TAGS = {
 }
 
 HEADER = """// Oeste {name} — Topanga theme (v{version}).
-// Copy-paste ready. Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.
+// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.
 // Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).
 // Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js
 // Docs: https://oeste.hiddeninwest.com/#/components/{id}
@@ -136,19 +136,31 @@ def main():
             if c not in needed and re.search(rf"\b{c}\b", dep_bodies):
                 needed.append(c)
         # Every referenced const must be one we extracted (they all are, by construction).
-        content = HEADER.format(name=export_name, version=VERSION, id=cid)
+        # Assemble the body first so the React-import decision sees the full file:
+        # components use React.useId / useState / useRef / useEffect / Children /
+        # cloneElement, and a standard Vite + React project (automatic JSX runtime)
+        # has no React in scope — the file must import React itself.
+        body_src = ""
         for c in needed:
-            content += "\n" + const_src[c]
+            body_src += "\n" + const_src[c]
         # Inlined deps first (so the component's own function can use them),
         # then the component's own function. The file stays a single module.
         for d in dep_names:
-            content += "\n" + fn_src[d]
-        content += "\n" + body
+            body_src += "\n" + fn_src[d]
+        body_src += "\n" + body
+        content = HEADER.format(name=export_name, version=VERSION, id=cid)
+        if re.search(r"\bReact\.", body_src):
+            content += 'import React from "react";\n'
+        content += body_src
         # Safety: no dangling reference to a module const that was NOT included.
         for c in const_names:
             if c not in needed and re.search(rf"\b{c}\b", content):
                 print(f"FAIL: {export_name} content references {c} without including it", file=sys.stderr)
                 return 1
+        # Safety: React.* usage without the import must never ship again.
+        if re.search(r"\bReact\.", content) and "import React from" not in content:
+            print(f"FAIL: {export_name} uses React.* without importing React", file=sys.stderr)
+            return 1
         if cid not in TAGS:
             print(f"FAIL: no tag group for component id {cid!r}", file=sys.stderr)
             return 1
@@ -161,7 +173,18 @@ def main():
             "tags": TAGS[cid],
         })
 
-    # --- emit ---
+    # --- emit (write-if-changed: a regen must not rewrite — and therefore
+    # re-upload — all 29 files when only one component changed) ---
+    def write_if_changed(path, text):
+        try:
+            if path.read_text() == text:
+                return False
+        except FileNotFoundError:
+            pass
+        path.write_text(text)
+        return True
+
+    changed = 0
     RDIR.mkdir(exist_ok=True)
     for it in items:
         item = {
@@ -179,7 +202,8 @@ def main():
             "docs": f"{SITE_BASE}/#/components/{it['id']}",
             "categories": ["oeste"],
         }
-        (RDIR / f"{it['id']}.json").write_text(json.dumps(item, indent=1) + "\n")
+        if write_if_changed(RDIR / f"{it['id']}.json", json.dumps(item, indent=1) + "\n"):
+            changed += 1
 
     index = {
         "name": "oeste",
@@ -193,7 +217,8 @@ def main():
             "url": f"{REGISTRY_BASE}{it['id']}.json",
         } for it in items],
     }
-    (RDIR / "registry.json").write_text(json.dumps(index, indent=1) + "\n")
+    if write_if_changed(RDIR / "registry.json", json.dumps(index, indent=1) + "\n"):
+        changed += 1
 
     manifest = {
         "version": VERSION,
@@ -208,9 +233,10 @@ def main():
             "tags": it["tags"],
         } for it in items],
     }
-    (ROOT / "components.json").write_text(json.dumps(manifest, indent=1) + "\n")
+    if write_if_changed(ROOT / "components.json", json.dumps(manifest, indent=1) + "\n"):
+        changed += 1
 
-    print(f"OK: {len(items)} registry items + registry.json + components.json (v{VERSION})")
+    print(f"OK: {len(items)} registry items + registry.json + components.json (v{VERSION}, {changed} files changed)")
     return 0
 
 

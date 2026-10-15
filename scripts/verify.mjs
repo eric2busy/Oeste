@@ -94,5 +94,27 @@ for (const theme of ["light", "dark"]) {
   }
 }
 
+// --- Registry: r/*.json + components.json exist, parse, and agree ---
+import { readdirSync, existsSync } from "node:fs";
+const manifest = JSON.parse(readFileSync(join(root, "components.json"), "utf8"));
+check("registry manifest version matches tokens.json", manifest.version === json.version, manifest.version);
+check("registry manifest has 29 components", manifest.components.length === 29, String(manifest.components.length));
+const registryIndex = JSON.parse(readFileSync(join(root, "r/registry.json"), "utf8"));
+check("registry index has 29 items", registryIndex.items.length === 29, String(registryIndex.items.length));
+const manifestIds = new Set(manifest.components.map((c) => c.id));
+const indexIds = new Set(registryIndex.items.map((i) => i.id));
+check("registry index ids == manifest ids", manifestIds.size === indexIds.size && [...manifestIds].every((id) => indexIds.has(id)));
+for (const c of manifest.components) {
+  const file = join(root, "r", c.id + ".json");
+  check(`registry item ${c.id} exists`, existsSync(file));
+  if (!existsSync(file)) continue;
+  const item = JSON.parse(readFileSync(file, "utf8"));
+  const content = item.files?.[0]?.content || "";
+  check(`registry item ${c.id} content non-empty + exports its component`, content.length > 100 && content.includes("export function " + c.name), `${content.length} chars`);
+  check(`registry item ${c.id} registryUrl matches manifest`, c.registryUrl === `https://oeste.hiddeninwest.com/r/${c.id}.json`);
+  check(`registry item ${c.id} githubRawUrl matches manifest`, c.githubRawUrl === `https://raw.githubusercontent.com/eric2busy/Oeste/main/r/${c.id}.json`);
+  check(`registry item ${c.id} docsUrl matches manifest`, c.docsUrl === `#/components/${c.id}`);
+}
+
 if (failures > 0) { console.error(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nAll token + contrast checks passed.");

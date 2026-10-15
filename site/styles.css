@@ -54,6 +54,11 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 }
 .search-results button { display: block; width: 100%; text-align: left; border: 0; background: transparent; color: var(--color-text); padding: 12px; border-radius: 6px; min-height: var(--touch-min); }
 .search-results button:hover { background: var(--color-bg); }
+.search-facets { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 8px 4px; }
+.search-facets .search-facet { display: inline-flex; width: auto; min-height: 32px; align-items: center; border: 1px solid var(--color-border); border-radius: 999px; background: transparent; color: var(--color-text); padding: 0 12px; font-size: 0.8125rem; font-weight: 600; }
+.search-facet[aria-pressed="true"] { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+.search-group { margin: 12px 8px 2px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-muted); }
+.search-status { margin: 4px 8px; font-size: 0.875rem; color: var(--color-muted); }
 
 /* Layout — mobile stacked, desktop sidebar + workbench. */
 .layout { max-width: var(--container-wide); margin: 0 auto; padding: 16px; }

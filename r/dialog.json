@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "dialog",
+ "type": "registry:ui",
+ "title": "Dialog",
+ "description": "Accessible modal. Focus in, Escape out, focus back.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Dialog.jsx",
+   "content": "// Oeste Dialog \u2014 Topanga theme (v0.4.0).\n// Copy-paste ready. Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js\n// Docs: https://oeste.hiddeninwest.com/#/components/dialog\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1917] dark:focus-visible:outline-[#f5f3ef]\";\n\nconst TOUCH = \"min-h-11\";\n\nexport function Dialog({ open = false, onOpenChange, title, description, children }) {\n  const ref = React.useRef(null);\n  const trigger = React.useRef(null);\n  const id = React.useId();\n  React.useEffect(() => {\n    const node = ref.current;\n    if (!node) return;\n    if (open && !node.open) { trigger.current = document.activeElement; node.showModal(); }\n    else if (!open && node.open) node.close();\n  }, [open ]);\n  return (\n    <dialog\n      ref={ref} aria-modal=\"true\" aria-labelledby={`${id}-title`} aria-describedby={`${id}-description`}\n      onCancel={() => onOpenChange(false)}\n      onClose={() => { onOpenChange(false); trigger.current?.focus(); }}\n      className=\"m-auto w-[calc(100%-2rem)] max-w-md rounded-xl border border-[#1c1917]/10 bg-[#f6f4f1] p-8 text-[#1c1917] shadow-[0_16px_64px_rgba(28,25,23,0.16)] backdrop:bg-black/30 dark:border-[#f5f3ef]/10 dark:bg-[#121110] dark:text-[#f5f3ef]\"\n    >\n      <h2 id={`${id}-title`} className=\"text-2xl font-medium\">{title}</h2>\n      <p id={`${id}-description`} className=\"mt-3 text-sm text-[#706963] dark:text-[#9e968f]\">{description}</p>\n      <div className=\"mt-6\">{children}</div>\n      <button type=\"button\" onClick={() => onOpenChange(false)} className={`${TOUCH} mt-6 rounded-md border border-[#1c1917]/20 px-4 dark:border-[#f5f3ef]/20 ${FOCUS}`}>Close dialog</button>\n    </dialog>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/#/components/dialog",
+ "categories": [
+  "oeste"
+ ]
+}

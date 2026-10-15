@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "toggle",
+ "type": "registry:ui",
+ "title": "Toggle",
+ "description": "A button that stays pressed. Fill + label, not color alone.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Toggle.jsx",
+   "content": "// Oeste Toggle \u2014 Topanga theme (v0.4.0).\n// Copy-paste ready. Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js\n// Docs: https://oeste.hiddeninwest.com/#/components/toggle\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1917] dark:focus-visible:outline-[#f5f3ef]\";\n\nconst TOUCH = \"min-h-11\";\n\nexport function Toggle({ children, pressed, onPressedChange, disabled = false }) {\n  return (\n    <button type=\"button\" aria-pressed={pressed} disabled={disabled}\n      onClick={() => onPressedChange(!pressed)}\n      className={`${TOUCH} inline-flex items-center justify-center gap-2 rounded-md border px-4 font-semibold disabled:cursor-not-allowed disabled:opacity-50 ${pressed ? \"border-[#1c1917] bg-[#1c1917] text-[#f6f4f1] dark:border-[#f5f3ef] dark:bg-[#f5f3ef] dark:text-[#121110]\" : \"border-[#1c1917]/20 bg-transparent text-[#1c1917] dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef]\"} ${FOCUS}`}>\n      {children}\n    </button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/#/components/toggle",
+ "categories": [
+  "oeste"
+ ]
+}

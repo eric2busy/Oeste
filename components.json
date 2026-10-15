@@ -1,0 +1,325 @@
+{
+ "version": "0.4.0",
+ "registryBase": "https://oeste.hiddeninwest.com/r/",
+ "components": [
+  {
+   "id": "accordion",
+   "name": "Accordion",
+   "description": "Stacked sections. One open at a time or many \u2014 your call.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/accordion.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/accordion.json",
+   "docsUrl": "#/components/accordion",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "alert",
+   "name": "Alert",
+   "description": "Status that stays put. Text first, tone second.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/alert.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/alert.json",
+   "docsUrl": "#/components/alert",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "avatar",
+   "name": "Avatar",
+   "description": "A face or initials. Fallback always shows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/avatar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/avatar.json",
+   "docsUrl": "#/components/avatar",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "badge",
+   "name": "Badge",
+   "description": "Small status. Text first, color second.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/badge.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/badge.json",
+   "docsUrl": "#/components/badge",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "breadcrumb",
+   "name": "Breadcrumb",
+   "description": "Where you are, and how you got here.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/breadcrumb.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/breadcrumb.json",
+   "docsUrl": "#/components/breadcrumb",
+   "tags": [
+    "navigation"
+   ]
+  },
+  {
+   "id": "button",
+   "name": "Button",
+   "description": "One action. A clear hierarchy.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/button.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/button.json",
+   "docsUrl": "#/components/button",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "card",
+   "name": "Card",
+   "description": "Structural container with proper heading hierarchy.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/card.json",
+   "docsUrl": "#/components/card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "checkbox",
+   "name": "Checkbox",
+   "description": "Real input. Visible label. Described help.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/checkbox.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/checkbox.json",
+   "docsUrl": "#/components/checkbox",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "collapsible",
+   "name": "Collapsible",
+   "description": "One section that opens and closes. Accordion's simpler sibling.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/collapsible.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/collapsible.json",
+   "docsUrl": "#/components/collapsible",
+   "tags": [
+    "disclosure"
+   ]
+  },
+  {
+   "id": "dialog",
+   "name": "Dialog",
+   "description": "Accessible modal. Focus in, Escape out, focus back.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/dialog.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/dialog.json",
+   "docsUrl": "#/components/dialog",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "dropdown-menu",
+   "name": "DropdownMenu",
+   "description": "Actions in a list. Arrows move, Escape closes.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/dropdown-menu.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/dropdown-menu.json",
+   "docsUrl": "#/components/dropdown-menu",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "empty-state",
+   "name": "EmptyState",
+   "description": "Nothing here yet \u2014 and a clear next step.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/empty-state.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/empty-state.json",
+   "docsUrl": "#/components/empty-state",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "input",
+   "name": "Input",
+   "description": "Persistent label. Described errors. No placeholder-only fields.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/input.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/input.json",
+   "docsUrl": "#/components/input",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "label",
+   "name": "Label",
+   "description": "A label that stands on its own. Links to its control.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/label.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/label.json",
+   "docsUrl": "#/components/label",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "pagination",
+   "name": "Pagination",
+   "description": "Page through a list. Current page is unmistakable.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/pagination.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/pagination.json",
+   "docsUrl": "#/components/pagination",
+   "tags": [
+    "navigation"
+   ]
+  },
+  {
+   "id": "popover",
+   "name": "Popover",
+   "description": "A small panel anchored to a trigger. Escape closes.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/popover.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/popover.json",
+   "docsUrl": "#/components/popover",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "progress",
+   "name": "Progress",
+   "description": "How far along. Number + bar, never bar alone.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/progress.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/progress.json",
+   "docsUrl": "#/components/progress",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "radiogroup",
+   "name": "RadioGroup",
+   "description": "One choice from a few. Native radios, real grouping.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/radiogroup.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/radiogroup.json",
+   "docsUrl": "#/components/radiogroup",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "select",
+   "name": "Select",
+   "description": "One choice from a list. Native select, real label.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/select.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/select.json",
+   "docsUrl": "#/components/select",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "separator",
+   "name": "Separator",
+   "description": "A hairline that divides. Decorative or semantic.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/separator.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/separator.json",
+   "docsUrl": "#/components/separator",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "skeleton",
+   "name": "Skeleton",
+   "description": "A placeholder while content loads. Never flashing.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/skeleton.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/skeleton.json",
+   "docsUrl": "#/components/skeleton",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "slider",
+   "name": "Slider",
+   "description": "Pick a number by dragging. Arrows work too.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/slider.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/slider.json",
+   "docsUrl": "#/components/slider",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "switch",
+   "name": "Switch",
+   "description": "On / off with a real role=switch.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/switch.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/switch.json",
+   "docsUrl": "#/components/switch",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "table",
+   "name": "Table",
+   "description": "Rows and columns that screen readers can follow.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/table.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/table.json",
+   "docsUrl": "#/components/table",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "tabs",
+   "name": "Tabs",
+   "description": "Roving tabindex. Arrow keys move, Home/End jump.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/tabs.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/tabs.json",
+   "docsUrl": "#/components/tabs",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "textarea",
+   "name": "Textarea",
+   "description": "Multi-line input. Same label + error pattern as Input.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/textarea.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/textarea.json",
+   "docsUrl": "#/components/textarea",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "toast",
+   "name": "Toast",
+   "description": "Polite status. Manual dismissal. Nothing auto-vanishes.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/toast.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/toast.json",
+   "docsUrl": "#/components/toast",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "toggle",
+   "name": "Toggle",
+   "description": "A button that stays pressed. Fill + label, not color alone.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/toggle.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/toggle.json",
+   "docsUrl": "#/components/toggle",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "tooltip",
+   "name": "Tooltip",
+   "description": "A hint on hover and focus. Never the only way to know.",
+   "registryUrl": "https://oeste.hiddeninwest.com/r/tooltip.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/tooltip.json",
+   "docsUrl": "#/components/tooltip",
+   "tags": [
+    "overlays"
+   ]
+  }
+ ]
+}

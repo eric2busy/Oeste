@@ -712,7 +712,8 @@ function renderGettingStarted() {
   return '<p class="eyebrow">Docs</p><h1>Getting started</h1><p class="lede">Oeste is React + Tailwind, copy-paste ready. No heavy dependency, no config hell.</p>'
     + "<h2>1 · Add tokens</h2><p>Import <code>src/tokens.css</code> once, or copy <code>src/tokens.json</code> into your own system. Light + dark ship together via <code>data-theme</code>.</p><pre>@import \"@oeste/ui/tokens.css\";</pre>"
     + "<h2>2 · Copy a component</h2><p>Open any component, switch to the Vibe lens, copy the CLI + React code. Paste into your app. Dark mode is built in via <code>dark:</code> classes.</p>"
-    + "<h2>3 · For agents</h2><p>Paste the Agent prompt + JSON contract into your editor. Agents must not invent props beyond the contract. The full machine contract lives in <a href=\"llms.txt\">llms.txt</a>.</p>"
+    + "<h2>3 · Registry (shadcn)</h2><p>Install any component with shadcn: <code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code> — replace <code>button</code> with any component id. The registry lives at <code>https://oeste.hiddeninwest.com/r/</code> (index: <code>r/registry.json</code>). The registry is served from oeste.hiddeninwest.com. Every registry file is self-contained React + Tailwind and needs <code>src/tokens.css</code> (Topanga tokens) loaded once. Agents: the machine manifest is <code>components.json</code> at the repo root — every component with its registry URL, raw GitHub URL, docs link, and tags.</p>"
+    + "<h2>4 · For agents</h2><p>Paste the Agent prompt + JSON contract into your editor. Agents must not invent props beyond the contract. The full machine contract lives in <a href=\"llms.txt\">llms.txt</a>.</p>"
     + '<div class="callout"><strong>Reference command.</strong> <code>npx @oeste/ui init</code> is a reference command, not a guarantee of registry availability. The React snippets work today.</div>';
 }
 
@@ -748,6 +749,7 @@ function renderAccessibility() {
     + "<h2>Reduced motion</h2><p>Motion is 180ms in / 140ms out, <code>cubic-bezier(.16,1,.3,1)</code>. With <code>prefers-reduced-motion: reduce</code>, Oeste ships no animation: no transitions, no reveals, no smooth scrolling. Content never depends on motion to be understood.</p>"
     + "<h2>Focus</h2><p>Focus is always visible: 2px ink/paper outline with 2px offset. It is never removed, never replaced by color alone, and never left on a hidden element. Dialogs trap focus and restore it to the trigger on close. Tabs use roving tabindex so only the active tab is in the tab order.</p>"
     + "<h2>Touch targets</h2><p>Every interactive control is at least 44px on its smallest side: buttons, lens pills, tabs, switches, checkboxes, theme toggle, menu button, and Dismiss buttons. Small text links inside body copy are the only exception, and they are never the sole way to act.</p>"
+    + "<h2>Search</h2><p>The header search is faceted instant search: one box searches components, tokens, and docs pages. Results appear as you type, grouped under Components / Tokens / Docs, with facet filters (All / Components / Tokens / Docs) to narrow them. Keys: <code>Cmd+K</code> / <code>Ctrl+K</code> focuses search from anywhere on the site, <code>ArrowDown</code> / <code>ArrowUp</code> move through results, <code>Enter</code> opens the focused result, <code>Escape</code> closes the results. Results are real buttons with visible focus; the result count is announced via <code>role=status</code>.</p>"
     + "<h2>Live regions</h2><p>Toast uses <code>role=status</code> + <code>aria-live=polite</code>. Input errors use <code>role=status</code>. Alerts use <code>role=status</code> by default and <code>role=alert</code> only for urgent errors. Nothing auto-vanishes: the user dismisses status UI.</p>";
 }
 function renderPatterns() {
@@ -784,6 +786,7 @@ function renderPatterns() {
 
 function renderChangelog() {
   return '<p class="eyebrow">Docs</p><h1>Changelog</h1><p class="lede">What changed, when, and what it means for you. No rewritten history — entries land here when they ship.</p>'
+    + '<h2>v0.4.0 — 2026-10-14</h2><ul><li><strong>Registry (shadcn-compatible):</strong> every component ships as a registry item at <code>https://oeste.hiddeninwest.com/r/&lt;id&gt;.json</code> (index: <code>r/registry.json</code>). Install with <code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code>. Files are self-contained React + Tailwind, extracted from <code>src/index.js</code> by <code>scripts/build_registry.py</code> — regenerate, never hand-edit. Registry files need <code>src/tokens.css</code> (Topanga tokens) loaded once. The registry is served from oeste.hiddeninwest.com. Machine manifest: <code>components.json</code> at the repo root.</li><li><strong>Advanced search:</strong> header search is now faceted instant search (MuseUnsolved-register style): one box searches components + tokens + docs, results grouped with facet filters (All / Components / Tokens / Docs), instant as you type. Keys: Cmd+K / Ctrl+K focuses search, ArrowUp / Down moves through results, Enter opens, Escape closes.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.4 — 2026-10-14</h2><ul><li><strong>Header cluster tightened:</strong> the gap between the theme toggle and the Menu button is closed up — sun/moon glyph to “Menu” text goes from 41px to ~26px (box-to-box 10px to 4px) via a header-context rule on <code>#menuBtn</code>. The Ghost component itself is untouched.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.3 — 2026-10-14</h2><ul><li><strong>Header Menu uses the Ghost Button component:</strong> the Menu button is now a real <code>.btn.btn-ghost</code> — no one-off menu styles. The docs site also gains real <code>.btn-ghost</code> and <code>.btn-danger</code> rules matching the library variants (ghost: transparent + ink/paper 5% hover; danger: Danger bg + paper text, dark text #121110). The Button demo’s fake Ghost (secondary + inline <code>border:0</code>) and inline-styled Danger now use the real components.</li><li><strong>Theme toggle goes borderless:</strong> the icon-only theme control drops its border and fill (ghost-equivalent for an icon button). The 44px touch targets, hover background, and 2px focus outline are unchanged.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.2 — 2026-10-14</h2><ul><li><strong>Wordmark:</strong> the header wordmark is now all lowercase — <strong>oeste</strong> (was “Oeste”). Same type treatment: Manrope 700, 24px, -0.06em.</li><li><strong>Breaking:</strong> none.</li></ul>'
@@ -827,26 +830,132 @@ function render() {
   window.scrollTo(0, 0);
 }
 
+/* Search index for docs + tokens (components come from COMPONENTS).
+   MuseUnsolved-register-style: one box, instant results, facet filters. */
+const SEARCH_DOCS = [
+  { title: "Getting started", desc: "Tokens, copy a component, agents, registry.", route: "#/getting-started", keys: "install tokens registry shadcn add" },
+  { title: "Theming", desc: "Topanga is theme #1. Swap tokens, not components.", route: "#/theming", keys: "theme tokens dark mode" },
+  { title: "Tokens", desc: "Canonical color, type, spacing, radius, motion tokens.", route: "#/tokens", keys: "tokens css json color type spacing" },
+  { title: "Accessibility", desc: "Keyboard tables, ARIA, contrast, focus, search keys.", route: "#/accessibility", keys: "a11y keyboard aria contrast focus search" },
+  { title: "Patterns", desc: "Settings form, project edit flow, validated form.", route: "#/patterns", keys: "patterns form settings validation" },
+  { title: "Changelog", desc: "What changed, when, and what it means for you.", route: "#/changelog", keys: "changelog version history" },
+  { title: "Migration", desc: "Adopting Oeste, from scratch or from the Pally preview.", route: "#/migration", keys: "migration upgrade pally" },
+  { title: "Home", desc: "One system. Three perspectives.", route: "#/home", keys: "home overview" },
+];
+const SEARCH_TOKENS = [
+  ["--color-bg", "Paper #F6F4F1 light / ink #121110 dark", "color", "background bg paper"],
+  ["--color-surface", "Surface #FCFAF7 light / #1C1917 dark", "color", "surface card"],
+  ["--color-text", "Text #1C1917 light / #F5F3EF dark", "color", "text ink"],
+  ["--color-muted", "Muted #706963 light / #9E968F dark", "color", "muted secondary"],
+  ["--color-border", "Hairline rgba ink 10% / rgba paper 10%", "color", "border hairline"],
+  ["--color-accent", "Warm Ochre #C47D3B light / #DB914E dark", "color", "accent ochre primary"],
+  ["--color-on-accent", "On accent #1C1917", "color", "on accent"],
+  ["--color-accent-alt", "Sage #5E6B5A light / #8B9B87 dark", "color", "sage secondary"],
+  ["--color-rust", "Canyon Rust #B85B35 light / #D98A63 dark, decorative only", "color", "rust decorative"],
+  ["--color-danger", "Danger #A83E22 light / #E07A52 dark", "color", "danger error"],
+  ["--color-success", "Success #2F6B3A light / #6BA368 dark", "color", "success"],
+  ["--color-warning", "Warning #7A5A12 light / #D9A441 dark", "color", "warning"],
+  ["--color-focus", "Focus #1C1917 light / #F5F3EF dark", "color", "focus outline"],
+  ["--type-display", "Display 40px phones / 48px ≥480px / 72px ≥720px, Manrope 500", "type", "display hero type"],
+  ["--type-title", "Title clamp(1.75rem, 4vw, 2.5rem)", "type", "title heading"],
+  ["--type-heading", "Heading clamp(1.25rem, 2.5vw, 1.5rem)", "type", "heading"],
+  ["--type-body", "Body 1rem, Manrope, leading 1.55", "type", "body text"],
+  ["--type-label", "Label 0.875rem", "type", "label"],
+  ["--type-caption", "Caption 0.75rem", "type", "caption"],
+  ["--type-mono", "Mono 0.75rem, JetBrains Mono", "type", "mono code"],
+  ["--space-xs", "Spacing 4px", "spacing", "space"],
+  ["--space-sm", "Spacing 8px", "spacing", "space"],
+  ["--space-md", "Spacing 12px", "spacing", "space"],
+  ["--space-lg", "Spacing 16px", "spacing", "space"],
+  ["--space-xl", "Spacing 24px", "spacing", "space"],
+  ["--space-2xl", "Spacing 32px", "spacing", "space"],
+  ["--space-3xl", "Spacing 40px", "spacing", "space"],
+  ["--space-4xl", "Spacing 48px", "spacing", "space"],
+  ["--space-5xl", "Spacing 64px", "spacing", "space"],
+  ["--radius-sm", "Radius 4px", "radius", "radius corner"],
+  ["--radius-md", "Radius 8px", "radius", "radius corner"],
+  ["--radius-lg", "Radius 12px", "radius", "radius corner"],
+  ["--radius-pill", "Radius 999px pill", "radius", "radius pill"],
+  ["--motion-in", "Motion in 180ms", "motion", "motion animation"],
+  ["--motion-out", "Motion out 140ms", "motion", "motion animation"],
+  ["--motion-easing", "Easing cubic-bezier(.16,1,.3,1)", "motion", "motion easing"],
+].map(([name, detail, group, keys]) => ({ name, detail, group, route: "#/tokens", keys }));
+
 function initSearch() {
   const input = document.getElementById("siteSearch");
   const box = document.getElementById("searchResults");
-  input.addEventListener("input", () => {
+  let facet = "all";
+  const FACETS = [["all", "All"], ["components", "Components"], ["tokens", "Tokens"], ["docs", "Docs"]];
+  function hide() { box.hidden = true; box.innerHTML = ""; input.setAttribute("aria-expanded", "false"); }
+  function matches(hay, terms) { return terms.every((t) => hay.includes(t)); }
+  function collect(q) {
+    const terms = q.split(/\s+/).filter(Boolean);
+    const out = [];
+    if (facet === "all" || facet === "components") {
+      COMPONENTS.forEach((c) => {
+        const hay = (c.name + " " + c.tagline + " " + c.props.map((p) => p[0]).join(" ") + " " + c.invariants.join(" ")).toLowerCase();
+        if (matches(hay, terms)) out.push({ group: "Components", title: c.name, sub: c.tagline, route: "#/components/" + c.id });
+      });
+    }
+    if (facet === "all" || facet === "tokens") {
+      SEARCH_TOKENS.forEach((t) => {
+        const hay = (t.name + " " + t.detail + " " + t.keys).toLowerCase();
+        if (matches(hay, terms)) out.push({ group: "Tokens", title: t.name, sub: t.detail, route: t.route });
+      });
+    }
+    if (facet === "all" || facet === "docs") {
+      SEARCH_DOCS.forEach((d) => {
+        const hay = (d.title + " " + d.desc + " " + d.keys).toLowerCase();
+        if (matches(hay, terms)) out.push({ group: "Docs", title: d.title, sub: d.desc, route: d.route });
+      });
+    }
+    return out;
+  }
+  function render() {
     const q = input.value.trim().toLowerCase();
-    if (!q) { box.hidden = true; box.innerHTML = ""; return; }
-    const hits = COMPONENTS.filter((c) => c.name.toLowerCase().includes(q) || c.tagline.toLowerCase().includes(q));
+    if (!q) { hide(); return; }
+    const hits = collect(q);
+    const facetBtns = FACETS.map(([f, label]) => '<button type="button" class="search-facet" data-facet="' + f + '" aria-pressed="' + (f === facet) + '">' + label + "</button>").join("");
+    let html = '<div class="search-facets" role="group" aria-label="Filter results">' + facetBtns + "</div>";
+    html += '<p class="search-status" role="status">' + hits.length + " result" + (hits.length === 1 ? "" : "s") + ". ArrowDown to browse, Enter to open, Escape to close.</p>";
+    if (!hits.length) {
+      html += "<p style='margin:8px'>No matches. Try another term, or switch facet.</p>";
+    } else {
+      let lastGroup = "";
+      hits.forEach((h) => {
+        if (h.group !== lastGroup) { html += '<p class="search-group">' + h.group + "</p>"; lastGroup = h.group; }
+        html += '<button type="button" role="option" class="search-result" data-goto="' + h.route + '"><strong>' + esc(h.title) + '</strong><span class="muted"> — ' + esc(h.sub) + "</span></button>";
+      });
+    }
     box.hidden = false;
-    box.innerHTML = '<p style="margin:4px 8px" role="status">' + hits.length + " component" + (hits.length === 1 ? "" : "s") + " found. Press Enter to open the first.</p>"
-      + (hits.length ? hits.map((c) => '<button type="button" data-goto="#/components/' + c.id + '">' + esc(c.name) + " — " + esc(c.tagline) + "</button>").join("") : "<p style='margin:8px'>No matches.</p>");
-    box.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => { location.hash = b.dataset.goto; input.value = ""; box.hidden = true; }));
-  });
+    box.innerHTML = html;
+    input.setAttribute("aria-expanded", "true");
+    box.querySelectorAll("[data-facet]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); facet = b.dataset.facet; render(); input.focus(); }));
+    box.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => { facet = "all"; location.hash = b.dataset.goto; input.value = ""; hide(); }));
+    box.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("keydown", (e) => {
+      const btns = [...box.querySelectorAll("[data-goto]")];
+      const i = btns.indexOf(b);
+      if (e.key === "ArrowDown") { e.preventDefault(); btns[(i + 1) % btns.length].focus(); }
+      if (e.key === "ArrowUp") { e.preventDefault(); if (i === 0) input.focus(); else btns[i - 1].focus(); }
+      if (e.key === "Escape") { hide(); input.focus(); }
+    }));
+  }
+  input.addEventListener("input", render);
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const first = box.querySelector("[data-goto]");
-      if (first) { location.hash = first.dataset.goto; input.value = ""; box.hidden = true; }
+      if (first) { facet = "all"; location.hash = first.dataset.goto; input.value = ""; hide(); }
     }
-    if (e.key === "Escape") { box.hidden = true; }
+    if (e.key === "ArrowDown") {
+      const first = box.querySelector("[data-goto]");
+      if (first) { e.preventDefault(); first.focus(); }
+    }
+    if (e.key === "Escape") { hide(); }
   });
-  document.addEventListener("click", (e) => { if (!box.contains(e.target) && e.target !== input) box.hidden = true; });
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); input.focus(); input.select(); }
+  });
+  document.addEventListener("click", (e) => { if (!box.contains(e.target) && e.target !== input) hide(); });
 }
 
 function init() {

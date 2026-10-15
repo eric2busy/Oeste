@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "badge",
+ "type": "registry:ui",
+ "title": "Badge",
+ "description": "Small status. Text first, color second.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Badge.jsx",
+   "content": "// Oeste Badge \u2014 Topanga theme (v0.4.0).\n// Copy-paste ready. Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js\n// Docs: https://oeste.hiddeninwest.com/#/components/badge\n\nconst BADGE_TONES = {\n  neutral: \"border-[#1c1917]/20 text-[#1c1917] dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef]\",\n  accent: \"border-[#c47d3b]/40 bg-[#c47d3b]/10 text-[#1c1917] dark:border-[#db914e]/40 dark:bg-[#db914e]/10 dark:text-[#f5f3ef]\",\n  success: \"border-[#2f6b3a]/40 bg-[#2f6b3a]/10 text-[#2f6b3a] dark:border-[#6ba368]/40 dark:bg-[#6ba368]/10 dark:text-[#6ba368]\",\n  danger: \"border-[#a83e22]/40 bg-[#a83e22]/10 text-[#a83e22] dark:border-[#e07a52]/40 dark:bg-[#e07a52]/10 dark:text-[#e07a52]\",\n};\n\nexport function Badge({ children, tone = \"neutral\" }) {\n  return <span className={`inline-flex min-h-8 items-center rounded-full border px-3 py-1 text-xs font-semibold ${BADGE_TONES[tone]}`}>{children}</span>;\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/#/components/badge",
+ "categories": [
+  "oeste"
+ ]
+}

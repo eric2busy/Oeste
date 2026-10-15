@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "button",
+ "type": "registry:ui",
+ "title": "Button",
+ "description": "One action. A clear hierarchy.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Button.jsx",
+   "content": "// Oeste Button \u2014 Topanga theme (v0.4.0).\n// Copy-paste ready. Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js\n// Docs: https://oeste.hiddeninwest.com/#/components/button\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1917] dark:focus-visible:outline-[#f5f3ef]\";\n\nconst TOUCH = \"min-h-11\";\n\nconst BUTTON_VARIANTS = {\n  primary: \"bg-[#c47d3b] text-[#1c1917] hover:opacity-90 dark:bg-[#db914e] dark:text-[#1c1917]\",\n  secondary: \"border border-[#1c1917]/20 bg-transparent text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5\",\n  ghost: \"bg-transparent text-[#1c1917] hover:bg-[#1c1917]/5 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5\",\n  danger: \"bg-[#a83e22] text-[#f6f4f1] hover:opacity-90 dark:bg-[#e07a52] dark:text-[#121110]\",\n};\n\nconst BUTTON_SIZES = {\n  sm: \"px-3 py-2 text-sm\",\n  md: \"px-5 py-3 text-base\",\n  lg: \"px-6 py-3.5 text-lg\",\n};\n\nexport function Button({ children, variant = \"primary\", size = \"md\", disabled = false, loading = false, type = \"button\", onClick, icon = null }) {\n  return (\n    <button\n      type={type}\n      disabled={disabled || loading}\n      onClick={onClick}\n      aria-busy={loading || undefined}\n      className={`${TOUCH} inline-flex items-center justify-center gap-2 rounded-md font-semibold disabled:cursor-not-allowed disabled:opacity-50 ${BUTTON_VARIANTS[variant]} ${BUTTON_SIZES[size]} ${FOCUS}`}\n    >\n      {loading ? <span aria-hidden=\"true\">\u2026</span> : icon}\n      {children}\n    </button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/#/components/button",
+ "categories": [
+  "oeste"
+ ]
+}

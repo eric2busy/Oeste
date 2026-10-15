@@ -30,7 +30,7 @@ Topanga is the debut theme for Oeste — inspired by the hidden canyon in Los An
 Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 700, 40px phones / 48px ≥480px / 72px ≥720px, line-height 1.1, letter-spacing -0.06em (wordmark treatment). Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 500, tracking -0.025em, body leading 1.55.
 Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
 
-## Components (v0.4.4)
+## Components (v0.4.5)
 - **Button**: variants primary / secondary / ghost / danger, sizes sm / md / lg, disabled / loading / icon.
 - **Input**: persistent label, described errors. Plus **Textarea** and **Select** with the same pattern.
 - **Dialog**: native `<dialog>`, focus trap + restore, Escape closes.
@@ -74,7 +74,7 @@ npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json
 ```
 Install any component from the shadcn registry at `https://oeste.hiddeninwest.com/r/` (index: `r/registry.json`). The registry is served from oeste.hiddeninwest.com. `@oeste/ui` is not a published package. The React snippets in `src/index.js` and the Vibe lens import from `@/components/ui/…` — where shadcn puts the files — and work today in any React + Tailwind app (React 18+, JSX transform).
 
-## Registry (v0.4.4)
+## Registry (v0.4.5)
 Every component ships as a shadcn-compatible registry item: `r/<id>.json` with self-contained React + Tailwind code (extracted from `src/index.js`, including any shared constants or sibling components it renders). Registry files need `src/tokens.css` (Topanga tokens) loaded once. `components.json` at the repo root is the machine manifest — every component with registry URL, raw GitHub URL, docs link, and tags. Regenerate after any change to `src/index.js` (never hand-edit `r/*.json`):
 ```bash
 python3 scripts/build_registry.py
@@ -88,7 +88,7 @@ npm run verify
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.4.4, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.4.5, no runtime dependencies
 
 ## Verify
 ```bash
@@ -97,6 +97,7 @@ npm run verify
 Checks tokens agree across CSS / JSON / JS, danger, muted, and accent text pairs meet WCAG AA 4.5:1, and registry files (`r/*.json` + `components.json`) parse and agree with each other.
 
 ## Changelog
+- **v0.4.5 (2026-10-14)**: Footer gains a `© 2026 hiddeninwest` line linking to hiddeninwest.com. No breaking changes.
 - **v0.4.4 (2026-10-14)**: Registry fix — the 15 registry files using `React.*` now include `import React from "react";` (previously assumed React in scope, breaking standard Vite + React installs); `build_registry.py` inserts it automatically + fails the build on `React.*` without the import. Header search shows a visible ⌘K hint. No breaking changes.
 - **v0.4.3 (2026-10-14)**: Copy audit (leaked-rules copy removed from home, README, llms.txt, sidebar footer; oeste.design eyebrow fixed; Tokens type section corrected; Huntington/Mesa framed as future; error docs 'text + role'; Button icon prop documented; name-drops removed; Avatar demo neutral names). Show-more: Variants sections on component pages, live contrast pairs in both themes on Accessibility, theme-following swatches + Tokens-in-use on Tokens. Nested themes: data-theme scopes to any container. No breaking changes.
 - **v0.4.2 (2026-10-14)**: Setup page (full setup: tokens, Tailwind v4 + v3, shadcn or copy-paste, troubleshooting); Getting started rewritten as the minimal complete setup; every snippet + CLI is now real (Vibe imports from `@/components/ui/…`, CLI fields are real shadcn commands); display headings use the wordmark weight (Manrope 700); mobile/tablet menu pops up in the current viewport. No breaking changes.

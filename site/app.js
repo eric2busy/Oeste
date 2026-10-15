@@ -771,7 +771,7 @@ function renderGettingStarted() {
     + '<h2>4 · Use it</h2><p>Import from where shadcn put the file:</p><pre>import { Button } from "@/components/ui/button";\n\nexport function SaveAction() {\n  return &lt;Button variant="primary" onClick={() =&gt; {}}&gt;Save changes&lt;/Button&gt;;\n}</pre><p>The <code>@/components/ui/…</code> path is the shadcn default — adjust it if your setup puts files elsewhere.</p>'
     + '<h2>5 · For agents</h2><p>Paste the Agent prompt + JSON contract into your editor. Agents must not invent props beyond the contract. The full machine contract lives in <a href="llms.txt">llms.txt</a>.</p>'
     + '<div class="callout"><strong>Honest install story.</strong> <code>@oeste/ui</code> is not a published package — there is nothing to <code>npm install</code>. Install via shadcn above, or copy a snippet and own the file (see <a href="#/setup">Setup</a> for the copy-paste path).</div>'
-    + '<h2>Guides — go deeper</h2><p>Getting started covers the mechanics. The guides cover the judgment.</p><ul><li><a href="#/setup">Setup</a> — the full setup: Tailwind v3, copy-paste path, troubleshooting.</li><li><a href="#/first-screen">First screen</a> — one finished settings screen, end to end: Card + Input + Select + Switch + Button + Toast.</li><li><a href="#/build-a-theme">Build a theme</a> — derive a palette, wire dark mode, and turn a token file into a second theme.</li><li><a href="#/layout">Layout</a> — no layout primitives on purpose: native HTML + the spacing scale.</li><li><a href="#/customizing">Customizing</a> — tokens first, compose second, fork third. Never break the invariants.</li></ul><p>Also in these docs: <a href="#/theming">Theming</a>, <a href="#/tokens">Tokens</a>, <a href="#/accessibility">Accessibility</a>, <a href="#/patterns">Patterns</a>, <a href="#/changelog">Changelog</a>, <a href="#/migration">Migration</a>.</p>';
+    + '<h2>Guides — go deeper</h2><p>Getting started covers the mechanics. The guides cover the judgment.</p><ul><li><a href="#/setup">Setup</a> — the full setup: Tailwind v3, copy-paste path, troubleshooting.</li><li><a href="#/first-screen">First screen</a> — one finished settings screen, end to end: Card + Input + Select + Switch + Button + Toast.</li><li><a href="#/build-a-theme">Build a theme</a> — derive a palette, wire dark mode, and turn a token file into a second theme.</li><li><a href="#/layout">Layout</a> — no layout primitives on purpose: native HTML + the spacing scale.</li><li><a href="#/customizing">Customizing</a> — tokens first, compose second, fork third. Never break the invariants.</li></ul><p>Also in these docs: <a href="#/theming">Theming</a>, <a href="#/tokens">Tokens</a>, <a href="#/accessibility">Accessibility</a>, <a href="#/patterns">Patterns</a>, <a href="#/changelog">Changelog</a>, <a href="#/migration">Migration</a>, <a href="#/faq">FAQ</a>.</p>';
 }
 
 function renderTheming() {
@@ -842,8 +842,22 @@ function renderPatterns() {
     + '<h3>Vibe</h3><p>Copy Label + Input + Select + Checkbox + RadioGroup + Button from their Vibe lenses, compose in one form, wire submit to the error summary + Toast. The React snippets work today.</p>';
 }
 
+function renderFaq() {
+  return '<p class="eyebrow">Docs</p><h1>FAQ</h1><p class="lede">Short answers to the questions people actually ask. If yours isn’t here, <a href="https://github.com/eric2busy/Oeste/issues">open an issue on GitHub</a>.</p>'
+    + '<h2>Is Oeste an npm package?</h2><p>No. There is no <code>@oeste/ui</code> package to install. Install a component with shadcn (<code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code>) or copy the code from the Vibe lens and own the file. See <a href="#/getting-started">Getting started</a>.</p>'
+    + '<h2>Does it work with Tailwind v3 and v4?</h2><p>Yes, both. The one wiring step is pointing Tailwind’s <code>dark:</code> variant at <code>data-theme</code> — see <a href="#/setup">Setup</a>.</p>'
+    + '<h2>Can I use Oeste without React?</h2><p>The components are React. The tokens (<code>src/tokens.css</code>) are plain CSS and work anywhere.</p>'
+    + '<h2>Which React setups does it work with?</h2><p>Any React project — Vite, Next.js, Remix, and friends. Registry files are self-contained React + Tailwind.</p>'
+    + '<h2>How does dark mode work?</h2><p>Two things, both required: the <code>data-theme</code> toggle and the Tailwind dark variant. Either one alone does nothing visible. See <a href="#/setup">Setup</a> and <a href="#/build-a-theme">Build a theme</a>.</p>'
+    + '<h2>Do I have to use all 29 components?</h2><p>No. Install one at a time, only what you need.</p>'
+    + '<h2>How do I customize the theme?</h2><p>Tokens first, compose second, fork third — and never break the accessibility invariants. See <a href="#/build-a-theme">Build a theme</a>.</p>'
+    + '<h2>Can I use Oeste in a commercial project?</h2><p>Yes. Oeste is <a href="https://github.com/eric2busy/Oeste/blob/main/LICENSE">MIT licensed</a> — use it in commercial work, including closed-source work. Just keep the MIT copyright notice in copies of the code.</p>'
+    + '<h2>How do I report a bug or request a component?</h2><p><a href="https://github.com/eric2busy/Oeste/issues">Open an issue on GitHub</a> — bugs, missing components, and docs fixes all live there.</p>';
+}
+
 function renderChangelog() {
   return '<p class="eyebrow">Docs</p><h1>Changelog</h1><p class="lede">What changed, when, and what it means for you. No rewritten history — entries land here when they ship.</p>'
+    + '<h2>v0.4.7 — 2026-10-15</h2><ul><li><strong>FAQ (new):</strong> a short FAQ page — npm package? Tailwind v3/v4? without React? commercial use? — plus a report-an-issue link to GitHub Issues. In the sidebar, the search index, and the Getting started cross-links.</li><li><strong>License:</strong> Oeste is now MIT licensed (<code>LICENSE</code> at the repo root).</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.6 — 2026-10-15</h2><ul><li><strong>Footer:</strong> tagline changes from “Built for three ways of making.” to “Made for the way you build.”, and the <code>© 2026 hiddeninwest</code> line moves below the nav links (standard footer order).</li><li><strong>Variants layout:</strong> the row label now sits above the demos instead of beside them, and each demo row stays on one scrollable line (buttons keep their true sizes).</li><li><strong>Avatar demo fix:</strong> the Show photo toggle now hides the initials fallback when the photo shows — previously both rendered at once, clipped into a sliced “R” + seam.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.5 — 2026-10-14</h2><ul><li><strong>Footer:</strong> the site footer gains a <code>© 2026 hiddeninwest</code> line linking to <a href="https://hiddeninwest.com">hiddeninwest.com</a>.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.4 — 2026-10-14</h2><ul><li><strong>Registry fix:</strong> the 15 registry files that use <code>React.useId</code> / <code>useState</code> / <code>useRef</code> / <code>useEffect</code> / <code>Children</code> / <code>cloneElement</code> now include <code>import React from "react";</code> — previously they assumed React in scope, which breaks in a standard Vite + React project (automatic JSX runtime). <code>scripts/build_registry.py</code> inserts the import automatically and fails the build if <code>React.*</code> is ever used without it. Files that don’t use <code>React.*</code> are unchanged.</li><li><strong>Search hint:</strong> the header search box now shows a visible <code>⌘K</code> hint (was hover-only via tooltip).</li><li><strong>Breaking:</strong> none.</li></ul>'
@@ -934,6 +948,7 @@ function render() {
   else if (route === "setup") view.innerHTML = renderSetup();
   else if (route === "changelog") view.innerHTML = renderChangelog();
   else if (route === "migration") view.innerHTML = renderMigration();
+  else if (route === "faq") view.innerHTML = renderFaq();
   else view.innerHTML = renderHome();
   const active = document.querySelector('.nav-link[href="#/' + route + '"]');
   if (active) active.classList.add("active");
@@ -959,6 +974,7 @@ const SEARCH_DOCS = [
   { title: "Setup", desc: "Full setup: tokens, Tailwind v3/v4, shadcn or copy-paste, troubleshooting.", route: "#/setup", keys: "setup install tailwind dark variant troubleshooting" },
   { title: "Changelog", desc: "What changed, when, and what it means for you.", route: "#/changelog", keys: "changelog version history" },
   { title: "Migration", desc: "Adopting Oeste, from scratch or from the earlier preview.", route: "#/migration", keys: "migration upgrade preview" },
+  { title: "FAQ", desc: "Is it an npm package? Tailwind v3/v4? React setups? Commercial use?", route: "#/faq", keys: "faq npm package tailwind react commercial license issue bug" },
   { title: "Home", desc: "One system. Three perspectives.", route: "#/home", keys: "home overview" },
 ];
 const SEARCH_TOKENS = [

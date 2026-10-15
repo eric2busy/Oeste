@@ -30,5 +30,5 @@
     "verify": "node scripts/verify.mjs"
   },
   "type": "module",
-  "version": "0.4.6"
+  "version": "0.4.7"
 }

@@ -450,7 +450,7 @@ function demoHTML(c) {
   if (c.id === "progress") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><p style="margin:0 0 8px"><strong>Upload</strong> — <span id="demoProgressLabel">40%</span></p><div class="progress-track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress"><div class="progress-fill" id="demoProgressFill" style="width:40%"></div></div><button type="button" class="btn btn-secondary" style="margin-top:16px" data-progress-advance>Advance 10%</button></div>';
   if (c.id === "switch") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" role="switch" aria-checked="false" class="btn btn-secondary" data-demo-switch aria-label="Dark mode switch demo">Dark mode: off</button></div>';
   if (c.id === "avatar") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Toggle the photo to see the fallback.</p><div class="demo-row">'
-    + '<span class="avatar" title="Alex Rivera"><span data-avatar-fallback>AR</span><img data-avatar-img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2744%27 height=%2744%27%3E%3Crect width=%2744%27 height=%2744%27 fill=%27%23C47D3B%27/%3E%3C/svg%3E" alt="Alex Rivera" style="display:none"></span>'
+    + '<span class="avatar" title="Alex Rivera"><span data-avatar-fallback aria-hidden="true">AR</span><img data-avatar-img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2744%27 height=%2744%27%3E%3Crect width=%2744%27 height=%2744%27 fill=%27%23C47D3B%27/%3E%3C/svg%3E" alt="Alex Rivera" style="display:none"></span>'
     + '<span class="avatar avatar-lg" title="Sam Chen"><span>SC</span></span></div>'
     + '<button type="button" class="btn btn-secondary" style="margin-top:16px" data-avatar-toggle>Show photo</button></div>';
   if (c.id === "separator") return '<div class="demo"><p class="demo-caption">Hairlines, horizontal and vertical.</p><p style="margin:0">First section.</p><hr class="separator-h" aria-hidden="true"><p style="margin:0">Second section.</p>'
@@ -471,7 +471,7 @@ function demoHTML(c) {
 }
 
 function variantsHTML(c) {
-  const row = (label, inner) => '<div class="variant-row"><span class="variant-label">' + label + "</span>" + inner + "</div>";
+  const row = (label, inner) => '<div class="variant-row"><span class="variant-label">' + label + '</span><div class="variant-demos">' + inner + "</div></div>";
   if (c.id === "button") {
     const btn = (v, s) => '<button type="button" class="btn btn-' + v + " btn-" + (s === "md" ? "" : s) + '">' + v[0].toUpperCase() + v.slice(1) + " · " + s + "</button>";
     return "<h2>Variants</h2><p>Every variant × size in the contract, plus states. All sizes keep the 44px min touch.</p><div class=\"variant-matrix\">"
@@ -587,8 +587,10 @@ function bindDemos() {
   const avatarToggle = document.querySelector("[data-avatar-toggle]");
   if (avatarToggle) avatarToggle.addEventListener("click", () => {
     const img = document.querySelector("[data-avatar-img]");
+    const fallback = document.querySelector("[data-avatar-fallback]");
     const showing = img.style.display !== "none";
     img.style.display = showing ? "none" : "block";
+    fallback.style.display = showing ? "" : "none";
     avatarToggle.textContent = showing ? "Show photo" : "Show fallback";
   });
   const slider = document.getElementById("demoSlider");
@@ -842,6 +844,7 @@ function renderPatterns() {
 
 function renderChangelog() {
   return '<p class="eyebrow">Docs</p><h1>Changelog</h1><p class="lede">What changed, when, and what it means for you. No rewritten history — entries land here when they ship.</p>'
+    + '<h2>v0.4.6 — 2026-10-15</h2><ul><li><strong>Footer:</strong> tagline changes from “Built for three ways of making.” to “Made for the way you build.”, and the <code>© 2026 hiddeninwest</code> line moves below the nav links (standard footer order).</li><li><strong>Variants layout:</strong> the row label now sits above the demos instead of beside them, and each demo row stays on one scrollable line (buttons keep their true sizes).</li><li><strong>Avatar demo fix:</strong> the Show photo toggle now hides the initials fallback when the photo shows — previously both rendered at once, clipped into a sliced “R” + seam.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.5 — 2026-10-14</h2><ul><li><strong>Footer:</strong> the site footer gains a <code>© 2026 hiddeninwest</code> line linking to <a href="https://hiddeninwest.com">hiddeninwest.com</a>.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.4 — 2026-10-14</h2><ul><li><strong>Registry fix:</strong> the 15 registry files that use <code>React.useId</code> / <code>useState</code> / <code>useRef</code> / <code>useEffect</code> / <code>Children</code> / <code>cloneElement</code> now include <code>import React from "react";</code> — previously they assumed React in scope, which breaks in a standard Vite + React project (automatic JSX runtime). <code>scripts/build_registry.py</code> inserts the import automatically and fails the build if <code>React.*</code> is ever used without it. Files that don’t use <code>React.*</code> are unchanged.</li><li><strong>Search hint:</strong> the header search box now shows a visible <code>⌘K</code> hint (was hover-only via tooltip).</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.3 — 2026-10-14</h2><ul><li><strong>Copy audit:</strong> removed leaked-rules copy from the home page, README, <code>llms.txt</code>, and the sidebar footer; home eyebrow no longer claims <code>oeste.design</code>; Tokens type section corrected (stepped display scale, no “telemetry”); Huntington / Mesa framed as future themes; error docs corrected to “text + role”; Button <code>icon</code> prop documented; unexplained name-drops removed; Avatar demo uses neutral example names.</li><li><strong>Show-more:</strong> component pages gain a Variants section (Button 4 variants × 3 sizes + states; Input / Checkbox / Switch / Toggle / Select states; Progress + Slider values). Accessibility contrast pairs now render live, in both themes, with real tokens. Tokens swatches follow the current theme, and the Tokens page gains a Tokens-in-use section (buttons, text, alerts, badges, surface, progress, focus).</li><li><strong>Nested themes:</strong> <code>data-theme</code> now scopes to any container — a dark card on a light page gets the dark tokens. <code>src/tokens.css</code> + <code>scripts/verify.mjs</code> updated.</li><li><strong>Breaking:</strong> none.</li></ul>'

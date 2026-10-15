@@ -266,5 +266,6 @@ input[type="range"].slider { width: 100%; min-height: var(--touch-min); accent-c
 
 /* Variant matrices (component pages, Human lens). */
 .variant-matrix { margin-top: 16px; display: grid; gap: 20px; }
-.variant-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-.variant-label { font-weight: 600; min-width: 88px; }
+.variant-row { display: grid; gap: 8px; }
+.variant-label { font-weight: 600; }
+.variant-demos { display: flex; flex-wrap: nowrap; align-items: center; gap: 12px; overflow-x: auto; padding-bottom: 2px; }

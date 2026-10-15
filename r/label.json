@@ -8,7 +8,7 @@
  "files": [
   {
    "path": "components/Label.jsx",
-   "content": "// Oeste Label \u2014 Topanga theme (v0.4.5).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js\n// Docs: https://oeste.hiddeninwest.com/#/components/label\n\nexport function Label({ htmlFor, children, required = false }) {\n  return (\n    <label htmlFor={htmlFor} className=\"mb-2 block text-sm font-medium text-[#1c1917] dark:text-[#f5f3ef]\">\n      {children}\n      {required && <span aria-hidden=\"true\"> *</span>}\n      {required && <span> <span className=\"text-[#706963] dark:text-[#9e968f]\">(required)</span></span>}\n    </label>\n  );\n}\n",
+   "content": "// Oeste Label \u2014 Topanga theme (v0.4.6).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/src/index.js\n// Docs: https://oeste.hiddeninwest.com/#/components/label\n\nexport function Label({ htmlFor, children, required = false }) {\n  return (\n    <label htmlFor={htmlFor} className=\"mb-2 block text-sm font-medium text-[#1c1917] dark:text-[#f5f3ef]\">\n      {children}\n      {required && <span aria-hidden=\"true\"> *</span>}\n      {required && <span> <span className=\"text-[#706963] dark:text-[#9e968f]\">(required)</span></span>}\n    </label>\n  );\n}\n",
    "type": "registry:component"
   }
  ],

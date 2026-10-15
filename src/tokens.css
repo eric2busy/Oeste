@@ -35,7 +35,7 @@
   --font-display: var(--font-body);
   --font-mono: 'JetBrains Mono', Consolas, monospace;
   /* Display type — Millie's exact treatment, verified from her Pally build:
-     Manrope 500, tracking -0.04em, leading 1.1. Headings (h2/h3) also 500,
+     Manrope 700, tracking -0.06em (the wordmark treatment), leading 1.1. Headings (h2/h3) stay 500,
      tracking -0.025em. Size steps: 40px on phones (so the hero heading stays
      exactly 2 lines), 48px at >=480px, 72px at >=720px. Body leading 1.55. */
   --type-display: 2.5rem;
@@ -46,9 +46,9 @@
   --type-caption: 0.75rem;
   --type-mono: 0.75rem;
   --leading-display: 1.1;
-  --font-weight-display: 500;
+  --font-weight-display: 700;
   --font-weight-heading: 500;
-  --tracking-display: -0.04em;
+  --tracking-display: -0.06em;
   --tracking-heading: -0.025em;
   --leading-title: 1.1;
   --leading-heading: 1.25;

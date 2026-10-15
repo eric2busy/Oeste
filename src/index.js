@@ -1,4 +1,4 @@
-// Oeste Design System — Topanga theme (v0.4.1)
+// Oeste Design System — Topanga theme (v0.4.2)
 // React + Tailwind primitives, copy-paste ready.
 // Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.
 // Tokens in this file MUST match src/tokens.json and src/tokens.css exactly.
@@ -6,7 +6,7 @@
 
 export const DESIGN_TOKENS = Object.freeze({
   name: "oeste-topanga",
-  version: "0.4.1",
+  version: "0.4.2",
   color: {
     light: {
       bg: "#F6F4F1", surface: "#FCFAF7", text: "#1C1917", muted: "#706963",
@@ -25,10 +25,10 @@ export const DESIGN_TOKENS = Object.freeze({
     body: '"Manrope", Arial, Helvetica, sans-serif',
     display: '"Manrope", Arial, Helvetica, sans-serif',
     mono: '"JetBrains Mono", Consolas, monospace',
-    weightDisplay: 500,
+    weightDisplay: 700,
     weightHeading: 500,
   },
-  tracking: { display: "-0.04em", heading: "-0.025em" },
+  tracking: { display: "-0.06em", heading: "-0.025em" },
   leading: { display: 1.1, title: 1.1, heading: 1.25, body: 1.55, label: 1.5 },
   type: {
     display: "2.5rem (<480px) · 3rem (≥480px) · 4.5rem (≥720px)", title: "clamp(1.75rem, 4vw, 2.5rem)",
@@ -650,8 +650,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Label is always visible text, never icon-only without aria-label.", "Disabled buttons never rely on color alone.", "Focus is 2px ink/paper outline, never removed.", "Danger variant only for destructive actions with a confirm step."],
     contract: { format: "oeste.component.v1", component: "Button", props: { variant: ["primary", "secondary", "ghost", "danger"], size: ["sm", "md", "lg"], disabled: "boolean", loading: "boolean" }, a11y: { focus: "2px ink/paper outline", target: "min 44px", busy: "aria-busy when loading" } },
     prompt: "Build an Oeste Button: variant primary/secondary/ghost/danger, size sm/md/lg, 44px min touch, 2px ink/paper focus outline, aria-busy when loading. Never icon-only without an accessible label. Use Topanga tokens: accent #C47D3B, danger #A83E22 (light) / #E07A52 (dark).",
-    cli: "npx @oeste/ui add button",
-    code: `import { Button } from "@oeste/ui";\n\nexport function SaveAction() {\n  return <Button variant="primary" onClick={() => {}}>Save changes</Button>;\n}\n// Dark mode: built in via dark: classes. Focus: 2px ink/paper outline.`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json",
+    code: `import { Button } from "@/components/ui/button";\n\nexport function SaveAction() {\n  return <Button variant="primary" onClick={() => {}}>Save changes</Button>;\n}\n// Dark mode: built in via dark: classes. Focus: 2px ink/paper outline.`,
   },
   {
     id: "input", name: "Input", tagline: "Persistent label. Described errors. No placeholder-only fields.",
@@ -670,8 +670,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Label is always visible, never placeholder-only.", "Errors use text + icon/role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Input", props: { label: "string", error: "string?", hint: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Input with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Never use placeholder as the label. Never use Canyon Rust for error text.",
-    cli: "npx @oeste/ui add input",
-    code: `import { Input } from "@oeste/ui";\n\nexport function NameField({ value, onChange, error }) {\n  return <Input label="Project name" value={value} onChange={onChange} error={error} hint="At least 3 characters." />;\n}\n// Related: Textarea and Select share the same label + error pattern.`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/input.json",
+    code: `import { Input } from "@/components/ui/input";\n\nexport function NameField({ value, onChange, error }) {\n  return <Input label="Project name" value={value} onChange={onChange} error={error} hint="At least 3 characters." />;\n}\n// Related: Textarea and Select share the same label + error pattern.`,
   },
   {
     id: "dialog", name: "Dialog", tagline: "Accessible modal. Focus in, Escape out, focus back.",
@@ -691,8 +691,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Focus moves into the dialog on open and returns to trigger on close.", "Escape always closes.", "Backdrop click closes; content is inert behind the dialog.", "Title + description are always present."],
     contract: { format: "oeste.component.v1", component: "Dialog", props: { open: "boolean", title: "string", description: "string" }, a11y: { modal: "aria-modal=true", labelledby: "title", describedby: "description", focus: "trap + restore on close" } },
     prompt: "Build an Oeste Dialog using native <dialog> + showModal. Title + description required. Escape closes, focus traps inside, focus returns to trigger on close. Backdrop is inert. Use Topanga tokens, hairline border, dialog shadow.",
-    cli: "npx @oeste/ui add dialog",
-    code: `import { useState } from "react";\nimport { Button, Dialog, Input } from "@oeste/ui";\n\nexport function EditProject() {\n  const [open, setOpen] = useState(false);\n  return (<>\n    <Button onClick={() => setOpen(true)}>Edit project</Button>\n    <Dialog open={open} onOpenChange={setOpen} title="Edit project" description="Rename this project.">\n      <Input label="Project name" value="" onChange={() => {}} />\n    </Dialog>\n  </>);\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/dialog.json",
+    code: `import { useState } from "react";\nimport { Button } from "@/components/ui/button";\nimport { Dialog } from "@/components/ui/dialog";\nimport { Input } from "@/components/ui/input";\n\nexport function EditProject() {\n  const [open, setOpen] = useState(false);\n  return (<>\n    <Button onClick={() => setOpen(true)}>Edit project</Button>\n    <Dialog open={open} onOpenChange={setOpen} title="Edit project" description="Rename this project.">\n      <Input label="Project name" value="" onChange={() => {}} />\n    </Dialog>\n  </>);\n}`,
   },
   {
     id: "card", name: "Card", tagline: "Structural container with proper heading hierarchy.",
@@ -706,8 +706,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Heading level matches document outline.", "Cards never use color alone to convey status.", "Interactive cards use a real <button> or <a>, never a clickable div."],
     contract: { format: "oeste.component.v1", component: "Card", props: { title: "string", headingLevel: [2, 3, 4] }, a11y: { labelledby: "heading", section: "native <section>" } },
     prompt: "Build an Oeste Card: native <section> + aria-labelledby, heading level matching the page outline, hairline border, card shadow. Never use a clickable div for an interactive card.",
-    cli: "npx @oeste/ui add card",
-    code: `import { Card } from "@oeste/ui";\n\nexport function NoteCard() {\n  return <Card title="Field notes" headingLevel={3}><p>Room to think.</p></Card>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/card.json",
+    code: `import { Card } from "@/components/ui/card";\n\nexport function NoteCard() {\n  return <Card title="Field notes" headingLevel={3}><p>Room to think.</p></Card>;\n}`,
   },
   {
     id: "tabs", name: "Tabs", tagline: "Roving tabindex. Arrow keys move, Home/End jump.",
@@ -724,8 +724,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Only the active tab is in the tab order (roving tabindex).", "Panels are labelled by their tab.", "Inactive panels are hidden, not just visually."],
     contract: { format: "oeste.component.v1", component: "Tabs", props: { items: "array", defaultIndex: "number" }, a11y: { tabs: "roving tabindex", panels: "aria-labelledby tab" } },
     prompt: "Build Oeste Tabs with roving tabindex: only the active tab has tabIndex 0. ArrowRight/Left move, Home/End jump, panels labelled by their tab, inactive panels hidden.",
-    cli: "npx @oeste/ui add tabs",
-    code: `import { Tabs } from "@oeste/ui";\n\nexport function Views() {\n  return <Tabs items={[{ label: "Overview", content: "Overview panel." }, { label: "Details", content: "Details panel." }]} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/tabs.json",
+    code: `import { Tabs } from "@/components/ui/tabs";\n\nexport function Views() {\n  return <Tabs items={[{ label: "Overview", content: "Overview panel." }, { label: "Details", content: "Details panel." }]} />;\n}`,
   },
   {
     id: "toast", name: "Toast", tagline: "Polite status. Manual dismissal. Nothing auto-vanishes.",
@@ -742,8 +742,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Toast is role=status + aria-live=polite.", "No auto-expiry: the user dismisses it.", "Message is text, never color alone."],
     contract: { format: "oeste.component.v1", component: "Toast", props: { message: "string", open: "boolean" }, a11y: { live: "polite", role: "status", dismiss: "manual, focusable" } },
     prompt: "Build an Oeste Toast: single clean card (no split rounded top/bottom), role=status + aria-live=polite, manual Dismiss button, no auto-expiry. Keep it in one card.",
-    cli: "npx @oeste/ui add toast",
-    code: `import { useState } from "react";\nimport { Button, Toast } from "@oeste/ui";\n\nexport function Preview() {\n  const [open, setOpen] = useState(false);\n  return (<><Button onClick={() => setOpen(true)}>Show toast</Button><Toast message="Preview complete. Nothing was sent." open={open} onDismiss={() => setOpen(false)} /></>);\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/toast.json",
+    code: `import { useState } from "react";\nimport { Button } from "@/components/ui/button";\nimport { Toast } from "@/components/ui/toast";\n\nexport function Preview() {\n  const [open, setOpen] = useState(false);\n  return (<><Button onClick={() => setOpen(true)}>Show toast</Button><Toast message="Preview complete. Nothing was sent." open={open} onDismiss={() => setOpen(false)} /></>);\n}`,
   },
   {
     id: "badge", name: "Badge", tagline: "Small status. Text first, color second.",
@@ -756,8 +756,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Meaning is in the text, never color alone.", "Danger tone uses Danger token, not Canyon Rust.", "Badge text meets 4.5:1 on its background."],
     contract: { format: "oeste.component.v1", component: "Badge", props: { tone: ["neutral", "accent", "success", "danger"] }, a11y: { meaning: "text, never color alone" } },
     prompt: "Build an Oeste Badge: pill, border + tint, tone neutral/accent/success/danger. Meaning in text, never color alone. Danger tone uses Danger #A83E22 / #E07A52.",
-    cli: "npx @oeste/ui add badge",
-    code: `import { Badge } from "@oeste/ui";\n\nexport function Status() {\n  return <Badge tone="success">Ready</Badge>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/badge.json",
+    code: `import { Badge } from "@/components/ui/badge";\n\nexport function Status() {\n  return <Badge tone="success">Ready</Badge>;\n}`,
   },
   {
     id: "checkbox", name: "Checkbox", tagline: "Real input. Visible label. Described help.",
@@ -775,8 +775,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <input type=checkbox>, never a div.", "Label is clickable and linked via htmlFor.", "Description is linked via aria-describedby."],
     contract: { format: "oeste.component.v1", component: "Checkbox", props: { label: "string", checked: "boolean", disabled: "boolean" }, a11y: { native: "input[type=checkbox]", label: "htmlFor", desc: "aria-describedby" } },
     prompt: "Build an Oeste Checkbox with a native input, clickable label via htmlFor, optional described help text, accent color for the checked state. Never build a checkbox from a div.",
-    cli: "npx @oeste/ui add checkbox",
-    code: `import { useState } from "react";\nimport { Checkbox } from "@oeste/ui";\n\nexport function Notify() {\n  const [checked, setChecked] = useState(false);\n  return <Checkbox label="Email me updates" checked={checked} onChange={setChecked} description="One email per change." />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/checkbox.json",
+    code: `import { useState } from "react";\nimport { Checkbox } from "@/components/ui/checkbox";\n\nexport function Notify() {\n  const [checked, setChecked] = useState(false);\n  return <Checkbox label="Email me updates" checked={checked} onChange={setChecked} description="One email per change." />;\n}`,
   },
   {
     id: "switch", name: "Switch", tagline: "On / off with a real role=switch.",
@@ -794,8 +794,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Uses role=switch + aria-checked.", "State is visible by position + label, never color alone.", "Label is clickable."],
     contract: { format: "oeste.component.v1", component: "Switch", props: { label: "string", checked: "boolean", disabled: "boolean" }, a11y: { role: "switch", checked: "aria-checked", state: "position + label, never color alone" } },
     prompt: "Build an Oeste Switch with role=switch + aria-checked, thumb position showing state, clickable label. State visible by position + label, never color alone.",
-    cli: "npx @oeste/ui add switch",
-    code: `import { useState } from "react";\nimport { Switch } from "@oeste/ui";\n\nexport function DarkMode() {\n  const [checked, setChecked] = useState(false);\n  return <Switch label="Dark mode" checked={checked} onChange={setChecked} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/switch.json",
+    code: `import { useState } from "react";\nimport { Switch } from "@/components/ui/switch";\n\nexport function DarkMode() {\n  const [checked, setChecked] = useState(false);\n  return <Switch label="Dark mode" checked={checked} onChange={setChecked} />;\n}`,
   },
   {
     id: "textarea", name: "Textarea", tagline: "Multi-line input. Same label + error pattern as Input.",
@@ -814,8 +814,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Label is always visible, never placeholder-only.", "Errors use text + icon/role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Textarea", props: { label: "string", rows: "number", error: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Textarea with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Same label + error pattern as Input. Never use placeholder as the label.",
-    cli: "npx @oeste/ui add textarea",
-    code: `import { Textarea } from "@oeste/ui";\n\nexport function Notes({ value, onChange }) {\n  return <Textarea label="Field notes" value={value} onChange={onChange} rows={4} hint="Anything worth keeping." />;\n}\n// Dark mode: built in via dark: classes.`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/textarea.json",
+    code: `import { Textarea } from "@/components/ui/textarea";\n\nexport function Notes({ value, onChange }) {\n  return <Textarea label="Field notes" value={value} onChange={onChange} rows={4} hint="Anything worth keeping." />;\n}\n// Dark mode: built in via dark: classes.`,
   },
   {
     id: "select", name: "Select", tagline: "One choice from a list. Native select, real label.",
@@ -834,8 +834,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <select>, never a custom listbox.", "Label is always visible and linked via htmlFor.", "Options carry real values, never index-only labels."],
     contract: { format: "oeste.component.v1", component: "Select", props: { label: "string", options: "array", disabled: "boolean" }, a11y: { native: "select", label: "htmlFor" } },
     prompt: "Build an Oeste Select with a native <select>, persistent visible label via htmlFor, options as { value, label } pairs. Never build a custom listbox when a native select will do.",
-    cli: "npx @oeste/ui add select",
-    code: `import { Select } from "@oeste/ui";\n\nexport function ThemePicker({ value, onChange }) {\n  return <Select label="Theme" value={value} onChange={onChange} options={[{ value: "topanga", label: "Topanga" }, { value: "paper", label: "Paper" }]} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/select.json",
+    code: `import { Select } from "@/components/ui/select";\n\nexport function ThemePicker({ value, onChange }) {\n  return <Select label="Theme" value={value} onChange={onChange} options={[{ value: "topanga", label: "Topanga" }, { value: "paper", label: "Paper" }]} />;\n}`,
   },
   {
     id: "alert", name: "Alert", tagline: "Status that stays put. Text first, tone second.",
@@ -853,8 +853,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Meaning is in the text, never color alone.", "role=alert only for urgent errors; status for everything else.", "Danger tone uses Danger token, not Canyon Rust.", "Dismissible alerts remove themselves from the DOM."],
     contract: { format: "oeste.component.v1", component: "Alert", props: { tone: ["info", "success", "warning", "danger"], role: ["alert", "status"] }, a11y: { role: "alert or status", dismiss: "focusable Dismiss button" } },
     prompt: "Build an Oeste Alert: tone info/success/warning/danger, role=status by default (role=alert only for urgent errors), message in text, optional Dismiss button. Danger tone uses Danger #A83E22 / #E07A52, never Canyon Rust.",
-    cli: "npx @oeste/ui add alert",
-    code: `import { Alert } from "@oeste/ui";\n\nexport function SaveError() {\n  return <Alert tone="danger" role="alert">Could not save. Your changes are still here.</Alert>;\n}\n// Dark mode: built in via dark: classes.`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/alert.json",
+    code: `import { Alert } from "@/components/ui/alert";\n\nexport function SaveError() {\n  return <Alert tone="danger" role="alert">Could not save. Your changes are still here.</Alert>;\n}\n// Dark mode: built in via dark: classes.`,
   },
   {
     id: "accordion", name: "Accordion", tagline: "Stacked sections. One open at a time or many — your call.",
@@ -870,8 +870,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel has a matching id and is hidden when closed.", "State is visible by indicator + expanded panel, never color alone."],
     contract: { format: "oeste.component.v1", component: "Accordion", props: { items: "array", allowMultiple: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
     prompt: "Build an Oeste Accordion: each trigger is a real <button> with aria-expanded + aria-controls, panel hidden when closed, state visible by indicator + panel. Tab moves between triggers, Enter/Space toggles.",
-    cli: "npx @oeste/ui add accordion",
-    code: `import { Accordion } from "@oeste/ui";\n\nexport function Faq() {\n  return <Accordion items={[{ title: "What is Oeste?", content: "A design system for humans, agents, and vibe coders." }]} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/accordion.json",
+    code: `import { Accordion } from "@/components/ui/accordion";\n\nexport function Faq() {\n  return <Accordion items={[{ title: "What is Oeste?", content: "A design system for humans, agents, and vibe coders." }]} />;\n}`,
   },
   {
     id: "radiogroup", name: "RadioGroup", tagline: "One choice from a few. Native radios, real grouping.",
@@ -890,8 +890,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <input type=radio> inside <fieldset> + <legend>.", "All radios share one name.", "Labels are clickable and linked via htmlFor."],
     contract: { format: "oeste.component.v1", component: "RadioGroup", props: { legend: "string", name: "string", options: "array", value: "string" }, a11y: { native: "input[type=radio] in fieldset + legend", group: "shared name" } },
     prompt: "Build an Oeste RadioGroup with native radios inside <fieldset> + <legend>, one shared name, clickable labels. Arrow keys move and select. Never build radios from divs.",
-    cli: "npx @oeste/ui add radiogroup",
-    code: `import { RadioGroup } from "@oeste/ui";\n\nexport function SizePicker({ value, onChange }) {\n  return <RadioGroup legend="Size" name="size" value={value} onChange={onChange} options={[{ value: "sm", label: "Small" }, { value: "md", label: "Medium" }, { value: "lg", label: "Large" }]} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/radiogroup.json",
+    code: `import { RadioGroup } from "@/components/ui/radiogroup";\n\nexport function SizePicker({ value, onChange }) {\n  return <RadioGroup legend="Size" name="size" value={value} onChange={onChange} options={[{ value: "sm", label: "Small" }, { value: "md", label: "Medium" }, { value: "lg", label: "Large" }]} />;\n}`,
   },
   {
     id: "progress", name: "Progress", tagline: "How far along. Number + bar, never bar alone.",
@@ -906,8 +906,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Uses role=progressbar + aria-valuenow/min/max.", "Value is shown as text, never bar alone.", "Value is clamped to min–max."],
     contract: { format: "oeste.component.v1", component: "Progress", props: { value: "number", min: "number", max: "number" }, a11y: { role: "progressbar", values: "aria-valuenow/min/max", text: "visible value" } },
     prompt: "Build an Oeste Progress with role=progressbar + aria-valuenow/min/max, visible label + value text, value clamped to min–max. Never show a bar without its number.",
-    cli: "npx @oeste/ui add progress",
-    code: `import { Progress } from "@oeste/ui";\n\nexport function Upload({ done }) {\n  return <Progress label="Upload" value={done} />;\n}\n// Dark mode: built in via dark: classes.`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/progress.json",
+    code: `import { Progress } from "@/components/ui/progress";\n\nexport function Upload({ done }) {\n  return <Progress label="Upload" value={done} />;\n}\n// Dark mode: built in via dark: classes.`,
   },
   {
     id: "avatar", name: "Avatar", tagline: "A face or initials. Fallback always shows.",
@@ -922,8 +922,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Fallback initials always render when the image is missing or fails.", "Accessible name is the person's name, never empty.", "Initials are derived from the name, never hardcoded per instance."],
     contract: { format: "oeste.component.v1", component: "Avatar", props: { src: "string?", name: "string", size: ["md", "lg"] }, a11y: { name: "person name", fallback: "initials when image fails" } },
     prompt: "Build an Oeste Avatar: photo with an initials fallback that always renders when the image is missing or fails. Accessible name is the person's name. Sizes md (44px) and lg (64px). Never leave an empty circle.",
-    cli: "npx @oeste/ui add avatar",
-    code: `import { Avatar } from "@oeste/ui";\n\nexport function Teammate() {\n  return <Avatar name="Hidden Inwest" src="/photos/member.jpg" />;\n}\n// If the photo fails, initials show. Dark mode: built in.`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/avatar.json",
+    code: `import { Avatar } from "@/components/ui/avatar";\n\nexport function Teammate() {\n  return <Avatar name="Hidden Inwest" src="/photos/member.jpg" />;\n}\n// If the photo fails, initials show. Dark mode: built in.`,
   },
   {
     id: "separator", name: "Separator", tagline: "A hairline that divides. Decorative or semantic.",
@@ -936,8 +936,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Decorative separators are aria-hidden.", "Semantic separators use role=separator.", "A separator never replaces a heading or a labeled section."],
     contract: { format: "oeste.component.v1", component: "Separator", props: { orientation: ["horizontal", "vertical"], decorative: "boolean" }, a11y: { decorative: "aria-hidden", semantic: "role=separator" } },
     prompt: "Build an Oeste Separator: a hairline rule, horizontal or vertical. Decorative separators are aria-hidden; semantic ones use role=separator. Never use a separator in place of a heading.",
-    cli: "npx @oeste/ui add separator",
-    code: `import { Separator } from "@oeste/ui";\n\nexport function Sections() {\n  return (<><p>First section.</p><Separator /><p>Second section.</p></>);\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/separator.json",
+    code: `import { Separator } from "@/components/ui/separator";\n\nexport function Sections() {\n  return (<><p>First section.</p><Separator /><p>Second section.</p></>);\n}`,
   },
   {
     id: "slider", name: "Slider", tagline: "Pick a number by dragging. Arrows work too.",
@@ -958,8 +958,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <input type=range>, never a div thumb.", "Value is shown as text, never slider alone.", "aria-valuenow/min/max always reflect the value."],
     contract: { format: "oeste.component.v1", component: "Slider", props: { label: "string", value: "number", min: "number", max: "number", step: "number" }, a11y: { native: "input[type=range]", values: "aria-valuenow/min/max" } },
     prompt: "Build an Oeste Slider with a native <input type=range>, visible label, visible value text, aria-valuenow/min/max. Arrow keys step, Home/End jump. Never build a slider thumb from a div.",
-    cli: "npx @oeste/ui add slider",
-    code: `import { useState } from "react";\nimport { Slider } from "@oeste/ui";\n\nexport function Volume() {\n  const [value, setValue] = useState(40);\n  return <Slider label="Volume" value={value} onChange={setValue} min={0} max={100} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/slider.json",
+    code: `import { useState } from "react";\nimport { Slider } from "@/components/ui/slider";\n\nexport function Volume() {\n  const [value, setValue] = useState(40);\n  return <Slider label="Volume" value={value} onChange={setValue} min={0} max={100} />;\n}`,
   },
   {
     id: "tooltip", name: "Tooltip", tagline: "A hint on hover and focus. Never the only way to know.",
@@ -977,8 +977,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Tooltip shows on hover AND on focus.", "Tooltip content uses role=tooltip + aria-describedby.", "The hint is never the only place its information lives.", "Escape dismisses; blur hides."],
     contract: { format: "oeste.component.v1", component: "Tooltip", props: { content: "string", side: ["top", "bottom"] }, a11y: { role: "tooltip", describedby: "trigger aria-describedby", dismiss: "Escape / blur" } },
     prompt: "Build an Oeste Tooltip: shows on hover AND focus, role=tooltip + aria-describedby on the trigger, Escape dismisses, blur hides. Never put information only in a tooltip.",
-    cli: "npx @oeste/ui add tooltip",
-    code: `import { Tooltip } from "@oeste/ui";\n\nexport function Help() {\n  return <Tooltip content="Saves to this project."><button type="button">Save</button></Tooltip>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/tooltip.json",
+    code: `import { Tooltip } from "@/components/ui/tooltip";\n\nexport function Help() {\n  return <Tooltip content="Saves to this project."><button type="button">Save</button></Tooltip>;\n}`,
   },
   {
     id: "popover", name: "Popover", tagline: "A small panel anchored to a trigger. Escape closes.",
@@ -996,8 +996,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Panel is labelled by its trigger or label.", "Escape closes and returns focus to the trigger.", "Clicking outside closes; content behind stays interactive.", "Popover is non-modal — unlike Dialog, it does not trap focus or make the page inert."],
     contract: { format: "oeste.component.v1", component: "Popover", props: { label: "string", open: "boolean" }, a11y: { panel: "labelled", dismiss: "Escape / outside click", focus: "returns to trigger" } },
     prompt: "Build an Oeste Popover: trigger-anchored panel, Escape closes and returns focus to the trigger, outside click closes. Non-modal — no focus trap, page stays interactive. Panel is labelled.",
-    cli: "npx @oeste/ui add popover",
-    code: `import { Popover } from "@oeste/ui";\n\nexport function Details() {\n  return <Popover label="Project details"><button type="button">Details</button><p>Topanga theme, 29 components.</p></Popover>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/popover.json",
+    code: `import { Popover } from "@/components/ui/popover";\n\nexport function Details() {\n  return <Popover label="Project details"><button type="button">Details</button><p>Topanga theme, 29 components.</p></Popover>;\n}`,
   },
   {
     id: "dropdown-menu", name: "Dropdown Menu", tagline: "Actions in a list. Arrows move, Escape closes.",
@@ -1016,8 +1016,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Menu uses role=menu, items use role=menuitem.", "Trigger uses aria-haspopup=menu + aria-expanded.", "Escape closes and returns focus to the trigger.", "Menu items are real buttons, never divs."],
     contract: { format: "oeste.component.v1", component: "DropdownMenu", props: { label: "string", items: "array" }, a11y: { menu: "role=menu", items: "role=menuitem", trigger: "aria-haspopup + aria-expanded" } },
     prompt: "Build an Oeste DropdownMenu: trigger with aria-haspopup=menu + aria-expanded, role=menu with role=menuitem buttons, Arrow keys move, Enter activates, Escape closes and returns focus. Items are real buttons, never divs.",
-    cli: "npx @oeste/ui add dropdown-menu",
-    code: `import { DropdownMenu } from "@oeste/ui";\n\nexport function Actions() {\n  return <DropdownMenu label="Project actions" items={[{ label: "Rename", onSelect: () => {} }, { label: "Duplicate", onSelect: () => {} }]}><button type="button">Actions</button></DropdownMenu>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/dropdown-menu.json",
+    code: `import { DropdownMenu } from "@/components/ui/dropdown-menu";\n\nexport function Actions() {\n  return <DropdownMenu label="Project actions" items={[{ label: "Rename", onSelect: () => {} }, { label: "Duplicate", onSelect: () => {} }]}><button type="button">Actions</button></DropdownMenu>;\n}`,
   },
   {
     id: "toggle", name: "Toggle", tagline: "A button that stays pressed. Fill + label, not color alone.",
@@ -1034,8 +1034,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Uses aria-pressed.", "Pressed state is visible by fill + label, never color alone.", "Toggle is a real <button>, never a div."],
     contract: { format: "oeste.component.v1", component: "Toggle", props: { pressed: "boolean" }, a11y: { pressed: "aria-pressed", state: "fill + label, never color alone" } },
     prompt: "Build an Oeste Toggle: a real <button> with aria-pressed, pressed state visible by fill + label, never color alone. Tab focuses, Enter/Space toggles.",
-    cli: "npx @oeste/ui add toggle",
-    code: `import { useState } from "react";\nimport { Toggle } from "@oeste/ui";\n\nexport function Bold() {\n  const [pressed, setPressed] = useState(false);\n  return <Toggle pressed={pressed} onPressedChange={setPressed}>Bold</Toggle>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/toggle.json",
+    code: `import { useState } from "react";\nimport { Toggle } from "@/components/ui/toggle";\n\nexport function Bold() {\n  const [pressed, setPressed] = useState(false);\n  return <Toggle pressed={pressed} onPressedChange={setPressed}>Bold</Toggle>;\n}`,
   },
   {
     id: "collapsible", name: "Collapsible", tagline: "One section that opens and closes. Accordion's simpler sibling.",
@@ -1052,8 +1052,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel is hidden when closed.", "State is visible by indicator + panel, never color alone.", "Reduced motion: no height animation."],
     contract: { format: "oeste.component.v1", component: "Collapsible", props: { title: "string", open: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
     prompt: "Build an Oeste Collapsible: one trigger button with aria-expanded + aria-controls, one panel hidden when closed, state visible by indicator + panel. Reduced motion: no height animation.",
-    cli: "npx @oeste/ui add collapsible",
-    code: `import { Collapsible } from "@oeste/ui";\n\nexport function Details() {\n  return <Collapsible title="Show details"><p>Topanga theme, 29 components.</p></Collapsible>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/collapsible.json",
+    code: `import { Collapsible } from "@/components/ui/collapsible";\n\nexport function Details() {\n  return <Collapsible title="Show details"><p>Topanga theme, 29 components.</p></Collapsible>;\n}`,
   },
   {
     id: "skeleton", name: "Skeleton", tagline: "A placeholder while content loads. Never flashing.",
@@ -1067,8 +1067,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Container has aria-busy=true while loading.", "Skeleton is labelled with what is loading.", "No flashing, no shimmer that strobes. Reduced motion: no pulse.", "Real content replaces the skeleton — never both at once."],
     contract: { format: "oeste.component.v1", component: "Skeleton", props: { width: "string", height: "string", label: "string" }, a11y: { busy: "aria-busy=true", label: "what is loading" } },
     prompt: "Build an Oeste Skeleton: placeholder shape with aria-busy=true, labelled with what is loading. No flashing, no strobing shimmer. Reduced motion: no pulse. Real content replaces it.",
-    cli: "npx @oeste/ui add skeleton",
-    code: `import { Skeleton } from "@oeste/ui";\n\nexport function LoadingCard() {\n  return <Skeleton label="Loading project" width="100%" height="96px" />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/skeleton.json",
+    code: `import { Skeleton } from "@/components/ui/skeleton";\n\nexport function LoadingCard() {\n  return <Skeleton label="Loading project" width="100%" height="96px" />;\n}`,
   },
   {
     id: "label", name: "Label", tagline: "A label that stands on its own. Links to its control.",
@@ -1082,8 +1082,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Always linked via htmlFor to a real control id.", "Required is shown with a visible indicator AND text, never color alone.", "Label text is visible, never sr-only except when the control already has a visible label."],
     contract: { format: "oeste.component.v1", component: "Label", props: { htmlFor: "string", required: "boolean" }, a11y: { link: "htmlFor", required: "visible indicator + text" } },
     prompt: "Build an Oeste Label: standalone label linked via htmlFor to a real control id. Required shows a visible indicator plus text, never color alone. Clicking the label focuses its control.",
-    cli: "npx @oeste/ui add label",
-    code: `import { Label } from "@oeste/ui";\n\nexport function NameRow() {\n  return (<div><Label htmlFor="name" required>Project name</Label><input id="name" type="text" /></div>);\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/label.json",
+    code: `import { Label } from "@/components/ui/label";\n\nexport function NameRow() {\n  return (<div><Label htmlFor="name" required>Project name</Label><input id="name" type="text" /></div>);\n}`,
   },
   {
     id: "breadcrumb", name: "Breadcrumb", tagline: "Where you are, and how you got here.",
@@ -1096,8 +1096,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Wrapped in <nav aria-label=\"Breadcrumb\"> with an <ol>.", "Current page uses aria-current=\"page\" and is not a link.", "Separators are aria-hidden."],
     contract: { format: "oeste.component.v1", component: "Breadcrumb", props: { items: "array" }, a11y: { nav: "aria-label=Breadcrumb", current: "aria-current=page, not a link" } },
     prompt: "Build an Oeste Breadcrumb: <nav aria-label=\"Breadcrumb\"> with an <ol>, links for every step except the current page, current page uses aria-current=\"page\" and is not a link. Separators are aria-hidden.",
-    cli: "npx @oeste/ui add breadcrumb",
-    code: `import { Breadcrumb } from "@oeste/ui";\n\nexport function Trail() {\n  return <Breadcrumb items={[{ label: "Home", href: "#/home" }, { label: "Components", href: "#/components/button" }, { label: "Button" }]} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/breadcrumb.json",
+    code: `import { Breadcrumb } from "@/components/ui/breadcrumb";\n\nexport function Trail() {\n  return <Breadcrumb items={[{ label: "Home", href: "#/home" }, { label: "Components", href: "#/components/button" }, { label: "Button" }]} />;\n}`,
   },
   {
     id: "pagination", name: "Pagination", tagline: "Page through a list. Current page is unmistakable.",
@@ -1114,8 +1114,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Wrapped in <nav aria-label=\"Pagination\">.", "Current page uses aria-current=\"page\".", "Previous is disabled on page 1; Next is disabled on the last page.", "Ellipsis is aria-hidden, never a button."],
     contract: { format: "oeste.component.v1", component: "Pagination", props: { page: "number", totalPages: "number" }, a11y: { nav: "aria-label=Pagination", current: "aria-current=page", ellipsis: "aria-hidden" } },
     prompt: "Build an Oeste Pagination: <nav aria-label=\"Pagination\">, Previous / page buttons / Next, current page uses aria-current=\"page\", Previous disabled on page 1, Next disabled on the last page, ellipsis is aria-hidden, never a button.",
-    cli: "npx @oeste/ui add pagination",
-    code: `import { useState } from "react";\nimport { Pagination } from "@oeste/ui";\n\nexport function Pages() {\n  const [page, setPage] = useState(1);\n  return <Pagination page={page} totalPages={9} onChange={setPage} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/pagination.json",
+    code: `import { useState } from "react";\nimport { Pagination } from "@/components/ui/pagination";\n\nexport function Pages() {\n  const [page, setPage] = useState(1);\n  return <Pagination page={page} totalPages={9} onChange={setPage} />;\n}`,
   },
   {
     id: "table", name: "Table", tagline: "Rows and columns that screen readers can follow.",
@@ -1129,8 +1129,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["<caption> describes what the table shows.", "Header cells use <th scope=\"col\">; row headers use <th scope=\"row\">.", "No layout tables, ever.", "Sticky header keeps column labels visible on long tables."],
     contract: { format: "oeste.component.v1", component: "Table", props: { caption: "string", columns: "array", rows: "array" }, a11y: { caption: "describes the table", headers: "th scope col/row" } },
     prompt: "Build an Oeste Table: semantic <table> with a <caption> describing what it shows, <th scope=\"col\"> headers (scope=\"row\" for row headers), sticky header on long tables. Never use a table for layout.",
-    cli: "npx @oeste/ui add table",
-    code: `import { Table } from "@oeste/ui";\n\nexport function Tokens() {\n  return <Table caption="Topanga tokens" columns={[{ key: "token", header: "Token" }, { key: "light", header: "Light" }]} rows={[{ token: "accent", light: "#C47D3B" }]} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/table.json",
+    code: `import { Table } from "@/components/ui/table";\n\nexport function Tokens() {\n  return <Table caption="Topanga tokens" columns={[{ key: "token", header: "Token" }, { key: "light", header: "Light" }]} rows={[{ token: "accent", light: "#C47D3B" }]} />;\n}`,
   },
   {
     id: "empty-state", name: "Empty State", tagline: "Nothing here yet — and a clear next step.",
@@ -1148,8 +1148,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Icon is aria-hidden.", "Heading says what is empty, in plain words.", "There is always a next step: an action or a link.", "Empty state never blames the user."],
     contract: { format: "oeste.component.v1", component: "EmptyState", props: { title: "string", description: "string", actionLabel: "string?" }, a11y: { icon: "aria-hidden", action: "focusable button" } },
     prompt: "Build an Oeste Empty State: aria-hidden icon, heading that says what is empty in plain words, description with a next step, and a focusable action button. Never blame the user for an empty screen.",
-    cli: "npx @oeste/ui add empty-state",
-    code: `import { EmptyState } from "@oeste/ui";\n\nexport function NoProjects() {\n  return <EmptyState title="No projects yet" description="Create your first project to see it here." actionLabel="New project" onAction={() => {}} />;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/empty-state.json",
+    code: `import { EmptyState } from "@/components/ui/empty-state";\n\nexport function NoProjects() {\n  return <EmptyState title="No projects yet" description="Create your first project to see it here." actionLabel="New project" onAction={() => {}} />;\n}`,
   },
 
 ]);

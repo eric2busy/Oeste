@@ -67,6 +67,15 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   background: var(--color-surface); padding: 20px; margin-bottom: 16px;
 }
 .sidebar.open { display: block; }
+/* Open menu pops up in the current viewport, not at the top of the document:
+   the sidebar lives in page flow, so a scrolled-down tap used to open it
+   far above the viewport. Fixed + centered keeps the Menu button reachable
+   to close it, and the panel scrolls on its own when it is tall. */
+.sidebar.open {
+  position: fixed; top: 50%; left: 16px; right: 16px; transform: translateY(-50%);
+  max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px);
+  overflow-y: auto; z-index: 60; margin: 0; box-shadow: var(--shadow-dialog);
+}
 .nav-eyebrow { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-muted); margin: 20px 0 8px; }
 .nav-eyebrow:first-child { margin-top: 0; }
 .nav-link { display: block; padding: 11px 10px; border-radius: 8px; text-decoration: none; min-height: var(--touch-min); }
@@ -228,6 +237,7 @@ input[type="range"].slider { width: 100%; min-height: var(--touch-min); accent-c
   #menuBtn { display: none; }
   .layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: start; padding: 32px 24px; }
   .sidebar { display: block; position: sticky; top: 76px; margin: 0; }
+  .sidebar.open { position: sticky; top: 76px; transform: none; max-height: none; overflow-y: visible; box-shadow: none; }
   #view { min-width: 0; max-width: 860px; }
   .swatches { grid-template-columns: 1fr 1fr 1fr; }
   .home-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }

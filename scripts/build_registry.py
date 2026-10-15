@@ -21,7 +21,7 @@ RDIR = ROOT / "r"
 SITE_BASE = "https://oeste.hiddeninwest.com"
 REGISTRY_BASE = SITE_BASE + "/r/"
 GITHUB_RAW = "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/"
-VERSION = "0.4.1"
+VERSION = "0.4.2"
 
 # Functional group per component id (used as tags in components.json).
 TAGS = {

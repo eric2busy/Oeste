@@ -29,10 +29,10 @@ Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content
 | warning | `#7A5A12` | `#D9A441` | Warnings |
 | focus | `#1C1917` | `#F5F3EF` | 2px outline. Distinct from danger |
 
-Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 500, 40px phones / 48px ≥480px / 72px ≥720px, line-height 1.1, letter-spacing -0.04em. Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 500, tracking -0.025em, body leading 1.55.
+Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 700, 40px phones / 48px ≥480px / 72px ≥720px, line-height 1.1, letter-spacing -0.06em (wordmark treatment). Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 500, tracking -0.025em, body leading 1.55.
 Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
 
-## Components (v0.4.1)
+## Components (v0.4.2)
 - **Button**: variants primary / secondary / ghost / danger, sizes sm / md / lg, disabled / loading / icon.
 - **Input**: persistent label, described errors. Plus **Textarea** and **Select** with the same pattern.
 - **Dialog**: native `<dialog>`, focus trap + restore, Escape closes.
@@ -68,15 +68,15 @@ Every component ships: Human docs (anatomy / props / keyboard / invariants), Age
 
 ## Docs site
 Static, no build step, Vercel-ready — in `/site/` (`index.html` + `styles.css` + `app.js`).
-Routes: `#/home`, `#/components/<id>?lens=human|agent|vibe`, `#/tokens`, `#/getting-started`, `#/theming`, `#/accessibility`, `#/patterns`, `#/changelog`, `#/migration`. Lens persists in the URL, Back button works, deep links work.
+Routes: `#/home`, `#/components/<id>?lens=human|agent|vibe`, `#/tokens`, `#/getting-started`, `#/setup`, `#/theming`, `#/accessibility`, `#/patterns`, `#/first-screen`, `#/build-a-theme`, `#/layout`, `#/customizing`, `#/changelog`, `#/migration`. Lens persists in the URL, Back button works, deep links work.
 
 ## Quickstart
 ```bash
 npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json
 ```
-Install any component from the shadcn registry at `https://oeste.hiddeninwest.com/r/` (index: `r/registry.json`). The registry is served from oeste.hiddeninwest.com. `npx @oeste/ui` strings are reference commands, not a published package. The React snippets in `src/index.js` and the Vibe lens work today in any React + Tailwind app (React 18+, JSX transform).
+Install any component from the shadcn registry at `https://oeste.hiddeninwest.com/r/` (index: `r/registry.json`). The registry is served from oeste.hiddeninwest.com. `@oeste/ui` is not a published package. The React snippets in `src/index.js` and the Vibe lens import from `@/components/ui/…` — where shadcn puts the files — and work today in any React + Tailwind app (React 18+, JSX transform).
 
-## Registry (v0.4.1)
+## Registry (v0.4.2)
 Every component ships as a shadcn-compatible registry item: `r/<id>.json` with self-contained React + Tailwind code (extracted from `src/index.js`, including any shared constants or sibling components it renders). Registry files need `src/tokens.css` (Topanga tokens) loaded once. `components.json` at the repo root is the machine manifest — every component with registry URL, raw GitHub URL, docs link, and tags. Regenerate after any change to `src/index.js` (never hand-edit `r/*.json`):
 ```bash
 python3 scripts/build_registry.py
@@ -90,7 +90,7 @@ npm run verify
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.4.1, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.4.2, no runtime dependencies
 
 ## Verify
 ```bash
@@ -99,6 +99,7 @@ npm run verify
 Checks tokens agree across CSS / JSON / JS, danger, muted, and accent text pairs meet WCAG AA 4.5:1, and registry files (`r/*.json` + `components.json`) parse and agree with each other.
 
 ## Changelog
+- **v0.4.2 (2026-10-14)**: Setup page (full setup: tokens, Tailwind v4 + v3, shadcn or copy-paste, troubleshooting); Getting started rewritten as the minimal complete setup; every snippet + CLI is now real (Vibe imports from `@/components/ui/…`, CLI fields are real shadcn commands); display headings use the wordmark weight (Manrope 700); mobile/tablet menu pops up in the current viewport. No breaking changes.
 - **v0.4.1 (2026-10-14)**: Four new guides (First screen, Build a theme, Layout, Customizing), linked from Getting started as a hub + sidebar + search index. No breaking changes.
 - **v0.4.0 (2026-10-14)**: shadcn-compatible registry (`r/<id>.json` + `r/registry.json` + `components.json`, self-contained code extracted by `scripts/build_registry.py`); faceted instant search (components + tokens + docs, All/Components/Tokens/Docs facets, Cmd+K/Ctrl+K, ArrowUp/Down + Enter, Escape). No breaking changes.
 - **v0.3.4 (2026-10-14)**: Header cluster tightened — theme toggle to Menu gap closed up (glyph-to-text 41px → ~26px). No breaking changes.

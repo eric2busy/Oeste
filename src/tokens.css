@@ -1,6 +1,6 @@
 /* Oeste — Topanga theme. Single token source of truth.
    data-theme scopes to ANY element, not just <html>: a [data-theme='dark']
-   card on a light page (or vice versa) gets that theme's tokens. */
+   card on a light page (or vice versa) gets that theme's tokens.
    Values here MUST match src/tokens.json and DESIGN_TOKENS in src/index.js.
    Canonical palette (2026-10-14): accent = Warm Ochre #C47D3B (Pally-verified,
    more muted canyon ochre than the old #E08244). Canyon Rust is decorative

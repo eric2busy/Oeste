@@ -15,6 +15,12 @@ const check = (label, cond, detail = "") => {
   if (!cond) failures++;
 };
 
+// --- CSS guard: no stray */ outside comments (a premature */ once closed
+// the header comment early, leaving bare text that merged with the :root
+// selector and made the browser drop the whole light token block) ---
+const cssNoComments = css.replace(/\/\*[\s\S]*?\*\//g, "");
+check("no stray */ outside comments", !cssNoComments.includes("*/"));
+
 // --- CSS extraction: split :root blocks ---
 function cssBlock(selector) {
   const re = new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*\\{([\\s\\S]*?)\\}", "m");

@@ -84,7 +84,7 @@ CLI strings are reference commands, not a guarantee of registry availability. Th
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.3.2, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.3.3, no runtime dependencies
 
 ## Verify
 ```bash
@@ -93,6 +93,7 @@ npm run verify
 Checks tokens agree across CSS / JSON / JS, and that danger, muted, and accent text pairs meet WCAG AA 4.5:1.
 
 ## Changelog
+- **v0.3.3 (2026-10-14)**: Header Menu button + theme toggle go borderless (quiet controls; 44px targets, hover, focus outline unchanged). No breaking changes.
 - **v0.3.2 (2026-10-14)**: Header wordmark is now all lowercase — **oeste**. Same treatment (Manrope 700, 24px, -0.06em). No breaking changes.
 - **v0.3.1 (2026-10-14)**: Typography correction — display/headings are Manrope 500, tracking -0.04em / -0.025em, leading 1.1 (Millie's actual Pally treatment, not the v0.3.0 800 / -0.025em / 1.05); wordmark 700 / 24px / -0.06em; body leading 1.55; hero locked to 2 lines (display 40px phones / 48px ≥480px / 72px ≥720px). No breaking changes.
 - **v0.3.0 (2026-10-14)**: Menu auto-close on navigate + Escape; syntax highlighting in every code block (light + dark, 4.5:1 code text); 14 new primitives (Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State); Form pattern. Total: 29 components. No breaking changes. (Its display-type values were corrected in v0.3.1.)

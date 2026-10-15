@@ -32,15 +32,17 @@ button { cursor: pointer; }
   background: var(--color-surface); color: var(--color-text); padding: 0 12px;
 }
 .menu-btn {
-  min-height: var(--touch-min); border: 1px solid var(--color-border); border-radius: 8px;
-  background: var(--color-surface); color: var(--color-text); padding: 0 14px; font-weight: 600;
+  min-height: var(--touch-min); border: none; border-radius: 8px;
+  background: transparent; color: var(--color-text); padding: 0 14px; font-weight: 600;
 }
+.menu-btn:hover { background: var(--color-surface); }
 .theme-toggle {
   margin-left: auto; width: var(--touch-min); height: var(--touch-min); min-height: var(--touch-min);
-  border: 1px solid var(--color-border); border-radius: 999px; padding: 0;
-  background: var(--color-surface); color: var(--color-text);
+  border: none; border-radius: 999px; padding: 0;
+  background: transparent; color: var(--color-text);
   display: inline-flex; align-items: center; justify-content: center;
 }
+.theme-toggle:hover { background: var(--color-surface); }
 .theme-toggle .icon { display: block; }
 html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }

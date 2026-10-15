@@ -10,8 +10,6 @@ Oeste is an open design system and component library built for three audiences a
 ## Theme: Topanga
 Topanga is the debut theme for Oeste — inspired by the hidden canyon in Los Angeles where creatives retreat and build. Warm paper, canyon clay, ochre, sagebrush, and precision hairlines.
 
-Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content, no precise locations.
-
 ### Canonical tokens (single source of truth)
 `src/tokens.css` + `src/tokens.json` + `DESIGN_TOKENS` in `src/index.js` agree exactly. Run `npm run verify` to check.
 
@@ -32,7 +30,7 @@ Brand: hiddeninwest. Location: Los Angeles. No personal names, no family content
 Type: Manrope (display + body), JetBrains Mono (code). Display: Manrope 700, 40px phones / 48px ≥480px / 72px ≥720px, line-height 1.1, letter-spacing -0.06em (wordmark treatment). Title `clamp(1.75rem, 4vw, 2.5rem)`, heading `clamp(1.25rem, 2.5vw, 1.5rem)`, headings weight 500, tracking -0.025em, body leading 1.55.
 Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill. Motion: 180ms in / 140ms out, `cubic-bezier(.16,1,.3,1)`. Reduced motion: no animation. Breakpoints: mobile 0–640, tablet 641–1024, desktop 1025+. Touch targets: min 44px.
 
-## Components (v0.4.2)
+## Components (v0.4.3)
 - **Button**: variants primary / secondary / ghost / danger, sizes sm / md / lg, disabled / loading / icon.
 - **Input**: persistent label, described errors. Plus **Textarea** and **Select** with the same pattern.
 - **Dialog**: native `<dialog>`, focus trap + restore, Escape closes.
@@ -76,7 +74,7 @@ npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json
 ```
 Install any component from the shadcn registry at `https://oeste.hiddeninwest.com/r/` (index: `r/registry.json`). The registry is served from oeste.hiddeninwest.com. `@oeste/ui` is not a published package. The React snippets in `src/index.js` and the Vibe lens import from `@/components/ui/…` — where shadcn puts the files — and work today in any React + Tailwind app (React 18+, JSX transform).
 
-## Registry (v0.4.2)
+## Registry (v0.4.3)
 Every component ships as a shadcn-compatible registry item: `r/<id>.json` with self-contained React + Tailwind code (extracted from `src/index.js`, including any shared constants or sibling components it renders). Registry files need `src/tokens.css` (Topanga tokens) loaded once. `components.json` at the repo root is the machine manifest — every component with registry URL, raw GitHub URL, docs link, and tags. Regenerate after any change to `src/index.js` (never hand-edit `r/*.json`):
 ```bash
 python3 scripts/build_registry.py
@@ -90,7 +88,7 @@ npm run verify
 - `/site/` — static docs site (Vercel-ready)
 - `/scripts/verify.mjs` — checks token agreement + contrast
 - `llms.txt` — machine-readable protocol for AI editors
-- `package.json` — `@oeste/ui` v0.4.2, no runtime dependencies
+- `package.json` — `@oeste/ui` v0.4.3, no runtime dependencies
 
 ## Verify
 ```bash
@@ -99,13 +97,14 @@ npm run verify
 Checks tokens agree across CSS / JSON / JS, danger, muted, and accent text pairs meet WCAG AA 4.5:1, and registry files (`r/*.json` + `components.json`) parse and agree with each other.
 
 ## Changelog
+- **v0.4.3 (2026-10-14)**: Copy audit (leaked-rules copy removed from home, README, llms.txt, sidebar footer; oeste.design eyebrow fixed; Tokens type section corrected; Huntington/Mesa framed as future; error docs 'text + role'; Button icon prop documented; name-drops removed; Avatar demo neutral names). Show-more: Variants sections on component pages, live contrast pairs in both themes on Accessibility, theme-following swatches + Tokens-in-use on Tokens. Nested themes: data-theme scopes to any container. No breaking changes.
 - **v0.4.2 (2026-10-14)**: Setup page (full setup: tokens, Tailwind v4 + v3, shadcn or copy-paste, troubleshooting); Getting started rewritten as the minimal complete setup; every snippet + CLI is now real (Vibe imports from `@/components/ui/…`, CLI fields are real shadcn commands); display headings use the wordmark weight (Manrope 700); mobile/tablet menu pops up in the current viewport. No breaking changes.
 - **v0.4.1 (2026-10-14)**: Four new guides (First screen, Build a theme, Layout, Customizing), linked from Getting started as a hub + sidebar + search index. No breaking changes.
 - **v0.4.0 (2026-10-14)**: shadcn-compatible registry (`r/<id>.json` + `r/registry.json` + `components.json`, self-contained code extracted by `scripts/build_registry.py`); faceted instant search (components + tokens + docs, All/Components/Tokens/Docs facets, Cmd+K/Ctrl+K, ArrowUp/Down + Enter, Escape). No breaking changes.
 - **v0.3.4 (2026-10-14)**: Header cluster tightened — theme toggle to Menu gap closed up (glyph-to-text 41px → ~26px). No breaking changes.
 - **v0.3.3 (2026-10-14)**: Header Menu is now the real Ghost Button component (`.btn.btn-ghost`); docs site gains real `.btn-ghost` + `.btn-danger` rules matching the library; Button demo's fake Ghost replaced. Theme toggle borderless. No breaking changes.
 - **v0.3.2 (2026-10-14)**: Header wordmark is now all lowercase — **oeste**. Same treatment (Manrope 700, 24px, -0.06em). No breaking changes.
-- **v0.3.1 (2026-10-14)**: Typography correction — display/headings are Manrope 500, tracking -0.04em / -0.025em, leading 1.1 (Millie's actual Pally treatment, not the v0.3.0 800 / -0.025em / 1.05); wordmark 700 / 24px / -0.06em; body leading 1.55; hero locked to 2 lines (display 40px phones / 48px ≥480px / 72px ≥720px). No breaking changes.
+- **v0.3.1 (2026-10-14)**: Typography correction — display/headings are Manrope 500, tracking -0.04em / -0.025em, leading 1.1 (the reference build's treatment, not the v0.3.0 800 / -0.025em / 1.05); wordmark 700 / 24px / -0.06em; body leading 1.55; hero locked to 2 lines (display 40px phones / 48px ≥480px / 72px ≥720px). No breaking changes.
 - **v0.3.0 (2026-10-14)**: Menu auto-close on navigate + Escape; syntax highlighting in every code block (light + dark, 4.5:1 code text); 14 new primitives (Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State); Form pattern. Total: 29 components. No breaking changes. (Its display-type values were corrected in v0.3.1.)
 - **v0.2.0 (2026-10-14)**: Alert, Accordion, RadioGroup, Progress; Textarea + Select docs pages; Patterns, Changelog, Migration routes; Accessibility page with per-component checklist + contrast table; fuller brand story. No breaking changes for consumers.
 - **v0.1.0 (2026-10-14)**: Token foundation + 9 primitives + docs site.

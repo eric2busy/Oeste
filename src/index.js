@@ -1,4 +1,4 @@
-// Oeste Design System — Topanga theme (v0.4.2)
+// Oeste Design System — Topanga theme (v0.4.3)
 // React + Tailwind primitives, copy-paste ready.
 // Requires: React 18+ in scope, Tailwind with dark: variant, JSX transform.
 // Tokens in this file MUST match src/tokens.json and src/tokens.css exactly.
@@ -6,7 +6,7 @@
 
 export const DESIGN_TOKENS = Object.freeze({
   name: "oeste-topanga",
-  version: "0.4.2",
+  version: "0.4.3",
   color: {
     light: {
       bg: "#F6F4F1", surface: "#FCFAF7", text: "#1C1917", muted: "#706963",
@@ -641,6 +641,7 @@ export const COMPONENT_DOCS = Object.freeze([
       { name: "size", type: '"sm" | "md" | "lg"', required: false, def: '"md"', desc: "Padding + type scale. All sizes keep 44px min touch." },
       { name: "disabled", type: "boolean", required: false, def: "false", desc: "Blocks interaction. Never use color alone to show it." },
       { name: "loading", type: "boolean", required: false, def: "false", desc: "Shows progress, sets aria-busy, blocks clicks." },
+      { name: "icon", type: "ReactNode", required: false, def: "null", desc: "Optional icon before the label. Replaced by the loading mark while loading." },
       { name: "onClick", type: "() => void", required: false, def: "—", desc: "Click handler." },
     ],
     keyboard: [
@@ -649,7 +650,7 @@ export const COMPONENT_DOCS = Object.freeze([
     ],
     invariants: ["Label is always visible text, never icon-only without aria-label.", "Disabled buttons never rely on color alone.", "Focus is 2px ink/paper outline, never removed.", "Danger variant only for destructive actions with a confirm step."],
     contract: { format: "oeste.component.v1", component: "Button", props: { variant: ["primary", "secondary", "ghost", "danger"], size: ["sm", "md", "lg"], disabled: "boolean", loading: "boolean" }, a11y: { focus: "2px ink/paper outline", target: "min 44px", busy: "aria-busy when loading" } },
-    prompt: "Build an Oeste Button: variant primary/secondary/ghost/danger, size sm/md/lg, 44px min touch, 2px ink/paper focus outline, aria-busy when loading. Never icon-only without an accessible label. Use Topanga tokens: accent #C47D3B, danger #A83E22 (light) / #E07A52 (dark).",
+    prompt: "Build an Oeste Button: variant primary/secondary/ghost/danger, size sm/md/lg, optional icon slot, 44px min touch, 2px ink/paper focus outline, aria-busy when loading. Never icon-only without an accessible label. Use Topanga tokens: accent #C47D3B, danger #A83E22 (light) / #E07A52 (dark).",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json",
     code: `import { Button } from "@/components/ui/button";\n\nexport function SaveAction() {\n  return <Button variant="primary" onClick={() => {}}>Save changes</Button>;\n}\n// Dark mode: built in via dark: classes. Focus: 2px ink/paper outline.`,
   },
@@ -667,7 +668,7 @@ export const COMPONENT_DOCS = Object.freeze([
       { key: "Tab", action: "Move focus into / out of the field." },
       { key: "Type", action: "Enter text. Errors are announced via role=status." },
     ],
-    invariants: ["Label is always visible, never placeholder-only.", "Errors use text + icon/role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
+    invariants: ["Label is always visible, never placeholder-only.", "Errors use text + role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Input", props: { label: "string", error: "string?", hint: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Input with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Never use placeholder as the label. Never use Canyon Rust for error text.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/input.json",
@@ -811,7 +812,7 @@ export const COMPONENT_DOCS = Object.freeze([
       { key: "Tab", action: "Move focus into / out of the field." },
       { key: "Type", action: "Enter multi-line text." },
     ],
-    invariants: ["Label is always visible, never placeholder-only.", "Errors use text + icon/role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
+    invariants: ["Label is always visible, never placeholder-only.", "Errors use text + role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Textarea", props: { label: "string", rows: "number", error: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Textarea with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Same label + error pattern as Input. Never use placeholder as the label.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/textarea.json",

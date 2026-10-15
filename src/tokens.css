@@ -1,4 +1,6 @@
 /* Oeste — Topanga theme. Single token source of truth.
+   data-theme scopes to ANY element, not just <html>: a [data-theme='dark']
+   card on a light page (or vice versa) gets that theme's tokens. */
    Values here MUST match src/tokens.json and DESIGN_TOKENS in src/index.js.
    Canonical palette (2026-10-14): accent = Warm Ochre #C47D3B (Pally-verified,
    more muted canyon ochre than the old #E08244). Canyon Rust is decorative
@@ -6,7 +8,7 @@
    token, darkened to pass WCAG AA 4.5:1 for normal text on paper.
    Focus is ink/paper, deliberately distinct from danger. */
 
-:root {
+:root, [data-theme='light'] {
   color-scheme: light;
   --color-bg: #f6f4f1;
   --color-surface: #fcfaf7;
@@ -77,7 +79,7 @@
   --touch-min: 44px;
 }
 
-:root[data-theme='dark'] {
+:root[data-theme='dark'], [data-theme='dark'] {
   color-scheme: dark;
   --color-bg: #121110;
   --color-surface: #1c1917;

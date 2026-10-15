@@ -1,10 +1,10 @@
 # Oeste — Topanga
 
 A component reference for humans, AI agents, and vibe coders.
-Canonical brand: hiddeninwest. Location: Los Angeles. Oeste = Spanish for "west". Topanga = first theme, the hidden canyon in Los Angeles where creatives retreat and build.
+Oeste = Spanish for "west". Topanga = first theme, the hidden canyon in Los Angeles where creatives retreat and build.
 
 ## Usage
-Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; no visitor data is stored. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/r/<id>.json` (index at /r/registry.json, manifest at /components.json). Registry files are self-contained React + Tailwind and need src/tokens.css loaded once. `@oeste/ui` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.
+Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; nothing leaves your browser. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/r/<id>.json` (index at /r/registry.json, manifest at /components.json). Registry files are self-contained React + Tailwind and need src/tokens.css loaded once. `@oeste/ui` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.
 
 ## Tokens (single source of truth)
 Tokens live in src/tokens.css + src/tokens.json + DESIGN_TOKENS in src/index.js and agree exactly.
@@ -19,7 +19,7 @@ Tokens live in src/tokens.css + src/tokens.json + DESIGN_TOKENS in src/index.js 
 ## System prompt for AI editors
 You are implementing Oeste UI in a React + Tailwind application. Read the Oeste manifest and the selected component contract before generating code. Use the Topanga tokens and Manrope typography. Preserve native semantics, accessible names, described errors, visible focus, 44px touch targets, and reduced-motion preferences. Implement all documented keyboard behaviors, including focus restoration for dialogs and roving tabindex for tabs. Never invent component props or package exports beyond the contract. Keep demos local and never add authentication or network writes. Include an executable usage example and keyboard tests. If the reference CLI is unavailable, use the dependency-light React snippets. Return code and a short accessibility checklist.
 
-## Primitives (v0.4.2)
+## Primitives (v0.4.3)
 - Button — variants primary/secondary/ghost/danger, sizes sm/md/lg, disabled/loading/icon
 - Input — persistent label, described errors; plus Textarea and Select
 - Dialog — native <dialog>, focus trap + restore, Escape closes
@@ -52,8 +52,8 @@ You are implementing Oeste UI in a React + Tailwind application. Read the Oeste 
 - Form (pattern, not a primitive) — Label + Input + Select + Checkbox + RadioGroup + Button + error summary (role=alert) + Toast confirm; see Patterns
 
 ## Docs site
-Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components/<id>?lens=human|agent|vibe, #/tokens, #/getting-started, #/setup, #/theming, #/accessibility, #/patterns, #/first-screen, #/build-a-theme, #/layout, #/customizing, #/changelog, #/migration. Lens persists in the URL. Component contracts use oeste.component.v1. Guides: #/setup (full setup: Tailwind v3, copy-paste, troubleshooting), #/first-screen (one finished settings screen), #/build-a-theme (palette derivation + dark-mode wiring), #/layout (native HTML + spacing scale), #/customizing (tokens, compose, fork).
+Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components/<id>?lens=human|agent|vibe, #/tokens, #/getting-started, #/setup, #/theming, #/accessibility, #/patterns, #/first-screen, #/build-a-theme, #/layout, #/customizing, #/changelog, #/migration. Lens persists in the URL. Component contracts use oeste.component.v1. Guides: #/setup (full setup: Tailwind v4 + v3, copy-paste, troubleshooting), #/first-screen (one finished settings screen), #/build-a-theme (palette derivation + dark-mode wiring), #/layout (native HTML + spacing scale), #/customizing (tokens, compose, fork).
 Search: Cmd+K / Ctrl+K focuses header search; instant results across components + tokens + docs, grouped with facet filters (All / Components / Tokens / Docs); ArrowUp / Down moves through results, Enter opens, Escape closes.
 
-## Registry (v0.4.2)
+## Registry (v0.4.3)
 shadcn-compatible registry at https://oeste.hiddeninwest.com/r/ — per-component items r/<id>.json ($schema ui.shadcn.com/schema/registry-item.json, type registry:ui, files[].content = self-contained React + Tailwind). The registry is served from oeste.hiddeninwest.com. components.json at the repo root is the machine manifest: version, registryBase, components[] with id, name, description, registryUrl, githubRawUrl, docsUrl, tags. Registry files are generated by scripts/build_registry.py from src/index.js — never hand-edit r/*.json.

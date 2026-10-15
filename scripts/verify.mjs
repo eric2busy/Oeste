@@ -25,8 +25,8 @@ function cssVar(block, name) {
   const m = block.match(new RegExp(`--${name}:\\s*([^;]+);`));
   return m ? m[1].trim().toLowerCase() : null;
 }
-const lightBlock = cssBlock(":root");
-const darkBlock = cssBlock(":root[data-theme='dark']");
+const lightBlock = cssBlock(":root, [data-theme='light']");
+const darkBlock = cssBlock(":root[data-theme='dark'], [data-theme='dark']");
 
 const KEYS = ["bg", "surface", "text", "muted", "border", "accent", "onAccent", "accentAlt", "rust", "danger", "success", "warning", "focus"];
 const CSS_NAME = { bg: "color-bg", surface: "color-surface", text: "color-text", muted: "color-muted", border: "color-border", accent: "color-accent", onAccent: "color-on-accent", accentAlt: "color-accent-alt", rust: "color-rust", danger: "color-danger", success: "color-success", warning: "color-warning", focus: "color-focus" };

@@ -31,11 +31,8 @@ button { cursor: pointer; }
   width: 100%; min-height: var(--touch-min); border: 1px solid var(--color-border); border-radius: 8px;
   background: var(--color-surface); color: var(--color-text); padding: 0 12px;
 }
-.menu-btn {
-  min-height: var(--touch-min); border: none; border-radius: 8px;
-  background: transparent; color: var(--color-text); padding: 0 14px; font-weight: 600;
-}
-.menu-btn:hover { background: var(--color-surface); }
+/* The header Menu button IS the library's Ghost Button (.btn.btn-ghost) —
+   no one-off menu styles. Hidden on desktop via #menuBtn below. */
 .theme-toggle {
   margin-left: auto; width: var(--touch-min); height: var(--touch-min); min-height: var(--touch-min);
   border: none; border-radius: 999px; padding: 0;
@@ -87,6 +84,13 @@ h3 { font-size: var(--type-heading); font-weight: var(--font-weight-heading); le
 }
 .btn-primary { background: var(--color-accent); color: var(--color-on-accent); }
 .btn-secondary { background: transparent; color: var(--color-text); border-color: var(--color-border); }
+/* Ghost = the library's ghost variant: transparent, no border, ink/paper 5% on hover. */
+.btn-ghost { background: transparent; color: var(--color-text); border-color: transparent; }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-text) 5%, transparent); }
+/* Danger = the library's danger variant. */
+.btn-danger { background: var(--color-danger); color: #F6F4F1; border-color: transparent; }
+.btn-danger:hover { opacity: 0.9; }
+html[data-theme='dark'] .btn-danger { color: #121110; }
 .copy-btn { background: var(--color-text); color: var(--color-bg); font-size: 0.875rem; padding: 0 14px; }
 .copy-btn.secondary { background: transparent; color: var(--color-text); border-color: var(--color-border); }
 .lens-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
@@ -212,7 +216,7 @@ input[type="range"].slider { width: 100%; min-height: var(--touch-min); accent-c
 
 /* Desktop — real workbench, not stretched mobile. */
 @media (min-width: 1025px) {
-  .menu-btn { display: none; }
+  #menuBtn { display: none; }
   .layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: start; padding: 32px 24px; }
   .sidebar { display: block; position: sticky; top: 76px; margin: 0; }
   #view { min-width: 0; max-width: 860px; }

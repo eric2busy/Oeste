@@ -719,8 +719,16 @@ function renderHome() {
     + '<p><strong>Topanga</strong> is the first theme: the hidden canyon in Los Angeles where creatives retreat and build. A canyon is not a stage — it is shelter. That is the feeling Topanga is built to carry: warm paper like sun on a wall, canyon clay, ochre, sagebrush, and precision hairlines. Nothing shouts. Everything is placed on purpose.</p>'
     + '<p>Oeste is a quieter foundation for three ways of making. One set of tokens, one set of contracts, one set of components — read three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because the system already speaks all three languages.</p></div>'
     + '<div><h2>Three lenses, one system</h2><ul><li><strong>Human</strong> — anatomy, props, keyboard, accessibility.</li><li><strong>Agent</strong> — JSON contract + copyable prompt, so agents don’t hallucinate props.</li><li><strong>Vibe</strong> — CLI + copy-paste React code, dark-mode-complete.</li></ul>'
-    + '<p><a class="btn btn-primary" href="#/components/button">Browse components</a></p></div></div>'
-    + "<h2>Components</h2><div class=\"index-list\">" + COMPONENTS.map((c, i) => '<a class="index-row" href="#/components/' + c.id + '"><span><strong>' + esc(c.name) + '</strong><br><span class="muted">' + esc(c.tagline) + '</span></span><span class="pill">' + String(i + 1).padStart(2, "0") + " / " + String(COMPONENTS.length).padStart(2, "0") + "</span></a>").join("") + "</div>";
+    + '<p><a class="btn btn-primary" href="#/components">Browse components</a></p></div></div>';
+}
+
+function componentsIndexRows() {
+  return "<div class=\"index-list\">" + COMPONENTS.map((c, i) => '<a class="index-row" href="#/components/' + c.id + '"><span><strong>' + esc(c.name) + '</strong><br><span class="muted">' + esc(c.tagline) + '</span></span><span class="pill">' + String(i + 1).padStart(2, "0") + " / " + String(COMPONENTS.length).padStart(2, "0") + "</span></a>").join("") + "</div>";
+}
+
+function renderComponentsIndex() {
+  return '<p class="eyebrow">Library</p><h1>Components</h1><p class="lede">All ' + COMPONENTS.length + ' components. One set of tokens, one set of contracts — read three ways.</p>'
+    + componentsIndexRows();
 }
 
 function renderComponent(id, lens) {
@@ -857,6 +865,7 @@ function renderFaq() {
 
 function renderChangelog() {
   return '<p class="eyebrow">Docs</p><h1>Changelog</h1><p class="lede">What changed, when, and what it means for you. No rewritten history — entries land here when they ship.</p>'
+    + '<h2>v0.4.8 — 2026-10-16</h2><ul><li><strong>Components index page (new):</strong> the full component list moves off the home page to its own <code>#/components</code> page. Home now ends at the call to action, and “Browse components” lands on the index instead of the Button page. The sidebar gains an “All components” link to the index.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.7 — 2026-10-15</h2><ul><li><strong>FAQ (new):</strong> a short FAQ page — npm package? Tailwind v3/v4? without React? commercial use? — plus a report-an-issue link to GitHub Issues. In the sidebar, the search index, and the Getting started cross-links.</li><li><strong>License:</strong> Oeste is now MIT licensed (<code>LICENSE</code> at the repo root).</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.6 — 2026-10-15</h2><ul><li><strong>Footer:</strong> tagline changes from “Built for three ways of making.” to “Made for the way you build.”, and the <code>© 2026 hiddeninwest</code> line moves below the nav links (standard footer order).</li><li><strong>Variants layout:</strong> the row label now sits above the demos instead of beside them, and each demo row stays on one scrollable line (buttons keep their true sizes).</li><li><strong>Avatar demo fix:</strong> the Show photo toggle now hides the initials fallback when the photo shows — previously both rendered at once, clipped into a sliced “R” + seam.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.5 — 2026-10-14</h2><ul><li><strong>Footer:</strong> the site footer gains a <code>© 2026 hiddeninwest</code> line linking to <a href="https://hiddeninwest.com">hiddeninwest.com</a>.</li><li><strong>Breaking:</strong> none.</li></ul>'
@@ -935,7 +944,7 @@ function render() {
   const view = $(" #view".trim());
   document.querySelectorAll(".nav-link").forEach((a) => a.classList.remove("active"));
   if (route === "home") view.innerHTML = renderHome();
-  else if (route === "components") { view.innerHTML = renderComponent(id, lens); }
+  else if (route === "components") { view.innerHTML = id ? renderComponent(id, lens) : renderComponentsIndex(); }
   else if (route === "tokens") view.innerHTML = renderTokens();
   else if (route === "getting-started") view.innerHTML = renderGettingStarted();
   else if (route === "theming") view.innerHTML = renderTheming();
@@ -975,6 +984,7 @@ const SEARCH_DOCS = [
   { title: "Changelog", desc: "What changed, when, and what it means for you.", route: "#/changelog", keys: "changelog version history" },
   { title: "Migration", desc: "Adopting Oeste, from scratch or from the earlier preview.", route: "#/migration", keys: "migration upgrade preview" },
   { title: "FAQ", desc: "Is it an npm package? Tailwind v3/v4? React setups? Commercial use?", route: "#/faq", keys: "faq npm package tailwind react commercial license issue bug" },
+  { title: "Components", desc: "All components in the library — browse the full index.", route: "#/components", keys: "components list index browse all" },
   { title: "Home", desc: "One system. Three perspectives.", route: "#/home", keys: "home overview" },
 ];
 const SEARCH_TOKENS = [

@@ -1,0 +1,1 @@
+{"bin":{"oeste-mcp":"./mcp/server.mjs"},"description":"Oeste component libraries (Topanga, Huntington, Mesa). Includes the MCP server for AI clients.","engines":{"node":">=18"},"license":"MIT","name":"oeste","type":"module","version":"0.1.0"}

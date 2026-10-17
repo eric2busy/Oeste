@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "filter-chip",
+ "type": "registry:ui",
+ "title": "FilterChip",
+ "description": "Filter with a count.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/FilterChip.jsx",
+   "content": "// Oeste FilterChip \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/filter-chip\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nexport function FilterChip({ children, count, active = false, onToggle }) {\n  return (\n    <button type=\"button\" aria-pressed={active} onClick={onToggle} className={`rounded-full border px-3.5 py-[7px] text-[13px] transition ${active ? \"border-[#181b1f] bg-[#181b1f] text-[#ffffff] dark:border-[#c9404f] dark:bg-[#c9404f]\" : `border-[#ddd6c7] bg-[#ffffff] text-[#5b5f65] hover:border-[#5b5f65] hover:text-[#181b1f] dark:border-[#2e2720] dark:bg-[#181410] dark:text-[#a79b82] dark:hover:border-[#a79b82] dark:hover:text-[#ece3d0]`} ${FOCUS}`}>\n      {children}\n      {count !== undefined && <span className=\"ml-[5px] text-[11.5px] opacity-55\">{count}</span>}\n    </button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/filter-chip",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

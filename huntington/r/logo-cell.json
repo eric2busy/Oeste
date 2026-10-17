@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "logo-cell",
+ "type": "registry:ui",
+ "title": "LogoCell",
+ "description": "A centered logo in a card cell. Quiet, even, 160 wide.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/LogoCell.jsx",
+   "content": "// Oeste LogoCell \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/logo-cell\n\nexport function LogoCell({ logo, alt }) {\n  return (\n    <div className=\"flex w-[160px] items-center justify-center rounded-[14px] border border-[var(--color-border)] bg-[var(--color-card)] px-6 py-10\">\n      <span className=\"flex w-[70%] max-h-[60px] items-center justify-center\" role={alt ? \"img\" : undefined} aria-label={alt}>{logo}</span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/logo-cell",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

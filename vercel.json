@@ -1,1 +1,63 @@
-{"$schema":"https://openapi.vercel.sh/vercel.json","rewrites":[{"destination":"/site/index.html","source":"/"},{"destination":"/site/llms.txt","source":"/llms.txt"}]}
+{
+ "$schema": "https://openapi.vercel.sh/vercel.json",
+ "redirects": [
+  {
+   "source": "/r/:path*",
+   "destination": "/topanga/r/:path*",
+   "permanent": true
+  },
+  {
+   "source": "/components.json",
+   "destination": "/topanga/components.json",
+   "permanent": true
+  },
+  {
+   "source": "/src/:path*",
+   "destination": "/topanga/src/:path*",
+   "permanent": true
+  },
+  {
+   "source": "/site/:path*",
+   "destination": "/topanga/site/:path*",
+   "permanent": true
+  }
+ ],
+ "rewrites": [
+  {
+   "source": "/topanga",
+   "destination": "/topanga/site/index.html"
+  },
+  {
+   "source": "/topanga/",
+   "destination": "/topanga/site/index.html"
+  },
+  {
+   "source": "/topanga/llms.txt",
+   "destination": "/topanga/site/llms.txt"
+  },
+  {
+   "source": "/huntington",
+   "destination": "/huntington/site/index.html"
+  },
+  {
+   "source": "/huntington/",
+   "destination": "/huntington/site/index.html"
+  },
+  {
+   "source": "/huntington/llms.txt",
+   "destination": "/huntington/site/llms.txt"
+  },
+  {
+   "source": "/mesa",
+   "destination": "/mesa/site/index.html"
+  },
+  {
+   "source": "/mesa/",
+   "destination": "/mesa/site/index.html"
+  },
+  {
+   "source": "/mesa/llms.txt",
+   "destination": "/mesa/site/llms.txt"
+  }
+ ]
+}

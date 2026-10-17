@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "photo-tile",
+ "type": "registry:ui",
+ "title": "PhotoTile",
+ "description": "Square art, a name, a category. The smallest photo unit.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/PhotoTile.jsx",
+   "content": "// Oeste PhotoTile \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/photo-tile\n\nexport function PhotoTile({ name, category, image }) {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      {image\n        ? <img src={image} alt={name} className=\"h-[120px] w-[120px] rounded-[14px] border border-[var(--color-border)] object-cover\" />\n        : <span aria-hidden=\"true\" className=\"inline-block h-[120px] w-[120px] rounded-[14px] border border-[var(--color-border)] bg-[var(--color-card)]\" />}\n      <span className=\"text-[12.5px] font-semibold leading-[1] tracking-[-0.01em] text-[var(--color-ink)]\">{name}</span>\n      {category && <span className=\"text-[11.5px] leading-[1] text-[var(--color-muted)]\">{category}</span>}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/photo-tile",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

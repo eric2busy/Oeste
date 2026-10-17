@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "empty-attachment",
+ "type": "registry:ui",
+ "title": "EmptyAttachment",
+ "description": "Dashed empty box.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/EmptyAttachment.jsx",
+   "content": "// Oeste EmptyAttachment \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/empty-attachment\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nexport function EmptyAttachment({ children }) {\n  return (\n    <div className={`rounded-md border-[1.5px] border-dashed ${LINE} px-[18px] py-6 text-center text-[14.5px] ${SOFT}`}>\n      {children}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/empty-attachment",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

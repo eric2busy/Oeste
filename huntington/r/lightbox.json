@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "lightbox",
+ "type": "registry:ui",
+ "title": "Lightbox",
+ "description": "One photo, big, on near-black. Prev, next, count, close.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Lightbox.jsx",
+   "content": "// Oeste Lightbox \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/lightbox\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function Lightbox({ image, alt, index, total, onPrev, onNext, onClose }) {\n  return (\n    <div role=\"dialog\" aria-modal=\"true\" aria-label={\"Image \" + index + \" of \" + total}\n      className=\"relative flex h-[420px] w-[632px] max-w-full items-center justify-center\" style={{ background: \"var(--color-lightbox-bg)\" }}>\n      <button type=\"button\" onClick={onClose} aria-label=\"Close lightbox\"\n        className={\"absolute right-4 top-4 min-h-11 min-w-11 rounded-full border-0 bg-white/10 text-white \" + FOCUS}>\\u00d7</button>\n      <img src={image} alt={alt || \"\"} className=\"h-[240px] w-[320px] max-w-[80%] rounded-[14px] border border-[var(--color-border)] object-cover\" />\n      <button type=\"button\" onClick={onPrev} aria-label=\"Previous image\"\n        className={\"absolute left-6 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-0 bg-white/10 text-[26px] text-white \" + FOCUS}>\\u2039</button>\n      <button type=\"button\" onClick={onNext} aria-label=\"Next image\"\n        className={\"absolute right-6 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-0 bg-white/10 text-[26px] text-white \" + FOCUS}>\\u203a</button>\n      <span className=\"absolute bottom-4 left-1/2 -translate-x-1/2 text-[13px] leading-[1] text-white opacity-70\">{index} / {total}</span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/lightbox",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

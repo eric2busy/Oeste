@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "theme-toggle",
+ "type": "registry:ui",
+ "title": "ThemeToggle",
+ "description": "Circle icon button; the icon shows the target mode.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ThemeToggle.jsx",
+   "content": "// Oeste ThemeToggle \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/theme-toggle\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nexport function ThemeToggle({ theme = \"dark\", onToggle }) {\n  return (\n    <button type=\"button\" aria-pressed={theme === \"dark\"} aria-label={`Theme: ${theme}. Switch to ${theme === \"dark\" ? \"light\" : \"dark\"}.`} onClick={onToggle} className={`${MONO} whitespace-nowrap rounded-full border ${LINE} bg-transparent px-3.5 py-2 text-[11px] uppercase tracking-[0.14em] text-[#5b5f65] hover:border-[#8a8e93] hover:text-[#181b1f] dark:text-[#a79b82] dark:hover:border-[#6e6455] dark:hover:text-[#ece3d0] ${FOCUS}`}>\n      {theme === \"dark\" ? \"Light\" : \"Dark\"}\n    </button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/theme-toggle",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

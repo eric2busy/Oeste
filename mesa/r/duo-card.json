@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "duo-card",
+ "type": "registry:ui",
+ "title": "DuoCard",
+ "description": "Two-up card with kick and hover lift.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/DuoCard.jsx",
+   "content": "// Oeste DuoCard \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/duo-card\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function DuoCard({ kick, title, children }) {\n  return (\n    <article className={`rounded-lg border ${LINE} ${CARD} px-6 py-[26px] transition-[transform_450ms_ease,border-color_300ms_ease] hover:-translate-y-[3px] hover:border-[#5b5f65] dark:hover:border-[#a79b82]`}>\n      {kick && <p className={`${MONO} mb-2.5 text-[11px] font-bold uppercase tracking-[0.2em] ${FAINT}`}>{kick}</p>}\n      {title && <h3 className={`${SERIF} mb-2 text-[21px] font-bold`}>{title}</h3>}\n      <div className={`[&_p]:m-0 [&_p]:mb-3.5 [&_p]:text-[15px] ${SOFT}`}>{children}</div>\n    </article>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/duo-card",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

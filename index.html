@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oeste — One system. Three perspectives.</title>
+<meta name="description" content="Oeste is a design system for humans, AI agents, and vibe coders. Three component libraries: Topanga, Huntington, Mesa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/huntington/src/tokens.css">
+<link rel="stylesheet" href="/huntington/site/styles.css">
+<script>try { var m = localStorage.getItem("huntington-mood"); document.documentElement.dataset.theme = m || "paper"; } catch (e) {}</script>
+<script>if (location.hash && location.hash.indexOf('#/') === 0) { location.replace('/topanga/' + location.hash); }</script>
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<header class="site-header">
+  <a class="wordmark" href="/" aria-label="Oeste home">oeste</a>
+  <button class="mood-toggle" id="moodToggle" type="button" aria-label="Mood: Paper. Cycle to the next mood."><span class="mood-dot" aria-hidden="true"></span></button>
+</header>
+<main id="view" tabindex="-1">
+<div class="h-hero">
+<p class="eyebrow">Oeste · Component libraries</p>
+<h1>One system.<br>Three perspectives.</h1>
+<p class="h-sub">Oeste is a design system for humans, AI agents, and vibe coders. Pick a library — each one is complete: Human docs, Agent contracts, Vibe code.</p>
+</div>
+<div class="h-sectitle" style="margin-top:44px"><h2>Libraries</h2></div>
+<nav aria-label="Component libraries">
+<a class="h-listrow h-listrow--stacked" href="/topanga/"><span class="h-rowtop"><span class="h-rowtitle">Topanga</span> <span class="h-rowmeta">v0.4.8 · 29</span></span><span class="h-rowdesc">The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.</span></a>
+<a class="h-listrow h-listrow--stacked" href="/huntington/"><span class="h-rowtop"><span class="h-rowtitle">Huntington</span> <span class="h-rowmeta">v0.2.0 · 40</span></span><span class="h-rowdesc">A single-column library. Five moods — Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.</span></a>
+<a class="h-listrow h-listrow--stacked" href="/mesa/"><span class="h-rowtop"><span class="h-rowtitle">Mesa</span> <span class="h-rowmeta">v0.2.0 · 67</span></span><span class="h-rowdesc">Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.</span></a>
+</nav>
+<div class="h-sectitle" style="margin-top:44px"><h2>Start building</h2></div>
+<p style="margin:24px 0 0"><strong>Topanga</strong></p>
+<pre>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</pre>
+<button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json">Copy command</button>
+<p style="margin:24px 0 0"><strong>Huntington</strong></p>
+<pre>npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/header.json</pre>
+<button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/header.json">Copy command</button>
+<p style="margin:24px 0 0"><strong>Mesa</strong></p>
+<pre>npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json</pre>
+<button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json">Copy command</button>
+<div class="h-sectitle" style="margin-top:44px"><h2>What Oeste means</h2></div>
+<p class="h-standfirst" style="margin-top:24px">Oeste is Spanish for west. The three libraries are three perspectives on the same foundation: one system, three ways to build.</p>
+<p style="margin:16px 0 0">This page is built with Huntington, the library for hiddeninwest.com — one column, five moods, hairlines instead of shadows. The dot up top cycles the mood.</p>
+<div class="h-sectitle" style="margin-top:44px"><h2>For agents</h2></div>
+<p style="margin:24px 0 0">Each library has its own machine contract. Start from the library&rsquo;s <code>llms.txt</code>, not this page.</p>
+<p><a class="h-textlink" href="/topanga/llms.txt">Topanga llms.txt</a> · <a class="h-textlink" href="/topanga/components.json">Topanga components.json</a></p>
+<p><a class="h-textlink" href="/huntington/llms.txt">Huntington llms.txt</a> · <a class="h-textlink" href="/huntington/components.json">Huntington components.json</a></p>
+<p><a class="h-textlink" href="/mesa/llms.txt">Mesa llms.txt</a> · <a class="h-textlink" href="/mesa/components.json">Mesa components.json</a></p>
+<p class="h-note">Backwards compatibility: <code>/r/*</code> and <code>/components.json</code> redirect to Topanga&rsquo;s, and old Topanga deep links (<code>/#/&hellip;</code>) land on <code>/topanga/#/&hellip;</code>. Tokens are per-library — never mix them.</p>
+</main>
+<footer class="site-footer">
+<p>© 2026 <a href="https://hiddeninwest.com">hiddeninwest</a></p>
+<p>Oeste — Spanish for west.</p>
+</footer>
+<script>
+(function () {
+  var MOODS = ["paper", "ink", "rose", "sage", "dune"];
+  function currentMood() { return document.documentElement.dataset.theme || "paper"; }
+  function setMood(mood) {
+    document.documentElement.dataset.theme = mood;
+    try { localStorage.setItem("huntington-mood", mood); } catch (e) {}
+    var cap = mood.charAt(0).toUpperCase() + mood.slice(1);
+    var btn = document.getElementById("moodToggle");
+    if (btn) btn.setAttribute("aria-label", "Mood: " + cap + ". Cycle to the next mood.");
+  }
+  setMood(currentMood());
+  document.getElementById("moodToggle").addEventListener("click", function () {
+    var next = MOODS[(MOODS.indexOf(currentMood()) + 1) % MOODS.length];
+    setMood(next);
+  });
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      navigator.clipboard.writeText(b.dataset.copy).then(function () {
+        b.textContent = "Copied";
+        setTimeout(function () { b.textContent = "Copy command"; }, 1500);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "filter-pill",
+ "type": "registry:ui",
+ "title": "FilterPill",
+ "description": "A filter you can tap. Inactive is outline, active is ink.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/FilterPill.jsx",
+   "content": "// Oeste FilterPill \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/filter-pill\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function FilterPill({ children, active = false, onToggle }) {\n  return (\n    <button type=\"button\" aria-pressed={active} onClick={onToggle}\n      className={\"min-h-11 rounded-full border border-[var(--color-border)] px-[15px] py-[9px] text-[13px] font-bold leading-[1] \" + (active ? \"bg-[var(--color-ink)] text-[var(--color-paper)]\" : \"bg-[var(--color-card)] text-[var(--color-ink)]\") + \" \" + FOCUS}>{children}</button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/filter-pill",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

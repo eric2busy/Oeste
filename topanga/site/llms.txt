@@ -1,0 +1,59 @@
+# Oeste — Topanga
+
+A component reference for humans, AI agents, and vibe coders.
+Oeste = Spanish for "west". Topanga = first theme, the hidden canyon in Los Angeles where creatives retreat and build.
+
+## Usage
+Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; nothing leaves your browser. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/r/<id>.json` (index at /r/registry.json, manifest at /components.json). Registry files are self-contained React + Tailwind and need src/tokens.css loaded once. `@oeste/ui` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.
+
+## Tokens (single source of truth)
+Tokens live in src/tokens.css + src/tokens.json + DESIGN_TOKENS in src/index.js and agree exactly.
+- Light: bg #F6F4F1, surface #FCFAF7, text #1C1917, muted #706963, border rgba(28,25,23,0.10)
+- Light: accent (Warm Ochre) #C47D3B, accent-alt (Sage) #5E6B5A, rust (Canyon Rust, decorative) #B85B35, danger #A83E22, success #2F6B3A, warning #7A5A12, focus #1C1917, on-accent #1C1917
+- Dark: bg #121110, surface #1C1917, text #F5F3EF, muted #9E968F, border rgba(245,243,239,0.10)
+- Dark: accent #DB914E, accent-alt #8B9B87, rust #D98A63, danger #E07A52, success #6BA368, warning #D9A441, focus #F5F3EF, on-accent #1C1917
+- Type: Manrope body/display, JetBrains Mono code. Display Manrope 700, 40px phones / 48px ≥480px / 72px ≥720px, line-height 1.1, tracking -0.06em (wordmark treatment); title clamp(1.75rem,4vw,2.5rem), heading clamp(1.25rem,2.5vw,1.5rem), headings weight 500, tracking -0.025em, body 1rem, body leading 1.55.
+- Spacing: 4/8/12/16/24/32/40/48/64. Radii: 4/8/12 + 999 pill. Motion: 180ms in / 140ms out, cubic-bezier(.16,1,.3,1). Reduced motion: no animation. Breakpoints: mobile 0-640, tablet 641-1024, desktop 1025+. Touch targets: min 44px.
+- Naming rule: Canyon Rust is decorative only — NEVER use it for small error text. Danger is the semantic error token. Focus is ink/paper, distinct from danger.
+
+## System prompt for AI editors
+You are implementing Oeste UI in a React + Tailwind application. Read the Oeste manifest and the selected component contract before generating code. Use the Topanga tokens and Manrope typography. Preserve native semantics, accessible names, described errors, visible focus, 44px touch targets, and reduced-motion preferences. Implement all documented keyboard behaviors, including focus restoration for dialogs and roving tabindex for tabs. Never invent component props or package exports beyond the contract. Keep demos local and never add authentication or network writes. Include an executable usage example and keyboard tests. If the reference CLI is unavailable, use the dependency-light React snippets. Return code and a short accessibility checklist.
+
+## Primitives (v0.4.8)
+- Button — variants primary/secondary/ghost/danger, sizes sm/md/lg, disabled/loading/icon
+- Input — persistent label, described errors; plus Textarea and Select
+- Dialog — native <dialog>, focus trap + restore, Escape closes
+- Card — native <section>, heading level matches outline
+- Tabs — roving tabindex, Arrow/Home/End
+- Toast — single clean card, role=status, manual dismiss, no auto-expiry
+- Badge — tones neutral/accent/success/danger, meaning in text
+- Checkbox — native input, clickable label
+- Switch — role=switch + aria-checked
+- Textarea — multi-line input, same label + error pattern as Input
+- Select — native select, real label
+- Alert — tones info/success/warning/danger, role=status (alert only for urgent errors), optional Dismiss
+- Accordion — real button triggers, aria-expanded + aria-controls, panel hidden when closed
+- RadioGroup — native radios in fieldset + legend, one shared name
+- Progress — role=progressbar + aria-valuenow/min/max, visible label + value text
+- Avatar — photo with initials fallback, accessible name is the person's name
+- Separator — hairline, horizontal/vertical, decorative aria-hidden or semantic role=separator
+- Slider — native input[type=range], visible label + value text, arrow keys step
+- Tooltip — hover + focus, role=tooltip, Escape dismisses, never the only source of info
+- Popover — trigger-anchored panel, Escape/outside-click closes, non-modal
+- Dropdown Menu — role=menu + role=menuitem, arrow keys move, Escape closes
+- Toggle — aria-pressed button, pressed state by fill + label
+- Collapsible — one trigger + panel, aria-expanded + aria-controls, reduced-motion safe
+- Skeleton — placeholder, aria-busy, labelled with what is loading, no strobing
+- Label — standalone label via htmlFor, visible required indicator + text
+- Breadcrumb — nav + ol, aria-current="page" on current page (not a link)
+- Pagination — nav + Previous/pages/Next, aria-current="page", aria-hidden ellipsis
+- Table — semantic table, caption, th scope, sticky header
+- Empty State — aria-hidden icon, plain-words heading, next-step action
+- Form (pattern, not a primitive) — Label + Input + Select + Checkbox + RadioGroup + Button + error summary (role=alert) + Toast confirm; see Patterns
+
+## Docs site
+Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components/<id>?lens=human|agent|vibe, #/tokens, #/getting-started, #/setup, #/theming, #/accessibility, #/patterns, #/first-screen, #/build-a-theme, #/layout, #/customizing, #/changelog, #/migration. Lens persists in the URL. Component contracts use oeste.component.v1. Guides: #/setup (full setup: Tailwind v4 + v3, copy-paste, troubleshooting), #/first-screen (one finished settings screen), #/build-a-theme (palette derivation + dark-mode wiring), #/layout (native HTML + spacing scale), #/customizing (tokens, compose, fork).
+Search: Cmd+K / Ctrl+K focuses header search; instant results across components + tokens + docs, grouped with facet filters (All / Components / Tokens / Docs); ArrowUp / Down moves through results, Enter opens, Escape closes.
+
+## Registry (v0.4.8)
+shadcn-compatible registry at https://oeste.hiddeninwest.com/r/ — per-component items r/<id>.json ($schema ui.shadcn.com/schema/registry-item.json, type registry:ui, files[].content = self-contained React + Tailwind). The registry is served from oeste.hiddeninwest.com. components.json at the repo root is the machine manifest: version, registryBase, components[] with id, name, description, registryUrl, githubRawUrl, docsUrl, tags. Registry files are generated by scripts/build_registry.py from src/index.js — never hand-edit r/*.json.

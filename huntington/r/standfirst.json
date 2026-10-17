@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "standfirst",
+ "type": "registry:ui",
+ "title": "Standfirst",
+ "description": "Body copy that opens a page. One paragraph, room to breathe.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Standfirst.jsx",
+   "content": "// Oeste Standfirst \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/standfirst\n\nexport function Standfirst({ children }) {\n  return (\n    <p className=\"m-0 max-w-[544px] text-[var(--type-body-size)] leading-[var(--type-body-leading)] text-[var(--color-body)] [font-weight:var(--type-body-weight)]\">{children}</p>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/standfirst",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

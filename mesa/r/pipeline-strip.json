@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "pipeline-strip",
+ "type": "registry:ui",
+ "title": "PipelineStrip",
+ "description": "Steps with dots and connectors.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/PipelineStrip.jsx",
+   "content": "// Oeste PipelineStrip \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/pipeline-strip\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function PipelineStrip({ kicker, steps = [], note }) {\n  return (\n    <section className={`rounded-xl border ${LINE} bg-[rgba(255,255,255,0.015)] px-6 py-[22px] ${CARD}`}>\n      {kicker && <p className={`${MONO} mb-4 text-[11px] font-bold uppercase tracking-[0.14em] ${SOFT}`}>{kicker}</p>}\n      <ol className=\"flex flex-wrap items-center gap-0\">\n        {steps.map((s, i) => (\n          <li key={s.label} className=\"flex items-center\">\n            {i > 0 && <span aria-hidden=\"true\" className={`mx-2 h-[2px] w-8 ${s.done || s.current ? \"bg-[#8a1f2b] dark:bg-[#c9404f]\" : \"bg-[#ddd6c7] dark:bg-[#2e2720]\"}`} />}\n            <span className={`flex items-center gap-2 text-[11.5px] font-bold uppercase tracking-[0.08em] ${s.done || s.current ? INK : SOFT}`}>\n              <span aria-hidden=\"true\" className={`inline-block h-3 w-3 rounded-full border-2 ${s.done ? \"border-[#8a1f2b] bg-[#8a1f2b] dark:border-[#c9404f] dark:bg-[#c9404f]\" : s.current ? \"animate-pulse border-[#8a1f2b] dark:border-[#c9404f]\" : \"border-[#ddd6c7] dark:border-[#2e2720]\"}`} />\n              {s.label}\n            </span>\n          </li>\n        ))}\n      </ol>\n      {note && <p className={`mt-4 max-w-[62ch] text-sm leading-[1.6] ${SOFT}`}>{note}</p>}\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/pipeline-strip",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

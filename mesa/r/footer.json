@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "footer",
+ "type": "registry:ui",
+ "title": "Footer",
+ "description": "Double-rule footer with columns and fine print.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Footer.jsx",
+   "content": "// Oeste Footer \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/footer\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nexport function Footer({ columns = [], blurb, finePrint }) {\n  return (\n    <footer className=\"mt-11 border-t-[3px] border-t-double border-t-[#181b1f] py-[34px] pb-12 dark:border-t-[#ece3d0]\">\n      <div className=\"grid gap-8 md:grid-cols-[1.2fr_2fr]\">\n        <div>\n          <p className={`text-[13px] leading-[1.6] ${SOFT}`}>{blurb}</p>\n        </div>\n        <div className=\"grid grid-cols-2 gap-6 sm:grid-cols-3\">\n          {columns.map((col) => (\n            <div key={col.heading}>\n              <h4 className={`${MONO} text-[11px] uppercase tracking-[0.14em] ${SOFT}`}>{col.heading}</h4>\n              <ul className=\"mt-2\">\n                {col.links.map((l) => (\n                  <li key={l.label}><a href={l.href || \"#\"} className={`inline-block py-[3px] text-[13.5px] ${SOFT} hover:text-[#8a1f2b] dark:hover:text-[#c9404f] ${FOCUS}`}>{l.label}</a></li>\n                ))}\n              </ul>\n            </div>\n          ))}\n        </div>\n      </div>\n      {finePrint && <p className={`mt-[18px] border-t ${LINE} py-4 pb-[26px] text-[12.5px] ${SOFT}`}>{finePrint}</p>}\n    </footer>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/footer",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

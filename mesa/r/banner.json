@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "banner",
+ "type": "registry:ui",
+ "title": "Banner",
+ "description": "Always-dark notice bar.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Banner.jsx",
+   "content": "// Oeste Banner \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/banner\n\nexport function Banner({ children }) {\n  return (\n    <div className=\"bg-[#181b1f] px-5 py-[9px] text-center text-[12.5px] tracking-[0.02em] text-[#f3efe6] dark:border-b dark:border-[#2e2720] dark:bg-[#060504] dark:text-[#e8dfc9] [&_strong]:font-bold\">\n      {children}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/banner",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "status-line",
+ "type": "registry:ui",
+ "title": "StatusLine",
+ "description": "Dot plus mono status text.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StatusLine.jsx",
+   "content": "// Oeste StatusLine \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/status-line\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nexport function StatusLine({ children }) {\n  return (\n    <p className={`${MONO} flex items-center gap-2 text-[12.5px] ${SOFT}`}>\n      <span aria-hidden=\"true\" className=\"h-2 w-2 animate-pulse rounded-full bg-[#2e6b3e] dark:bg-[#8fae62]\" />\n      {children}\n    </p>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/status-line",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

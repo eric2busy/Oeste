@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "file-grid-cell",
+ "type": "registry:ui",
+ "title": "FileGridCell",
+ "description": "One file in a grid: art, filename, meta.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/FileGridCell.jsx",
+   "content": "// Oeste FileGridCell \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/file-grid-cell\n\nexport function FileGridCell({ filename, meta, image }) {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      {image\n        ? <img src={image} alt={filename} className=\"h-[120px] w-[160px] rounded-[14px] border border-[var(--color-border)] object-cover\" />\n        : <span aria-hidden=\"true\" className=\"inline-block h-[120px] w-[160px] rounded-[14px] border border-[var(--color-border)] bg-[var(--color-card)]\" />}\n      <span className=\"text-[13.5px] font-bold leading-[1] tracking-[-0.01em] text-[var(--color-ink)]\">{filename}</span>\n      {meta && <span className=\"text-[12px] leading-[1] text-[var(--color-muted)]\">{meta}</span>}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/file-grid-cell",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

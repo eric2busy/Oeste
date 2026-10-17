@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "status-pill",
+ "type": "registry:ui",
+ "title": "StatusPill",
+ "description": "A status with a dot. Text carries it; the dot echoes it.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StatusPill.jsx",
+   "content": "// Oeste StatusPill \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/status-pill\n\nconst STATUS_PILL_DOTS = {\n  active: \"#34d399\",\n  idle: \"#60a5fa\",\n  offline: \"#fbbf24\",\n};\n\nexport function StatusPill({ status = \"active\", children }) {\n  const dot = STATUS_PILL_DOTS[status] || STATUS_PILL_DOTS.active;\n  return (\n    <span className=\"inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-[11px] py-1\">\n      <span aria-hidden=\"true\" className=\"inline-block h-[7px] w-[7px] rounded-full\" style={{ background: dot }} />\n      <span className=\"text-[12.5px] font-semibold leading-[1] text-[var(--color-ink)]\">{children || (status.charAt(0).toUpperCase() + status.slice(1))}</span>\n    </span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/status-pill",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

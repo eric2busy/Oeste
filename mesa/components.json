@@ -1,0 +1,743 @@
+{
+ "version": "0.2.0",
+ "registryBase": "https://oeste.hiddeninwest.com/mesa/r/",
+ "components": [
+  {
+   "id": "activity-entry",
+   "name": "ActivityEntry",
+   "description": "Time block plus paragraph.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/activity-entry.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/activity-entry.json",
+   "docsUrl": "#/components/activity-entry",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "activity-feed",
+   "name": "ActivityFeed",
+   "description": "Card with a live header and rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/activity-feed.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/activity-feed.json",
+   "docsUrl": "#/components/activity-feed",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "assignment-line",
+   "name": "AssignmentLine",
+   "description": "Lamp plus status text.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/assignment-line.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/assignment-line.json",
+   "docsUrl": "#/components/assignment-line",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "banner",
+   "name": "Banner",
+   "description": "Always-dark notice bar.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/banner.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/banner.json",
+   "docsUrl": "#/components/banner",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "breadcrumbs",
+   "name": "Breadcrumbs",
+   "description": "Trail with separators.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/breadcrumbs.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/breadcrumbs.json",
+   "docsUrl": "#/components/breadcrumbs",
+   "tags": [
+    "navigation"
+   ]
+  },
+  {
+   "id": "button",
+   "name": "Button",
+   "description": "Primary, solid, ghost, solid small.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/button.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/button.json",
+   "docsUrl": "#/components/button",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "citations",
+   "name": "Citations",
+   "description": "Numbered citation rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/citations.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/citations.json",
+   "docsUrl": "#/components/citations",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "command-palette",
+   "name": "CommandPalette",
+   "description": "One overlay for search and jump.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/command-palette.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/command-palette.json",
+   "docsUrl": "#/components/command-palette",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "coverage-list",
+   "name": "CoverageList",
+   "description": "Link plus title plus date rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/coverage-list.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/coverage-list.json",
+   "docsUrl": "#/components/coverage-list",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "cta-band",
+   "name": "CtaBand",
+   "description": "Dark band with H2, body, button, link.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/cta-band.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/cta-band.json",
+   "docsUrl": "#/components/cta-band",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "daily-summary",
+   "name": "DailySummary",
+   "description": "Kicker plus totals line.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/daily-summary.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/daily-summary.json",
+   "docsUrl": "#/components/daily-summary",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "data-table",
+   "name": "DataTable",
+   "description": "Rows with reference, title, meta, assignment.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/data-table.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/data-table.json",
+   "docsUrl": "#/components/data-table",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "detail-card",
+   "name": "DetailCard",
+   "description": "Head, grid, source and assigned rows, foot.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/detail-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/detail-card.json",
+   "docsUrl": "#/components/detail-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "diff-band",
+   "name": "DiffBand",
+   "description": "Dark band of compared rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/diff-band.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/diff-band.json",
+   "docsUrl": "#/components/diff-band",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "directory-search",
+   "name": "DirectorySearch",
+   "description": "Full-width search input.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/directory-search.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/directory-search.json",
+   "docsUrl": "#/components/directory-search",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "disclaimer",
+   "name": "Disclaimer",
+   "description": "Oxblood-bordered notice.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/disclaimer.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/disclaimer.json",
+   "docsUrl": "#/components/disclaimer",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "duo-card",
+   "name": "DuoCard",
+   "description": "Two-up card with kick and hover lift.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/duo-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/duo-card.json",
+   "docsUrl": "#/components/duo-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "empty-attachment",
+   "name": "EmptyAttachment",
+   "description": "Dashed empty box.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/empty-attachment.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/empty-attachment.json",
+   "docsUrl": "#/components/empty-attachment",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "empty-state",
+   "name": "EmptyState",
+   "description": "Dashed empty state with CTA.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/empty-state.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/empty-state.json",
+   "docsUrl": "#/components/empty-state",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "file-card",
+   "name": "FileCard",
+   "description": "Reference, title, description, meta, assignment.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/file-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/file-card.json",
+   "docsUrl": "#/components/file-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "filter-chip",
+   "name": "FilterChip",
+   "description": "Filter with a count.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/filter-chip.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/filter-chip.json",
+   "docsUrl": "#/components/filter-chip",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "folder-card",
+   "name": "FolderCard",
+   "description": "Stamped folder with a meta row.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/folder-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/folder-card.json",
+   "docsUrl": "#/components/folder-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "footer",
+   "name": "Footer",
+   "description": "Double-rule footer with columns and fine print.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/footer.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/footer.json",
+   "docsUrl": "#/components/footer",
+   "tags": [
+    "navigation"
+   ]
+  },
+  {
+   "id": "forum-control",
+   "name": "ForumControl",
+   "description": "Forum toggle.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/forum-control.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/forum-control.json",
+   "docsUrl": "#/components/forum-control",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "forum-thread",
+   "name": "ForumThread",
+   "description": "Thread row with votes and replies.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/forum-thread.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/forum-thread.json",
+   "docsUrl": "#/components/forum-thread",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "ghost-number",
+   "name": "GhostNumber",
+   "description": "118px ghost numeral, decorative.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/ghost-number.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/ghost-number.json",
+   "docsUrl": "#/components/ghost-number",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "hero",
+   "name": "Hero",
+   "description": "Bignum, H1 with accent em, CTAs, trustline.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/hero.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/hero.json",
+   "docsUrl": "#/components/hero",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "icon-button",
+   "name": "IconButton",
+   "description": "34px circle button.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/icon-button.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/icon-button.json",
+   "docsUrl": "#/components/icon-button",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "index-row",
+   "name": "IndexRow",
+   "description": "Index row with hover-reveal arrow.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/index-row.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/index-row.json",
+   "docsUrl": "#/components/index-row",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "kicker",
+   "name": "Kicker",
+   "description": "Mono eyebrow, hero-em or faint.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/kicker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/kicker.json",
+   "docsUrl": "#/components/kicker",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "media-card",
+   "name": "MediaCard",
+   "description": "Number, body, more link, source.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/media-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/media-card.json",
+   "docsUrl": "#/components/media-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "mini-gates",
+   "name": "MiniGates",
+   "description": "Compact gate cards, four across.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/mini-gates.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/mini-gates.json",
+   "docsUrl": "#/components/mini-gates",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "nav-toggle",
+   "name": "NavToggle",
+   "description": "Hamburger that becomes an X.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/nav-toggle.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/nav-toggle.json",
+   "docsUrl": "#/components/nav-toggle",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "next-up",
+   "name": "NextUp",
+   "description": "Key plus title plus sub.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/next-up.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/next-up.json",
+   "docsUrl": "#/components/next-up",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "open-questions",
+   "name": "OpenQuestions",
+   "description": "Questions with answers under an ok rule.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/open-questions.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/open-questions.json",
+   "docsUrl": "#/components/open-questions",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "option-row",
+   "name": "OptionRow",
+   "description": "Bordered radio option row.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/option-row.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/option-row.json",
+   "docsUrl": "#/components/option-row",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "page-header",
+   "name": "PageHeader",
+   "description": "Eyebrow, H1, deck, reference, ghost number.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/page-header.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/page-header.json",
+   "docsUrl": "#/components/page-header",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "pill",
+   "name": "Pill",
+   "description": "Small uppercase status.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/pill.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/pill.json",
+   "docsUrl": "#/components/pill",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "pipeline-strip",
+   "name": "PipelineStrip",
+   "description": "Steps with dots and connectors.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/pipeline-strip.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/pipeline-strip.json",
+   "docsUrl": "#/components/pipeline-strip",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "pledge",
+   "name": "Pledge",
+   "description": "Promises behind an oxblood rule.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/pledge.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/pledge.json",
+   "docsUrl": "#/components/pledge",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "prev-next",
+   "name": "PrevNext",
+   "description": "Previous and next card links.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/prev-next.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/prev-next.json",
+   "docsUrl": "#/components/prev-next",
+   "tags": [
+    "navigation"
+   ]
+  },
+  {
+   "id": "profile-avatar",
+   "name": "ProfileAvatar",
+   "description": "Initial badge in three sizes.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/profile-avatar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/profile-avatar.json",
+   "docsUrl": "#/components/profile-avatar",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "profile-card-row",
+   "name": "ProfileCardRow",
+   "description": "Avatar plus name plus role link row.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/profile-card-row.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/profile-card-row.json",
+   "docsUrl": "#/components/profile-card-row",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "profile-hero",
+   "name": "ProfileHero",
+   "description": "Avatar xl plus handle plus status plus stats.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/profile-hero.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/profile-hero.json",
+   "docsUrl": "#/components/profile-hero",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "profile-rows",
+   "name": "ProfileRows",
+   "description": "Name, body, status rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/profile-rows.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/profile-rows.json",
+   "docsUrl": "#/components/profile-rows",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "profile-status",
+   "name": "ProfileStatus",
+   "description": "Pill status for profile rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/profile-status.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/profile-status.json",
+   "docsUrl": "#/components/profile-status",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "rail",
+   "name": "Rail",
+   "description": "Horizontal snap-scroll card rail.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/rail.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/rail.json",
+   "docsUrl": "#/components/rail",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "result-card",
+   "name": "ResultCard",
+   "description": "Outcome card with number, title, outcome, key/value rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/result-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/result-card.json",
+   "docsUrl": "#/components/result-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "review-queue",
+   "name": "ReviewQueue",
+   "description": "Expandable review rows with a ping.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/review-queue.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/review-queue.json",
+   "docsUrl": "#/components/review-queue",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "role-card",
+   "name": "RoleCard",
+   "description": "Chip plus title plus body.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/role-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/role-card.json",
+   "docsUrl": "#/components/role-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "search-pill",
+   "name": "SearchPill",
+   "description": "Pill search with keyboard hint.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/search-pill.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/search-pill.json",
+   "docsUrl": "#/components/search-pill",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "section-head",
+   "name": "SectionHead",
+   "description": "Kicker plus H2 plus lede.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/section-head.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/section-head.json",
+   "docsUrl": "#/components/section-head",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "select",
+   "name": "Select",
+   "description": "Native select with custom chevron.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/select.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/select.json",
+   "docsUrl": "#/components/select",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "shows-card",
+   "name": "ShowsCard",
+   "description": "Key and body rows in a card.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/shows-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/shows-card.json",
+   "docsUrl": "#/components/shows-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "site-nav",
+   "name": "SiteNav",
+   "description": "Sticky header. Wordmark, links, tools, readbar.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/site-nav.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/site-nav.json",
+   "docsUrl": "#/components/site-nav",
+   "tags": [
+    "navigation"
+   ]
+  },
+  {
+   "id": "source-list",
+   "name": "SourceList",
+   "description": "Link block plus sub rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/source-list.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/source-list.json",
+   "docsUrl": "#/components/source-list",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "stamp",
+   "name": "Stamp",
+   "description": "Rotated status mark.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/stamp.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/stamp.json",
+   "docsUrl": "#/components/stamp",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "start-here",
+   "name": "StartHere",
+   "description": "Intro card with kick, title, body.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/start-here.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/start-here.json",
+   "docsUrl": "#/components/start-here",
+   "tags": [
+    "content"
+   ]
+  },
+  {
+   "id": "stats-band",
+   "name": "StatsBand",
+   "description": "Grid of labeled numbers.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/stats-band.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/stats-band.json",
+   "docsUrl": "#/components/stats-band",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "status-badge",
+   "name": "StatusBadge",
+   "description": "Live status with a pulsing dot.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/status-badge.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/status-badge.json",
+   "docsUrl": "#/components/status-badge",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "status-line",
+   "name": "StatusLine",
+   "description": "Dot plus mono status text.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/status-line.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/status-line.json",
+   "docsUrl": "#/components/status-line",
+   "tags": [
+    "feedback"
+   ]
+  },
+  {
+   "id": "step-gates",
+   "name": "StepGates",
+   "description": "Numbered gates with connectors.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/step-gates.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/step-gates.json",
+   "docsUrl": "#/components/step-gates",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "steps-list",
+   "name": "StepsList",
+   "description": "Numbered steps under a double rule.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/steps-list.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/steps-list.json",
+   "docsUrl": "#/components/steps-list",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "submission-form",
+   "name": "SubmissionForm",
+   "description": "Labeled fields, radio options, submit.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/submission-form.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/submission-form.json",
+   "docsUrl": "#/components/submission-form",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "summary-card",
+   "name": "SummaryCard",
+   "description": "Header plus key and value rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/summary-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/summary-card.json",
+   "docsUrl": "#/components/summary-card",
+   "tags": [
+    "data"
+   ]
+  },
+  {
+   "id": "theme-toggle",
+   "name": "ThemeToggle",
+   "description": "Circle icon button; the icon shows the target mode.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/theme-toggle.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/theme-toggle.json",
+   "docsUrl": "#/components/theme-toggle",
+   "tags": [
+    "controls"
+   ]
+  },
+  {
+   "id": "timeline",
+   "name": "Timeline",
+   "description": "Dated rows under a double rule.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/timeline.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/timeline.json",
+   "docsUrl": "#/components/timeline",
+   "tags": [
+    "data"
+   ]
+  }
+ ]
+}

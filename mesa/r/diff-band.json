@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "diff-band",
+ "type": "registry:ui",
+ "title": "DiffBand",
+ "description": "Dark band of compared rows.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/DiffBand.jsx",
+   "content": "// Oeste DiffBand \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/diff-band\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nexport function DiffBand({ kicker, title, lede, rows = [] }) {\n  return (\n    <section className=\"bg-[#181b1f] px-0 py-[46px] text-[#f4f1ea] dark:bg-[#0b0908]\">\n      <div className=\"mx-auto max-w-[1060px] px-5\">\n        {kicker && <p className={`${MONO} text-[11px] font-bold uppercase tracking-[0.26em] text-[#d98a8a]`}>{kicker}</p>}\n        <h2 className={`${SERIF} mt-2 text-[clamp(26px,5vw,36px)] font-bold leading-[1.18] text-[#ffffff]`}>{title}</h2>\n        {lede && <p className=\"mt-2 max-w-[60ch] text-[15px] leading-[1.6] text-[#b9b4a8]\">{lede}</p>}\n        <dl>\n          {rows.map((r, i) => (\n            <div key={r.label} className=\"grid grid-cols-[44px_1fr] gap-3.5 border-t border-[#3a3232] py-[18px]\">\n              <dt className={`${MONO} text-xs tracking-[0.06em] text-[#d98a8a]`}>{String(i + 1).padStart(2, \"0\")}</dt>\n              <dd>\n                <p className=\"text-base font-semibold text-[#ffffff]\">{r.label}</p>\n                <p className=\"mt-1 text-[14.5px] leading-[1.6] text-[#b9b4a8]\">{r.body}</p>\n              </dd>\n            </div>\n          ))}\n        </dl>\n      </div>\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/diff-band",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

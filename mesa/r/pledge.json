@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "pledge",
+ "type": "registry:ui",
+ "title": "Pledge",
+ "description": "Promises behind an oxblood rule.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Pledge.jsx",
+   "content": "// Oeste Pledge \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/pledge\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function Pledge({ promises = [] }) {\n  return (\n    <section className={`rounded-xl border ${LINE} border-l-[3px] border-l-[#8a1f2b] ${CARD} px-[18px] py-1 dark:border-l-[#c9404f]`}>\n      {promises.map((p, i) => (\n        <div key={p.strong} className={`py-3.5 ${i > 0 ? `border-t border-[#ece5d5] dark:border-[#221c16]` : \"\"}`}>\n          <p className=\"text-base font-semibold text-[#181b1f] dark:text-[#ece3d0]\">{p.strong}</p>\n          <p className={`mt-1 text-[14.5px] leading-[1.55] ${SOFT}`}>{p.body}</p>\n        </div>\n      ))}\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/pledge",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

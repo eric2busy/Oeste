@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "text-link",
+ "type": "registry:ui",
+ "title": "TextLink",
+ "description": "The call to action. Bold ink, a 2px underline, nothing else.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/TextLink.jsx",
+   "content": "// Oeste TextLink \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/text-link\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function TextLink({ href, children }) {\n  return (\n    <a href={href} className={\"text-[15px] font-bold leading-[1] text-[var(--color-ink)] no-underline border-b-2 border-[var(--color-border)] pb-[1px] \" + FOCUS}>{children}</a>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/text-link",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "carousel",
+ "type": "registry:ui",
+ "title": "Carousel",
+ "description": "A horizontal scroll-snap row of tall images.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Carousel.jsx",
+   "content": "// Oeste Carousel \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/carousel\n\nexport function Carousel({ images = [] }) {\n  return (\n    <div className=\"flex snap-x gap-[10px] overflow-x-auto pb-1\">\n      {images.map((src, i) => (\n        <img key={i} src={src} alt=\"\" className=\"h-[320px] w-[148px] shrink-0 snap-start rounded-[14px] border border-[var(--color-border)] object-cover\" />\n      ))}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/carousel",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

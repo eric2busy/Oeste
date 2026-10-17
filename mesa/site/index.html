@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesa — Warm paper. Near-black ink. Oxblood for status.</title>
+<meta name="description" content="Mesa is a universal component library under Oeste. Warm paper, near-black ink, oxblood for status.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/tokens.css">
+<link rel="stylesheet" href="/site/styles.css">
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="wordmark" href="#/home" aria-label="Mesa home">mesa</a>
+    <nav class="nav-links" id="primaryNav" aria-label="Primary">
+      <a class="nav-link" href="#/home">Home</a>
+      <a class="nav-link" href="#/components">Components</a>
+      <a class="nav-link" href="#/guides">Guides</a>
+      <a class="nav-link" href="#/getting-started">Getting started</a>
+      <a class="nav-link" href="#/tokens">Tokens</a>
+      <a class="nav-link" href="#/patterns">Patterns</a>
+      <a class="nav-link" href="#/faq">FAQ</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="m-icon-btn js-open-palette" type="button" aria-label="Search" title="Search — Ctrl+K / Cmd+K">⌕</button>
+      <button class="m-theme-toggle" id="themeToggle" type="button" aria-pressed="true" aria-label="Theme: Dark. Switch to light."><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+    </div>
+    <button class="m-nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Menu"><span class="bar" aria-hidden="true"></span><span class="bar" aria-hidden="true"></span><span class="bar" aria-hidden="true"></span></button>
+  </div>
+  <div class="readbar"><div class="readbar-fill" id="readbarFill"></div></div>
+</header>
+<main id="view" tabindex="-1"></main>
+<footer class="site-footer">
+  <p>Mesa — warm paper, near-black ink, oxblood for status. Made for the way you build.</p>
+  <p><a href="#/accessibility">Accessibility</a> · <a href="#/patterns">Patterns</a> · <a href="#/changelog">Changelog</a> · <a href="#/migration">Migration</a> · <a href="#/tokens">Tokens</a> · <a href="/llms.txt">llms.txt</a> · <a href="https://github.com/eric2busy/Oeste">GitHub</a></p>
+  <p>© 2026 <a href="https://hiddeninwest.com">hiddeninwest</a></p>
+</footer>
+<div id="toastRegion" aria-live="polite"></div>
+<div class="m-palette-overlay" id="paletteOverlay" hidden>
+  <div class="m-palette-scrim" data-palette-close></div>
+  <div class="m-palette" role="dialog" aria-modal="true" aria-label="Search">
+    <input id="paletteInput" type="text" placeholder="Search or jump…" aria-label="Search or jump" autocomplete="off">
+    <div class="m-palette-list" id="paletteList" role="listbox" aria-label="Results"></div>
+    <p class="m-palette-hint">Enter to open. Escape to close.</p>
+  </div>
+</div>
+<script src="/site/app.js"></script>
+</body>
+</html>

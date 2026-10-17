@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "mood-button",
+ "type": "registry:ui",
+ "title": "MoodButton",
+ "description": "One dot. Five moods. Tap to cycle.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/MoodButton.jsx",
+   "content": "// Oeste MoodButton \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/mood-button\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function MoodButton({ mood = \"paper\", onCycle }) {\n  return (\n    <button type=\"button\" onClick={onCycle} aria-label={\"Mood: \" + mood + \". Cycle to the next mood.\"}\n      className={\"inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border-0 bg-transparent p-1.5 \" + FOCUS}>\n      <span aria-hidden=\"true\" className=\"inline-block h-[18px] w-[18px] rounded-full border-[1.5px] border-[var(--color-muted)] bg-[var(--color-paper)]\" />\n    </button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/mood-button",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

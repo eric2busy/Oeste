@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "forum-thread",
+ "type": "registry:ui",
+ "title": "ForumThread",
+ "description": "Thread row with votes and replies.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ForumThread.jsx",
+   "content": "// Oeste ForumThread \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/forum-thread\n\nexport function ForumThread({ votes, text, replies = [] }) {\n  return (\n    <article className=\"cursor-pointer px-2 py-3 hover:bg-[rgba(138,31,43,0.04)] dark:hover:bg-[rgba(201,64,79,0.04)]\">\n      <div className=\"flex items-baseline gap-3\">\n        {votes !== undefined && <span className=\"font-bold text-[#8a1f2b] dark:text-[#c9404f]\">{votes}</span>}\n        {text && <p className=\"m-0 text-[14.5px]\">{text}</p>}\n      </div>\n      {replies.length > 0 && (\n        <div>\n          {replies.map((reply, i) => (\n            <p key={i} className={`m-0 text-[14px] ${i === 0 ? \"mt-2 border-t-0 pt-0\" : \"mt-3 border-t border-[#ece5d5] pt-3 dark:border-[#221c16]\"}`}>{reply.text}</p>\n          ))}\n        </div>\n      )}\n    </article>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/forum-thread",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

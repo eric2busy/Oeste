@@ -1,0 +1,22 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "site-nav",
+ "type": "registry:ui",
+ "title": "SiteNav",
+ "description": "Sticky header. Wordmark, links, tools, readbar.",
+ "registryDependencies": [
+  "nav-toggle",
+  "theme-toggle"
+ ],
+ "files": [
+  {
+   "path": "components/SiteNav.jsx",
+   "content": "// Oeste SiteNav \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/site-nav\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nexport function NavToggle({ open = false, onToggle, label = \"Menu\" }) {\n  return (\n    <button type=\"button\" aria-expanded={open} aria-label={label} onClick={onToggle} className={`rounded-md border ${LINE} px-2.5 py-[9px] ${FOCUS}`}>\n      <span className=\"flex flex-col gap-1\" aria-hidden=\"true\">\n        <span className={`block h-[2px] w-5 bg-[#181b1f] transition dark:bg-[#ece3d0] ${open ? \"translate-y-[6px] rotate-45\" : \"\"}`} />\n        <span className={`block h-[2px] w-5 bg-[#181b1f] transition dark:bg-[#ece3d0] ${open ? \"opacity-0\" : \"\"}`} />\n        <span className={`block h-[2px] w-5 bg-[#181b1f] transition dark:bg-[#ece3d0] ${open ? \"-translate-y-[6px] -rotate-45\" : \"\"}`} />\n      </span>\n    </button>\n  );\n}\n\nexport function ThemeToggle({ theme = \"dark\", onToggle }) {\n  return (\n    <button type=\"button\" aria-pressed={theme === \"dark\"} aria-label={`Theme: ${theme}. Switch to ${theme === \"dark\" ? \"light\" : \"dark\"}.`} onClick={onToggle} className={`${MONO} whitespace-nowrap rounded-full border ${LINE} bg-transparent px-3.5 py-2 text-[11px] uppercase tracking-[0.14em] text-[#5b5f65] hover:border-[#8a8e93] hover:text-[#181b1f] dark:text-[#a79b82] dark:hover:border-[#6e6455] dark:hover:text-[#ece3d0] ${FOCUS}`}>\n      {theme === \"dark\" ? \"Light\" : \"Dark\"}\n    </button>\n  );\n}\n\nexport function SiteNav({ links = [], active = \"\", theme = \"dark\", onThemeToggle, onMenuToggle }) {\n  return (\n    <header className=\"sticky top-0 z-50 border-b border-[#ddd6c7] bg-[rgba(255,255,255,0.88)] backdrop-blur-md dark:border-[#2e2720] dark:bg-[rgba(16,14,11,0.87)]\">\n      <div className=\"mx-auto flex max-w-[1060px] flex-wrap items-center gap-2 px-5 py-3\">\n        <a href=\"#/\" className={`text-xl font-bold tracking-[-0.01em] ${INK} ${FOCUS}`}>mesa</a>\n        <nav className=\"flex flex-wrap gap-1\" aria-label=\"Primary\">\n          {links.map((l) => (\n            <a key={l.href} href={l.href} aria-current={l.href === active ? \"page\" : undefined} className={`rounded px-2 py-2 text-[13px] ${l.href === active ? \"font-semibold text-[#8a1f2b] dark:text-[#c9404f]\" : `${SOFT} hover:text-[#181b1f] dark:hover:text-[#ece3d0]`} ${FOCUS}`}>{l.label}</a>\n          ))}\n        </nav>\n        <div className=\"ml-auto flex items-center gap-2\">\n          <ThemeToggle theme={theme} onToggle={onThemeToggle} />\n          <NavToggle onToggle={onMenuToggle} />\n        </div>\n      </div>\n      <div className=\"h-[2px] bg-[#8a1f2b] dark:bg-[#c9404f]\" aria-hidden=\"true\" />\n    </header>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/site-nav",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

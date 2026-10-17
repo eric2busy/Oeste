@@ -1,0 +1,446 @@
+{
+ "version": "0.2.0",
+ "registryBase": "https://oeste.hiddeninwest.com/huntington/r/",
+ "components": [
+  {
+   "id": "back-link",
+   "name": "BackLink",
+   "description": "One quiet way back. Muted, small, arrow included.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/back-link.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/back-link.json",
+   "docsUrl": "#/components/back-link",
+   "tags": [
+    "links"
+   ]
+  },
+  {
+   "id": "carousel",
+   "name": "Carousel",
+   "description": "A horizontal scroll-snap row of tall images.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/carousel.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/carousel.json",
+   "docsUrl": "#/components/carousel",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "equalizer-bars",
+   "name": "EqualizerBars",
+   "description": "Four bars that say: something is playing.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/equalizer-bars.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/equalizer-bars.json",
+   "docsUrl": "#/components/equalizer-bars",
+   "tags": [
+    "indicators"
+   ]
+  },
+  {
+   "id": "favorite-accordion",
+   "name": "FavoriteAccordion",
+   "description": "A favorite that opens into label/value detail rows.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/favorite-accordion.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/favorite-accordion.json",
+   "docsUrl": "#/components/favorite-accordion",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "file-grid-cell",
+   "name": "FileGridCell",
+   "description": "One file in a grid: art, filename, meta.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/file-grid-cell.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/file-grid-cell.json",
+   "docsUrl": "#/components/file-grid-cell",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "filter-pill",
+   "name": "FilterPill",
+   "description": "A filter you can tap. Inactive is outline, active is ink.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/filter-pill.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/filter-pill.json",
+   "docsUrl": "#/components/filter-pill",
+   "tags": [
+    "pills"
+   ]
+  },
+  {
+   "id": "footer",
+   "name": "Footer",
+   "description": "The bottom of the page. Small, muted, done.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/footer.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/footer.json",
+   "docsUrl": "#/components/footer",
+   "tags": [
+    "chrome"
+   ]
+  },
+  {
+   "id": "gallery",
+   "name": "Gallery",
+   "description": "A named group of photos: heading, count, three-across grid.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/gallery.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/gallery.json",
+   "docsUrl": "#/components/gallery",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "header",
+   "name": "Header",
+   "description": "Wordmark left, mood control right. The top of every page.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/header.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/header.json",
+   "docsUrl": "#/components/header",
+   "tags": [
+    "chrome"
+   ]
+  },
+  {
+   "id": "lede",
+   "name": "Lede",
+   "description": "The standfirst that sets the page. Big, quiet, one thought.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/lede.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/lede.json",
+   "docsUrl": "#/components/lede",
+   "tags": [
+    "hero"
+   ]
+  },
+  {
+   "id": "lightbox",
+   "name": "Lightbox",
+   "description": "One photo, big, on near-black. Prev, next, count, close.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/lightbox.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/lightbox.json",
+   "docsUrl": "#/components/lightbox",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "list-row",
+   "name": "ListRow",
+   "description": "A full-width row: title, description, and an optional meta. Inline (two columns without meta, three with it) or stacked (title + meta on top, description below). The index's workhorse.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/list-row.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/list-row.json",
+   "docsUrl": "#/components/list-row",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "live-badge",
+   "name": "LIVEBadge",
+   "description": "A red dot and the word LIVE. Small, loud, honest about its contrast.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/live-badge.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/live-badge.json",
+   "docsUrl": "#/components/live-badge",
+   "tags": [
+    "pills"
+   ]
+  },
+  {
+   "id": "live-hero",
+   "name": "LiveHero",
+   "description": "Headline + sub. The live moment, up top.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/live-hero.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/live-hero.json",
+   "docsUrl": "#/components/live-hero",
+   "tags": [
+    "hero"
+   ]
+  },
+  {
+   "id": "live-pulse-dot",
+   "name": "LivePulseDot",
+   "description": "An 8px dot and its expanding ring. Live, at a glance.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/live-pulse-dot.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/live-pulse-dot.json",
+   "docsUrl": "#/components/live-pulse-dot",
+   "tags": [
+    "indicators"
+   ]
+  },
+  {
+   "id": "logo-card",
+   "name": "LogoCard",
+   "description": "A big centered mark. The logo gets the whole card.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/logo-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/logo-card.json",
+   "docsUrl": "#/components/logo-card",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "logo-cell",
+   "name": "LogoCell",
+   "description": "A centered logo in a card cell. Quiet, even, 160 wide.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/logo-cell.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/logo-cell.json",
+   "docsUrl": "#/components/logo-cell",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "media-card",
+   "name": "MediaCard",
+   "description": "A full-bleed moment: status bar up top, caption at the bottom.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/media-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/media-card.json",
+   "docsUrl": "#/components/media-card",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "menu-bottom-sheet",
+   "name": "MenuBottomSheet",
+   "description": "The menu, as a sheet: grab bar, sections, rows, active dot.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/menu-bottom-sheet.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/menu-bottom-sheet.json",
+   "docsUrl": "#/components/menu-bottom-sheet",
+   "tags": [
+    "overlays"
+   ]
+  },
+  {
+   "id": "menu-pill",
+   "name": "MenuPill",
+   "description": "The floating pill that opens the menu sheet.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/menu-pill.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/menu-pill.json",
+   "docsUrl": "#/components/menu-pill",
+   "tags": [
+    "links"
+   ]
+  },
+  {
+   "id": "mood-button",
+   "name": "MoodButton",
+   "description": "One dot. Five moods. Tap to cycle.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/mood-button.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/mood-button.json",
+   "docsUrl": "#/components/mood-button",
+   "tags": [
+    "chrome"
+   ]
+  },
+  {
+   "id": "next-footer",
+   "name": "NextFooter",
+   "description": "The way onward. A hairline, then the next row.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/next-footer.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/next-footer.json",
+   "docsUrl": "#/components/next-footer",
+   "tags": [
+    "chrome"
+   ]
+  },
+  {
+   "id": "page-title",
+   "name": "PageTitle",
+   "description": "A page's name + its meta. Smaller than a hero, firmer than a heading.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/page-title.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/page-title.json",
+   "docsUrl": "#/components/page-title",
+   "tags": [
+    "hero"
+   ]
+  },
+  {
+   "id": "photo-card",
+   "name": "PhotoCard",
+   "description": "A gradient card with an orb and a label. Four moods of the same card.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/photo-card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/photo-card.json",
+   "docsUrl": "#/components/photo-card",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "photo-tile",
+   "name": "PhotoTile",
+   "description": "Square art, a name, a category. The smallest photo unit.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/photo-tile.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/photo-tile.json",
+   "docsUrl": "#/components/photo-tile",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "playlist-row",
+   "name": "PlaylistRow",
+   "description": "Thumb + title + meta, with a track list that unfolds.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/playlist-row.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/playlist-row.json",
+   "docsUrl": "#/components/playlist-row",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "progress-bar",
+   "name": "ProgressBar",
+   "description": "A 3px bar. The number lives in the text next to it.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/progress-bar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/progress-bar.json",
+   "docsUrl": "#/components/progress-bar",
+   "tags": [
+    "links"
+   ]
+  },
+  {
+   "id": "qa-accordion",
+   "name": "QAAccordion",
+   "description": "Question up top, answer underneath. One at a time, plain words.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/qa-accordion.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/qa-accordion.json",
+   "docsUrl": "#/components/qa-accordion",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "reaction-button",
+   "name": "ReactionButton",
+   "description": "A circle to tap, a label, a caption. Voted gets an underline.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/reaction-button.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/reaction-button.json",
+   "docsUrl": "#/components/reaction-button",
+   "tags": [
+    "pills"
+   ]
+  },
+  {
+   "id": "search",
+   "name": "Search",
+   "description": "Type to filter a list. Arrows move, Enter follows, Escape clears.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/search.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/search.json",
+   "docsUrl": "#/components/search",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "section-title",
+   "name": "SectionTitle",
+   "description": "A section's name, an optional note, and a hairline underneath.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/section-title.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/section-title.json",
+   "docsUrl": "#/components/section-title",
+   "tags": [
+    "sections"
+   ]
+  },
+  {
+   "id": "standfirst",
+   "name": "Standfirst",
+   "description": "Body copy that opens a page. One paragraph, room to breathe.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/standfirst.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/standfirst.json",
+   "docsUrl": "#/components/standfirst",
+   "tags": [
+    "hero"
+   ]
+  },
+  {
+   "id": "stat",
+   "name": "Stat",
+   "description": "A metric, a big number, a unit. Nothing else.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/stat.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/stat.json",
+   "docsUrl": "#/components/stat",
+   "tags": [
+    "indicators"
+   ]
+  },
+  {
+   "id": "status-dot",
+   "name": "StatusDot",
+   "description": "Inline status: a dot and a word. For sentences, not pills.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/status-dot.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/status-dot.json",
+   "docsUrl": "#/components/status-dot",
+   "tags": [
+    "pills"
+   ]
+  },
+  {
+   "id": "status-pill",
+   "name": "StatusPill",
+   "description": "A status with a dot. Text carries it; the dot echoes it.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/status-pill.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/status-pill.json",
+   "docsUrl": "#/components/status-pill",
+   "tags": [
+    "pills"
+   ]
+  },
+  {
+   "id": "status-row",
+   "name": "StatusRow",
+   "description": "Label + value, one line. Status at a glance.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/status-row.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/status-row.json",
+   "docsUrl": "#/components/status-row",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "tag",
+   "name": "Tag",
+   "description": "A small uppercase label. Quiet metadata, hairline border.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/tag.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/tag.json",
+   "docsUrl": "#/components/tag",
+   "tags": [
+    "pills"
+   ]
+  },
+  {
+   "id": "text-link",
+   "name": "TextLink",
+   "description": "The call to action. Bold ink, a 2px underline, nothing else.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/text-link.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/text-link.json",
+   "docsUrl": "#/components/text-link",
+   "tags": [
+    "links"
+   ]
+  },
+  {
+   "id": "toggle-tabs",
+   "name": "ToggleTabs",
+   "description": "Two or more views, one row. Active is ink + underline.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/toggle-tabs.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/toggle-tabs.json",
+   "docsUrl": "#/components/toggle-tabs",
+   "tags": [
+    "links"
+   ]
+  },
+  {
+   "id": "view-all",
+   "name": "ViewAll",
+   "description": "A full-width pill that opens the whole list.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/view-all.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/view-all.json",
+   "docsUrl": "#/components/view-all",
+   "tags": [
+    "links"
+   ]
+  }
+ ]
+}

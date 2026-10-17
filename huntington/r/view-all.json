@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "view-all",
+ "type": "registry:ui",
+ "title": "ViewAll",
+ "description": "A full-width pill that opens the whole list.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ViewAll.jsx",
+   "content": "// Oeste ViewAll \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/view-all\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function ViewAll({ children, href, onClick }) {\n  const cls = \"block w-full rounded-[99px] border border-[var(--color-border)] px-[14px] py-[14px] text-center text-[14px] font-semibold leading-[1] tracking-[-0.01em] text-[var(--color-ink)] no-underline \" + FOCUS;\n  if (href) return <a href={href} className={cls}>{children || \"View all\"}</a>;\n  return <button type=\"button\" onClick={onClick} className={\"bg-transparent \" + cls}>{children || \"View all\"}</button>;\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/view-all",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

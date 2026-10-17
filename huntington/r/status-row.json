@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "status-row",
+ "type": "registry:ui",
+ "title": "StatusRow",
+ "description": "Label + value, one line. Status at a glance.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StatusRow.jsx",
+   "content": "// Oeste StatusRow \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/status-row\n\nexport function StatusRow({ label, value, plain = false }) {\n  return (\n    <div className=\"flex items-baseline gap-4 px-1 py-[7px]\">\n      <span className=\"text-[var(--type-statusValuePlain-size)] leading-[var(--type-statusValuePlain-leading)] tracking-[var(--type-statusValuePlain-tracking)] text-[var(--color-muted)] [font-weight:var(--type-statusValuePlain-weight)]\">{label}</span>\n      <span className={\"text-[var(--type-statusValue-size)] leading-[var(--type-statusValue-leading)] tracking-[var(--type-statusValue-tracking)] text-[var(--color-ink)] \" + (plain ? \"[font-weight:var(--type-statusValuePlain-weight)]\" : \"[font-weight:var(--type-statusValue-weight)]\")}>{value}</span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/status-row",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

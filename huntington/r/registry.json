@@ -1,0 +1,287 @@
+{
+ "name": "oeste-huntington",
+ "version": "0.2.0",
+ "registryBase": "https://oeste.hiddeninwest.com/huntington/r/",
+ "items": [
+  {
+   "id": "back-link",
+   "name": "back-link",
+   "title": "BackLink",
+   "description": "One quiet way back. Muted, small, arrow included.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/back-link.json"
+  },
+  {
+   "id": "carousel",
+   "name": "carousel",
+   "title": "Carousel",
+   "description": "A horizontal scroll-snap row of tall images.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/carousel.json"
+  },
+  {
+   "id": "equalizer-bars",
+   "name": "equalizer-bars",
+   "title": "EqualizerBars",
+   "description": "Four bars that say: something is playing.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/equalizer-bars.json"
+  },
+  {
+   "id": "favorite-accordion",
+   "name": "favorite-accordion",
+   "title": "FavoriteAccordion",
+   "description": "A favorite that opens into label/value detail rows.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/favorite-accordion.json"
+  },
+  {
+   "id": "file-grid-cell",
+   "name": "file-grid-cell",
+   "title": "FileGridCell",
+   "description": "One file in a grid: art, filename, meta.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/file-grid-cell.json"
+  },
+  {
+   "id": "filter-pill",
+   "name": "filter-pill",
+   "title": "FilterPill",
+   "description": "A filter you can tap. Inactive is outline, active is ink.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/filter-pill.json"
+  },
+  {
+   "id": "footer",
+   "name": "footer",
+   "title": "Footer",
+   "description": "The bottom of the page. Small, muted, done.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/footer.json"
+  },
+  {
+   "id": "gallery",
+   "name": "gallery",
+   "title": "Gallery",
+   "description": "A named group of photos: heading, count, three-across grid.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/gallery.json"
+  },
+  {
+   "id": "header",
+   "name": "header",
+   "title": "Header",
+   "description": "Wordmark left, mood control right. The top of every page.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/header.json"
+  },
+  {
+   "id": "lede",
+   "name": "lede",
+   "title": "Lede",
+   "description": "The standfirst that sets the page. Big, quiet, one thought.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/lede.json"
+  },
+  {
+   "id": "lightbox",
+   "name": "lightbox",
+   "title": "Lightbox",
+   "description": "One photo, big, on near-black. Prev, next, count, close.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/lightbox.json"
+  },
+  {
+   "id": "list-row",
+   "name": "list-row",
+   "title": "ListRow",
+   "description": "A full-width row: title, description, and an optional meta. Inline (two columns without meta, three with it) or stacked (title + meta on top, description below). The index's workhorse.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/list-row.json"
+  },
+  {
+   "id": "live-badge",
+   "name": "live-badge",
+   "title": "LIVEBadge",
+   "description": "A red dot and the word LIVE. Small, loud, honest about its contrast.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/live-badge.json"
+  },
+  {
+   "id": "live-hero",
+   "name": "live-hero",
+   "title": "LiveHero",
+   "description": "Headline + sub. The live moment, up top.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/live-hero.json"
+  },
+  {
+   "id": "live-pulse-dot",
+   "name": "live-pulse-dot",
+   "title": "LivePulseDot",
+   "description": "An 8px dot and its expanding ring. Live, at a glance.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/live-pulse-dot.json"
+  },
+  {
+   "id": "logo-card",
+   "name": "logo-card",
+   "title": "LogoCard",
+   "description": "A big centered mark. The logo gets the whole card.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/logo-card.json"
+  },
+  {
+   "id": "logo-cell",
+   "name": "logo-cell",
+   "title": "LogoCell",
+   "description": "A centered logo in a card cell. Quiet, even, 160 wide.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/logo-cell.json"
+  },
+  {
+   "id": "media-card",
+   "name": "media-card",
+   "title": "MediaCard",
+   "description": "A full-bleed moment: status bar up top, caption at the bottom.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/media-card.json"
+  },
+  {
+   "id": "menu-bottom-sheet",
+   "name": "menu-bottom-sheet",
+   "title": "MenuBottomSheet",
+   "description": "The menu, as a sheet: grab bar, sections, rows, active dot.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/menu-bottom-sheet.json"
+  },
+  {
+   "id": "menu-pill",
+   "name": "menu-pill",
+   "title": "MenuPill",
+   "description": "The floating pill that opens the menu sheet.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/menu-pill.json"
+  },
+  {
+   "id": "mood-button",
+   "name": "mood-button",
+   "title": "MoodButton",
+   "description": "One dot. Five moods. Tap to cycle.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/mood-button.json"
+  },
+  {
+   "id": "next-footer",
+   "name": "next-footer",
+   "title": "NextFooter",
+   "description": "The way onward. A hairline, then the next row.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/next-footer.json"
+  },
+  {
+   "id": "page-title",
+   "name": "page-title",
+   "title": "PageTitle",
+   "description": "A page's name + its meta. Smaller than a hero, firmer than a heading.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/page-title.json"
+  },
+  {
+   "id": "photo-card",
+   "name": "photo-card",
+   "title": "PhotoCard",
+   "description": "A gradient card with an orb and a label. Four moods of the same card.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/photo-card.json"
+  },
+  {
+   "id": "photo-tile",
+   "name": "photo-tile",
+   "title": "PhotoTile",
+   "description": "Square art, a name, a category. The smallest photo unit.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/photo-tile.json"
+  },
+  {
+   "id": "playlist-row",
+   "name": "playlist-row",
+   "title": "PlaylistRow",
+   "description": "Thumb + title + meta, with a track list that unfolds.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/playlist-row.json"
+  },
+  {
+   "id": "progress-bar",
+   "name": "progress-bar",
+   "title": "ProgressBar",
+   "description": "A 3px bar. The number lives in the text next to it.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/progress-bar.json"
+  },
+  {
+   "id": "qa-accordion",
+   "name": "qa-accordion",
+   "title": "QAAccordion",
+   "description": "Question up top, answer underneath. One at a time, plain words.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/qa-accordion.json"
+  },
+  {
+   "id": "reaction-button",
+   "name": "reaction-button",
+   "title": "ReactionButton",
+   "description": "A circle to tap, a label, a caption. Voted gets an underline.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/reaction-button.json"
+  },
+  {
+   "id": "search",
+   "name": "search",
+   "title": "Search",
+   "description": "Type to filter a list. Arrows move, Enter follows, Escape clears.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/search.json"
+  },
+  {
+   "id": "section-title",
+   "name": "section-title",
+   "title": "SectionTitle",
+   "description": "A section's name, an optional note, and a hairline underneath.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/section-title.json"
+  },
+  {
+   "id": "standfirst",
+   "name": "standfirst",
+   "title": "Standfirst",
+   "description": "Body copy that opens a page. One paragraph, room to breathe.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/standfirst.json"
+  },
+  {
+   "id": "stat",
+   "name": "stat",
+   "title": "Stat",
+   "description": "A metric, a big number, a unit. Nothing else.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/stat.json"
+  },
+  {
+   "id": "status-dot",
+   "name": "status-dot",
+   "title": "StatusDot",
+   "description": "Inline status: a dot and a word. For sentences, not pills.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/status-dot.json"
+  },
+  {
+   "id": "status-pill",
+   "name": "status-pill",
+   "title": "StatusPill",
+   "description": "A status with a dot. Text carries it; the dot echoes it.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/status-pill.json"
+  },
+  {
+   "id": "status-row",
+   "name": "status-row",
+   "title": "StatusRow",
+   "description": "Label + value, one line. Status at a glance.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/status-row.json"
+  },
+  {
+   "id": "tag",
+   "name": "tag",
+   "title": "Tag",
+   "description": "A small uppercase label. Quiet metadata, hairline border.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/tag.json"
+  },
+  {
+   "id": "text-link",
+   "name": "text-link",
+   "title": "TextLink",
+   "description": "The call to action. Bold ink, a 2px underline, nothing else.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/text-link.json"
+  },
+  {
+   "id": "toggle-tabs",
+   "name": "toggle-tabs",
+   "title": "ToggleTabs",
+   "description": "Two or more views, one row. Active is ink + underline.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/toggle-tabs.json"
+  },
+  {
+   "id": "view-all",
+   "name": "view-all",
+   "title": "ViewAll",
+   "description": "A full-width pill that opens the whole list.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/view-all.json"
+  }
+ ]
+}

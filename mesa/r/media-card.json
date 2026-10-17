@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "media-card",
+ "type": "registry:ui",
+ "title": "MediaCard",
+ "description": "Number, body, more link, source.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/MediaCard.jsx",
+   "content": "// Oeste MediaCard \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/media-card\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function MediaCard({ number, body, more, source }) {\n  return (\n    <a href=\"#\" className={`block rounded-lg border ${LINE} ${CARD} p-[18px] hover:border-[#8a8e93] dark:hover:border-[#6e6455] ${FOCUS}`}>\n      <div className=\"mb-2.5 flex items-baseline justify-between\">\n        <span className={`${MONO} text-[11px] font-bold uppercase tracking-[0.16em] ${FAINT}`}>{number}</span>\n      </div>\n      <p className={`text-[15px] leading-[1.55] ${SOFT}`}>{body}</p>\n      {more && <p className=\"mt-3 text-[13px] font-bold text-[#8a1f2b] hover:underline dark:text-[#c9404f]\">{more}</p>}\n      {source && <p className={`${MONO} mt-2.5 text-xs ${FAINT}`}>Source: {source}</p>}\n    </a>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/media-card",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

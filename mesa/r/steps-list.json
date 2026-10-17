@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "steps-list",
+ "type": "registry:ui",
+ "title": "StepsList",
+ "description": "Numbered steps under a double rule.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StepsList.jsx",
+   "content": "// Oeste StepsList \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/steps-list\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst DOUBLE_TOP = \"border-t-[3px] border-t-double border-t-[#181b1f] dark:border-t-[#ece3d0]\";\n\nexport function StepsList({ steps = [] }) {\n  return (\n    <ol className={DOUBLE_TOP}>\n      {steps.map((s, i) => (\n        <li key={s.title} className=\"grid grid-cols-[56px_1fr] gap-x-4 gap-y-1.5 border-b border-[#ece5d5] px-1.5 py-5 dark:border-[#221c16]\">\n          <span className={`${MONO} flex h-10 w-10 items-center justify-center rounded-md border border-[#8a1f2b] text-sm font-bold text-[#6d1620] dark:border-[#c9404f] dark:text-[#c9404f]`}>{String(i + 1).padStart(2, \"0\")}</span>\n          <div>\n            <h3 className={`${SERIF} text-lg ${INK}`}>{s.title}</h3>\n            <p className={`mt-1 max-w-[62ch] text-[15px] leading-[1.6] ${SOFT}`}>{s.body}</p>\n          </div>\n        </li>\n      ))}\n    </ol>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/steps-list",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

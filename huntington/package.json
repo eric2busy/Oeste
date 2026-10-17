@@ -1,0 +1,26 @@
+{
+ "name": "@oeste/huntington",
+ "version": "0.2.0",
+ "description": "Oeste \u2014 Huntington: a single-column component library with five moods, hairlines instead of shadows, and no filled button.",
+ "type": "module",
+ "license": "MIT",
+ "exports": {
+  "./src/index.js": "./src/index.js",
+  "./src/tokens.json": "./src/tokens.json",
+  "./src/tokens.css": "./src/tokens.css"
+ },
+ "scripts": {
+  "registry": "python3 scripts/build_registry.py",
+  "verify": "node scripts/verify.mjs"
+ },
+ "peerDependencies": {
+  "react": ">=18"
+ },
+ "keywords": [
+  "design-system",
+  "react",
+  "tailwind",
+  "oeste",
+  "huntington"
+ ]
+}

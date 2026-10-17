@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "directory-search",
+ "type": "registry:ui",
+ "title": "DirectorySearch",
+ "description": "Full-width search input.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/DirectorySearch.jsx",
+   "content": "// Oeste DirectorySearch \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/directory-search\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function DirectorySearch({ value = \"\", onChange, placeholder = \"Search the directory\u2026\" }) {\n  return (\n    <div>\n      <input type=\"search\" value={value} onChange={(e) => onChange && onChange(e.target.value)} placeholder={placeholder} aria-label=\"Search the directory\" className={`w-full rounded-lg border ${LINE} ${CARD} px-3.5 py-3 text-[15px] ${INK} placeholder:text-[#8a8e93] focus:border-[#8a1f2b] focus:outline-none dark:placeholder:text-[#6e6455] dark:focus:border-[#c9404f] ${FOCUS}`} />\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/directory-search",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

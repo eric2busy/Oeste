@@ -1,0 +1,21 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "daily-summary",
+ "type": "registry:ui",
+ "title": "DailySummary",
+ "description": "Kicker plus totals line.",
+ "registryDependencies": [
+  "kicker"
+ ],
+ "files": [
+  {
+   "path": "components/DailySummary.jsx",
+   "content": "// Oeste DailySummary \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/daily-summary\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nexport function Kicker({ children, variant = \"default\" }) {\n  return (\n    <p className={`${MONO} text-[11px] font-bold uppercase tracking-[0.26em] ${variant === \"faint\" ? FAINT : \"text-[#8a1f2b] dark:text-[#c9404f]\"}`}>{children}</p>\n  );\n}\n\nexport function DailySummary({ kicker, children }) {\n  return (\n    <section className={`border-t ${LINE} px-0.5 pb-2 pt-3.5`}>\n      {kicker && <Kicker>{kicker}</Kicker>}\n      <p className={`mt-1 text-base ${INK}`}>{children}</p>\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/daily-summary",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

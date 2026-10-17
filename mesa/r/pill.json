@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "pill",
+ "type": "registry:ui",
+ "title": "Pill",
+ "description": "Small uppercase status.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Pill.jsx",
+   "content": "// Oeste Pill \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/pill\n\nconst PILL_STYLES = {\n  type: \"border border-[#ddd6c7] bg-transparent text-[#5b5f65] dark:border-[#2e2720] dark:text-[#a79b82]\",\n  open: \"border border-[#2e2b25] bg-transparent text-[#2e2b25] dark:border-[#ffffff] dark:text-[#ffffff]\",\n  verifying: \"bg-[#f7ecd7] text-[#8a5a1f] dark:bg-[#2a2112] dark:text-[#e87a88]\",\n  reward: \"border border-[#e3cf9a] bg-[#f5e6c4] text-[#7a5c14]\",\n  indexed: \"border border-[#ddd6c7] bg-transparent text-[#5b5f65] dark:border-[#2e2720] dark:text-[#a79b82]\",\n};\n\nexport function Pill({ variant = \"type\", children }) {\n  // Flag is a separate treatment, not a rounded pill: fixed gold bg, dark\n  // text, 4px radius, 10.5px 800 type. It does not share the pill base.\n  if (variant === \"flag\") {\n    return (\n      <span className=\"inline-block rounded bg-[#e8c56a] px-2.5 py-1 text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-[#0d0c0a]\">{children}</span>\n    );\n  }\n  return (\n    <span className={`inline-block rounded-full px-2.5 py-[3px] text-[11px] font-bold uppercase tracking-[0.08em] ${PILL_STYLES[variant] || PILL_STYLES.type}`}>{children}</span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/pill",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

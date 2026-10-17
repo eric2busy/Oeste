@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "profile-avatar",
+ "type": "registry:ui",
+ "title": "ProfileAvatar",
+ "description": "Initial badge in three sizes.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ProfileAvatar.jsx",
+   "content": "// Oeste ProfileAvatar \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/profile-avatar\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst AVATAR_SIZES = {\n  default: \"h-10 w-10 text-[17px] rounded-lg\",\n  lg: \"h-12 w-12 text-xl rounded-lg\",\n  xl: \"h-[112px] w-[112px] text-[52px] rounded-[10px]\",\n};\n\nexport function ProfileAvatar({ initials, size = \"default\" }) {\n  return (\n    <span aria-hidden=\"true\" className={`${MONO} inline-flex items-center justify-center border border-[#8a1f2b] font-bold text-[#6d1620] dark:border-[#c9404f] dark:text-[#c9404f] ${AVATAR_SIZES[size] || AVATAR_SIZES.default}`}>{initials}</span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/profile-avatar",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

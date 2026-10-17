@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "icon-button",
+ "type": "registry:ui",
+ "title": "IconButton",
+ "description": "34px circle button.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/IconButton.jsx",
+   "content": "// Oeste IconButton \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/icon-button\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nexport function IconButton({ label, onClick, children }) {\n  return (\n    <button type=\"button\" aria-label={label} onClick={onClick} className={`inline-flex h-[34px] w-[34px] items-center justify-center rounded-full border ${LINE} bg-transparent text-[#5b5f65] hover:border-[#8a1f2b] hover:text-[#8a1f2b] dark:text-[#a79b82] dark:hover:border-[#c9404f] dark:hover:text-[#c9404f] ${FOCUS}`}>\n      {children || <span aria-hidden=\"true\">\u2315</span>}\n    </button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/icon-button",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

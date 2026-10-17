@@ -1,0 +1,21 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "cta-band",
+ "type": "registry:ui",
+ "title": "CtaBand",
+ "description": "Dark band with H2, body, button, link.",
+ "registryDependencies": [
+  "button"
+ ],
+ "files": [
+  {
+   "path": "components/CtaBand.jsx",
+   "content": "// Oeste CtaBand \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/cta-band\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst BUTTON_STYLES = {\n  primary: \"bg-[#181b1f] text-[#f7f4ec] hover:bg-[#6d1620] dark:bg-[#c9404f] dark:text-[#ffffff] dark:hover:bg-[#a52336]\",\n  solid: \"bg-[#8a1f2b] text-[#ffffff] hover:bg-[#6d1620] dark:bg-[#c9404f] dark:text-[#ffffff] dark:hover:bg-[#a52336]\",\n  ghost: \"border border-[#ddd6c7] bg-transparent text-[#181b1f] hover:border-[#8a1f2b] hover:text-[#8a1f2b] dark:border-[#4a4034] dark:text-[#a79b82] dark:hover:border-[#ece3d0] dark:hover:text-[#ffffff]\",\n  \"solid-small\": \"bg-[#8a1f2b] px-4 py-2 text-[13.5px] font-semibold text-[#ffffff] hover:bg-[#6d1620] dark:bg-[#c9404f] dark:hover:bg-[#a52336]\",\n};\n\nexport function Button({ children, variant = \"primary\", disabled = false, onClick, type = \"button\" }) {\n  return (\n    <button type={type} disabled={disabled} onClick={onClick} className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-[26px] py-[14px] text-[15px] font-bold transition hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-50 ${BUTTON_STYLES[variant] || BUTTON_STYLES.primary} ${FOCUS}`}>\n      {children}\n    </button>\n  );\n}\n\nexport function CtaBand({ title, body, buttonLabel, linkLabel }) {\n  return (\n    <section className=\"mx-auto my-[52px] mb-2 rounded-xl border border-[#ddd6c7] bg-[#181b1f] px-7 py-[38px] text-center text-[#f4f1ea] dark:border-[#2e2720] dark:bg-[#181410]\">\n      <h2 className={`${SERIF} text-[clamp(22px,5.5vw,30px)] font-bold leading-[1.18] text-[#ffffff]`}>{title}</h2>\n      {body && <p className=\"mx-auto mt-3 max-w-[52ch] text-[15px] leading-[1.6] text-[#b9b4a8]\">{body}</p>}\n      <div className=\"mt-6\">\n        <Button variant=\"solid-small\">{buttonLabel || \"Get started\"}</Button>\n      </div>\n      {linkLabel && <p className=\"mt-4\"><a href=\"#\" className={`text-sm text-[#b9b4a8] underline underline-offset-[3px] hover:text-[#f4f1ea] ${FOCUS}`}>{linkLabel}</a></p>}\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/cta-band",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

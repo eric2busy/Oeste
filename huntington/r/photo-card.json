@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "photo-card",
+ "type": "registry:ui",
+ "title": "PhotoCard",
+ "description": "A gradient card with an orb and a label. Four moods of the same card.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/PhotoCard.jsx",
+   "content": "// Oeste PhotoCard \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/photo-card\n\nconst PHOTO_CARD_VARIANTS = {\n  default: { gradient: [\"#0e0f10\", \"#1d1e20\", \"#2b1f11\"], orb: \"#ff6b1a\" },\n  blue: { gradient: [\"#101418\", \"#1a2230\", \"#24344d\"], orb: \"#7aa2d9\" },\n  rose: { gradient: [\"#140f0e\", \"#241a17\", \"#3d2a22\"], orb: \"#d9b5a3\" },\n  green: { gradient: [\"#0e120e\", \"#1a241a\", \"#2a3d2a\"], orb: \"#9dc08b\" },\n};\n\nexport function PhotoCard({ variant = \"default\", title, subtitle }) {\n  const v = PHOTO_CARD_VARIANTS[variant] || PHOTO_CARD_VARIANTS.default;\n  return (\n    <div className=\"relative h-[170px] w-[320px] max-w-full overflow-hidden rounded-[14px]\"\n      style={{ background: \"linear-gradient(135deg, \" + v.gradient.join(\", \") + \")\" }}>\n      <span aria-hidden=\"true\" className=\"absolute left-[200px] top-[-50px] inline-block h-[150px] w-[150px] rounded-full opacity-80\" style={{ background: v.orb }} />\n      <span className=\"absolute left-4 top-[118px] flex flex-col gap-[2px]\">\n        <span className=\"text-[17px] font-semibold leading-[1] text-white\">{title}</span>\n        {subtitle && <span className=\"text-[12px] leading-[1] text-white opacity-60\">{subtitle}</span>}\n      </span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/photo-card",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

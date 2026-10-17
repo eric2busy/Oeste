@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "detail-card",
+ "type": "registry:ui",
+ "title": "DetailCard",
+ "description": "Head, grid, source and assigned rows, foot.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/DetailCard.jsx",
+   "content": "// Oeste DetailCard \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/detail-card\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function DetailCard({ kick, number, meta, fields = [], source, assigned, foot }) {\n  return (\n    <article className={`overflow-hidden rounded-[14px] border ${LINE} ${CARD}`}>\n      <header className={`flex items-baseline justify-between gap-3 border-b ${LINE} px-4 pb-3.5 pt-4`}>\n        {kick && <p className={`${MONO} text-[10.5px] font-semibold uppercase tracking-[0.14em] ${FAINT}`}>{kick}</p>}\n        {number && <p className={`${MONO} text-[21px] font-bold tracking-[0.02em] ${INK}`}>{number}</p>}\n        {meta && <p className={`text-[13.5px] ${SOFT}`}>{meta}</p>}\n      </header>\n      <dl className=\"grid grid-cols-2\">\n        {fields.map((f) => (\n          <div key={f.label} className=\"px-4 pb-1 pt-2\">\n            <dt className={`${MONO} text-[10.5px] font-semibold uppercase tracking-[0.12em] ${FAINT}`}>{f.label}</dt>\n            <dd className=\"mt-1 text-sm leading-[1.45] text-[#181b1f] dark:text-[#ece3d0]\">{f.value}</dd>\n          </div>\n        ))}\n      </dl>\n      {source && <p className={`border-t ${LINE} px-4 py-3 text-sm ${SOFT}`}>Source: {source}</p>}\n      {assigned && <p className={`border-t ${LINE} bg-[rgba(138,31,43,0.05)] px-4 py-3 text-sm ${SOFT} dark:bg-[rgba(201,64,79,0.05)]`}>Assigned: {assigned}</p>}\n      {foot && <footer className={`border-t ${LINE} px-4 py-2.5 text-[12.5px] ${FAINT}`}>{foot}</footer>}\n    </article>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/detail-card",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

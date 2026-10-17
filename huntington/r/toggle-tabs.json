@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "toggle-tabs",
+ "type": "registry:ui",
+ "title": "ToggleTabs",
+ "description": "Two or more views, one row. Active is ink + underline.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ToggleTabs.jsx",
+   "content": "// Oeste ToggleTabs \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/toggle-tabs\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function ToggleTabs({ tabs = [], activeTab, onTabChange }) {\n  const ids = tabs.map((t) => t.id);\n  return (\n    <div role=\"tablist\" aria-label=\"Tabs\" className=\"flex gap-5\">\n      {tabs.map((t) => (\n        <button key={t.id} type=\"button\" role=\"tab\" id={\"tab-\" + t.id} aria-selected={t.id === activeTab}\n          aria-controls={\"panel-\" + t.id} tabIndex={t.id === activeTab ? 0 : -1}\n          onClick={() => onTabChange && onTabChange(t.id)}\n          onKeyDown={(e) => {\n            if (e.key !== \"ArrowRight\" && e.key !== \"ArrowLeft\" && e.key !== \"Home\" && e.key !== \"End\") return;\n            e.preventDefault();\n            const i = ids.indexOf(activeTab);\n            const next = e.key === \"ArrowRight\" ? ids[(i + 1) % ids.length] : e.key === \"ArrowLeft\" ? ids[(i - 1 + ids.length) % ids.length] : e.key === \"Home\" ? ids[0] : ids[ids.length - 1];\n            if (onTabChange) onTabChange(next);\n            document.getElementById(\"tab-\" + next)?.focus();\n          }}\n          className={\"border-0 border-b-2 bg-transparent px-3.5 py-1.5 text-[13px] \" + FOCUS + \" \" + (t.id === activeTab ? \"border-[var(--color-ink)] font-bold text-[var(--color-ink)]\" : \"border-transparent font-normal text-[var(--color-muted)]\")}>\n          {t.label}\n        </button>\n      ))}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/toggle-tabs",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

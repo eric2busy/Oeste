@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "summary-card",
+ "type": "registry:ui",
+ "title": "SummaryCard",
+ "description": "Header plus key and value rows.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/SummaryCard.jsx",
+   "content": "// Oeste SummaryCard \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/summary-card\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function SummaryCard({ title, rows = [] }) {\n  return (\n    <article className={`overflow-hidden rounded-[14px] border ${LINE} ${CARD}`}>\n      <header className={`border-b ${LINE} bg-[#faf9f7] px-5 py-3 dark:bg-[#100e0b]`}>\n        <h3 className={`${MONO} text-[11px] font-bold uppercase tracking-[0.22em] ${SOFT}`}>{title}</h3>\n      </header>\n      <dl>\n        {rows.map((r) => (\n          <div key={r.key} className=\"grid grid-cols-[130px_1fr] gap-3 border-b border-[#ece5d5] px-5 py-[11px] text-sm last:border-b-0 dark:border-[#221c16]\">\n            <dt className={`${MONO} text-[11.5px] uppercase tracking-[0.1em] ${FAINT}`}>{r.key}</dt>\n            <dd className={`font-semibold ${INK} ${r.mono ? `${MONO} text-[13px] font-medium` : \"\"}`}>{r.value}</dd>\n          </div>\n        ))}\n      </dl>\n    </article>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/summary-card",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

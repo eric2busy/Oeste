@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "activity-entry",
+ "type": "registry:ui",
+ "title": "ActivityEntry",
+ "description": "Time block plus paragraph.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ActivityEntry.jsx",
+   "content": "// Oeste ActivityEntry \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/activity-entry\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nexport function ActivityEntry({ time, name, text }) {\n  return (\n    <article>\n      <p className={`${MONO} mb-1.5 text-[11.5px] ${FAINT}`}>{time}</p>\n      <p className={`text-sm leading-[1.6] ${SOFT}`}><strong className={`${MONO} text-[12.5px] font-semibold ${INK}`}>{name}</strong> {text}</p>\n    </article>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/activity-entry",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

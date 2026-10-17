@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "ghost-number",
+ "type": "registry:ui",
+ "title": "GhostNumber",
+ "description": "118px ghost numeral, decorative.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/GhostNumber.jsx",
+   "content": "// Oeste GhostNumber \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/ghost-number\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nexport function GhostNumber({ children }) {\n  return (\n    <span aria-hidden=\"true\" className={`${SERIF} pointer-events-none absolute right-0 top-0 select-none text-[118px] font-black leading-none text-[#181b1f] opacity-[0.06] dark:text-[#ece3d0]`}>{children}</span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/ghost-number",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

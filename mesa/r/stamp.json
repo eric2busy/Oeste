@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "stamp",
+ "type": "registry:ui",
+ "title": "Stamp",
+ "description": "Rotated status mark.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Stamp.jsx",
+   "content": "// Oeste Stamp \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/stamp\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst STAMP_STYLES = {\n  default: \"border-[#181b1f] text-[#181b1f] dark:border-[#ece3d0] dark:text-[#ece3d0]\",\n  ok: \"border-[#2e6b3e] text-[#2e6b3e] dark:border-[#8fae62] dark:text-[#8fae62]\",\n  dim: \"border-[#8a8e93] text-[#8a8e93] dark:border-[#6e6455] dark:text-[#6e6455]\",\n  warn: \"border-[#8a5a1f] text-[#8a5a1f] dark:border-[#c9404f] dark:text-[#c9404f]\",\n};\n\nexport function Stamp({ tone = \"default\", children }) {\n  return (\n    <span className={`${MONO} inline-block rotate-6 rounded border-2 bg-transparent px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] ${STAMP_STYLES[tone] || STAMP_STYLES.default}`}>{children}</span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/stamp",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

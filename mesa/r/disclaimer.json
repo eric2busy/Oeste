@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "disclaimer",
+ "type": "registry:ui",
+ "title": "Disclaimer",
+ "description": "Oxblood-bordered notice.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Disclaimer.jsx",
+   "content": "// Oeste Disclaimer \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/disclaimer\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nexport function Disclaimer({ children, strong }) {\n  return (\n    <aside className=\"rounded-lg border border-[#8a1f2b] bg-[rgba(138,31,43,0.05)] px-5 py-4 text-sm leading-[1.6] text-[#5b5f65] dark:border-[#c9404f] dark:bg-[rgba(201,64,79,0.05)] dark:text-[#a79b82]\">\n      {strong && <p className={`${MONO} mb-1 text-xs font-bold uppercase tracking-[0.14em] text-[#6d1620] dark:text-[#c9404f]`}>{strong}</p>}\n      {children}\n    </aside>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/disclaimer",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

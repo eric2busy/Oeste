@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "status-badge",
+ "type": "registry:ui",
+ "title": "StatusBadge",
+ "description": "Live status with a pulsing dot.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StatusBadge.jsx",
+   "content": "// Oeste StatusBadge \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/status-badge\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function StatusBadge({ children, live = true }) {\n  return (\n    <span className={`inline-flex items-center gap-2 rounded-full border ${LINE} ${CARD} px-3.5 py-1.5 text-[12.5px] ${SOFT}`}>\n      {live && <span aria-hidden=\"true\" className=\"h-[7px] w-[7px] animate-pulse rounded-full bg-[#2e6b3e] dark:bg-[#8fae62]\" />}\n      {children}\n    </span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/status-badge",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

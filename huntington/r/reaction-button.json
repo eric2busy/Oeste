@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "reaction-button",
+ "type": "registry:ui",
+ "title": "ReactionButton",
+ "description": "A circle to tap, a label, a caption. Voted gets an underline.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ReactionButton.jsx",
+   "content": "// Oeste ReactionButton \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/reaction-button\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function ReactionButton({ label, caption, voted = false, onToggle }) {\n  return (\n    <div className=\"flex flex-col items-center gap-1.5\">\n      <button type=\"button\" aria-pressed={voted} aria-label={label} onClick={onToggle}\n        className={\"inline-flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-[var(--color-border)] bg-[var(--color-paper)] \" + FOCUS}>\n        <span aria-hidden=\"true\" className=\"text-[var(--color-ink)]\">+</span>\n      </button>\n      <span className=\"flex flex-col items-center gap-[1px]\">\n        <span className={\"text-[15px] font-bold leading-[1] text-[var(--color-ink)] \" + (voted ? \"border-b-2 border-[var(--color-border)] pb-[1px]\" : \"\")}>{label}</span>\n        {caption && <span className=\"text-[13px] leading-[1] text-[var(--color-muted)]\">{caption}</span>}\n      </span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/reaction-button",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

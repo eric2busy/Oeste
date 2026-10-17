@@ -1,0 +1,476 @@
+{
+ "name": "oeste-mesa",
+ "version": "0.2.0",
+ "registryBase": "https://oeste.hiddeninwest.com/mesa/r/",
+ "items": [
+  {
+   "id": "activity-entry",
+   "name": "activity-entry",
+   "title": "ActivityEntry",
+   "description": "Time block plus paragraph.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/activity-entry.json"
+  },
+  {
+   "id": "activity-feed",
+   "name": "activity-feed",
+   "title": "ActivityFeed",
+   "description": "Card with a live header and rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/activity-feed.json"
+  },
+  {
+   "id": "assignment-line",
+   "name": "assignment-line",
+   "title": "AssignmentLine",
+   "description": "Lamp plus status text.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/assignment-line.json"
+  },
+  {
+   "id": "banner",
+   "name": "banner",
+   "title": "Banner",
+   "description": "Always-dark notice bar.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/banner.json"
+  },
+  {
+   "id": "breadcrumbs",
+   "name": "breadcrumbs",
+   "title": "Breadcrumbs",
+   "description": "Trail with separators.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/breadcrumbs.json"
+  },
+  {
+   "id": "button",
+   "name": "button",
+   "title": "Button",
+   "description": "Primary, solid, ghost, solid small.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/button.json"
+  },
+  {
+   "id": "citations",
+   "name": "citations",
+   "title": "Citations",
+   "description": "Numbered citation rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/citations.json"
+  },
+  {
+   "id": "command-palette",
+   "name": "command-palette",
+   "title": "CommandPalette",
+   "description": "One overlay for search and jump.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/command-palette.json"
+  },
+  {
+   "id": "coverage-list",
+   "name": "coverage-list",
+   "title": "CoverageList",
+   "description": "Link plus title plus date rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/coverage-list.json"
+  },
+  {
+   "id": "cta-band",
+   "name": "cta-band",
+   "title": "CtaBand",
+   "description": "Dark band with H2, body, button, link.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/cta-band.json"
+  },
+  {
+   "id": "daily-summary",
+   "name": "daily-summary",
+   "title": "DailySummary",
+   "description": "Kicker plus totals line.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/daily-summary.json"
+  },
+  {
+   "id": "data-table",
+   "name": "data-table",
+   "title": "DataTable",
+   "description": "Rows with reference, title, meta, assignment.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/data-table.json"
+  },
+  {
+   "id": "detail-card",
+   "name": "detail-card",
+   "title": "DetailCard",
+   "description": "Head, grid, source and assigned rows, foot.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/detail-card.json"
+  },
+  {
+   "id": "diff-band",
+   "name": "diff-band",
+   "title": "DiffBand",
+   "description": "Dark band of compared rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/diff-band.json"
+  },
+  {
+   "id": "directory-search",
+   "name": "directory-search",
+   "title": "DirectorySearch",
+   "description": "Full-width search input.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/directory-search.json"
+  },
+  {
+   "id": "disclaimer",
+   "name": "disclaimer",
+   "title": "Disclaimer",
+   "description": "Oxblood-bordered notice.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/disclaimer.json"
+  },
+  {
+   "id": "duo-card",
+   "name": "duo-card",
+   "title": "DuoCard",
+   "description": "Two-up card with kick and hover lift.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/duo-card.json"
+  },
+  {
+   "id": "empty-attachment",
+   "name": "empty-attachment",
+   "title": "EmptyAttachment",
+   "description": "Dashed empty box.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/empty-attachment.json"
+  },
+  {
+   "id": "empty-state",
+   "name": "empty-state",
+   "title": "EmptyState",
+   "description": "Dashed empty state with CTA.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/empty-state.json"
+  },
+  {
+   "id": "file-card",
+   "name": "file-card",
+   "title": "FileCard",
+   "description": "Reference, title, description, meta, assignment.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/file-card.json"
+  },
+  {
+   "id": "filter-chip",
+   "name": "filter-chip",
+   "title": "FilterChip",
+   "description": "Filter with a count.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/filter-chip.json"
+  },
+  {
+   "id": "folder-card",
+   "name": "folder-card",
+   "title": "FolderCard",
+   "description": "Stamped folder with a meta row.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/folder-card.json"
+  },
+  {
+   "id": "footer",
+   "name": "footer",
+   "title": "Footer",
+   "description": "Double-rule footer with columns and fine print.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/footer.json"
+  },
+  {
+   "id": "forum-control",
+   "name": "forum-control",
+   "title": "ForumControl",
+   "description": "Forum toggle.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/forum-control.json"
+  },
+  {
+   "id": "forum-thread",
+   "name": "forum-thread",
+   "title": "ForumThread",
+   "description": "Thread row with votes and replies.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/forum-thread.json"
+  },
+  {
+   "id": "ghost-number",
+   "name": "ghost-number",
+   "title": "GhostNumber",
+   "description": "118px ghost numeral, decorative.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/ghost-number.json"
+  },
+  {
+   "id": "hero",
+   "name": "hero",
+   "title": "Hero",
+   "description": "Bignum, H1 with accent em, CTAs, trustline.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/hero.json"
+  },
+  {
+   "id": "icon-button",
+   "name": "icon-button",
+   "title": "IconButton",
+   "description": "34px circle button.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/icon-button.json"
+  },
+  {
+   "id": "index-row",
+   "name": "index-row",
+   "title": "IndexRow",
+   "description": "Index row with hover-reveal arrow.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/index-row.json"
+  },
+  {
+   "id": "kicker",
+   "name": "kicker",
+   "title": "Kicker",
+   "description": "Mono eyebrow, hero-em or faint.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/kicker.json"
+  },
+  {
+   "id": "media-card",
+   "name": "media-card",
+   "title": "MediaCard",
+   "description": "Number, body, more link, source.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/media-card.json"
+  },
+  {
+   "id": "mini-gates",
+   "name": "mini-gates",
+   "title": "MiniGates",
+   "description": "Compact gate cards, four across.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/mini-gates.json"
+  },
+  {
+   "id": "nav-toggle",
+   "name": "nav-toggle",
+   "title": "NavToggle",
+   "description": "Hamburger that becomes an X.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/nav-toggle.json"
+  },
+  {
+   "id": "next-up",
+   "name": "next-up",
+   "title": "NextUp",
+   "description": "Key plus title plus sub.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/next-up.json"
+  },
+  {
+   "id": "open-questions",
+   "name": "open-questions",
+   "title": "OpenQuestions",
+   "description": "Questions with answers under an ok rule.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/open-questions.json"
+  },
+  {
+   "id": "option-row",
+   "name": "option-row",
+   "title": "OptionRow",
+   "description": "Bordered radio option row.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/option-row.json"
+  },
+  {
+   "id": "page-header",
+   "name": "page-header",
+   "title": "PageHeader",
+   "description": "Eyebrow, H1, deck, reference, ghost number.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/page-header.json"
+  },
+  {
+   "id": "pill",
+   "name": "pill",
+   "title": "Pill",
+   "description": "Small uppercase status.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/pill.json"
+  },
+  {
+   "id": "pipeline-strip",
+   "name": "pipeline-strip",
+   "title": "PipelineStrip",
+   "description": "Steps with dots and connectors.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/pipeline-strip.json"
+  },
+  {
+   "id": "pledge",
+   "name": "pledge",
+   "title": "Pledge",
+   "description": "Promises behind an oxblood rule.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/pledge.json"
+  },
+  {
+   "id": "prev-next",
+   "name": "prev-next",
+   "title": "PrevNext",
+   "description": "Previous and next card links.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/prev-next.json"
+  },
+  {
+   "id": "profile-avatar",
+   "name": "profile-avatar",
+   "title": "ProfileAvatar",
+   "description": "Initial badge in three sizes.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/profile-avatar.json"
+  },
+  {
+   "id": "profile-card-row",
+   "name": "profile-card-row",
+   "title": "ProfileCardRow",
+   "description": "Avatar plus name plus role link row.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/profile-card-row.json"
+  },
+  {
+   "id": "profile-hero",
+   "name": "profile-hero",
+   "title": "ProfileHero",
+   "description": "Avatar xl plus handle plus status plus stats.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/profile-hero.json"
+  },
+  {
+   "id": "profile-rows",
+   "name": "profile-rows",
+   "title": "ProfileRows",
+   "description": "Name, body, status rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/profile-rows.json"
+  },
+  {
+   "id": "profile-status",
+   "name": "profile-status",
+   "title": "ProfileStatus",
+   "description": "Pill status for profile rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/profile-status.json"
+  },
+  {
+   "id": "rail",
+   "name": "rail",
+   "title": "Rail",
+   "description": "Horizontal snap-scroll card rail.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/rail.json"
+  },
+  {
+   "id": "result-card",
+   "name": "result-card",
+   "title": "ResultCard",
+   "description": "Outcome card with number, title, outcome, key/value rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/result-card.json"
+  },
+  {
+   "id": "review-queue",
+   "name": "review-queue",
+   "title": "ReviewQueue",
+   "description": "Expandable review rows with a ping.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/review-queue.json"
+  },
+  {
+   "id": "role-card",
+   "name": "role-card",
+   "title": "RoleCard",
+   "description": "Chip plus title plus body.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/role-card.json"
+  },
+  {
+   "id": "search-pill",
+   "name": "search-pill",
+   "title": "SearchPill",
+   "description": "Pill search with keyboard hint.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/search-pill.json"
+  },
+  {
+   "id": "section-head",
+   "name": "section-head",
+   "title": "SectionHead",
+   "description": "Kicker plus H2 plus lede.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/section-head.json"
+  },
+  {
+   "id": "select",
+   "name": "select",
+   "title": "Select",
+   "description": "Native select with custom chevron.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/select.json"
+  },
+  {
+   "id": "shows-card",
+   "name": "shows-card",
+   "title": "ShowsCard",
+   "description": "Key and body rows in a card.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/shows-card.json"
+  },
+  {
+   "id": "site-nav",
+   "name": "site-nav",
+   "title": "SiteNav",
+   "description": "Sticky header. Wordmark, links, tools, readbar.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/site-nav.json"
+  },
+  {
+   "id": "source-list",
+   "name": "source-list",
+   "title": "SourceList",
+   "description": "Link block plus sub rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/source-list.json"
+  },
+  {
+   "id": "stamp",
+   "name": "stamp",
+   "title": "Stamp",
+   "description": "Rotated status mark.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/stamp.json"
+  },
+  {
+   "id": "start-here",
+   "name": "start-here",
+   "title": "StartHere",
+   "description": "Intro card with kick, title, body.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/start-here.json"
+  },
+  {
+   "id": "stats-band",
+   "name": "stats-band",
+   "title": "StatsBand",
+   "description": "Grid of labeled numbers.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/stats-band.json"
+  },
+  {
+   "id": "status-badge",
+   "name": "status-badge",
+   "title": "StatusBadge",
+   "description": "Live status with a pulsing dot.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/status-badge.json"
+  },
+  {
+   "id": "status-line",
+   "name": "status-line",
+   "title": "StatusLine",
+   "description": "Dot plus mono status text.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/status-line.json"
+  },
+  {
+   "id": "step-gates",
+   "name": "step-gates",
+   "title": "StepGates",
+   "description": "Numbered gates with connectors.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/step-gates.json"
+  },
+  {
+   "id": "steps-list",
+   "name": "steps-list",
+   "title": "StepsList",
+   "description": "Numbered steps under a double rule.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/steps-list.json"
+  },
+  {
+   "id": "submission-form",
+   "name": "submission-form",
+   "title": "SubmissionForm",
+   "description": "Labeled fields, radio options, submit.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/submission-form.json"
+  },
+  {
+   "id": "summary-card",
+   "name": "summary-card",
+   "title": "SummaryCard",
+   "description": "Header plus key and value rows.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/summary-card.json"
+  },
+  {
+   "id": "theme-toggle",
+   "name": "theme-toggle",
+   "title": "ThemeToggle",
+   "description": "Circle icon button; the icon shows the target mode.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/theme-toggle.json"
+  },
+  {
+   "id": "timeline",
+   "name": "timeline",
+   "title": "Timeline",
+   "description": "Dated rows under a double rule.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/timeline.json"
+  }
+ ]
+}

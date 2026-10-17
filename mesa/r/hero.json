@@ -1,0 +1,21 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "hero",
+ "type": "registry:ui",
+ "title": "Hero",
+ "description": "Bignum, H1 with accent em, CTAs, trustline.",
+ "registryDependencies": [
+  "button"
+ ],
+ "files": [
+  {
+   "path": "components/Hero.jsx",
+   "content": "// Oeste Hero \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/hero\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst BUTTON_STYLES = {\n  primary: \"bg-[#181b1f] text-[#f7f4ec] hover:bg-[#6d1620] dark:bg-[#c9404f] dark:text-[#ffffff] dark:hover:bg-[#a52336]\",\n  solid: \"bg-[#8a1f2b] text-[#ffffff] hover:bg-[#6d1620] dark:bg-[#c9404f] dark:text-[#ffffff] dark:hover:bg-[#a52336]\",\n  ghost: \"border border-[#ddd6c7] bg-transparent text-[#181b1f] hover:border-[#8a1f2b] hover:text-[#8a1f2b] dark:border-[#4a4034] dark:text-[#a79b82] dark:hover:border-[#ece3d0] dark:hover:text-[#ffffff]\",\n  \"solid-small\": \"bg-[#8a1f2b] px-4 py-2 text-[13.5px] font-semibold text-[#ffffff] hover:bg-[#6d1620] dark:bg-[#c9404f] dark:hover:bg-[#a52336]\",\n};\n\nexport function Button({ children, variant = \"primary\", disabled = false, onClick, type = \"button\" }) {\n  return (\n    <button type={type} disabled={disabled} onClick={onClick} className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-[26px] py-[14px] text-[15px] font-bold transition hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-50 ${BUTTON_STYLES[variant] || BUTTON_STYLES.primary} ${FOCUS}`}>\n      {children}\n    </button>\n  );\n}\n\nexport function Hero({ eyebrow, bignum, bignumLabel, bignumSuffix, title, accent, sub, trustlineCount, trustlineCountHref, trustline }) {\n  return (\n    <section className=\"py-[60px] pb-9\">\n      {eyebrow && <p className={`${MONO} mb-3 text-[11px] font-bold uppercase tracking-[0.26em] text-[#8a1f2b] dark:text-[#c9404f]`}>{eyebrow}</p>}\n      {bignumLabel && <p className=\"mt-3 mb-1 text-[13px] uppercase tracking-[0.14em] text-[#5b5f65] dark:text-[#a79b82]\">{bignumLabel}</p>}\n      {bignum && (\n        <p className={`${SERIF} mt-2 mb-1 text-[clamp(58px,16vw,124px)] font-black leading-none tracking-[-0.015em] tabular-nums ${INK}`}>{bignum}{bignumSuffix && <span className=\"text-[0.32em]\">{bignumSuffix}</span>}</p>\n      )}\n      <h1 className={`${SERIF} mt-[14px] mb-3 max-w-[20ch] text-[clamp(27px,6.8vw,42px)] font-bold leading-[1.18] tracking-[-0.01em] ${INK}`}>{title} {accent && <em className=\"italic text-[#6d1620] dark:text-[#e87a88]\">{accent}</em>}</h1>\n      {sub && <p className={`mt-2.5 max-w-[56ch] text-base leading-[1.6] ${SOFT}`}>{sub}</p>}\n      <div className=\"mt-1.5 flex flex-wrap gap-3\">\n        <Button variant=\"primary\">Get started</Button>\n        <Button variant=\"ghost\"><span aria-hidden=\"true\" className=\"inline-block h-2 w-2 animate-pulse rounded-full bg-[#2e6b3e] dark:bg-[#8fae62]\" />Browse components</Button>\n      </div>\n      {trustline && <p className={`mt-[26px] text-sm ${SOFT}`}>{trustlineCount ? <><a href={trustlineCountHref} className=\"font-bold text-[#6d1620] no-underline dark:text-[#c9404f]\">{trustlineCount}</a> \u00b7 </> : null}{trustline}</p>}\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/hero",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

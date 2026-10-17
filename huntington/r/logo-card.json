@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "logo-card",
+ "type": "registry:ui",
+ "title": "LogoCard",
+ "description": "A big centered mark. The logo gets the whole card.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/LogoCard.jsx",
+   "content": "// Oeste LogoCard \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/logo-card\n\nexport function LogoCard({ mark, alt, dark = false }) {\n  return (\n    <div className=\"flex w-[320px] max-w-full items-center justify-center rounded-[18px] border border-[var(--color-border)] px-32 py-11\"\n      style={{ background: dark ? \"var(--color-logocard-dark)\" : \"var(--color-card)\", color: dark ? \"#f0ede8\" : undefined }}>\n      <span className=\"flex h-16 w-16 items-center justify-center\" role={alt ? \"img\" : undefined} aria-label={alt}>{mark}</span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/logo-card",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

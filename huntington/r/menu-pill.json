@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "menu-pill",
+ "type": "registry:ui",
+ "title": "MenuPill",
+ "description": "The floating pill that opens the menu sheet.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/MenuPill.jsx",
+   "content": "// Oeste MenuPill \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/menu-pill\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function MenuPill({ label = \"Menu\", onOpen }) {\n  return (\n    <button type=\"button\" aria-expanded=\"false\" onClick={onOpen}\n      className={\"min-h-11 rounded-full border border-[var(--color-border)] px-4 py-3 text-[13px] font-semibold leading-[1] tracking-[0.02em] text-[var(--color-ink)] shadow-[var(--shadow-menupill)] backdrop-blur-[12px] \" + FOCUS}\n      style={{ background: \"color-mix(in srgb, var(--color-paper) 84%, transparent)\" }}>{label}</button>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/menu-pill",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

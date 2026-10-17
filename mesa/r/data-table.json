@@ -1,0 +1,21 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "data-table",
+ "type": "registry:ui",
+ "title": "DataTable",
+ "description": "Rows with reference, title, meta, assignment.",
+ "registryDependencies": [
+  "assignment-line"
+ ],
+ "files": [
+  {
+   "path": "components/DataTable.jsx",
+   "content": "// Oeste DataTable \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/data-table\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nexport function AssignmentLine({ state = \"awaiting\", label, compact = false }) {\n  const on = state === \"on\";\n  return (\n    <p className={`${MONO} flex items-center gap-2.5 ${compact ? \"\" : \"mt-3 border-t border-[#ddd6c7] pt-3 dark:border-[#2e2720]\"} text-[10.5px] uppercase tracking-[0.16em] ${on ? INK : SOFT}`}>\n      <span aria-hidden=\"true\" className={`inline-block h-[9px] w-[9px] rounded-full ${on ? \"bg-[#3f9e4d] shadow-[0_0_8px_rgba(63,158,77,0.8)] animate-pulse\" : \"bg-[#5a4a1f] shadow-[0_0_0_3px_rgba(216,169,63,0.12)]\"}`} />\n      {label || (on ? \"Assigned\" : \"Awaiting\")}\n    </p>\n  );\n}\n\nexport function DataTable({ rows = [] }) {\n  return (\n    <div className={`border-t ${LINE}`}>\n      {rows.map((row) => (\n        <a key={row.id} href={row.href || \"#\"} className={`grid grid-cols-[150px_1fr_auto_auto_20px] items-baseline gap-5 border-b ${LINE} px-2 py-[18px] hover:bg-[rgba(255,255,255,0.025)] dark:hover:bg-[rgba(255,255,255,0.025)] ${FOCUS}`}>\n          <span className={`${MONO} text-xs tracking-[0.08em] text-[#8a1f2b] dark:text-[#c9404f]`}>{row.reference}</span>\n          <span className={`text-[17px] font-bold ${INK}`}>{row.title}</span>\n          <span className={`text-[13px] ${SOFT}`}>{row.meta}</span>\n          {row.assignment && <AssignmentLine state={row.assignment} compact />}\n          <span aria-hidden=\"true\" className={`text-[18px] ${SOFT}`}>\u2192</span>\n        </a>\n      ))}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/data-table",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

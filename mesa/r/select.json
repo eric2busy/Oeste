@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "select",
+ "type": "registry:ui",
+ "title": "Select",
+ "description": "Native select with custom chevron.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Select.jsx",
+   "content": "// Oeste Select \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/select\n\nexport function Select({ id, value, onChange, options = [], placeholder, required = false, ariaLabel }) {\n  return (\n    <span className=\"relative block\">\n      <select\n        id={id}\n        value={value}\n        onChange={(e) => onChange && onChange(e.target.value)}\n        required={required}\n        aria-label={ariaLabel}\n        className=\"w-full cursor-pointer appearance-none rounded-md border border-[#ddd6c7] bg-[#faf9f7] py-3 pl-3.5 pr-10 text-[15px] text-[#181b1f] invalid:text-[#8a8e93] focus:border-[#8a1f2b] focus:outline-none focus:shadow-[0_0_0_3px_rgba(138,31,43,0.12)] dark:border-[#2e2720] dark:bg-[#100e0b] dark:text-[#ece3d0] dark:invalid:text-[#6e6455] dark:focus:border-[#c9404f] dark:focus:shadow-[0_0_0_3px_rgba(201,64,79,0.12)]\"\n      >\n        {placeholder && <option value=\"\" disabled>{placeholder}</option>}\n        {options.map((o) => (\n          <option key={o.value} value={o.value}>{o.label}</option>\n        ))}\n      </select>\n      <span aria-hidden=\"true\" className=\"pointer-events-none absolute right-4 top-1/2 h-2 w-2 -translate-y-[70%] rotate-45 border-b-2 border-r-2 border-[#8a8e93] dark:border-[#6e6455]\" />\n    </span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/select",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

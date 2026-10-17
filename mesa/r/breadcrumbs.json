@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "breadcrumbs",
+ "type": "registry:ui",
+ "title": "Breadcrumbs",
+ "description": "Trail with separators.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Breadcrumbs.jsx",
+   "content": "// Oeste Breadcrumbs \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/breadcrumbs\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nexport function Breadcrumbs({ items = [] }) {\n  return (\n    <nav aria-label=\"Breadcrumb\">\n      <ol className=\"flex flex-wrap items-center gap-0 text-[12.5px] tracking-[0.02em] text-[#5b5f65] dark:text-[#a79b82]\">\n        {items.map((item, i) => (\n          <li key={item.label} className=\"flex items-center\">\n            {i > 0 && <span aria-hidden=\"true\" className=\"mx-2 opacity-50\">/</span>}\n            {item.href && i < items.length - 1 ? <a href={item.href} className={`hover:text-[#8a1f2b] dark:hover:text-[#c9404f] ${FOCUS}`}>{item.label}</a> : <span aria-current={i === items.length - 1 ? \"page\" : undefined}>{item.label}</span>}\n          </li>\n        ))}\n      </ol>\n    </nav>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/breadcrumbs",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

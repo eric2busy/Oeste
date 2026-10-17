@@ -1,0 +1,209 @@
+/* Oeste Mesa theme. Single token source of truth.
+   data-theme scopes to ANY element, not just html: a [data-theme='light']
+   card on a dark page (or vice versa) gets that theme's tokens.
+   Values here MUST match src/tokens.json and DESIGN_TOKENS in src/index.js.
+   Dark is the default theme. Accent is oxblood. There is no Topanga-style
+   Danger token in Mesa: emphasis and errors use oxblood.
+   Contrast exceptions are documented, not hidden: dark accent on dark paper
+   is 3.97:1 and dark accent-deep is 2.66:1, so they pass 3:1 for large text
+   and UI components but NOT 4.5:1 for normal text. Dark accent text must be
+   large/bold or use hero-em. Ink-faint is tertiary only, never body text.
+   Stamps meet 3:1 non-text contrast. See Accessibility. */
+
+:root, [data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #faf9f7;
+  --color-paper: #faf9f7;
+  --color-surface: #ffffff;
+  --color-dark: #141114;
+  --color-text: #181b1f;
+  --color-muted: #5b5f65;
+  --color-faint: #8a8e93;
+  --color-border: #ddd6c7;
+  --color-border-soft: #ece5d5;
+  --color-accent: #8a1f2b;
+  --color-accent-deep: #6d1620;
+  --color-ok: #2e6b3e;
+  --color-warn: #8a5a1f;
+  --color-wash: #f1ede5;
+  --color-btn-text: #f7f4ec;
+  --color-nav-bg: rgba(255, 255, 255, 0.88);
+  --color-focus-ring: rgba(138, 31, 43, 0.12);
+  --color-selection-bg: #8a1f2b;
+  --color-selection-text: #ffffff;
+  --color-scrim: rgba(24, 27, 31, 0.45);
+  --color-hero-em: #6d1620;
+  --color-ghost-btn-border: #ddd6c7;
+  --color-pill-open-text: #2e2b25;
+  --color-pill-verifying-bg: #f7ecd7;
+  --color-pill-verifying-text: #8a5a1f;
+  --color-diff-bg: #181b1f;
+  --color-diff-text: #f4f1ea;
+  --color-diff-heading: #ffffff;
+  --color-diff-kicker: #d98a8a;
+  --color-diff-muted: #b9b4a8;
+  --color-diff-line: #3a3232;
+  --color-cta-bg: #181b1f;
+  --color-cta-text: #f4f1ea;
+  --color-cta-heading: #ffffff;
+  --color-cta-muted: #b9b4a8;
+  --color-pill-reward-bg: #f5e6c4;
+  --color-pill-reward-text: #7a5c14;
+  --color-pill-reward-border: #e3cf9a;
+  --color-stamp-open: #c9404f;
+  --color-stamp-new: #d8a93f;
+  --color-stamp-review: #c98a2b;
+  --color-stamp-closed: #777777;
+  --color-lamp-off: #5a4a1f;
+  --color-lamp-off-ring: rgba(216, 169, 63, 0.12);
+  --color-lamp-on: #3f9e4d;
+  --color-queue-ping: #c9a227;
+  --code-keyword: #6d1620;
+  --code-string: #2e6b3e;
+  --code-number: #8a5a1f;
+  --code-comment: #5b5f65;
+  --code-key: #181b1f;
+  --code-punct: #5b5f65;
+  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: var(--font-sans);
+  --font-display: var(--font-serif);
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, 'Liberation Mono', monospace;
+  --type-h1-entry: clamp(32px, 7vw, 52px);
+  --type-hero-h1: clamp(27px, 6.8vw, 42px);
+  --type-h2: clamp(26px, 5vw, 36px);
+  --type-bignum: clamp(58px, 16vw, 124px);
+  --type-deck: 17.5px;
+  --type-body: 1rem;
+  --type-kicker: 11px;
+  --type-mono-label: 11.5px;
+  --type-stamp: 11px;
+  --type-ghost: 118px;
+  --leading-heading: 1.18;
+  --leading-body: 1.6;
+  --font-weight-heading: 700;
+  --tracking-heading: -0.01em;
+  --tracking-kicker: 0.26em;
+  --tracking-label: 0.14em;
+  --tracking-file-number: 0.24em;
+  --tracking-stamp: 0.14em;
+  --radius-detail-card: 14px;
+  --radius-button: 6px;
+  --radius-card: 8px;
+  --radius-chip: 999px;
+  --radius-ctaband: 12px;
+  --radius-dir-search: 8px;
+  --radius-empty-state: 12px;
+  --radius-fcard: 10px;
+  --radius-folder: 10px;
+  --radius-forum-ctl: 999px;
+  --radius-status-badge: 999px;
+  --radius-iconbtn: 50%;
+  --radius-input: 6px;
+  --radius-num: 6px;
+  --radius-num-lg: 8px;
+  --radius-num-xl: 10px;
+  --radius-empty-attachment: 6px;
+  --radius-nav-toggle: 6px;
+  --radius-palette-box: 12px;
+  --radius-pill: 999px;
+  --radius-profile-status: 999px;
+  --radius-pstrip: 12px;
+  --radius-queue-count: 10px;
+  --radius-stamp: 4px;
+  --radius-themebtn: 50%;
+  --radius-wfile: 4px;
+  --radius-media-card: 8px;
+  --radius-result-card: 12px;
+  --radius-mini-gate: 8px;
+  --radius-start-here: 8px;
+  --radius-search-pill: 999px;
+  --radius-duo-card: 8px;
+  --radius-select: 6px;
+  --radius-option-row: 6px;
+  --radius-pill-flag: 4px;
+  --radius-rail-thumb: 4px;
+  --shadow-palette-box: 0 24px 64px rgba(0, 0, 0, 0.28);
+  --shadow-card-hover: 0 12px 32px rgba(24, 27, 31, 0.09);
+  --shadow-folder-hover: 0 16px 36px rgba(0, 0, 0, 0.35);
+  --shadow-focus-ring: 0 0 0 3px rgba(138, 31, 43, 0.12);
+  --motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-reveal: 0.5s;
+  --motion-reveal-long: 0.55s;
+  --motion-stamp: 0.26s;
+  --motion-stagger: 45ms;
+  --container-wrap: 1060px;
+  --section-padding: 34px 0;
+  --touch-min: 44px;
+}
+
+:root[data-theme='dark'], [data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #100e0b;
+  --color-paper: #100e0b;
+  --color-surface: #181410;
+  --color-dark: #0a0806;
+  --color-text: #ece3d0;
+  --color-muted: #a79b82;
+  --color-faint: #6e6455;
+  --color-border: #2e2720;
+  --color-border-soft: #221c16;
+  --color-accent: #c9404f;
+  --color-accent-deep: #a52336;
+  --color-ok: #8fae62;
+  --color-warn: #c9404f;
+  --color-wash: #14110c;
+  --color-btn-text: #ffffff;
+  --color-nav-bg: rgba(16, 14, 11, 0.87);
+  --color-focus-ring: rgba(201, 64, 79, 0.12);
+  --color-selection-bg: #c9404f;
+  --color-selection-text: #ffffff;
+  --color-scrim: rgba(5, 4, 3, 0.6);
+  --color-hero-em: #e87a88;
+  --color-ghost-btn-border: #4a4034;
+  --color-pill-open-text: #ffffff;
+  --color-pill-verifying-bg: #2a2112;
+  --color-pill-verifying-text: #e87a88;
+  --color-diff-bg: #0b0908;
+  --color-diff-text: #f4f1ea;
+  --color-diff-heading: #ffffff;
+  --color-diff-kicker: #d98a8a;
+  --color-diff-muted: #b9b4a8;
+  --color-diff-line: #3a3232;
+  --color-cta-bg: #181410;
+  --color-cta-text: #f4f1ea;
+  --color-cta-heading: #ffffff;
+  --color-cta-muted: #b9b4a8;
+  --color-pill-reward-bg: #f5e6c4;
+  --color-pill-reward-text: #7a5c14;
+  --color-pill-reward-border: #e3cf9a;
+  --color-stamp-open: #c9404f;
+  --color-stamp-new: #d8a93f;
+  --color-stamp-review: #c98a2b;
+  --color-stamp-closed: #777777;
+  --color-lamp-off: #5a4a1f;
+  --color-lamp-off-ring: rgba(216, 169, 63, 0.12);
+  --color-lamp-on: #3f9e4d;
+  --color-queue-ping: #c9a227;
+  --code-keyword: #e87a88;
+  --code-string: #8fae62;
+  --code-number: #d8a93f;
+  --code-comment: #a79b82;
+  --code-key: #ece3d0;
+  --code-punct: #a79b82;
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-focus-ring: 0 0 0 3px rgba(201, 64, 79, 0.12);
+}
+
+* { box-sizing: border-box; }
+
+::selection { background: var(--color-selection-bg); color: var(--color-selection-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

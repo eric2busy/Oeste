@@ -1,0 +1,21 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "open-questions",
+ "type": "registry:ui",
+ "title": "OpenQuestions",
+ "description": "Questions with answers under an ok rule.",
+ "registryDependencies": [
+  "profile-status"
+ ],
+ "files": [
+  {
+   "path": "components/OpenQuestions.jsx",
+   "content": "// Oeste OpenQuestions \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/open-questions\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nexport function ProfileStatus({ children }) {\n  return (\n    <span className={`${MONO} mt-2 inline-block rounded-full border border-[#8a1f2b] px-[9px] py-[3px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#6d1620] dark:border-[#c9404f] dark:text-[#c9404f]`}>{children}</span>\n  );\n}\n\nexport function OpenQuestions({ items = [] }) {\n  return (\n    <div>\n      {items.map((item) => (\n        <article key={item.question} className=\"border-b border-[#ece5d5] py-[18px] first:pt-2 dark:border-[#221c16]\">\n          <ProfileStatus>{item.status || \"Open\"}</ProfileStatus>\n          <h3 className={`mt-3 max-w-[64ch] text-[16.5px] leading-[1.55] ${SOFT}`}>{item.question}</h3>\n          {item.answer && (\n            <div className=\"ml-0 mt-3.5 border-l-2 border-[#2e6b3e] py-0.5 pl-3.5 dark:border-[#8fae62]\">\n              <p className={`${MONO} text-[11px] font-bold uppercase tracking-[0.14em] text-[#2e6b3e] dark:text-[#8fae62]`}>Answer</p>\n              <p className={`mt-1 max-w-[64ch] text-[15px] leading-[1.6] ${SOFT}`}>{item.answer}</p>\n            </div>\n          )}\n        </article>\n      ))}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/open-questions",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

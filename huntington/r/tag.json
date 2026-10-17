@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "tag",
+ "type": "registry:ui",
+ "title": "Tag",
+ "description": "A small uppercase label. Quiet metadata, hairline border.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Tag.jsx",
+   "content": "// Oeste Tag \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/tag\n\nexport function Tag({ children }) {\n  return (\n    <span className=\"inline-flex rounded-full border border-[var(--color-border)] px-[10px] py-1 text-[var(--type-tag-size)] leading-[var(--type-tag-leading)] tracking-[var(--type-tag-tracking)] text-[var(--color-muted)] [font-weight:var(--type-tag-weight)] uppercase\">{children}</span>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/tag",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "stat",
+ "type": "registry:ui",
+ "title": "Stat",
+ "description": "A metric, a big number, a unit. Nothing else.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/Stat.jsx",
+   "content": "// Oeste Stat \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/stat\n\nexport function Stat({ label, value, unit }) {\n  return (\n    <div className=\"flex flex-col gap-1\">\n      <span className=\"text-[17px] font-medium leading-[1] text-[var(--color-body)]\">{label}</span>\n      <span className=\"flex items-end gap-1\">\n        <span className=\"text-[28px] font-bold leading-[1] tracking-[-0.025em] text-[var(--color-ink)]\">{value}</span>\n        {unit && <span className=\"text-[13px] leading-[1] text-[var(--color-muted)]\">{unit}</span>}\n      </span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/stat",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

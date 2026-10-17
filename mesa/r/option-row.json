@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "option-row",
+ "type": "registry:ui",
+ "title": "OptionRow",
+ "description": "Bordered radio option row.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/OptionRow.jsx",
+   "content": "// Oeste OptionRow \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/option-row\n\nexport function OptionRow({ name, value, checked, onChange, children }) {\n  return (\n    <label className=\"mb-2.5 flex cursor-pointer items-start gap-3 rounded-md border border-[#ddd6c7] bg-[#faf9f7] p-3.5 dark:border-[#2e2720] dark:bg-[#100e0b]\">\n      <input\n        type=\"radio\"\n        name={name}\n        value={value}\n        checked={checked}\n        onChange={(e) => onChange && onChange(e.target.value)}\n        className=\"mt-[3px] h-[18px] w-[18px] flex-none accent-[#6d1620] dark:accent-[#a52336]\"\n      />\n      <span className=\"text-[15px]\">{children}</span>\n    </label>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/option-row",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

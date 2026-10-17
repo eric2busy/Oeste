@@ -1,0 +1,100 @@
+# Mesa — Oeste Design System (v0.2.0)
+
+> Mesa is a universal component library under Oeste. Warm paper, near-black ink, oxblood for status. Dark is the default theme. 67 components. MIT, Copyright (c) 2026 hiddeninwest.
+
+## For agents
+
+- Read `components.json` first: it lists every component with `id`, `name`, `description`, `registryUrl`, `githubRawUrl`, `docsUrl`, `tags`.
+- Fetch a component's registry item at its `registryUrl` (e.g. `https://oeste.hiddeninwest.com/mesa/r/button.json`). Registry items are generated from `src/index.js` — never hand-edited.
+- Each component page has an Agent lens with a fixed `oeste.component.v1` contract. That contract is the only spec an agent needs for that component.
+- Import `src/tokens.css` once. Tokens in `src/tokens.json` are canonical. Do not invent token values.
+- Mesa has no Danger token, no modal, no Toast, no Dropdown. Command Palette is the overlay. Do not invent components.
+- Mesa has no spacing scale and no shared radius scale. Use the observed values per component.
+- Contrast exceptions are documented in Accessibility: dark accent (3.97:1), dark accent-deep (2.66:1), ink-faint (3.13 / 3.32:1), Stamp Open on dark card (3.78:1). Never use those as normal-size body text.
+
+## Components
+
+- [SiteNav](https://oeste.hiddeninwest.com/mesa/#/components/site-nav): Sticky header. Wordmark, links, tools, readbar.
+- [CommandPalette](https://oeste.hiddeninwest.com/mesa/#/components/command-palette): One overlay for search and jump.
+- [PageHeader](https://oeste.hiddeninwest.com/mesa/#/components/page-header): Eyebrow, H1, deck, reference, ghost number.
+- [Hero](https://oeste.hiddeninwest.com/mesa/#/components/hero): Bignum, H1 with accent em, CTAs, trustline.
+- [StatusBadge](https://oeste.hiddeninwest.com/mesa/#/components/status-badge): Live status with a pulsing dot.
+- [FileCard](https://oeste.hiddeninwest.com/mesa/#/components/file-card): Reference, title, description, meta, assignment.
+- [FolderCard](https://oeste.hiddeninwest.com/mesa/#/components/folder-card): Stamped folder with a meta row.
+- [DataTable](https://oeste.hiddeninwest.com/mesa/#/components/data-table): Rows with reference, title, meta, assignment.
+- [Pill](https://oeste.hiddeninwest.com/mesa/#/components/pill): Small uppercase status.
+- [Stamp](https://oeste.hiddeninwest.com/mesa/#/components/stamp): Rotated status mark.
+- [AssignmentLine](https://oeste.hiddeninwest.com/mesa/#/components/assignment-line): Lamp plus status text.
+- [Button](https://oeste.hiddeninwest.com/mesa/#/components/button): Primary, solid, ghost, solid small.
+- [FilterChip](https://oeste.hiddeninwest.com/mesa/#/components/filter-chip): Filter with a count.
+- [ForumControl](https://oeste.hiddeninwest.com/mesa/#/components/forum-control): Forum toggle.
+- [SubmissionForm](https://oeste.hiddeninwest.com/mesa/#/components/submission-form): Labeled fields, radio options, submit.
+- [DirectorySearch](https://oeste.hiddeninwest.com/mesa/#/components/directory-search): Full-width search input.
+- [SectionHead](https://oeste.hiddeninwest.com/mesa/#/components/section-head): Kicker plus H2 plus lede.
+- [Kicker](https://oeste.hiddeninwest.com/mesa/#/components/kicker): Mono eyebrow, oxblood or faint.
+- [Breadcrumbs](https://oeste.hiddeninwest.com/mesa/#/components/breadcrumbs): Trail with separators.
+- [StatsBand](https://oeste.hiddeninwest.com/mesa/#/components/stats-band): Grid of labeled numbers.
+- [ActivityFeed](https://oeste.hiddeninwest.com/mesa/#/components/activity-feed): Card with a live header and rows.
+- [ActivityEntry](https://oeste.hiddeninwest.com/mesa/#/components/activity-entry): Time block plus paragraph.
+- [StepsList](https://oeste.hiddeninwest.com/mesa/#/components/steps-list): Numbered steps under a double rule.
+- [DetailCard](https://oeste.hiddeninwest.com/mesa/#/components/detail-card): Head, grid, source and assigned rows, foot.
+- [SummaryCard](https://oeste.hiddeninwest.com/mesa/#/components/summary-card): Header plus key and value rows.
+- [Disclaimer](https://oeste.hiddeninwest.com/mesa/#/components/disclaimer): Oxblood-bordered notice.
+- [PipelineStrip](https://oeste.hiddeninwest.com/mesa/#/components/pipeline-strip): Steps with dots and connectors.
+- [ProfileRows](https://oeste.hiddeninwest.com/mesa/#/components/profile-rows): Name, body, status rows.
+- [ProfileStatus](https://oeste.hiddeninwest.com/mesa/#/components/profile-status): Pill status for profile rows.
+- [Timeline](https://oeste.hiddeninwest.com/mesa/#/components/timeline): Dated rows under a double rule.
+- [MediaCard](https://oeste.hiddeninwest.com/mesa/#/components/media-card): Number, body, more link, source.
+- [OpenQuestions](https://oeste.hiddeninwest.com/mesa/#/components/open-questions): Questions with answers under an ok rule.
+- [CoverageList](https://oeste.hiddeninwest.com/mesa/#/components/coverage-list): Link plus title plus date rows.
+- [SourceList](https://oeste.hiddeninwest.com/mesa/#/components/source-list): Link block plus sub rows.
+- [Citations](https://oeste.hiddeninwest.com/mesa/#/components/citations): Numbered citation rows.
+- [PrevNext](https://oeste.hiddeninwest.com/mesa/#/components/prev-next): Previous and next card links.
+- [DiffBand](https://oeste.hiddeninwest.com/mesa/#/components/diff-band): Dark band of compared rows.
+- [RoleCard](https://oeste.hiddeninwest.com/mesa/#/components/role-card): Chip plus title plus body.
+- [StepGates](https://oeste.hiddeninwest.com/mesa/#/components/step-gates): Numbered gates with connectors.
+- [Pledge](https://oeste.hiddeninwest.com/mesa/#/components/pledge): Promises behind an oxblood rule.
+- [CtaBand](https://oeste.hiddeninwest.com/mesa/#/components/cta-band): Dark band with H2, body, button, link.
+- [Footer](https://oeste.hiddeninwest.com/mesa/#/components/footer): Double-rule footer with columns and fine print.
+- [ThemeToggle](https://oeste.hiddeninwest.com/mesa/#/components/theme-toggle): Button that names its target mode.
+- [IconButton](https://oeste.hiddeninwest.com/mesa/#/components/icon-button): 34px circle button.
+- [NavToggle](https://oeste.hiddeninwest.com/mesa/#/components/nav-toggle): Hamburger that becomes an X.
+- [GhostNumber](https://oeste.hiddeninwest.com/mesa/#/components/ghost-number): 118px ghost numeral, decorative.
+- [ShowsCard](https://oeste.hiddeninwest.com/mesa/#/components/shows-card): Key and body rows in a card.
+- [EmptyAttachment](https://oeste.hiddeninwest.com/mesa/#/components/empty-attachment): Dashed empty box.
+- [ProfileAvatar](https://oeste.hiddeninwest.com/mesa/#/components/profile-avatar): Initial badge in three sizes.
+- [ProfileCardRow](https://oeste.hiddeninwest.com/mesa/#/components/profile-card-row): Avatar plus name plus role link row.
+- [StatusLine](https://oeste.hiddeninwest.com/mesa/#/components/status-line): Dot plus mono status text.
+- [ProfileHero](https://oeste.hiddeninwest.com/mesa/#/components/profile-hero): Avatar xl plus handle plus status plus stats.
+- [EmptyState](https://oeste.hiddeninwest.com/mesa/#/components/empty-state): Dashed empty state with CTA.
+- [ReviewQueue](https://oeste.hiddeninwest.com/mesa/#/components/review-queue): Expandable review rows with a ping.
+- [DailySummary](https://oeste.hiddeninwest.com/mesa/#/components/daily-summary): Kicker plus totals line.
+- [NextUp](https://oeste.hiddeninwest.com/mesa/#/components/next-up): Key plus title plus sub.
+- [Rail](https://oeste.hiddeninwest.com/mesa/#/components/rail): Horizontal snap-scroll card rail.
+- [ResultCard](https://oeste.hiddeninwest.com/mesa/#/components/result-card): Outcome card with number, title, outcome, key/value rows.
+- [ForumThread](https://oeste.hiddeninwest.com/mesa/#/components/forum-thread): Thread row with votes and replies.
+- [MiniGates](https://oeste.hiddeninwest.com/mesa/#/components/mini-gates): Compact gate cards, four across.
+- [StartHere](https://oeste.hiddeninwest.com/mesa/#/components/start-here): Intro card with kick, title, body.
+- [SearchPill](https://oeste.hiddeninwest.com/mesa/#/components/search-pill): Pill search with keyboard hint.
+- [Banner](https://oeste.hiddeninwest.com/mesa/#/components/banner): Always-dark notice bar.
+- [DuoCard](https://oeste.hiddeninwest.com/mesa/#/components/duo-card): Two-up card with kick and hover lift.
+- [IndexRow](https://oeste.hiddeninwest.com/mesa/#/components/index-row): Index row with hover-reveal arrow.
+- [Select](https://oeste.hiddeninwest.com/mesa/#/components/select): Native select with custom chevron.
+- [OptionRow](https://oeste.hiddeninwest.com/mesa/#/components/option-row): Bordered radio option row.
+
+## Docs
+
+- [Getting started](https://oeste.hiddeninwest.com/mesa/#/getting-started)
+- [Tokens](https://oeste.hiddeninwest.com/mesa/#/tokens)
+- [Theming](https://oeste.hiddeninwest.com/mesa/#/theming)
+- [Accessibility](https://oeste.hiddeninwest.com/mesa/#/accessibility)
+- [Patterns](https://oeste.hiddeninwest.com/mesa/#/patterns)
+- [First screen](https://oeste.hiddeninwest.com/mesa/#/first-screen)
+- [Build a theme](https://oeste.hiddeninwest.com/mesa/#/build-a-theme)
+- [Layout](https://oeste.hiddeninwest.com/mesa/#/layout)
+- [Customizing](https://oeste.hiddeninwest.com/mesa/#/customizing)
+- [Setup](https://oeste.hiddeninwest.com/mesa/#/setup)
+- [Changelog](https://oeste.hiddeninwest.com/mesa/#/changelog)
+- [Migration](https://oeste.hiddeninwest.com/mesa/#/migration)
+- [FAQ](https://oeste.hiddeninwest.com/mesa/#/faq)
+- [components.json](https://oeste.hiddeninwest.com/mesa/components.json)

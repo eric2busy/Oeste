@@ -1,0 +1,20 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "list-row",
+ "type": "registry:ui",
+ "title": "ListRow",
+ "description": "A full-width row: title, description, and an optional meta. Inline (two columns without meta, three with it) or stacked (title + meta on top, description below). The index's workhorse.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/ListRow.jsx",
+   "content": "// Oeste ListRow \u2014 Huntington theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with arbitrary values, JSX transform.\n// Requires Huntington tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/huntington/src/index.js\n// Docs: https://oeste.hiddeninwest.com/huntington/#/components/list-row\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]\";\n\nexport function ListRow({ title, description, meta, href, onClick, stacked = false }) {\n  const titleEl = <span className=\"shrink-0 whitespace-nowrap overflow-hidden text-ellipsis text-[var(--type-irowTitle-size)] leading-[var(--type-irowTitle-leading)] tracking-[var(--type-irowTitle-tracking)] text-[var(--color-ink)] [font-weight:var(--type-irowTitle-weight)]\">{title}</span>;\n  const descEl = description && <span className=\"min-w-0 text-[var(--type-irowDesc-size)] leading-[var(--type-irowDesc-leading)] text-[var(--color-muted)] [font-weight:var(--type-irowDesc-weight)]\">{description}</span>;\n  const metaEl = meta && <span className=\"shrink-0 text-[var(--type-irowMeta-size)] leading-[var(--type-irowMeta-leading)] text-[var(--color-muted)] [font-weight:var(--type-irowMeta-weight)]\">{meta}</span>;\n  if (stacked) {\n    const cls = \"flex w-full flex-col gap-1 px-1 py-[15px] text-left no-underline \" + FOCUS;\n    const inner = (\n      <>\n        <span className=\"flex items-baseline justify-between gap-4\">{titleEl}{metaEl}</span>\n        {descEl}\n      </>\n    );\n    if (href) return <a href={href} className={cls}>{inner}</a>;\n    return <button type=\"button\" onClick={onClick} className={\"border-0 bg-transparent \" + cls}>{inner}</button>;\n  }\n  const cls = \"flex w-full items-baseline justify-between gap-4 px-1 py-[15px] text-left no-underline \" + FOCUS;\n  const inner = (\n    <>\n      <span className=\"flex items-baseline gap-[14px] min-w-0\">{titleEl}{descEl}</span>\n      {metaEl}\n    </>\n  );\n  if (href) return <a href={href} className={cls}>{inner}</a>;\n  return <button type=\"button\" onClick={onClick} className={\"border-0 bg-transparent \" + cls}>{inner}</button>;\n}}\n\n/* ---------------- Status Row ---------------- */\n\nexport function StatusRow({ label, value, plain = false }) {\n  return (\n    <div className=\"flex items-baseline gap-4 px-1 py-[7px]\">\n      <span className=\"text-[var(--type-statusValuePlain-size)] leading-[var(--type-statusValuePlain-leading)] tracking-[var(--type-statusValuePlain-tracking)] text-[var(--color-muted)] [font-weight:var(--type-statusValuePlain-weight)]\">{label}</span>\n      <span className={\"text-[var(--type-statusValue-size)] leading-[var(--type-statusValue-leading)] tracking-[var(--type-statusValue-tracking)] text-[var(--color-ink)] \" + (plain ? \"[font-weight:var(--type-statusValuePlain-weight)]\" : \"[font-weight:var(--type-statusValue-weight)]\")}>{value}</span>\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/huntington/#/components/list-row",
+ "categories": [
+  "oeste",
+  "huntington"
+ ]
+}

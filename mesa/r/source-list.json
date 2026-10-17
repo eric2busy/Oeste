@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "source-list",
+ "type": "registry:ui",
+ "title": "SourceList",
+ "description": "Link block plus sub rows.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/SourceList.jsx",
+   "content": "// Oeste SourceList \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/source-list\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst DOUBLE_TOP = \"border-t-[3px] border-t-double border-t-[#181b1f] dark:border-t-[#ece3d0]\";\n\nexport function SourceList({ items = [] }) {\n  return (\n    <ul className={DOUBLE_TOP}>\n      {items.map((item) => (\n        <li key={item.title} className=\"border-b border-[#ece5d5] py-3.5 dark:border-[#221c16]\">\n          <a href={item.href || \"#\"} className={`block underline decoration-[#ddd6c7] underline-offset-[3px] hover:text-[#8a1f2b] hover:decoration-[#8a1f2b] dark:decoration-[#2e2720] dark:hover:text-[#c9404f] dark:hover:decoration-[#c9404f] ${FOCUS}`}>\n            <span className={`text-[15px] ${INK}`}>{item.title}</span>\n            <span className={`mt-0.5 block text-[13px] ${FAINT}`}>{item.sub}</span>\n          </a>\n        </li>\n      ))}\n    </ul>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/source-list",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

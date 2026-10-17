@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "step-gates",
+ "type": "registry:ui",
+ "title": "StepGates",
+ "description": "Numbered gates with connectors.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StepGates.jsx",
+   "content": "// Oeste StepGates \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/step-gates\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nexport function StepGates({ gates = [] }) {\n  return (\n    <ol className=\"grid gap-x-8 lg:grid-cols-2\">\n      {gates.map((g, i) => (\n        <li key={g.title} className=\"relative pb-[26px] pl-12\">\n          <span aria-hidden=\"true\" className=\"absolute bottom-0 left-[14px] top-9 w-px bg-[#ddd6c7] dark:bg-[#2e2720]\" />\n          <span aria-hidden=\"true\" className={`${MONO} absolute left-0 top-0 flex h-[29px] w-[29px] items-center justify-center rounded-full border border-[#8a1f2b] bg-[#faf9f7] text-[11px] font-bold text-[#8a1f2b] dark:border-[#c9404f] dark:bg-[#100e0b] dark:text-[#c9404f]`}>{i + 1}</span>\n          <h3 className={`${SERIF} text-[21px] tracking-[-0.01em] ${INK}`}>{g.title}</h3>\n          <p className={`mt-1 max-w-[36em] text-[15px] leading-[1.55] ${SOFT}`}>{g.body}</p>\n        </li>\n      ))}\n    </ol>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/step-gates",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

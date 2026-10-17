@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "mini-gates",
+ "type": "registry:ui",
+ "title": "MiniGates",
+ "description": "Compact gate cards, four across.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/MiniGates.jsx",
+   "content": "// Oeste MiniGates \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/mini-gates\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function MiniGates({ gates = [] }) {\n  return (\n    <div className=\"my-[18px] grid grid-cols-1 gap-3 min-[700px]:grid-cols-2 min-[1100px]:grid-cols-4\">\n      {gates.map((g) => (\n        <div key={g.number} className={`rounded-lg border ${LINE} ${CARD} p-[14px]`}>\n          <p className={`${MONO} text-[11.5px] tracking-[0.06em] text-[#8a1f2b] dark:text-[#c9404f]`}>{g.number}</p>\n          <p className=\"mt-1 text-[14px] font-semibold\">{g.title}</p>\n          {g.body && <p className={`mt-1.5 text-[12.5px] leading-[1.5] ${SOFT}`}>{g.body}</p>}\n        </div>\n      ))}\n    </div>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/mini-gates",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

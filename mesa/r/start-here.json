@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "start-here",
+ "type": "registry:ui",
+ "title": "StartHere",
+ "description": "Intro card with kick, title, body.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/StartHere.jsx",
+   "content": "// Oeste StartHere \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/start-here\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst SOFT = \"text-[#5b5f65] dark:text-[#a79b82]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function StartHere({ kick, title, children }) {\n  return (\n    <section className={`mb-[22px] rounded-lg border ${LINE} ${CARD} px-[22px] py-5`}>\n      {kick && <p className={`${MONO} mb-2 text-[11px] font-bold uppercase tracking-[0.22em] ${FAINT}`}>{kick}</p>}\n      {title && <h3 className={`${SERIF} mb-2 text-[21px] font-bold`}>{title}</h3>}\n      <div className={`[&_p]:mx-0 [&_p]:mb-3 [&_p]:mt-0 [&_p]:max-w-[62ch] [&_p]:text-[14.5px] [&_p]:leading-[1.6] ${SOFT}`}>{children}</div>\n    </section>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/start-here",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

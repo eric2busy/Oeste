@@ -1,0 +1,19 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "prev-next",
+ "type": "registry:ui",
+ "title": "PrevNext",
+ "description": "Previous and next card links.",
+ "registryDependencies": [],
+ "files": [
+  {
+   "path": "components/PrevNext.jsx",
+   "content": "// Oeste PrevNext \u2014 Mesa theme (v0.2.0).\n// Copy-paste ready. Requires: React 18+, Tailwind with dark: variant, JSX transform.\n// Requires Mesa tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/mesa/src/index.js\n// Docs: https://oeste.hiddeninwest.com/mesa/#/components/prev-next\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#181b1f] dark:focus-visible:outline-[#ece3d0]\";\n\nconst SERIF = \"font-['Merriweather',Georgia,'Times_New_Roman',serif]\";\n\nconst MONO = \"font-[ui-monospace,'SF_Mono','Cascadia_Code',Menlo,Consolas,monospace]\";\n\nconst INK = \"text-[#181b1f] dark:text-[#ece3d0]\";\n\nconst FAINT = \"text-[#8a8e93] dark:text-[#6e6455]\";\n\nconst LINE = \"border-[#ddd6c7] dark:border-[#2e2720]\";\n\nconst CARD = \"bg-[#ffffff] dark:bg-[#181410]\";\n\nexport function PrevNext({ prev, next }) {\n  return (\n    <nav className=\"grid gap-3 md:grid-cols-2\" aria-label=\"Previous and next\">\n      {prev && (\n        <a href={prev.href || \"#\"} className={`rounded-lg border ${LINE} ${CARD} px-5 py-[18px] transition hover:-translate-y-0.5 hover:border-[#8a8e93] dark:hover:border-[#6e6455] ${FOCUS}`}>\n          <span className={`${MONO} text-[10.5px] font-bold uppercase tracking-[0.2em] ${FAINT}`}>Previous</span>\n          <span className={`${SERIF} mt-1 block text-[17px] font-bold ${INK}`}>{prev.title}</span>\n        </a>\n      )}\n      {next && (\n        <a href={next.href || \"#\"} className={`rounded-lg border ${LINE} ${CARD} px-5 py-[18px] text-right transition hover:-translate-y-0.5 hover:border-[#8a8e93] dark:hover:border-[#6e6455] ${FOCUS}`}>\n          <span className={`${MONO} text-[10.5px] font-bold uppercase tracking-[0.2em] ${FAINT}`}>Next</span>\n          <span className={`${SERIF} mt-1 block text-[17px] font-bold ${INK}`}>{next.title}</span>\n        </a>\n      )}\n    </nav>\n  );\n}\n",
+   "type": "registry:component"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/mesa/#/components/prev-next",
+ "categories": [
+  "oeste-mesa"
+ ]
+}

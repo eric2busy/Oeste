@@ -15,6 +15,7 @@ Oeste is a component reference for humans, AI agents, and vibe coders. Three com
 - `index.html` — The Oeste home page (oeste.hiddeninwest.com).
 - `vercel.json` — Routing: library paths plus Topanga legacy redirects.
 - `llms.txt` — Index for agents.
+- `support/` — Support page (oeste.hiddeninwest.com/support/).
 - `topanga/` — Topanga library source (docs site, tokens, registry, scripts).
 - `huntington/` — Huntington library source.
 - `mesa/` — Mesa library source.

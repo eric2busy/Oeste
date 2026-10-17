@@ -1,7 +1,7 @@
 # Oeste — Topanga
 
 A component reference for humans, AI agents, and vibe coders.
-Oeste = Spanish for "west". Topanga = first theme, the hidden canyon in Los Angeles where creatives retreat and build.
+Oeste — One system. Three perspectives. Topanga = first theme, the hidden canyon in Los Angeles where creatives retreat and build.
 
 ## Usage
 Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; nothing leaves your browser. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/r/<id>.json` (index at /r/registry.json, manifest at /components.json). Registry files are self-contained React + Tailwind and need src/tokens.css loaded once. `@oeste/ui` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.

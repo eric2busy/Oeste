@@ -1,7 +1,7 @@
 # Oeste — Huntington
 
 A component reference for humans, AI agents, and vibe coders.
-Oeste = Spanish for "west". Huntington = second public library: a single-column index with five moods, hairlines instead of shadows, and no filled button.
+Oeste — One system. Three perspectives. Huntington = second public library: a single-column index with five moods, hairlines instead of shadows, and no filled button.
 
 ## Usage
 Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; nothing leaves your browser. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/<id>.json` (index at /r/registry.json, manifest at /components.json). The registry goes live when Huntington is integrated into oeste.hiddeninwest.com/huntington; until then, copy from the Vibe lens. Registry files are self-contained React + Tailwind and need src/tokens.css loaded once. `@oeste/huntington` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.

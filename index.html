@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="paper">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,68 +7,106 @@
 <meta name="description" content="Oeste is a design system for humans, AI agents, and vibe coders. Three component libraries: Topanga, Huntington, Mesa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/huntington/src/tokens.css">
-<link rel="stylesheet" href="/huntington/site/styles.css">
-<script>try { var m = localStorage.getItem("huntington-mood"); document.documentElement.dataset.theme = m || "paper"; } catch (e) {}</script>
+<link rel="stylesheet" href="/topanga/src/tokens.css">
+<link rel="stylesheet" href="/topanga/site/styles.css">
+<script>try { var t = localStorage.getItem("oeste-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <script>if (location.hash && location.hash.indexOf('#/') === 0) { location.replace('/topanga/' + location.hash); }</script>
+<style>
+.home { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+.home-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px 0; max-width: 720px; margin: 0 auto; }
+.home-header-actions { display: flex; align-items: center; gap: 20px; }
+.support-link { color: var(--color-text); text-decoration: none; font-weight: 600; }
+.support-link:hover { text-decoration: underline; }
+.wordmark { color: var(--color-text); text-decoration: none; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; }
+.lib-cards { display: grid; gap: 16px; margin-top: 24px; }
+.lib-card { border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; background: var(--color-bg); }
+.lib-card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+.lib-card .badge { margin-bottom: 12px; }
+.lib-card p { margin: 0 0 16px; color: var(--color-muted); }
+.lib-card p:last-of-type { margin-bottom: 16px; }
+.section { margin-top: 44px; }
+.section h2 { margin-top: 0; }
+.install-label { margin: 24px 0 0; }
+.note { margin-top: 32px; }
+</style>
 </head>
 <body>
 <a class="skip" href="#view">Skip to content</a>
-<header class="site-header">
+<header class="home-header">
   <a class="wordmark" href="/" aria-label="Oeste home">oeste</a>
-  <button class="mood-toggle" id="moodToggle" type="button" aria-label="Mood: Paper. Cycle to the next mood."><span class="mood-dot" aria-hidden="true"></span></button>
+  <div class="home-header-actions">
+  <a class="support-link" href="/support/">Support</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Theme: Light. Switch to dark."><svg class="icon icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+  </div>
 </header>
-<main id="view" tabindex="-1">
-<div class="h-hero">
+<main id="view" tabindex="-1" class="home">
 <p class="eyebrow">Oeste · Component libraries</p>
 <h1>One system.<br>Three perspectives.</h1>
-<p class="h-sub">Oeste is a design system for humans, AI agents, and vibe coders. Pick a library — each one is complete: Human docs, Agent contracts, Vibe code.</p>
+<p class="lede">Oeste is a design system for humans, AI agents, and vibe coders. Pick a library — each one is complete: Human docs, Agent contracts, Vibe code.</p>
+<section class="section" aria-labelledby="libraries-heading">
+<h2 id="libraries-heading">Libraries</h2>
+<div class="lib-cards">
+<section class="lib-card" aria-labelledby="lib-topanga">
+<h3 id="lib-topanga">Topanga</h3>
+<span class="badge">v0.4.8 · 29 components</span>
+<p>The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.</p>
+<a class="btn btn-secondary" href="/topanga/">Browse Topanga</a>
+</section>
+<section class="lib-card" aria-labelledby="lib-huntington">
+<h3 id="lib-huntington">Huntington</h3>
+<span class="badge">v0.2.0 · 40 components</span>
+<p>A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.</p>
+<a class="btn btn-secondary" href="/huntington/">Browse Huntington</a>
+</section>
+<section class="lib-card" aria-labelledby="lib-mesa">
+<h3 id="lib-mesa">Mesa</h3>
+<span class="badge">v0.2.0 · 67 components</span>
+<p>Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.</p>
+<a class="btn btn-secondary" href="/mesa/">Browse Mesa</a>
+</section>
 </div>
-<div class="h-sectitle" style="margin-top:44px"><h2>Libraries</h2></div>
-<nav aria-label="Component libraries">
-<a class="h-listrow h-listrow--stacked" href="/topanga/"><span class="h-rowtop"><span class="h-rowtitle">Topanga</span> <span class="h-rowmeta">v0.4.8 · 29</span></span><span class="h-rowdesc">The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.</span></a>
-<a class="h-listrow h-listrow--stacked" href="/huntington/"><span class="h-rowtop"><span class="h-rowtitle">Huntington</span> <span class="h-rowmeta">v0.2.0 · 40</span></span><span class="h-rowdesc">A single-column library. Five moods — Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.</span></a>
-<a class="h-listrow h-listrow--stacked" href="/mesa/"><span class="h-rowtop"><span class="h-rowtitle">Mesa</span> <span class="h-rowmeta">v0.2.0 · 67</span></span><span class="h-rowdesc">Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.</span></a>
-</nav>
-<div class="h-sectitle" style="margin-top:44px"><h2>Start building</h2></div>
-<p style="margin:24px 0 0"><strong>Topanga</strong></p>
+</section>
+<section class="section" aria-labelledby="start-heading">
+<h2 id="start-heading">Start building</h2>
+<p class="install-label"><strong>Topanga</strong></p>
 <pre>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</pre>
 <button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json">Copy command</button>
-<p style="margin:24px 0 0"><strong>Huntington</strong></p>
+<p class="install-label"><strong>Huntington</strong></p>
 <pre>npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/header.json</pre>
 <button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/header.json">Copy command</button>
-<p style="margin:24px 0 0"><strong>Mesa</strong></p>
+<p class="install-label"><strong>Mesa</strong></p>
 <pre>npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json</pre>
 <button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json">Copy command</button>
-<div class="h-sectitle" style="margin-top:44px"><h2>What Oeste means</h2></div>
-<p class="h-standfirst" style="margin-top:24px">Oeste is Spanish for west. The three libraries are three perspectives on the same foundation: one system, three ways to build.</p>
-<p style="margin:16px 0 0">This page is built with Huntington, the library for hiddeninwest.com — one column, five moods, hairlines instead of shadows. The dot up top cycles the mood.</p>
-<div class="h-sectitle" style="margin-top:44px"><h2>For agents</h2></div>
-<p style="margin:24px 0 0">Each library has its own machine contract. Start from the library&rsquo;s <code>llms.txt</code>, not this page.</p>
-<p><a class="h-textlink" href="/topanga/llms.txt">Topanga llms.txt</a> · <a class="h-textlink" href="/topanga/components.json">Topanga components.json</a></p>
-<p><a class="h-textlink" href="/huntington/llms.txt">Huntington llms.txt</a> · <a class="h-textlink" href="/huntington/components.json">Huntington components.json</a></p>
-<p><a class="h-textlink" href="/mesa/llms.txt">Mesa llms.txt</a> · <a class="h-textlink" href="/mesa/components.json">Mesa components.json</a></p>
-<p class="h-note">Backwards compatibility: <code>/r/*</code> and <code>/components.json</code> redirect to Topanga&rsquo;s, and old Topanga deep links (<code>/#/&hellip;</code>) land on <code>/topanga/#/&hellip;</code>. Tokens are per-library — never mix them.</p>
+</section>
+<section class="section" aria-labelledby="agents-heading">
+<h2 id="agents-heading">For agents</h2>
+<p>Each library has its own machine contract. Start from the library&rsquo;s <code>llms.txt</code>, not this page.</p>
+<p><a href="/topanga/llms.txt">Topanga llms.txt</a> · <a href="/topanga/components.json">Topanga components.json</a></p>
+<p><a href="/huntington/llms.txt">Huntington llms.txt</a> · <a href="/huntington/components.json">Huntington components.json</a></p>
+<p><a href="/mesa/llms.txt">Mesa llms.txt</a> · <a href="/mesa/components.json">Mesa components.json</a></p>
+<p class="note">Backwards compatibility: <code>/r/*</code> and <code>/components.json</code> redirect to Topanga&rsquo;s, and old Topanga deep links (<code>/#/&hellip;</code>) land on <code>/topanga/#/&hellip;</code>. Tokens are per-library — never mix them.</p>
+</section>
 </main>
 <footer class="site-footer">
 <p>© 2026 <a href="https://hiddeninwest.com">hiddeninwest</a></p>
-<p>Oeste — Spanish for west.</p>
+<p>One system. Three perspectives. · <a href="/support/">Support</a></p>
+<p>This page is built with Topanga.</p>
 </footer>
 <script>
 (function () {
-  var MOODS = ["paper", "ink", "rose", "sage", "dune"];
-  function currentMood() { return document.documentElement.dataset.theme || "paper"; }
-  function setMood(mood) {
-    document.documentElement.dataset.theme = mood;
-    try { localStorage.setItem("huntington-mood", mood); } catch (e) {}
-    var cap = mood.charAt(0).toUpperCase() + mood.slice(1);
-    var btn = document.getElementById("moodToggle");
-    if (btn) btn.setAttribute("aria-label", "Mood: " + cap + ". Cycle to the next mood.");
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem("oeste-theme", theme); } catch (e) {}
+    var btn = document.getElementById("themeToggle");
+    if (btn) {
+      btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      btn.setAttribute("aria-label", "Theme: " + (theme === "light" ? "Light" : "Dark") + ". Switch to " + (theme === "light" ? "dark" : "light") + ".");
+    }
   }
-  setMood(currentMood());
-  document.getElementById("moodToggle").addEventListener("click", function () {
-    var next = MOODS[(MOODS.indexOf(currentMood()) + 1) % MOODS.length];
-    setMood(next);
+  function currentTheme() { return document.documentElement.dataset.theme || "light"; }
+  setTheme(currentTheme());
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    setTheme(currentTheme() === "dark" ? "light" : "dark");
   });
   document.querySelectorAll("[data-copy]").forEach(function (b) {
     b.addEventListener("click", function () {

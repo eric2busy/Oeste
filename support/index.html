@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support - Oeste</title>
+<meta name="description" content="Support for the Oeste component libraries: Topanga, Huntington, Mesa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/topanga/src/tokens.css">
+<link rel="stylesheet" href="/topanga/site/styles.css">
+<script>try { var t = localStorage.getItem("oeste-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {} document.documentElement.classList.add("js");</script>
+<style>
+.support { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+.support-header { position: sticky; top: 0; z-index: 10; background: var(--color-bg); border-bottom: 1px solid var(--color-border); }
+.support-header-inner { max-width: 720px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 16px; position: relative; }
+.support-home { color: var(--color-text); text-decoration: none; font-weight: 700; }
+.support-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.support-nav { display: flex; gap: 4px; margin-left: auto; }
+.support-nav a { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; padding: 8px 8px; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+.support-nav a:hover { color: var(--color-text); }
+.support-nav a.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+.support-menu-btn { display: none; }
+@media (max-width: 719px) {
+  .support-menu-btn { display: block; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-text); background: none; border: 1px solid var(--color-border); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .support-menu-btn .chev { display: inline-block; transition: transform 0.15s; }
+  .support-menu-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .support-nav { display: none; position: absolute; top: 100%; right: 20px; flex-direction: column; gap: 0; margin-left: 0; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 12px; padding: 8px 0; min-width: 220px; }
+  .support-nav.open { display: flex; }
+  .support-nav a { padding: 10px 16px; border-bottom: 0; margin-bottom: 0; }
+  .support-nav a.active { border-bottom: 0; font-weight: 700; }
+}
+.js .view { display: none; }
+.js .view.is-active { display: block; }
+.view:focus { outline: none; }
+.lib-cards { display: grid; gap: 16px; margin-top: 24px; }
+.lib-card { border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; background: var(--color-bg); }
+.lib-card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+.lib-card .badge { margin-bottom: 12px; }
+.lib-card p { margin: 0 0 16px; color: var(--color-muted); }
+.lib-card p:last-of-type { margin-bottom: 16px; }
+.support-note { border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent); border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.support-note p { margin: 0 0 8px; }
+.support-note p:last-child { margin-bottom: 0; }
+.faq-item { border-bottom: 1px solid var(--color-border); padding: 20px 0; }
+.faq-item h3 { margin: 0 0 8px; }
+.faq-item p { margin: 0; }
+.faq-item p + p { margin-top: 8px; }
+.hint { font-size: 0.875rem; color: var(--color-muted); margin-top: 12px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="support-header">
+  <div class="support-header-inner">
+    <a class="support-home" href="/">&larr; Oeste</a>
+    <nav class="support-nav" id="supportMenu" aria-label="Support sections">
+      <a href="#libraries" data-view="libraries" aria-current="true" class="active">The libraries</a>
+      <a href="#get-help" data-view="get-help">Get help</a>
+      <a href="#report-a-bug" data-view="report-a-bug">Report a bug</a>
+      <a href="#version-support" data-view="version-support">Version support</a>
+      <a href="#faq" data-view="faq">FAQ</a>
+    </nav>
+    <div class="support-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Theme: Light. Switch to dark."><svg class="icon icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+      <button class="support-menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="supportMenu">Menu <span class="chev" aria-hidden="true">&#9662;</span></button>
+    </div>
+  </div>
+</header>
+<main id="main" class="support">
+<p class="eyebrow">Oeste · Support</p>
+<h1>Support</h1>
+<p class="lede">One page for all three Oeste libraries. Pick your library, get help, report a bug, or check version support.</p>
+<section id="libraries" class="view is-active" tabindex="-1">
+  <h2>The libraries</h2>
+  <p>Oeste is three libraries. They share one issue tracker, so bug reports and requests live in one place.</p>
+  <div class="lib-cards">
+    <section class="lib-card" aria-labelledby="sup-topanga">
+      <h3 id="sup-topanga">Topanga</h3>
+      <span class="badge">v0.4.8</span>
+      <p>The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.</p>
+      <p><a href="https://github.com/eric2busy/Oeste" target="_blank" rel="noopener">GitHub repo</a> &middot; <a href="https://github.com/eric2busy/Oeste/issues" target="_blank" rel="noopener">Issues</a></p>
+    </section>
+    <section class="lib-card" aria-labelledby="sup-huntington">
+      <h3 id="sup-huntington">Huntington</h3>
+      <span class="badge">v0.2.0</span>
+      <p>A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.</p>
+      <p><a href="https://github.com/eric2busy/Oeste" target="_blank" rel="noopener">GitHub repo</a> &middot; <a href="https://github.com/eric2busy/Oeste/issues" target="_blank" rel="noopener">Issues</a></p>
+    </section>
+    <section class="lib-card" aria-labelledby="sup-mesa">
+      <h3 id="sup-mesa">Mesa</h3>
+      <span class="badge">v0.2.0</span>
+      <p>Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.</p>
+      <p><a href="https://github.com/eric2busy/Oeste" target="_blank" rel="noopener">GitHub repo</a> &middot; <a href="https://github.com/eric2busy/Oeste/issues" target="_blank" rel="noopener">Issues</a></p>
+    </section>
+  </div>
+</section>
+<section id="get-help" class="view" tabindex="-1">
+  <h2>Get help</h2>
+  <p>Oeste has no support desk. If you are stuck, work through these steps in order.</p>
+  <ol>
+    <li><strong>Read the library spec first.</strong> Start with the docs for your library, including its llms.txt. Most questions are answered there.
+      <ul>
+        <li><a href="/topanga/">Topanga docs</a> &middot; <a href="/topanga/llms.txt">Topanga llms.txt</a></li>
+        <li><a href="/huntington/">Huntington docs</a> &middot; <a href="/huntington/llms.txt">Huntington llms.txt</a></li>
+        <li><a href="/mesa/">Mesa docs</a> &middot; <a href="/mesa/llms.txt">Mesa llms.txt</a></li>
+      </ul>
+    </li>
+    <li><strong>Search existing GitHub issues.</strong> Someone may have hit the same thing. Search the issues before you open a new one. <a href="https://github.com/eric2busy/Oeste/issues" target="_blank" rel="noopener">Search issues</a></li>
+    <li><strong>File a new issue.</strong> If the spec and the issues do not answer it, open a new issue. Say what you tried and what you saw. <a href="https://github.com/eric2busy/Oeste/issues/new" target="_blank" rel="noopener">Open a new issue</a></li>
+  </ol>
+  <div class="support-note">
+    <p><strong>What Oeste does not offer</strong></p>
+    <p>No response-time promise. No email support. No contact form.</p>
+    <p>And never post personal info: no passwords, keys, or private details in an issue.</p>
+  </div>
+</section>
+<section id="report-a-bug" class="view" tabindex="-1">
+  <h2>Report a bug</h2>
+  <p>Found something broken? Open an issue on GitHub. Include everything below so it can be reproduced.</p>
+  <ul>
+    <li>Library and version (for example, Huntington 0.2.0).</li>
+    <li>Figma version or browser (whatever you were using when it broke).</li>
+    <li>Steps to reproduce, in order.</li>
+    <li>Expected behavior and actual behavior.</li>
+    <li>Screenshots, if they help.</li>
+  </ul>
+  <h3>Bug template</h3>
+  <p>Pick a library. The template fills in the right version. Copy it, fill in the rest, and paste it into a new issue.</p>
+  <div class="field"><label for="bugLibrary">Library</label>
+  <select id="bugLibrary">
+    <option value="topanga">Topanga</option>
+    <option value="huntington">Huntington</option>
+    <option value="mesa">Mesa</option>
+  </select></div>
+  <pre id="bugTemplate">Library: Topanga
+Version: 0.4.8
+Figma version or browser:
+Steps to reproduce:
+1.
+Expected:
+Actual:
+Screenshots:</pre>
+  <button class="btn btn-primary" id="copyTemplate" type="button">Copy template</button>
+  <p class="hint">Paste it into a <a href="https://github.com/eric2busy/Oeste/issues/new" target="_blank" rel="noopener">new issue on GitHub</a>.</p>
+</section>
+<section id="version-support" class="view" tabindex="-1">
+  <h2>Version support</h2>
+  <p>Support follows the minor you are on.</p>
+  <table>
+    <thead>
+      <tr><th>Release</th><th>Support</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Current minor</td><td>Supported. Bug fixes land here.</td></tr>
+      <tr><td>Previous minor</td><td>Critical fixes only. Upgrade when you can.</td></tr>
+      <tr><td>Older</td><td>Not supported. Please upgrade.</td></tr>
+    </tbody>
+  </table>
+  <h3>Beta note</h3>
+  <p>All three libraries are Beta. APIs and component behavior can still change between minors. Pin the version you ship with, and read the changelog before you upgrade.</p>
+</section>
+<section id="faq" class="view" tabindex="-1">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <h3>What license are the libraries under?</h3>
+    <p>MIT. You can use all three libraries in personal and commercial projects, free. Keep the MIT license notice in the code you ship.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I use Oeste libraries in commercial or client work?</h3>
+    <p>Yes. MIT covers commercial use, including work you bill a client for. There is no fee, no royalty, and no separate commercial license.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Is there a paid tier?</h3>
+    <p>No. There is no paid tier, no premium set of components, and no paywall. Everything is MIT licensed and free.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I request a component?</h3>
+    <p>Yes. Open an issue on GitHub and describe what you need and why. Requests are considered, not promised, and the answer may be no.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Are there known contrast findings?</h3>
+    <p>Yes, and they are documented. Topanga marks Canyon Rust decorative only because it does not meet 4.5:1 for small text. Mesa lists four exceptions in its Accessibility guide and says never to use those pairs as normal-size body text. Check the Accessibility guide in the library you use for the current list.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I mix libraries in one project?</h3>
+    <p>You can, but keep their tokens separate. Each library has its own tokens and its own look, so a mixed page will look mixed. Pick one library per surface when you can.</p>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <p>Oeste &middot; Support &middot; <a href="https://github.com/eric2busy/Oeste" target="_blank" rel="noopener">GitHub repo</a></p>
+</footer>
+<script>
+(function () {
+  "use strict";
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem("oeste-theme", theme); } catch (e) {}
+    var btn = document.getElementById("themeToggle");
+    if (btn) {
+      btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      btn.setAttribute("aria-label", "Theme: " + (theme === "light" ? "Light" : "Dark") + ". Switch to " + (theme === "light" ? "dark" : "light") + ".");
+    }
+  }
+  function currentTheme() { return document.documentElement.dataset.theme || "light"; }
+  setTheme(currentTheme());
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    setTheme(currentTheme() === "dark" ? "light" : "dark");
+  });
+
+  var VIEWS = ["libraries", "get-help", "report-a-bug", "version-support", "faq"];
+  var DEFAULT_VIEW = "libraries";
+  var menu = document.getElementById("supportMenu");
+  var menuBtn = document.getElementById("menuBtn");
+  var sections = {};
+  VIEWS.forEach(function (id) { sections[id] = document.getElementById(id); });
+
+  function setActiveLink(id) {
+    var links = menu.querySelectorAll("a[data-view]");
+    links.forEach(function (a) {
+      if (a.getAttribute("data-view") === id) {
+        a.classList.add("active");
+        a.setAttribute("aria-current", "true");
+      } else {
+        a.classList.remove("active");
+        a.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function closeMenu() {
+    if (!menuBtn || !menu) { return; }
+    menu.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function showView(id) {
+    if (VIEWS.indexOf(id) === -1) { id = DEFAULT_VIEW; }
+    VIEWS.forEach(function (v) {
+      if (v === id) { sections[v].classList.add("is-active"); }
+      else { sections[v].classList.remove("is-active"); }
+    });
+    setActiveLink(id);
+    closeMenu();
+    var sec = sections[id];
+    if (sec && sec.focus) { sec.focus({ preventScroll: true }); }
+    window.scrollTo(0, 0);
+  }
+
+  menu.addEventListener("click", function (ev) {
+    var a = ev.target.closest("a[data-view]");
+    if (!a) { return; }
+    ev.preventDefault();
+    var id = a.getAttribute("data-view");
+    showView(id);
+    try { history.pushState(null, "", "#" + id); } catch (e) {}
+  });
+
+  menuBtn.addEventListener("click", function () {
+    var open = menu.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  document.addEventListener("click", function (ev) {
+    if (!menu.classList.contains("open")) { return; }
+    if (menu.contains(ev.target) || menuBtn.contains(ev.target)) { return; }
+    closeMenu();
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") { closeMenu(); }
+  });
+
+  window.addEventListener("hashchange", function () {
+    var id = window.location.hash.replace("#", "");
+    showView(id);
+  });
+
+  var VERSIONS = { topanga: "0.4.8", huntington: "0.2.0", mesa: "0.2.0" };
+  var NAMES = { topanga: "Topanga", huntington: "Huntington", mesa: "Mesa" };
+  var libSelect = document.getElementById("bugLibrary");
+  var templatePre = document.getElementById("bugTemplate");
+  var copyBtn = document.getElementById("copyTemplate");
+  function buildTemplate(key) {
+    return "Library: " + NAMES[key] + "\n"
+      + "Version: " + VERSIONS[key] + "\n"
+      + "Figma version or browser:\n"
+      + "Steps to reproduce:\n1.\n"
+      + "Expected:\n"
+      + "Actual:\n"
+      + "Screenshots:\n";
+  }
+  function renderTemplate() {
+    templatePre.textContent = buildTemplate(libSelect.value);
+  }
+  libSelect.addEventListener("change", renderTemplate);
+  renderTemplate();
+
+  copyBtn.addEventListener("click", function () {
+    var text = templatePre.textContent;
+    function done() {
+      copyBtn.textContent = "Copied";
+      setTimeout(function () { copyBtn.textContent = "Copy template"; }, 1500);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
+  });
+
+  var start = window.location.hash.replace("#", "");
+  showView(start);
+})();
+</script>
+</body>
+</html>

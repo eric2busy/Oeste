@@ -2,7 +2,7 @@
 
 **Warm paper. Near-black ink. Oxblood for status.**
 
-Mesa is a universal component library under [Oeste](https://oeste.hiddeninwest.com) — the second theme after Topanga. Mesa is Spanish for table: a flat-topped hill. The theme is warm paper, near-black ink, sparse oxblood accent, hairlines and double rules, restrained shadows. Dark is the default theme.
+Mesa is a universal component library under [Oeste](https://oeste.hiddeninwest.com) — the second theme after Topanga. The theme is warm paper, near-black ink, sparse oxblood accent, hairlines and double rules, restrained shadows. Dark is the default theme.
 
 > **One system. Three lenses.**
 > - **Human** — docs you can read: anatomy, props, keyboard, invariants.

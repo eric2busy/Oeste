@@ -1,7 +1,7 @@
 # Oeste
 
 A component reference for humans, AI agents, and vibe coders.
-Oeste = Spanish for "west". One system, three component libraries. Each library is complete: Human docs, Agent contracts (oeste.component.v1), Vibe code (shadcn registry + copy-paste).
+Oeste — One system. Three perspectives. Each library is complete: Human docs, Agent contracts (oeste.component.v1), Vibe code (shadcn registry + copy-paste).
 
 ## Libraries
 

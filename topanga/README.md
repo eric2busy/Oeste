@@ -1,6 +1,6 @@
 # Oeste
 
-> Spanish for west. Pronounced *oh-EST-eh*.
+> One system. Three perspectives.
 
 Oeste is an open design system and component library built for three audiences at once:
 - **Humans** (designers & developers): Clear documentation, live demos, component anatomy, keyboard navigation tables, and accessibility notes.

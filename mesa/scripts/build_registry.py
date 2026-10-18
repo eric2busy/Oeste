@@ -94,6 +94,10 @@ TAGS = {
     "search-pill": ["forms"],
     "select": ["forms"],
     "option-row": ["forms"],
+    "calendar": ["forms"],
+    "date-picker": ["forms"],
+    "time-picker": ["forms"],
+    "date-range-picker": ["forms"],
 }
 
 HEADER = """// Oeste {name} — Mesa theme (v{version}).

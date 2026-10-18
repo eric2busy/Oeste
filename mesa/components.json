@@ -69,6 +69,17 @@
    ]
   },
   {
+   "id": "calendar",
+   "name": "Calendar",
+   "description": "Month grid. One button per day, min/max bounds.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/calendar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/calendar.json",
+   "docsUrl": "#/components/calendar",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
    "id": "chart",
    "name": "Chart",
    "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
@@ -154,6 +165,28 @@
    "docsUrl": "#/components/data-table",
    "tags": [
     "data"
+   ]
+  },
+  {
+   "id": "date-picker",
+   "name": "DatePicker",
+   "description": "Read-only input plus popover calendar. Clear, Today.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/date-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/date-picker.json",
+   "docsUrl": "#/components/date-picker",
+   "tags": [
+    "forms"
+   ]
+  },
+  {
+   "id": "date-range-picker",
+   "name": "DateRangePicker",
+   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/date-range-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/date-range-picker.json",
+   "docsUrl": "#/components/date-range-picker",
+   "tags": [
+    "forms"
    ]
   },
   {
@@ -748,6 +781,17 @@
    "docsUrl": "#/components/theme-toggle",
    "tags": [
     "controls"
+   ]
+  },
+  {
+   "id": "time-picker",
+   "name": "TimePicker",
+   "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/time-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/time-picker.json",
+   "docsUrl": "#/components/time-picker",
+   "tags": [
+    "forms"
    ]
   },
   {

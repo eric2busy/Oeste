@@ -46,6 +46,13 @@
    "url": "https://oeste.hiddeninwest.com/mesa/r/button.json"
   },
   {
+   "id": "calendar",
+   "name": "calendar",
+   "title": "Calendar",
+   "description": "Month grid. One button per day, min/max bounds.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/calendar.json"
+  },
+  {
    "id": "chart",
    "name": "chart",
    "title": "Chart",
@@ -100,6 +107,20 @@
    "title": "DataTable",
    "description": "Rows with reference, title, meta, assignment.",
    "url": "https://oeste.hiddeninwest.com/mesa/r/data-table.json"
+  },
+  {
+   "id": "date-picker",
+   "name": "date-picker",
+   "title": "DatePicker",
+   "description": "Read-only input plus popover calendar. Clear, Today.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/date-picker.json"
+  },
+  {
+   "id": "date-range-picker",
+   "name": "date-range-picker",
+   "title": "DateRangePicker",
+   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/date-range-picker.json"
   },
   {
    "id": "detail-card",
@@ -478,6 +499,13 @@
    "title": "ThemeToggle",
    "description": "Circle icon button; the icon shows the target mode.",
    "url": "https://oeste.hiddeninwest.com/mesa/r/theme-toggle.json"
+  },
+  {
+   "id": "time-picker",
+   "name": "time-picker",
+   "title": "TimePicker",
+   "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/time-picker.json"
   },
   {
    "id": "timeline",

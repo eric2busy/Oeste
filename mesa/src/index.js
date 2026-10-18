@@ -1525,6 +1525,249 @@ export function Chart({ type = "bar", data = [], title, height = 240, showTable 
   );
 }
 
+/* ---------------- Date + Time pickers ---------------- */
+
+const CAL_MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+const CAL_WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+const isValidISODate = (s) => {
+  if (typeof s !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  const m = Number(s.slice(5, 7));
+  const d = Number(s.slice(8, 10));
+  if (m < 1 || m > 12 || d < 1) return false;
+  return d <= new Date(Number(s.slice(0, 4)), m, 0).getDate();
+};
+const parseISODate = (s) => {
+  if (!isValidISODate(s)) return null;
+  return { y: Number(s.slice(0, 4)), m: Number(s.slice(5, 7)), d: Number(s.slice(8, 10)) };
+};
+const formatISODate = (y, m, d) => y + "-" + (m < 10 ? "0" + m : String(m)) + "-" + (d < 10 ? "0" + d : String(d));
+const todayISO = () => {
+  const t = new Date();
+  return formatISODate(t.getFullYear(), t.getMonth() + 1, t.getDate());
+};
+const isValidTime = (s) => {
+  if (typeof s !== "string" || !/^\d{2}:\d{2}$/.test(s)) return false;
+  const h = Number(s.slice(0, 2));
+  const mi = Number(s.slice(3, 5));
+  return h >= 0 && h <= 23 && mi >= 0 && mi <= 59;
+};
+const formatTime12 = (s) => {
+  if (!isValidTime(s)) return "";
+  const h = Number(s.slice(0, 2));
+  const mi = s.slice(3, 5);
+  const h12 = h % 12 || 12;
+  const ap = h < 12 ? "AM" : "PM";
+  return `${h12}:${mi} ${ap}`;
+};
+const shiftMonth = (v, delta) => {
+  let y = v.y;
+  let m = v.m + delta;
+  if (m < 1) { m = 12; y -= 1; }
+  if (m > 12) { m = 1; y += 1; }
+  return { y, m };
+};
+
+export function Calendar({ value, onChange, min, max }) {
+  const parsed = parseISODate(value);
+  const today = todayISO();
+  const todayParsed = parseISODate(today);
+  const [view, setView] = React.useState(parsed ? { y: parsed.y, m: parsed.m } : { y: todayParsed.y, m: todayParsed.m });
+  const prevValueRef = React.useRef(value);
+  if (value !== prevValueRef.current) {
+    prevValueRef.current = value;
+    if (parsed) setView({ y: parsed.y, m: parsed.m });
+  }
+  const lo = isValidISODate(min) ? min : null;
+  const hi = isValidISODate(max) ? max : null;
+  const daysInMonth = new Date(view.y, view.m, 0).getDate();
+  const firstWeekday = new Date(view.y, view.m - 1, 1).getDay();
+  const cells = [];
+  for (let i = 0; i < firstWeekday; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+  while (cells.length % 7 !== 0) cells.push(null);
+  const weeks = [];
+  for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+  const renderDay = (d) => {
+    const iso = formatISODate(view.y, view.m, d);
+    const isSelected = parsed !== null && iso === value;
+    const isToday = iso === today;
+    const isDisabled = (lo !== null && iso < lo) || (hi !== null && iso > hi);
+    let dayClass = `border border-transparent ${INK} hover:bg-[#f1ede5] dark:hover:bg-[#14110c]`;
+    if (isSelected) dayClass = "bg-[#8a1f2b] text-[#ffffff] dark:bg-[#c9404f]";
+    else if (isToday) dayClass = `border border-[#8a1f2b] font-semibold ${INK} dark:border-[#c9404f]`;
+    return (
+      <button type="button" key={iso} disabled={isDisabled} aria-disabled={isDisabled} aria-current={isToday ? "date" : undefined} aria-label={`${CAL_MONTHS[view.m - 1]} ${d}, ${view.y}${isSelected ? ", selected" : ""}`} onClick={() => onChange && onChange(iso)} className={`flex h-9 w-9 items-center justify-center rounded text-[13px] ${FOCUS} ${dayClass} disabled:opacity-40`}>{d}</button>
+    );
+  };
+  return (
+    <div className="w-[280px]">
+      <div className="flex items-center justify-between">
+        <button type="button" aria-label="Previous month" onClick={() => setView(shiftMonth(view, -1))} className={`rounded px-2 py-1 text-[16px] ${INK} ${FOCUS}`}>‹</button>
+        <div aria-live="polite" className={`text-[14px] font-semibold ${INK}`}>{CAL_MONTHS[view.m - 1]} {view.y}</div>
+        <button type="button" aria-label="Next month" onClick={() => setView(shiftMonth(view, 1))} className={`rounded px-2 py-1 text-[16px] ${INK} ${FOCUS}`}>›</button>
+      </div>
+      <table className="mt-1 w-full border-collapse">
+        <thead>
+          <tr>{CAL_WEEKDAYS.map((wd) => (<th key={wd} scope="col" className={`py-2 text-center text-[12px] font-semibold ${SOFT}`}>{wd}</th>))}</tr>
+        </thead>
+        <tbody>
+          {weeks.map((week, wi) => (
+            <tr key={wi}>{week.map((d, di) => (<td key={di} className="p-0.5 text-center">{d === null ? null : renderDay(d)}</td>))}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function DatePicker({ value, onChange, label = "Date", placeholder = "YYYY-MM-DD", min, max, clearable = true, invalid = false }) {
+  const [open, setOpen] = React.useState(false);
+  const inputId = React.useId();
+  const popId = React.useId();
+  const triggerRef = React.useRef(null);
+  const wrapRef = React.useRef(null);
+  const display = isValidISODate(value) ? value : "";
+  const lo = isValidISODate(min) ? min : null;
+  const hi = isValidISODate(max) ? max : null;
+  const today = todayISO();
+  const todayOutOfRange = (lo !== null && today < lo) || (hi !== null && today > hi);
+  const close = () => setOpen(false);
+  React.useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      close();
+      if (triggerRef.current) triggerRef.current.focus();
+    }
+  };
+  const pick = (iso) => {
+    if (onChange) onChange(iso);
+    close();
+  };
+  return (
+    <div ref={wrapRef} className="relative" onKeyDown={handleKeyDown}>
+      <label htmlFor={inputId} className={`block text-[13px] font-semibold ${INK}`}>{label}</label>
+      <div className="mt-1 flex items-center gap-2">
+        <input id={inputId} type="text" readOnly value={display} placeholder={placeholder} aria-invalid={invalid} className={`w-[150px] rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${CARD} ${FOCUS}`} />
+        <button ref={triggerRef} type="button" aria-label={open ? "Close calendar" : "Open calendar"} aria-expanded={open} aria-controls={popId} onClick={() => setOpen(!open)} className={`rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS}`}>Calendar</button>
+      </div>
+      {open && (
+        <div id={popId} className={`absolute z-10 mt-1 p-3 ${CARD} border ${LINE}`}>
+          <Calendar value={display || null} onChange={pick} min={min} max={max} />
+          <div className="mt-2 flex gap-2">
+            {clearable && display && (<button type="button" onClick={() => { if (onChange) onChange(null); close(); }} className={`rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
+            <button type="button" disabled={todayOutOfRange} aria-disabled={todayOutOfRange} onClick={() => pick(today)} className={`rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS} disabled:opacity-40`}>Today</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function TimePicker({ value, onChange, label = "Time", step = 30 }) {
+  const [open, setOpen] = React.useState(false);
+  const triggerId = React.useId();
+  const listId = React.useId();
+  const triggerRef = React.useRef(null);
+  const wrapRef = React.useRef(null);
+  const stepMin = step === 60 ? 60 : 30;
+  const valid = isValidTime(value) ? value : null;
+  const display = valid ? formatTime12(valid) : "Select time";
+  const options = [];
+  for (let m = 0; m < 24 * 60; m += stepMin) {
+    const hh = Math.floor(m / 60);
+    const mm = m % 60;
+    options.push(`${hh < 10 ? "0" + hh : String(hh)}:${mm < 10 ? "0" + mm : String(mm)}`);
+  }
+  const close = () => setOpen(false);
+  React.useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      close();
+      if (triggerRef.current) triggerRef.current.focus();
+    }
+  };
+  const pick = (t) => {
+    if (onChange) onChange(t);
+    close();
+  };
+  return (
+    <div ref={wrapRef} className="relative" onKeyDown={handleKeyDown}>
+      <label htmlFor={triggerId} className={`block text-[13px] font-semibold ${INK}`}>{label}</label>
+      <button ref={triggerRef} id={triggerId} type="button" aria-haspopup="listbox" aria-expanded={open} aria-controls={listId} onClick={() => setOpen(!open)} className={`mt-1 w-[150px] rounded border ${LINE} px-3 py-2 text-left text-[13px] ${INK} ${CARD} ${FOCUS}`}>{display}</button>
+      {open && (
+        <ul id={listId} role="listbox" className={`absolute z-10 mt-1 max-h-60 w-[150px] overflow-auto p-1 ${CARD} border ${LINE}`}>
+          {options.map((t) => {
+            const isSelected = t === valid;
+            return (
+              <li key={t} role="option" aria-selected={isSelected} className={isSelected ? "bg-[#8a1f2b] dark:bg-[#c9404f]" : ""}>
+                <button type="button" onClick={() => pick(t)} className={`w-full rounded px-3 py-2 text-left text-[13px] ${isSelected ? "text-[#ffffff]" : `${INK} hover:bg-[#f1ede5] dark:hover:bg-[#14110c]`} ${FOCUS}`}>{formatTime12(t)}</button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export function DateRangePicker({ start, end, onChange, label = "Date range", min, max, clearable = true }) {
+  const [error, setError] = React.useState(null);
+  const [prevPair, setPrevPair] = React.useState([start, end]);
+  if (prevPair[0] !== start || prevPair[1] !== end) {
+    setPrevPair([start, end]);
+    if (error) setError(null);
+  }
+  const message = "End date must be on or after the start date.";
+  const validStart = isValidISODate(start) ? start : null;
+  const validEnd = isValidISODate(end) ? end : null;
+  const propsInvalid = validStart !== null && validEnd !== null && validEnd < validStart;
+  const hasError = error !== null || propsInvalid;
+  const handleStart = (next) => {
+    if (next !== null && validEnd !== null && next > validEnd) {
+      setError(message);
+      return;
+    }
+    setError(null);
+    if (onChange) onChange({ start: next, end: validEnd });
+  };
+  const handleEnd = (next) => {
+    if (next !== null && validStart !== null && next < validStart) {
+      setError(message);
+      return;
+    }
+    setError(null);
+    if (onChange) onChange({ start: validStart, end: next });
+  };
+  const handleClear = () => {
+    setError(null);
+    if (onChange) onChange({ start: null, end: null });
+  };
+  return (
+    <fieldset className="m-0 border-0 p-0">
+      <legend className={`text-[13px] font-semibold ${INK}`}>{label}</legend>
+      <div className="mt-1 flex flex-wrap items-start gap-3">
+        <DatePicker value={validStart} onChange={handleStart} label="Start" min={min} max={max} clearable={false} />
+        <DatePicker value={validEnd} onChange={handleEnd} label="End" min={min} max={max} clearable={false} invalid={hasError} />
+      </div>
+      {clearable && (validStart !== null || validEnd !== null) && (<button type="button" onClick={handleClear} className={`mt-2 rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
+      {hasError && (<p role="alert" className="mt-2 text-[13px] text-[#8a1f2b] dark:text-[#c9404f]">{message}</p>)}
+    </fieldset>
+  );
+}
+
 export const COMPONENT_DOCS = [
   {
     id: "site-nav",
@@ -1870,5 +2113,25 @@ export const COMPONENT_DOCS = [
     id: "chart",
     name: "Chart",
     tagline: "Bar, line, area, pie, donut. One series, SVG + data table.",
+  },
+  {
+    id: "calendar",
+    name: "Calendar",
+    tagline: "Month grid. One button per day, min/max bounds.",
+  },
+  {
+    id: "date-picker",
+    name: "DatePicker",
+    tagline: "Read-only input plus popover calendar. Clear, Today.",
+  },
+  {
+    id: "time-picker",
+    name: "TimePicker",
+    tagline: "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+  },
+  {
+    id: "date-range-picker",
+    name: "DateRangePicker",
+    tagline: "Two DatePickers, one range. End-before-start is an error.",
   },
 ];

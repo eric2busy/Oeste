@@ -5,7 +5,7 @@
 Huntington is the second public component library under Oeste, built with Figma-source discipline: every component ships Human docs (anatomy / props / keyboard / invariants), an Agent JSON contract (`oeste.component.v1`) + prompt, and Vibe CLI + React code. Demos are local only — no network, no auth.
 
 ## Theme: Huntington
-Huntington is a single-column index. One column, 672px wide, hairline borders instead of card shadows, underlined text links instead of filled buttons. Five moods — Paper (default), Ink, Rose, Sage, Dune — cycle with one dot button and persist. The source is the Huntington Figma library (plugin v1.0.3, 44 built nodes / 37 components, plus Toggle Tabs, Next Footer, and Search — 40 total).
+Huntington is a single-column index. One column, 672px wide, hairline borders instead of card shadows, underlined text links instead of filled buttons. Five moods — Paper (default), Ink, Rose, Sage, Dune — cycle with one dot button and persist. The source is the Huntington Figma library (plugin v1.0.3, 44 built nodes / 37 components, plus Toggle Tabs, Next Footer, Search, Calendar, DatePicker, TimePicker, DateRangePicker, and Chart, 45 components total).
 
 ### Moods (single source of truth)
 `src/tokens.css` + `src/tokens.json` + `DESIGN_TOKENS` in `src/index.js` agree exactly. Run `npm run verify` to check.
@@ -64,8 +64,14 @@ Muted-text contrast is honest, not rounded up: muted meets 4.5:1 on card only in
 - **Footer**: The bottom of the page. Small, muted, done.
 - **ToggleTabs**: Two or more views, one row. Active is ink + underline.
 - **NextFooter**: The way onward. A hairline, then the next row.
+- **Search**: Type to filter a list. Arrows move, Enter follows, Escape clears.
+- **Calendar**: Month grid. One button per day, min/max bounds.
+- **DatePicker**: Read-only input plus popover calendar. Clear, Today.
+- **TimePicker**: Trigger plus time listbox. 12-hour labels, HH:MM value.
+- **DateRangePicker**: Two DatePickers, one range. End-before-start is an error.
+- **Chart**: Bar, line, area, pie, donut. One series, SVG + data table.
 
-Deliberately absent: no filled/primary Button, no toast, no dialog. The source has none. One form control: Search filters a list; it never submits one. Actions are Text Link, Filter Pill, View All, Menu Pill, and rows that are real links/buttons.
+Deliberately absent: no filled/primary Button, no toast, no dialog. The source has none. Form controls: Search filters a list; it never submits one. Calendar, DatePicker, TimePicker, and DateRangePicker pick dates and times. Actions are Text Link, Filter Pill, View All, Menu Pill, and rows that are real links/buttons.
 
 ## Docs site
 Static, no build step, Vercel-ready — in `/site/` (`index.html` + `styles.css` + `app.js`).

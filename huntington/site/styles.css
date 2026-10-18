@@ -87,6 +87,11 @@ h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--co
 table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95rem; }
 th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
 th { font-size: 0.875rem; }
+/* Demo tables are styled here, explicitly: the bare table / th / td rules
+   above are docs-content styling and must not decide a demo table's look. */
+.demo table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95rem; }
+.demo th, .demo td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+.demo th { font-size: 0.875rem; }
 code { font-family: var(--font-mono); font-size: 0.875em; overflow-wrap: anywhere; }
 pre {
   background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px;
@@ -294,3 +299,17 @@ pre {
 .h-search input { flex: 1; min-width: 0; min-height: 44px; border: 0; background: transparent; font: inherit; color: var(--color-ink); }
 .h-search input::placeholder { color: var(--color-muted); }
 .h-search button { min-height: 44px; min-width: 44px; border: 0; background: transparent; font-size: 20px; line-height: 1; color: var(--color-muted); }
+
+/* Part 1 phone defects: calendar grid reset plus demo-control safety net. */
+.cal-grid { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.cal-grid th { padding: 8px 0; border-bottom: none; }
+.cal-grid td { padding: 2px; border-bottom: none; }
+/* Zero-specificity safety net (:where): every control rendered inside #view
+   (demo, variants, playground) gets an explicit color, background, and
+   appearance from existing tokens, so no browser default chrome ever shows
+   through. Any component class or inline style still wins. */
+:where(#view button) { color: var(--color-ink); background: transparent; -webkit-appearance: none; appearance: none; }
+:where(#view input, #view select, #view textarea) { color: var(--color-ink); background: var(--color-paper); -webkit-appearance: none; appearance: none; }
+:where(#view select) { -webkit-appearance: auto; appearance: auto; }
+:where(#view input[type="checkbox"], #view input[type="radio"]) { -webkit-appearance: auto; appearance: auto; background: transparent; accent-color: var(--color-ink); }
+:where(#view input[type="range"]) { -webkit-appearance: auto; appearance: auto; background: transparent; accent-color: var(--color-ink); }

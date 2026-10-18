@@ -37,6 +37,8 @@ TAGS = {
     "table": ["data"], "empty-state": ["data"], "skeleton": ["data"],
     "breadcrumb": ["navigation"], "pagination": ["navigation"],
     "collapsible": ["disclosure"],
+    "calendar": ["forms"], "date-picker": ["forms"], "time-picker": ["forms"], "date-range-picker": ["forms"],
+    "chart": ["data"],
 }
 
 HEADER = """// Oeste {name} — Topanga theme (v{version}).
@@ -50,8 +52,8 @@ HEADER = """// Oeste {name} — Topanga theme (v{version}).
 def extract_top_level(text, start_pat):
     """Extract a top-level statement starting at a line matching start_pat.
 
-    The statement ends at the first subsequent line that is exactly `}` or `};`
-    or a line ending the statement (single-line const). Returns the statement text.
+    The statement ends at the first subsequent line that is exactly `}`, `};`,
+    or `];` or a line ending the statement (single-line const). Returns the statement text.
     """
     lines = text.split("\n")
     for i, line in enumerate(lines):
@@ -60,7 +62,7 @@ def extract_top_level(text, start_pat):
             if line.rstrip().endswith(";") and line.count("{") == line.count("}"):
                 return line + "\n"
             for j in range(i + 1, len(lines)):
-                if lines[j] in ("}", "};"):
+                if lines[j] in ("}", "};", "];"):
                     return "\n".join(lines[i:j + 1]) + "\n"
             raise ValueError(f"no terminator for statement starting at line {i + 1}: {line}")
     raise ValueError(f"no statement matching {start_pat}")

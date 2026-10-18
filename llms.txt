@@ -1,17 +1,17 @@
 # Oeste
 
 A component reference for humans, AI agents, and vibe coders.
-Oeste — One system. Three perspectives. Each library is complete: Human docs, Agent contracts (oeste.component.v1), Vibe code (shadcn registry + copy-paste).
+Oeste — Three libraries. Three lenses. Each library is complete: Human docs, Agent contracts (oeste.component.v1), Vibe code (shadcn registry + copy-paste).
 
 ## Libraries
 
-- Topanga (v0.4.8, 29 components) — The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.
+- Topanga (v0.4.8, 34 components) — The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.
   Docs: https://oeste.hiddeninwest.com/topanga/ — llms.txt: /topanga/llms.txt — manifest: /topanga/components.json — registry: /topanga/r/
   Install: `npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json`
-- Huntington (v0.2.0, 40 components) — A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.
+- Huntington (v0.2.0, 45 components) — A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.
   Docs: https://oeste.hiddeninwest.com/huntington/ — llms.txt: /huntington/llms.txt — manifest: /huntington/components.json — registry: /huntington/r/
   Install: `npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/header.json`
-- Mesa (v0.2.0, 67 components) — Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.
+- Mesa (v0.2.0, 73 components) — Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.
   Docs: https://oeste.hiddeninwest.com/mesa/ — llms.txt: /mesa/llms.txt — manifest: /mesa/components.json — registry: /mesa/r/
   Install: `npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json`
 

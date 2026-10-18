@@ -1,14 +1,14 @@
 # Oeste
 
-One system. Three perspectives.
+Three libraries. Three lenses.
 
 Oeste is a component reference for humans, AI agents, and vibe coders. Three component libraries, each complete: Human docs, Agent contracts, Vibe code.
 
 ## Libraries
 
-- **Topanga** (v0.4.8, 29 components) — The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark. Docs: https://oeste.hiddeninwest.com/topanga/
-- **Huntington** (v0.2.0, 40 components) — A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button. Docs: https://oeste.hiddeninwest.com/huntington/
-- **Mesa** (v0.2.0, 67 components) — Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules. Docs: https://oeste.hiddeninwest.com/mesa/
+- **Topanga** (v0.4.8, 34 components) — The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark. Docs: https://oeste.hiddeninwest.com/topanga/
+- **Huntington** (v0.2.0, 45 components) — A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button. Docs: https://oeste.hiddeninwest.com/huntington/
+- **Mesa** (v0.2.0, 73 components) — Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules. Docs: https://oeste.hiddeninwest.com/mesa/
 
 ## Layout
 

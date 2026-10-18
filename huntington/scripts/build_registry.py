@@ -28,8 +28,20 @@ TAGS = {
     "back-link": [
         "links"
     ],
+    "calendar": [
+        "lists"
+    ],
     "carousel": [
         "cards"
+    ],
+    "chart": [
+        "lists"
+    ],
+    "date-picker": [
+        "lists"
+    ],
+    "date-range-picker": [
+        "lists"
     ],
     "equalizer-bars": [
         "indicators"
@@ -139,6 +151,9 @@ TAGS = {
     "text-link": [
         "links"
     ],
+    "time-picker": [
+        "lists"
+    ],
     "toggle-tabs": [
         "links"
     ],
@@ -158,8 +173,9 @@ HEADER = """// Oeste {name} — Huntington theme (v{version}).
 def extract_top_level(text, start_pat):
     """Extract a top-level statement starting at a line matching start_pat.
 
-    The statement ends at the first subsequent line that is exactly `}` or `};`
-    or a line ending the statement (single-line const). Returns the statement text.
+    The statement ends at the first subsequent line that is exactly `}`, `};`,
+    or `];` (multi-line array consts) or a line ending the statement
+    (single-line const). Returns the statement text.
     """
     lines = text.split("\n")
     for i, line in enumerate(lines):
@@ -168,7 +184,7 @@ def extract_top_level(text, start_pat):
             if line.rstrip().endswith(";") and line.count("{") == line.count("}"):
                 return line + "\n"
             for j in range(i + 1, len(lines)):
-                if lines[j] in ("}", "};"):
+                if lines[j] in ("}", "};", "];"):
                     return "\n".join(lines[i:j + 1]) + "\n"
             raise ValueError(f"no terminator for statement starting at line {i + 1}: {line}")
     raise ValueError(f"no statement matching {start_pat}")

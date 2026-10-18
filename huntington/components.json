@@ -14,6 +14,17 @@
    ]
   },
   {
+   "id": "calendar",
+   "name": "Calendar",
+   "description": "Month grid. One button per day, min/max bounds.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/calendar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/calendar.json",
+   "docsUrl": "#/components/calendar",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
    "id": "carousel",
    "name": "Carousel",
    "description": "A horizontal scroll-snap row of tall images.",
@@ -22,6 +33,39 @@
    "docsUrl": "#/components/carousel",
    "tags": [
     "cards"
+   ]
+  },
+  {
+   "id": "chart",
+   "name": "Chart",
+   "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/chart.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/chart.json",
+   "docsUrl": "#/components/chart",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "date-picker",
+   "name": "DatePicker",
+   "description": "Read-only input plus popover calendar. Clear, Today.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/date-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/date-picker.json",
+   "docsUrl": "#/components/date-picker",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
+   "id": "date-range-picker",
+   "name": "DateRangePicker",
+   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/date-range-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/date-range-picker.json",
+   "docsUrl": "#/components/date-range-picker",
+   "tags": [
+    "lists"
    ]
   },
   {
@@ -418,6 +462,17 @@
    "docsUrl": "#/components/text-link",
    "tags": [
     "links"
+   ]
+  },
+  {
+   "id": "time-picker",
+   "name": "TimePicker",
+   "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/time-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/time-picker.json",
+   "docsUrl": "#/components/time-picker",
+   "tags": [
+    "lists"
    ]
   },
   {

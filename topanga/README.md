@@ -60,6 +60,11 @@ Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill.
 - **Pagination**: `nav` + Previous / pages / Next, `aria-current="page"`, aria-hidden ellipsis.
 - **Table**: semantic table, `caption`, `th scope`, sticky header.
 - **Empty State**: aria-hidden icon, plain-words heading, next-step action.
+- **Calendar**: month grid, one button per day, min/max bounds.
+- **DatePicker**: read-only input plus popover calendar. Clear, Today.
+- **TimePicker**: trigger plus time listbox. 12-hour labels, HH:MM value.
+- **DateRangePicker**: two DatePickers, one range. End-before-start is an error.
+- **Chart**: bar, line, area, pie, donut. One series, SVG + data table.
 - **Form** (pattern, not a primitive): Label + Input + Select + Checkbox + RadioGroup + Button + error summary (`role=alert`) + Toast confirm. See Patterns.
 
 Every component ships: Human docs (anatomy / props / keyboard / invariants), Agent JSON contract (`oeste.component.v1`) + prompt, Vibe CLI + React code (dark-mode-complete). Demos are local only — no network, no auth.

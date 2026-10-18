@@ -46,11 +46,25 @@
    "url": "https://oeste.hiddeninwest.com/r/button.json"
   },
   {
+   "id": "calendar",
+   "name": "calendar",
+   "title": "Calendar",
+   "description": "Month grid. One button per day, min/max bounds.",
+   "url": "https://oeste.hiddeninwest.com/r/calendar.json"
+  },
+  {
    "id": "card",
    "name": "card",
    "title": "Card",
    "description": "Structural container with proper heading hierarchy.",
    "url": "https://oeste.hiddeninwest.com/r/card.json"
+  },
+  {
+   "id": "chart",
+   "name": "chart",
+   "title": "Chart",
+   "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
+   "url": "https://oeste.hiddeninwest.com/r/chart.json"
   },
   {
    "id": "checkbox",
@@ -65,6 +79,20 @@
    "title": "Collapsible",
    "description": "One section that opens and closes. Accordion's simpler sibling.",
    "url": "https://oeste.hiddeninwest.com/r/collapsible.json"
+  },
+  {
+   "id": "date-picker",
+   "name": "date-picker",
+   "title": "DatePicker",
+   "description": "Read-only input plus popover calendar. Clear, Today.",
+   "url": "https://oeste.hiddeninwest.com/r/date-picker.json"
+  },
+  {
+   "id": "date-range-picker",
+   "name": "date-range-picker",
+   "title": "DateRangePicker",
+   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "url": "https://oeste.hiddeninwest.com/r/date-range-picker.json"
   },
   {
    "id": "dialog",
@@ -184,6 +212,13 @@
    "title": "Textarea",
    "description": "Multi-line input. Same label + error pattern as Input.",
    "url": "https://oeste.hiddeninwest.com/r/textarea.json"
+  },
+  {
+   "id": "time-picker",
+   "name": "time-picker",
+   "title": "TimePicker",
+   "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+   "url": "https://oeste.hiddeninwest.com/r/time-picker.json"
   },
   {
    "id": "toast",

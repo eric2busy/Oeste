@@ -628,6 +628,365 @@ export function EmptyState({ title, description, actionLabel, onAction }) {
   );
 }
 
+/* ---------------- Calendar / DatePicker / TimePicker / DateRangePicker ---------------- */
+/* Dates are ISO strings (YYYY-MM-DD). Times are HH:MM 24-hour. No date library, no locale parsing. */
+
+const CAL_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const CAL_WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+const isValidISODate = (s) => {
+  if (typeof s !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  const y = Number(s.slice(0, 4));
+  const m = Number(s.slice(5, 7));
+  const d = Number(s.slice(8, 10));
+  if (m < 1 || m > 12 || d < 1) return false;
+  return d <= new Date(y, m, 0).getDate();
+};
+const parseISODate = (s) => {
+  if (!isValidISODate(s)) return null;
+  return { y: Number(s.slice(0, 4)), m: Number(s.slice(5, 7)), d: Number(s.slice(8, 10)) };
+};
+const formatISODate = (y, m, d) => y + "-" + (m < 10 ? "0" + m : String(m)) + "-" + (d < 10 ? "0" + d : String(d));
+const todayISO = () => {
+  const t = new Date();
+  return formatISODate(t.getFullYear(), t.getMonth() + 1, t.getDate());
+};
+const isValidTime = (s) => {
+  if (typeof s !== "string" || !/^\d{2}:\d{2}$/.test(s)) return false;
+  const h = Number(s.slice(0, 2));
+  const mi = Number(s.slice(3, 5));
+  return h >= 0 && h <= 23 && mi >= 0 && mi <= 59;
+};
+const formatTime12 = (s) => {
+  if (!isValidTime(s)) return "";
+  const h = Number(s.slice(0, 2));
+  const mi = s.slice(3, 5);
+  const h12 = h % 12 || 12;
+  const ap = h < 12 ? "AM" : "PM";
+  return `${h12}:${mi} ${ap}`;
+};
+const shiftMonth = (v, delta) => {
+  let y = v.y;
+  let m = v.m + delta;
+  if (m < 1) { m = 12; y -= 1; }
+  if (m > 12) { m = 1; y += 1; }
+  return { y, m };
+};
+
+export function Calendar({ value, onChange, min, max }) {
+  const parsed = parseISODate(value);
+  const today = todayISO();
+  const todayParsed = parseISODate(today);
+  const [view, setView] = React.useState(parsed ? { y: parsed.y, m: parsed.m } : { y: todayParsed.y, m: todayParsed.m });
+  const prevValueRef = React.useRef(value);
+  if (value !== prevValueRef.current) {
+    prevValueRef.current = value;
+    if (parsed) setView({ y: parsed.y, m: parsed.m });
+  }
+  const lo = isValidISODate(min) ? min : null;
+  const hi = isValidISODate(max) ? max : null;
+  const daysInMonth = new Date(view.y, view.m, 0).getDate();
+  const firstWeekday = new Date(view.y, view.m - 1, 1).getDay();
+  const cells = [];
+  for (let i = 0; i < firstWeekday; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+  while (cells.length % 7 !== 0) cells.push(null);
+  const weeks = [];
+  for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+  const renderDay = (d) => {
+    const iso = formatISODate(view.y, view.m, d);
+    const isSelected = parsed !== null && iso === value;
+    const isToday = iso === today;
+    const isDisabled = (lo !== null && iso < lo) || (hi !== null && iso > hi);
+    let dayClass = "border border-transparent text-[#1c1917] hover:bg-[#1c1917]/5 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5";
+    if (isSelected) dayClass = "bg-[#c47d3b] font-semibold text-[#1c1917] ring-2 ring-[#1c1917]/10 dark:bg-[#db914e] dark:text-[#1c1917] dark:ring-[#f5f3ef]/10";
+    else if (isToday) dayClass = "border-2 border-[#c47d3b] font-semibold text-[#1c1917] dark:border-[#db914e] dark:text-[#f5f3ef]";
+    return (
+      <button type="button" key={iso} disabled={isDisabled} aria-disabled={isDisabled} aria-current={isToday ? "date" : undefined} aria-label={`${CAL_MONTHS[view.m - 1]} ${d}, ${view.y}${isSelected ? ", selected" : ""}`} onClick={() => onChange && onChange(iso)} className={`mx-auto flex h-11 w-full max-w-[44px] items-center justify-center rounded-full text-[15px] ${FOCUS} ${dayClass} disabled:opacity-40`}>{d}</button>
+    );
+  };
+  return (
+    <div className="w-full max-w-[384px]">
+      <div className="flex items-center justify-between border-b border-[#1c1917]/10 pb-3 dark:border-[#f5f3ef]/10">
+        <button type="button" aria-label="Previous month" onClick={() => setView(shiftMonth(view, -1))} className={`${TOUCH} rounded-md px-2 py-1 text-base text-[#1c1917] dark:text-[#f5f3ef] ${FOCUS}`}>‹</button>
+        <div aria-live="polite" className="text-base font-semibold tracking-[-0.025em] text-[#1c1917] dark:text-[#f5f3ef]">{CAL_MONTHS[view.m - 1]} {view.y}</div>
+        <button type="button" aria-label="Next month" onClick={() => setView(shiftMonth(view, 1))} className={`${TOUCH} rounded-md px-2 py-1 text-base text-[#1c1917] dark:text-[#f5f3ef] ${FOCUS}`}>›</button>
+      </div>
+      <table className="mt-3 w-full border-collapse">
+        <thead>
+          <tr>{CAL_WEEKDAYS.map((wd) => (<th key={wd} scope="col" className="py-3 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-[#706963] dark:text-[#9e968f]">{wd}</th>))}</tr>
+        </thead>
+        <tbody>
+          {weeks.map((week, wi) => (
+            <tr key={wi}>{week.map((d, di) => (<td key={di} className="p-1 text-center">{d === null ? null : renderDay(d)}</td>))}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function DatePicker({ value, onChange, label = "Date", placeholder = "YYYY-MM-DD", min, max, clearable = true, invalid = false }) {
+  const [open, setOpen] = React.useState(false);
+  const inputId = React.useId();
+  const popId = React.useId();
+  const triggerRef = React.useRef(null);
+  const wrapRef = React.useRef(null);
+  const display = isValidISODate(value) ? value : "";
+  const lo = isValidISODate(min) ? min : null;
+  const hi = isValidISODate(max) ? max : null;
+  const today = todayISO();
+  const todayOutOfRange = (lo !== null && today < lo) || (hi !== null && today > hi);
+  const close = () => setOpen(false);
+  React.useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      close();
+      if (triggerRef.current) triggerRef.current.focus();
+    }
+  };
+  const pick = (iso) => {
+    if (onChange) onChange(iso);
+    close();
+  };
+  return (
+    <div ref={wrapRef} className="relative" onKeyDown={handleKeyDown}>
+      <label htmlFor={inputId} className="mb-2 block text-sm font-medium text-[#1c1917] dark:text-[#f5f3ef]">{label}</label>
+      <div className="mt-1 flex items-center gap-3">
+        <input id={inputId} type="text" readOnly value={display} placeholder={placeholder} aria-invalid={invalid} className={`min-h-11 w-[170px] rounded-md border border-[#1c1917]/20 bg-transparent px-3 py-3 text-sm text-[#1c1917] placeholder:text-[#706963] dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:placeholder:text-[#9e968f] ${FOCUS}`} />
+        <button ref={triggerRef} type="button" aria-label={open ? "Close calendar" : "Open calendar"} aria-expanded={open} aria-controls={popId} onClick={() => setOpen(!open)} className={`${TOUCH} rounded-md border border-[#1c1917]/20 bg-transparent px-4 py-2 text-sm text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5 ${FOCUS}`}>Calendar</button>
+      </div>
+      {open && (
+        <div id={popId} className="absolute z-10 mt-1 max-w-[calc(100vw-32px)] rounded-lg border border-[#1c1917]/20 bg-[#fcfaf7] p-4 dark:border-[#f5f3ef]/20 dark:bg-[#1c1917]">
+          <Calendar value={display || null} onChange={pick} min={min} max={max} />
+          <div className="mt-3 flex gap-3">
+            {clearable && display && (<button type="button" onClick={() => { if (onChange) onChange(null); close(); }} className={`${TOUCH} rounded-md border border-[#1c1917]/20 bg-transparent px-4 py-2 text-sm text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5 ${FOCUS}`}>Clear</button>)}
+            <button type="button" disabled={todayOutOfRange} aria-disabled={todayOutOfRange} onClick={() => pick(today)} className={`${TOUCH} rounded-md border border-[#1c1917]/20 bg-transparent px-4 py-2 text-sm text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5 ${FOCUS} disabled:opacity-40`}>Today</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function TimePicker({ value, onChange, label = "Time", step = 30 }) {
+  const [open, setOpen] = React.useState(false);
+  const triggerId = React.useId();
+  const listId = React.useId();
+  const triggerRef = React.useRef(null);
+  const wrapRef = React.useRef(null);
+  const stepMin = step === 60 ? 60 : 30;
+  const valid = isValidTime(value) ? value : null;
+  const display = valid ? formatTime12(valid) : "Select time";
+  const options = [];
+  for (let m = 0; m < 24 * 60; m += stepMin) {
+    const hh = Math.floor(m / 60);
+    const mm = m % 60;
+    options.push(`${hh < 10 ? "0" + hh : String(hh)}:${mm < 10 ? "0" + mm : String(mm)}`);
+  }
+  const close = () => setOpen(false);
+  React.useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      close();
+      if (triggerRef.current) triggerRef.current.focus();
+    }
+  };
+  const pick = (t) => {
+    if (onChange) onChange(t);
+    close();
+  };
+  return (
+    <div ref={wrapRef} className="relative" onKeyDown={handleKeyDown}>
+      <label htmlFor={triggerId} className="mb-2 block text-sm font-medium text-[#1c1917] dark:text-[#f5f3ef]">{label}</label>
+      <button ref={triggerRef} id={triggerId} type="button" aria-haspopup="listbox" aria-expanded={open} aria-controls={listId} onClick={() => setOpen(!open)} className={`${TOUCH} mt-1 w-[170px] rounded-lg border border-[#1c1917]/20 bg-transparent px-4 py-2 text-left text-sm text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5 ${FOCUS}`}>{display}</button>
+      {open && (
+        <ul id={listId} role="listbox" className="absolute z-10 mt-1 max-h-60 w-[170px] overflow-auto rounded-lg border border-[#1c1917]/20 bg-[#fcfaf7] p-2 dark:border-[#f5f3ef]/20 dark:bg-[#1c1917]">
+          {options.map((t) => {
+            const isSelected = t === valid;
+            return (
+              <li key={t} role="option" aria-selected={isSelected} className={isSelected ? "rounded-md bg-[#c47d3b] dark:bg-[#db914e]" : ""}>
+                <button type="button" onClick={() => pick(t)} className={`${TOUCH} w-full rounded px-4 py-2.5 text-left text-sm ${isSelected ? "font-semibold text-[#1c1917]" : "text-[#1c1917] hover:bg-[#1c1917]/5 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5"} ${FOCUS}`}>{formatTime12(t)}</button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export function DateRangePicker({ start, end, onChange, label = "Date range", min, max, clearable = true }) {
+  const [error, setError] = React.useState(null);
+  const [prevPair, setPrevPair] = React.useState([start, end]);
+  if (prevPair[0] !== start || prevPair[1] !== end) {
+    setPrevPair([start, end]);
+    if (error) setError(null);
+  }
+  const message = "End date must be on or after the start date.";
+  const validStart = isValidISODate(start) ? start : null;
+  const validEnd = isValidISODate(end) ? end : null;
+  const propsInvalid = validStart !== null && validEnd !== null && validEnd < validStart;
+  const hasError = error !== null || propsInvalid;
+  const handleStart = (next) => {
+    if (next !== null && validEnd !== null && next > validEnd) {
+      setError(message);
+      return;
+    }
+    setError(null);
+    if (onChange) onChange({ start: next, end: validEnd });
+  };
+  const handleEnd = (next) => {
+    if (next !== null && validStart !== null && next < validStart) {
+      setError(message);
+      return;
+    }
+    setError(null);
+    if (onChange) onChange({ start: validStart, end: next });
+  };
+  const handleClear = () => {
+    setError(null);
+    if (onChange) onChange({ start: null, end: null });
+  };
+  return (
+    <fieldset className="m-0 border-0 p-0">
+      <legend className="text-sm font-semibold tracking-[-0.025em] text-[#1c1917] dark:text-[#f5f3ef]">{label}</legend>
+      <div className="mt-4 flex flex-wrap items-start gap-6">
+        <DatePicker value={validStart} onChange={handleStart} label="Start" min={min} max={max} clearable={false} />
+        <DatePicker value={validEnd} onChange={handleEnd} label="End" min={min} max={max} clearable={false} invalid={hasError} />
+      </div>
+      {clearable && (validStart !== null || validEnd !== null) && (<button type="button" onClick={handleClear} className={`${TOUCH} mt-4 rounded-md border border-[#1c1917]/20 bg-transparent px-4 py-2 text-sm text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5 ${FOCUS}`}>Clear</button>)}
+      {hasError && (<p role="alert" className="mt-3 text-sm text-[#a83e22] dark:text-[#e07a52]">{message}</p>)}
+    </fieldset>
+  );
+}
+
+/* ---------------- Chart ---------------- */
+/* One series, SVG + data table. Bar, line, area, pie, donut. */
+
+const CHART_PALETTE = [
+  "fill-[#c47d3b] dark:fill-[#db914e]",
+  "fill-[#1c1917] dark:fill-[#f5f3ef]",
+  "fill-[#706963] dark:fill-[#9e968f]",
+  "fill-[#5e6b5a] dark:fill-[#8b9b87]",
+  "fill-[#b85b35] dark:fill-[#d98a63]",
+];
+const CHART_PALETTE_BG = [
+  "bg-[#c47d3b] dark:bg-[#db914e]",
+  "bg-[#1c1917] dark:bg-[#f5f3ef]",
+  "bg-[#706963] dark:bg-[#9e968f]",
+  "bg-[#5e6b5a] dark:bg-[#8b9b87]",
+  "bg-[#b85b35] dark:bg-[#d98a63]",
+];
+const CHART_STROKE = "stroke-[#c47d3b] dark:stroke-[#db914e]";
+const CHART_GRID = "stroke-[#1c1917]/10 dark:stroke-[#f5f3ef]/10";
+
+export function Chart({ type = "bar", data = [], title, height = 240, showTable = true }) {
+  const rows = (Array.isArray(data) ? data : []).map((d) => ({ label: String(d && d.label != null ? d.label : ""), value: Math.max(0, Number(d && d.value) || 0) }));
+  const n = rows.length;
+  const max = rows.reduce((m, r) => Math.max(m, r.value), 0);
+  const total = rows.reduce((s, r) => s + r.value, 0);
+  const min = n > 0 ? rows.reduce((m, r) => Math.min(m, r.value), Infinity) : 0;
+  const typeLabel = type === "line" ? "Line" : type === "area" ? "Area" : type === "pie" ? "Pie" : type === "donut" ? "Donut" : "Bar";
+  const isPie = type === "pie" || type === "donut";
+  if (n === 0 || max <= 0 || (isPie && total <= 0)) {
+    return (<p className="text-sm text-[#706963] dark:text-[#9e968f]">No data.</p>);
+  }
+  const H = Math.max(height || 240, 120);
+  const pct = (v) => ((v / total) * 100).toFixed(1) + "%";
+  const shortLabel = (s) => (s.length > 12 ? s.slice(0, 11) + "…" : s);
+  const titleSuffix = title ? ": " + title : "";
+  const summary = isPie ? `${n} slices, total ${total}.` : `${n} categories, values from ${min} to ${max}.`;
+  const caption = (title ? `${title} - ${typeLabel} chart. ` : `${typeLabel} chart. `) + "The table lists every value shown in the chart.";
+  const niceStep = (m) => { const raw = m / 4; const mag = Math.pow(10, Math.floor(Math.log10(raw))); const norm = raw / mag; if (norm <= 1) return mag; if (norm <= 2) return 2 * mag; if (norm <= 2.5) return 2.5 * mag; if (norm <= 5) return 5 * mag; return 10 * mag; };
+  const renderAxes = () => {
+    const LEFT = 44, RIGHT = 12, TOP = 12, BOTTOM = 28;
+    const plotW = 640 - LEFT - RIGHT;
+    const plotH = H - TOP - BOTTOM;
+    const step = niceStep(max);
+    const tickMax = step * 4;
+    const y = (v) => TOP + plotH * (1 - v / tickMax);
+    const baseline = y(0);
+    const slotW = plotW / n;
+    const cx = (i) => LEFT + (i + 0.5) * slotW;
+    const ticks = [0, step, step * 2, step * 3, step * 4];
+    const grid = ticks.map((t) => (<g key={t} aria-hidden="true"><line x1={LEFT} x2={LEFT + plotW} y1={y(t)} y2={y(t)} className={CHART_GRID} strokeWidth="1" /><text x={LEFT - 6} y={y(t) + 4} textAnchor="end" className="text-[11px] text-[#706963] dark:text-[#9e968f]" fill="currentColor">{String(t)}</text></g>));
+    const cats = rows.map((r, i) => (<text key={i} x={cx(i)} y={baseline + 18} textAnchor="middle" className="text-[12px] font-semibold text-[#1c1917] dark:text-[#f5f3ef]" fill="currentColor">{shortLabel(r.label)}</text>));
+    return { LEFT, TOP, plotW, plotH, y, baseline, slotW, cx, grid, cats };
+  };
+  const renderBars = () => {
+    const a = renderAxes();
+    const barW = Math.min(a.slotW * 0.42, 36);
+    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{rows.map((r, i) => { const x = a.cx(i) - barW / 2; const h = a.baseline - a.y(r.value); return (<g key={i}><rect x={x} y={a.y(r.value)} width={barW} height={Math.max(h, 0)} className={CHART_PALETTE[0]} /><text x={a.cx(i)} y={a.y(r.value) - 5} textAnchor="middle" className="text-[12px] font-semibold text-[#1c1917] dark:text-[#f5f3ef]" fill="currentColor">{String(r.value)}</text></g>); })}{a.cats}</g>);
+  };
+  const renderLineArea = () => {
+    const a = renderAxes();
+    const pts = rows.map((r, i) => [a.cx(i), a.y(r.value)]);
+    const linePts = pts.map((p) => p.join(",")).join(" ");
+    const areaD = `M ${pts[0].join(" ")} ` + pts.slice(1).map((p) => `L ${p.join(" ")}`).join(" ") + ` L ${pts[pts.length - 1][0]},${a.baseline} L ${pts[0][0]},${a.baseline} Z`;
+    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{type === "area" && <path d={areaD} className={CHART_PALETTE[0]} fillOpacity="0.08" stroke="none" />}<polyline points={linePts} fill="none" className={CHART_STROKE} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />{pts.map((p, i) => (<g key={i}><circle cx={p[0]} cy={p[1]} r="5" className={CHART_PALETTE[0]} stroke="#ffffff" strokeWidth="2" /><text x={p[0]} y={p[1] - 9} textAnchor="middle" className="text-[12px] font-semibold text-[#1c1917] dark:text-[#f5f3ef]" fill="currentColor">{String(rows[i].value)}</text></g>))}{a.cats}</g>);
+  };
+  const renderPie = () => {
+    const cx = 320, cy = H / 2;
+    const R = Math.min(320, H / 2) - 20;
+    const inner = type === "donut" ? R * 0.55 : 0;
+    let acc = 0;
+    const polar = (angleDeg, radius) => { const a = ((angleDeg - 90) * Math.PI) / 180; return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)]; };
+    const slices = rows.map((r, i) => { const start = (acc / total) * 360; acc += r.value; const end = (acc / total) * 360; const large = end - start > 180 ? 1 : 0; const [x1, y1] = polar(start, R); const [x2, y2] = polar(end, R); let d; if (type === "donut") { const [ix2, iy2] = polar(end, inner); const [ix1, iy1] = polar(start, inner); d = `M ${x1},${y1} A ${R},${R} 0 ${large} 1 ${x2},${y2} L ${ix2},${iy2} A ${inner},${inner} 0 ${large} 0 ${ix1},${iy1} Z`; } else { d = `M ${cx},${cy} L ${x1},${y1} A ${R},${R} 0 ${large} 1 ${x2},${y2} Z`; } const mid = (start + end) / 2; const labelR = type === "donut" ? (R + inner) / 2 : R * 0.68; const [lx, ly] = polar(mid, labelR); return { r, i, d, lx, ly }; });
+    return (<g aria-hidden="true">{slices.map((s) => (<g key={s.i}><path d={s.d} className={CHART_PALETTE[s.i % CHART_PALETTE.length]} stroke="#ffffff" strokeWidth="1" /><text x={s.lx} y={s.ly} textAnchor="middle" className="text-[12px] font-semibold text-[#1c1917] dark:text-[#f5f3ef]" fill="currentColor"><tspan x={s.lx} dy="-1">{shortLabel(rows[s.i].label)}</tspan><tspan x={s.lx} dy="13">{pct(rows[s.i].value)}</tspan></text></g>))}{type === "donut" && (<g><text x={cx} y={cy - 2} textAnchor="middle" className="text-xl font-bold text-[#1c1917] dark:text-[#f5f3ef]" fill="currentColor">{String(total)}</text><text x={cx} y={cy + 16} textAnchor="middle" className="text-[11px] text-[#706963] dark:text-[#9e968f]" fill="currentColor">total</text></g>)}</g>);
+  };
+  return (
+    <section>
+      <svg role="img" aria-label={`${typeLabel} chart${titleSuffix}. ${summary}`} viewBox={`0 0 640 ${H}`} width="100%" style={{ display: "block", overflow: "visible" }}>
+        {type === "bar" && renderBars()}
+        {(type === "line" || type === "area") && renderLineArea()}
+        {isPie && renderPie()}
+      </svg>
+      {isPie && (
+        <ul className="mt-4 list-none p-0">
+          {rows.map((r, i) => (
+            <li key={i} className="flex items-center gap-3 py-1.5">
+              <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${CHART_PALETTE_BG[i % CHART_PALETTE_BG.length]}`} />
+              <span className="text-sm text-[#1c1917] dark:text-[#f5f3ef]">{r.label}</span>
+              <span className="ml-auto text-sm font-semibold text-[#1c1917] dark:text-[#f5f3ef]">{String(r.value)} ({pct(r.value)})</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {showTable && (
+        <table className="mt-3 w-full border-collapse text-left">
+          <caption className="py-2 text-left text-sm font-semibold text-[#1c1917] dark:text-[#f5f3ef]">{caption}</caption>
+          <thead>
+            <tr>
+              <th scope="col" className="border-b border-[#1c1917]/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[#1c1917] dark:border-[#f5f3ef]/10 dark:text-[#f5f3ef]">Label</th>
+              <th scope="col" className="border-b border-[#1c1917]/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[#1c1917] dark:border-[#f5f3ef]/10 dark:text-[#f5f3ef]">Value</th>
+              {isPie && <th scope="col" className="border-b border-[#1c1917]/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[#1c1917] dark:border-[#f5f3ef]/10 dark:text-[#f5f3ef]">Percent</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i}>
+                <th scope="row" className="border-b border-[#1c1917]/10 px-4 py-3 font-medium text-[#1c1917] dark:border-[#f5f3ef]/10 dark:text-[#f5f3ef]">{r.label}</th>
+                <td className="border-b border-[#1c1917]/10 px-4 py-3 text-[#1c1917] dark:border-[#f5f3ef]/10 dark:text-[#f5f3ef]">{String(r.value)}</td>
+                {isPie && <td className="border-b border-[#1c1917]/10 px-4 py-3 text-[#1c1917] dark:border-[#f5f3ef]/10 dark:text-[#f5f3ef]">{pct(r.value)}</td>}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
+  );
+}
+
 /* ---------------- Component docs: Human / Agent / Vibe ---------------- */
 /* Contracts use oeste.component.v1. Keep in sync with site/app.js and llms.txt. */
 
@@ -1151,6 +1510,111 @@ export const COMPONENT_DOCS = Object.freeze([
     prompt: "Build an Oeste Empty State: aria-hidden icon, heading that says what is empty in plain words, description with a next step, and a focusable action button. Never blame the user for an empty screen.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/empty-state.json",
     code: `import { EmptyState } from "@/components/ui/empty-state";\n\nexport function NoProjects() {\n  return <EmptyState title="No projects yet" description="Create your first project to see it here." actionLabel="New project" onAction={() => {}} />;\n}`,
+  },
+  {
+    id: "calendar", name: "Calendar", tagline: "Month grid. One button per day, min/max bounds.",
+    anatomy: ["Prev/next month buttons", "Month/year heading (aria-live polite)", "Weekday header row", "Day buttons (one per day)", "Empty cells (outside the month)"],
+    props: [
+      { name: "value", type: "string?", required: false, def: "—", desc: "Selected date, ISO YYYY-MM-DD, or null." },
+      { name: "onChange", type: "(iso: string) => void", required: true, def: "—", desc: "Fires with the clicked day's ISO string." },
+      { name: "min", type: "string?", required: false, def: "—", desc: "Earliest selectable date, ISO. Earlier days are disabled." },
+      { name: "max", type: "string?", required: false, def: "—", desc: "Latest selectable date, ISO. Later days are disabled." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus between the nav buttons and day buttons." },
+      { key: "Enter / Space", action: "Select the focused day (or move one month on the nav buttons)." },
+    ],
+    invariants: ["Dates are ISO strings only (YYYY-MM-DD). No Date objects in props, no locale parsing.", "Week starts Sunday. Month and day names are English.", "The displayed month starts at the value's month, or the current month when no value is set. It follows the value when the parent passes a new date in a different month.", "Prev/next move one month and do not call onChange.", "Days outside the current month render as empty cells (no buttons).", "Days outside min/max are disabled (disabled attribute + aria-disabled).", "The selected day has an accent fill and its aria-label ends with ', selected'. Today has aria-current=\"date\" plus an accent outline.", "Day buttons are 44px circles (Topanga touch minimum).", "Tab + Enter/Space only. No roving tabindex, no arrow-key cell movement."],
+    contract: { format: "oeste.component.v1", component: "Calendar", props: { value: "string?", onChange: "function", min: "string?", max: "string?" }, a11y: { grid: "semantic table + th scope=col weekday headers", days: "one button per day, aria-label with ', selected' suffix, aria-current=date for today", disabled: "disabled + aria-disabled for out-of-range days", nav: "prev/next buttons with aria-labels, heading aria-live=polite" } },
+    prompt: "Build an Oeste Calendar: a month grid for one ISO date (YYYY-MM-DD). Prev-month button (aria-label Previous month), month/year heading (aria-live polite), next-month button (aria-label Next month). A semantic table: weekday header row (Su Mo Tu We Th Fr Sa), one button per day, empty cells outside the month. Clicking a day calls onChange with that day's ISO string. Days outside min/max are disabled (disabled + aria-disabled). Selected day: accent fill + aria-label ending with ', selected'. Today: aria-current=date + accent outline. Week starts Sunday, English names. Displayed month starts at the value's month or the current month and follows the value when the parent passes a new date in a different month; prev/next move one month and do not call onChange. Day buttons are 44px circles. ISO strings only, no locale parsing. Tab + Enter/Space only, no roving tabindex, no arrow keys. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/calendar.json",
+    code: `import { Calendar } from "@/components/ui/calendar";\n\nexport function Pick() {\n  const [day, setDay] = React.useState("2026-10-18");\n  return <Calendar value={day} onChange={setDay} />;\n}`,
+  },
+  {
+    id: "date-picker", name: "DatePicker", tagline: "Read-only input plus popover calendar. Clear, Today.",
+    anatomy: ["Label", "Read-only input (value or placeholder)", "Calendar trigger button", "Popover div (Calendar + Clear + Today)"],
+    props: [
+      { name: "value", type: "string?", required: false, def: "—", desc: "Selected date, ISO YYYY-MM-DD, or null." },
+      { name: "onChange", type: "(iso: string | null) => void", required: true, def: "—", desc: "Fires with the picked ISO string, or null on Clear." },
+      { name: "label", type: "string", required: false, def: "Date", desc: "Label text." },
+      { name: "placeholder", type: "string", required: false, def: "YYYY-MM-DD", desc: "Shown when no value is set." },
+      { name: "min", type: "string?", required: false, def: "—", desc: "Earliest selectable date, ISO." },
+      { name: "max", type: "string?", required: false, def: "—", desc: "Latest selectable date, ISO." },
+      { name: "clearable", type: "boolean", required: false, def: "true", desc: "Show the Clear button when a value is set." },
+      { name: "invalid", type: "boolean", required: false, def: "false", desc: "Sets aria-invalid on the input. Used by DateRangePicker for the End input." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus to the input (read-only), then the Calendar button, then into the popover." },
+      { key: "Enter / Space", action: "Toggle the popover on the button; select a day inside it." },
+      { key: "Escape", action: "Close the popover and return focus to the Calendar button." },
+    ],
+    invariants: ["The input is read-only. Dates come from the Calendar only, so there is no free-text parsing to get wrong.", "Invalid value prop is treated as null (empty input, Calendar shows the current month).", "Selecting a day calls onChange and closes the popover.", "Clear calls onChange(null) and closes. It only renders when clearable and a value is set.", "Today sets today's ISO and closes. Today is disabled when today is outside min/max.", "Escape closes the popover and returns focus to the Calendar button. Clicking outside the picker closes it.", "The popover is a plain div, not a dialog: no modal behavior, no focus trap.", "ISO strings only, no locale parsing."],
+    contract: { format: "oeste.component.v1", component: "DatePicker", props: { value: "string?", onChange: "function", label: "string", placeholder: "string", min: "string?", max: "string?", clearable: "boolean", invalid: "boolean" }, a11y: { input: "read-only input with label, aria-invalid", trigger: "button aria-label Open/Close calendar, aria-expanded, aria-controls", popover: "div with Calendar + Clear + Today", keyboard: "Escape closes, focus returns to trigger" } },
+    prompt: "Build an Oeste DatePicker: a label + a read-only text input (value or placeholder YYYY-MM-DD) + a Calendar button (aria-label Open/Close calendar, aria-expanded, aria-controls) that toggles a popover div with a Calendar + Clear + Today. The input is read-only: dates come from the Calendar only, no free-text parsing. Selecting a day calls onChange and closes. Clear (only when clearable and a value is set) calls onChange(null) and closes. Today sets today's ISO and closes, and is disabled when today is outside min/max. Escape closes and returns focus to the button. Clicking outside the picker closes it. Invalid value prop is treated as null. ISO strings only, no locale parsing. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-picker.json",
+    code: `import { DatePicker } from "@/components/ui/date-picker";\n\nexport function Due() {\n  const [day, setDay] = React.useState(null);\n  return <DatePicker value={day} onChange={setDay} label="Due date" />;\n}`,
+  },
+  {
+    id: "time-picker", name: "TimePicker", tagline: "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+    anatomy: ["Label", "Trigger button (value or Select time)", "Dropdown ul role=listbox", "Options (li role=option, each a button)"],
+    props: [
+      { name: "value", type: "string?", required: false, def: "—", desc: "Selected time, HH:MM 24-hour, or null." },
+      { name: "onChange", type: "(time: string | null) => void", required: true, def: "—", desc: "Fires with the picked HH:MM string." },
+      { name: "label", type: "string", required: false, def: "Time", desc: "Label text." },
+      { name: "step", type: "30 | 60", required: false, def: "30", desc: "Minutes between options. Anything else falls back to 30." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus to the trigger, then through the option buttons." },
+      { key: "Enter / Space", action: "Toggle the listbox on the trigger; select the focused option." },
+      { key: "Escape", action: "Close the listbox and return focus to the trigger." },
+    ],
+    invariants: ["Times are HH:MM 24-hour strings. The list shows 12-hour labels (12:00 AM, 1:00 PM); the value stays HH:MM.", "Options run 00:00 to 23:30 (step 30) or 23:00 (step 60).", "Invalid value prop is treated as null (trigger shows Select time, no option selected).", "A valid value that is not on the step grid still displays; no option is highlighted.", "Clicking an option calls onChange and closes.", "Escape closes and returns focus to the trigger. Clicking outside the picker closes it.", "Options are buttons. Tab moves through them, Enter selects. No arrow-key navigation."],
+    contract: { format: "oeste.component.v1", component: "TimePicker", props: { value: "string?", onChange: "function", label: "string", step: "30 | 60" }, a11y: { trigger: "button aria-haspopup=listbox, aria-expanded, aria-controls", list: "ul role=listbox, li role=option aria-selected", options: "buttons, Tab navigation, Enter selects", display: "12-hour labels, value stays HH:MM" } },
+    prompt: "Build an Oeste TimePicker: a label + a trigger button (value or Select time, aria-haspopup=listbox, aria-expanded, aria-controls) that toggles a dropdown ul role=listbox. Options are li role=option aria-selected, each holding a button. Step 30 gives 48 options (00:00 to 23:30), step 60 gives 24 (00:00 to 23:00). Labels are 12-hour (12:00 AM, 1:00 PM); the value stays HH:MM 24-hour. Clicking an option calls onChange and closes. Escape closes and returns focus to the trigger. Clicking outside the picker closes it. Options are buttons: Tab moves through them, Enter selects, no arrow keys. Invalid value prop is treated as null. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/time-picker.json",
+    code: `import { TimePicker } from "@/components/ui/time-picker";\n\nexport function Start() {\n  const [time, setTime] = React.useState("14:30");\n  return <TimePicker value={time} onChange={setTime} label="Start time" />;\n}`,
+  },
+  {
+    id: "date-range-picker", name: "DateRangePicker", tagline: "Two DatePickers, one range. End-before-start is an error.",
+    anatomy: ["Fieldset + legend", "Start DatePicker", "End DatePicker (aria-invalid on error)", "Clear button", "Error message (role=alert)"],
+    props: [
+      { name: "start", type: "string?", required: false, def: "—", desc: "Start date, ISO YYYY-MM-DD, or null." },
+      { name: "end", type: "string?", required: false, def: "—", desc: "End date, ISO YYYY-MM-DD, or null." },
+      { name: "onChange", type: "({ start, end }) => void", required: true, def: "—", desc: "Fires with the new pair on any valid change, or { start: null, end: null } on Clear." },
+      { name: "label", type: "string", required: false, def: "Date range", desc: "Legend text." },
+      { name: "min", type: "string?", required: false, def: "—", desc: "Earliest selectable date, ISO." },
+      { name: "max", type: "string?", required: false, def: "—", desc: "Latest selectable date, ISO." },
+      { name: "clearable", type: "boolean", required: false, def: "true", desc: "Show the Clear button when either date is set." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move focus through the Start picker, then the End picker, then Clear." },
+      { key: "Enter / Space", action: "Toggle each picker's popover; select days inside." },
+      { key: "Escape", action: "Close the open popover and return focus to its trigger." },
+    ],
+    invariants: ["Composes two DatePickers (Start, End) with clearable={false} plus one range Clear button.", "Changing Start or End calls onChange with the new pair.", "When end is before start, an error message (role=alert) shows and the End input gets aria-invalid. onChange is NOT called with the invalid pair; the last valid pair stays.", "A stale error clears when the parent passes a new pair.", "Same-day ranges are valid.", "Clear calls onChange({ start: null, end: null }).", "ISO strings only, no locale parsing."],
+    contract: { format: "oeste.component.v1", component: "DateRangePicker", props: { start: "string?", end: "string?", onChange: "function", label: "string", min: "string?", max: "string?", clearable: "boolean" }, a11y: { group: "fieldset + legend", error: "role=alert message + aria-invalid on End input, invalid pair never passed to onChange", keyboard: "Escape closes popover, focus returns to trigger" } },
+    prompt: "Build an Oeste DateRangePicker: a fieldset + legend holding two DatePickers (Start, End, clearable false) plus one range Clear button. Changing Start or End calls onChange with the new pair. When end is before start, show an error message (role=alert) and set aria-invalid on the End input; do NOT call onChange with the invalid pair, keep the last valid pair. A stale error clears when the parent passes a new pair. Same-day ranges are valid. Clear calls onChange({ start: null, end: null }). ISO strings only, no locale parsing. Use Topanga tokens: danger #A83E22 (light) / #E07A52 (dark) for the error text.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-range-picker.json",
+    code: `import { DateRangePicker } from "@/components/ui/date-range-picker";\n\nexport function Trip() {\n  const [range, setRange] = React.useState({ start: "2026-10-01", end: "2026-10-15" });\n  return <DateRangePicker start={range.start} end={range.end} onChange={setRange} label="Trip dates" />;\n}`,
+  },
+  {
+    id: "chart", name: "Chart", tagline: "Bar, line, area, pie, donut. One series, SVG + data table.",
+    anatomy: ["SVG chart (bars, line, area, or slices)", "Value axis (ticks + gridlines, bar/line/area only)", "Category axis (labels, bar/line/area only)", "Legend (pie/donut only: swatch + label + value + percent)", "Data table (caption + Label/Value, Percent for pie/donut)"],
+    props: [
+      { name: "type", type: '"bar" | "line" | "area" | "pie" | "donut"', required: false, def: '"bar"', desc: "Chart type." },
+      { name: "data", type: "{ label: string, value: number }[]", required: true, def: "-", desc: "One series. Values are non-negative; negatives are treated as 0." },
+      { name: "title", type: "string", required: false, def: "-", desc: "Chart title. Used in the table caption and the SVG aria-label." },
+      { name: "height", type: "number", required: false, def: "240", desc: "SVG height in px. Width is 100% via viewBox. Minimum 120." },
+      { name: "showTable", type: "boolean", required: false, def: "true", desc: "Render the accessible data table under the chart." },
+    ],
+    keyboard: [
+      { key: "-", action: "Not interactive. No keyboard behavior. The data table is read with a screen reader; it has no focusable controls." },
+    ],
+    invariants: ["One series only. No multi-series, tooltips, zoom, or animation.", "Values are non-negative. Negative values are treated as 0. Empty data, all-zero data, or a zero total (pie/donut) renders 'No data.'", "Bar/line/area share one axis system: value ticks at 0, 25%, 50%, 75%, 100% of max, rounded to a clean step. Horizontal gridlines. Category labels under each point.", "Bar: vertical bars, value label on each bar. Line: polyline + dots + value labels. Area: line + filled area under the line.", "Pie: slices proportional to values, label + percent at centroids. Donut: center hole + total in the center, plus a legend (swatch + label + value + percent).", "Slice labels sit at centroids and can crowd on tiny slices. Long category labels truncate in the SVG; the full label is always in the table.", "The SVG is role=img with a one-line summary aria-label; all shapes are aria-hidden. The semantic data table is the accessible representation. Values are in the table and on slice labels, never color alone."],
+    contract: { format: "oeste.component.v1", component: "Chart", props: { type: ["bar", "line", "area", "pie", "donut"], data: "array", title: "string?", height: "number", showTable: "boolean" }, a11y: { chart: "svg role=img + aria-label, shapes aria-hidden", table: "semantic table + caption + th scope", color: "values in table + slice text labels, never color alone" } },
+    prompt: "Build a Topanga Chart: one series, SVG + data table. Types bar, line, area, pie, donut. Bar/line/area share one axis system (value ticks at 0, 25%, 50%, 75%, 100% of max rounded to a clean step, horizontal gridlines, category labels). Bar has value labels on bars; line has a polyline + dots + value labels; area adds the fill under the line. Pie slices are proportional with label + percent at centroids; donut adds a center hole + total in the center, plus a legend (swatch + label + value + percent). The SVG is role=img with a one-line summary aria-label, shapes aria-hidden; the semantic data table (caption + th scope, Percent column for pie/donut) is the accessible representation. One series only, no tooltips, zoom, or animation. Empty, all-zero, or zero-total data renders 'No data.' Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark), text #1C1917 / #F5F3EF, muted #706963 / #9E968F, sage #5E6B5A / #8B9B87, rust #B85B35 / #D98A63 for the categorical palette.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/chart.json",
+    code: `import { Chart } from "@/components/ui/chart";\n\nexport function Sales() {\n  const data = [{ label: "Jan", value: 42 }, { label: "Feb", value: 87 }, { label: "Mar", value: 15 }, { label: "Apr", value: 63 }];\n  return <Chart type="bar" data={data} title="Sales" />;\n}`,
   },
 
 ]);

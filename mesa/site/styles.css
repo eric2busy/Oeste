@@ -38,6 +38,11 @@ pre .tok-punct { color: var(--code-punct); }
 table { border-collapse: collapse; width: 100%; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
 th { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted); }
+/* Demo tables are styled here, explicitly: the bare table / th / td rules
+   above are docs-content styling and must not decide a demo table's look. */
+.demo table { border-collapse: collapse; width: 100%; }
+.demo th, .demo td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+.demo th { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted); }
 
 /* Top bar: wordmark, nav links, nav tools (SearchPill + ThemeToggle), readbar. No sidebar. */
 .topbar { position: sticky; top: 0; z-index: 50; background: var(--color-nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border); }
@@ -463,3 +468,17 @@ html[data-theme="dark"] .m-banner { background: #060504; color: #e8dfc9; border-
 
 .m-option-row { display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--color-border); border-radius: var(--radius-option-row); padding: 14px; margin-bottom: 10px; cursor: pointer; background: var(--color-bg); font-size: 15px; }
 .m-option-row input { margin-top: 3px; width: 18px; height: 18px; flex: none; accent-color: var(--color-accent-deep); }
+
+/* Part 1 phone defects: calendar grid reset plus demo-control safety net. */
+.cal-grid { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.cal-grid th { padding: 8px 0; border-bottom: none; }
+.cal-grid td { padding: 2px; border-bottom: none; }
+/* Zero-specificity safety net (:where): every control rendered inside #view
+   (demo, variants, playground) gets an explicit color, background, and
+   appearance from existing tokens, so no browser default chrome ever shows
+   through. Any component class or inline style still wins. */
+:where(#view button) { color: var(--color-text); background: transparent; -webkit-appearance: none; appearance: none; }
+:where(#view input, #view select, #view textarea) { color: var(--color-text); background: var(--color-bg); -webkit-appearance: none; appearance: none; }
+:where(#view select) { -webkit-appearance: auto; appearance: auto; }
+:where(#view input[type="checkbox"], #view input[type="radio"]) { -webkit-appearance: auto; appearance: auto; background: transparent; accent-color: var(--color-accent); }
+:where(#view input[type="range"]) { -webkit-appearance: auto; appearance: auto; background: transparent; accent-color: var(--color-accent); }

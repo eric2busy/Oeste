@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oeste — One system. Three perspectives.</title>
+<title>Oeste — Three libraries. Three lenses.</title>
 <meta name="description" content="Oeste is a design system for humans, AI agents, and vibe coders. Three component libraries: Topanga, Huntington, Mesa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -26,6 +26,36 @@
 .lib-card p:last-of-type { margin-bottom: 16px; }
 .section { margin-top: 44px; }
 .section h2 { margin-top: 0; }
+.section-num { font-family: "JetBrains Mono", monospace; color: var(--color-muted); font-size: 0.8rem; margin-right: 8px; }
+.home-search { margin-top: 28px; }
+.home-search label { display: block; font-weight: 600; margin-bottom: 8px; }
+.home-search input[type="search"] { width: 100%; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg); color: var(--color-text); font: inherit; }
+.home-search .search-status { color: var(--color-muted); font-size: 0.875rem; margin: 8px 0 0; }
+/* Scoped under .home-search: Topanga site/styles.css has its own .search-results (an absolute dropdown). Without the scope + resets, the library rule wins on position and paints the home results off-screen. */
+.home-search .search-results { position: static; top: auto; left: auto; right: auto; z-index: auto; background: transparent; border: 0; border-radius: 0; box-shadow: none; list-style: none; padding: 0; margin: 12px 0 0; }
+.home-search .search-results li { border-top: 1px solid var(--color-border); padding: 10px 0; }
+.home-search .search-results a { display: block; color: var(--color-text); text-decoration: none; }
+.home-search .search-results a:hover { text-decoration: underline; }
+.home-search .search-results .search-lib { color: var(--color-muted); font-size: 0.875rem; }
+.tile-demo { border: 1px solid var(--color-border); border-radius: 12px; padding: 20px; margin: 0 0 12px; background: var(--color-surface); position: relative; overflow: hidden; }
+.tile-demo-text { margin: 0; font-weight: 600; position: relative; }
+.tile-motion { font-size: 0.875rem; color: var(--color-muted); margin: 0 0 16px; }
+.tile-spot-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(160px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-accent) 25%, transparent), transparent 70%); opacity: 0; transition: opacity 200ms ease-out; }
+.tile-spot:hover .tile-spot-glow, .tile-spot:focus-within .tile-spot-glow { opacity: 1; }
+.tile-spot:hover { border-color: var(--color-accent); }
+.tile-reveal { margin: 0; font-weight: 600; }
+html.js .tile-reveal { opacity: 0; transform: translateY(4px); transition: opacity 200ms ease-out, transform 200ms ease-out; }
+html.js .tile-reveal.revealed { opacity: 1; transform: none; }
+.tile-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.tile-item { border: 1px solid var(--color-border); border-radius: 8px; padding: 10px 12px; }
+html.js .tile-item { opacity: 0; transform: translateY(6px); transition: opacity 180ms ease-out, transform 180ms ease-out; }
+html.js .tile-item.in { opacity: 1; transform: none; }
+html.js .tile-item:nth-child(2) { transition-delay: 80ms; }
+html.js .tile-item:nth-child(3) { transition-delay: 160ms; }
+@media (prefers-reduced-motion: reduce) {
+  .tile-spot-glow { display: none; }
+  html.js .tile-reveal, html.js .tile-item { opacity: 1; transform: none; transition: none; }
+}
 .install-label { margin: 24px 0 0; }
 .note { margin-top: 32px; }
 </style>
@@ -41,33 +71,56 @@
 </header>
 <main id="view" tabindex="-1" class="home">
 <p class="eyebrow">Oeste · Component libraries</p>
-<h1>One system.<br>Three perspectives.</h1>
+<h1>Three libraries.<br>Three lenses.</h1>
 <p class="lede">Oeste is a design system for humans, AI agents, and vibe coders. Pick a library — each one is complete: Human docs, Agent contracts, Vibe code.</p>
+<div class="home-search" role="search">
+<label for="homeSearch">Search all three libraries</label>
+<input id="homeSearch" type="search" placeholder="Search components, for example Button" autocomplete="off" aria-describedby="homeSearchStatus">
+<p id="homeSearchStatus" class="search-status" role="status" aria-live="polite"></p>
+<ul id="homeSearchResults" class="search-results"></ul>
+</div>
 <section class="section" aria-labelledby="libraries-heading">
-<h2 id="libraries-heading">Libraries</h2>
+<h2 id="libraries-heading"><span class="section-num">01</span> Libraries</h2>
 <div class="lib-cards">
 <section class="lib-card" aria-labelledby="lib-topanga">
 <h3 id="lib-topanga">Topanga</h3>
-<span class="badge">v0.4.8 · 29 components</span>
+<span class="badge">v0.4.8 · 34 components</span>
 <p>The debut library. Warm paper, canyon clay, ochre, sagebrush, precision hairlines. Light + dark.</p>
+<div class="tile-demo tile-spot" data-spot>
+<span class="tile-spot-glow" aria-hidden="true"></span>
+<p class="tile-demo-text">Warm paper, one light.</p>
+</div>
+<p class="tile-motion">Motion: spotlight follows your pointer.</p>
 <a class="btn btn-secondary" href="/topanga/">Browse Topanga</a>
 </section>
 <section class="lib-card" aria-labelledby="lib-huntington">
 <h3 id="lib-huntington">Huntington</h3>
-<span class="badge">v0.2.0 · 40 components</span>
+<span class="badge">v0.2.0 · 45 components</span>
 <p>A single-column library. Five moods: Paper, Ink, Rose, Sage, Dune. Hairlines instead of shadows, no filled button.</p>
+<div class="tile-demo">
+<p class="tile-reveal">One column. Five moods.</p>
+</div>
+<p class="tile-motion">Motion: text reveals on view.</p>
 <a class="btn btn-secondary" href="/huntington/">Browse Huntington</a>
 </section>
 <section class="lib-card" aria-labelledby="lib-mesa">
 <h3 id="lib-mesa">Mesa</h3>
-<span class="badge">v0.2.0 · 67 components</span>
+<span class="badge">v0.2.0 · 73 components</span>
 <p>Warm paper, near-black ink, oxblood for status. Dark by default. Hairlines and double rules.</p>
+<div class="tile-demo">
+<ul class="tile-list">
+<li class="tile-item">Activity feed</li>
+<li class="tile-item">Review queue</li>
+<li class="tile-item">Data grid</li>
+</ul>
+</div>
+<p class="tile-motion">Motion: list items stagger in on view.</p>
 <a class="btn btn-secondary" href="/mesa/">Browse Mesa</a>
 </section>
 </div>
 </section>
 <section class="section" aria-labelledby="start-heading">
-<h2 id="start-heading">Start building</h2>
+<h2 id="start-heading"><span class="section-num">02</span> Start building</h2>
 <p class="install-label"><strong>Topanga</strong></p>
 <pre>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</pre>
 <button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json">Copy command</button>
@@ -79,7 +132,7 @@
 <button class="copy-btn" type="button" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json">Copy command</button>
 </section>
 <section class="section" aria-labelledby="agents-heading">
-<h2 id="agents-heading">For agents</h2>
+<h2 id="agents-heading"><span class="section-num">03</span> For agents</h2>
 <p>Each library has its own machine contract. Start from the library&rsquo;s <code>llms.txt</code>, not this page.</p>
 <p><a href="/topanga/llms.txt">Topanga llms.txt</a> · <a href="/topanga/components.json">Topanga components.json</a></p>
 <p><a href="/huntington/llms.txt">Huntington llms.txt</a> · <a href="/huntington/components.json">Huntington components.json</a></p>
@@ -89,11 +142,13 @@
 </main>
 <footer class="site-footer">
 <p>© 2026 <a href="https://hiddeninwest.com">hiddeninwest</a></p>
-<p>One system. Three perspectives. · <a href="/support/">Support</a></p>
+<p>Three libraries. Three lenses. · <a href="/support/">Support</a></p>
 <p>This page is built with Topanga.</p>
 </footer>
 <script>
 (function () {
+  document.documentElement.classList.add("js");
+  function escHtml(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem("oeste-theme", theme); } catch (e) {}
@@ -116,6 +171,86 @@
       });
     });
   });
+  var homeSearchInput = document.getElementById("homeSearch");
+  var homeSearchResults = document.getElementById("homeSearchResults");
+  var homeSearchStatus = document.getElementById("homeSearchStatus");
+  var homeSearchCache = null;
+  var homeSearchTimer = null;
+  function homeSearchData() {
+    if (homeSearchCache) return Promise.resolve(homeSearchCache);
+    var libs = ["topanga", "huntington", "mesa"];
+    return Promise.all(libs.map(function (lib) {
+      return fetch("/" + lib + "/components.json").then(function (r) { return r.json(); }).then(function (m) {
+        return (m.components || []).map(function (c) {
+          return { lib: lib, name: c.name, desc: c.description || "", tags: (c.tags || []).join(" "), url: "/" + lib + "/" + c.docsUrl };
+        });
+      });
+    })).then(function (lists) {
+      homeSearchCache = lists.reduce(function (all, list) { return all.concat(list); }, []);
+      return homeSearchCache;
+    });
+  }
+  function renderHomeSearch(q) {
+    if (!q) { homeSearchResults.innerHTML = ""; homeSearchStatus.textContent = ""; return; }
+    homeSearchData().then(function (items) {
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      var hits = items.filter(function (it) {
+        var hay = (it.name + " " + it.desc + " " + it.tags).toLowerCase();
+        return terms.every(function (t) { return hay.indexOf(t) !== -1; });
+      }).slice(0, 8);
+      homeSearchStatus.textContent = hits.length + " match" + (hits.length === 1 ? "" : "es") + " across Topanga, Huntington, Mesa.";
+      if (!hits.length) {
+        homeSearchResults.innerHTML = "<li>No matches. Try another word.</li>";
+        return;
+      }
+      homeSearchResults.innerHTML = hits.map(function (it) {
+        var label = it.lib.charAt(0).toUpperCase() + it.lib.slice(1);
+        return '<li><a href="' + it.url + '">' + escHtml(it.name) + ' <span class="search-lib">' + escHtml(label) + "</span></a></li>";
+      }).join("");
+    }).catch(function () {
+      homeSearchStatus.textContent = "Search is unavailable right now.";
+      homeSearchResults.innerHTML = "";
+    });
+  }
+  if (homeSearchInput) {
+    homeSearchInput.addEventListener("input", function () {
+      var q = homeSearchInput.value.trim();
+      clearTimeout(homeSearchTimer);
+      homeSearchTimer = setTimeout(function () { renderHomeSearch(q); }, 150);
+    });
+    homeSearchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { homeSearchInput.value = ""; renderHomeSearch(""); }
+      if (e.key === "Enter") {
+        var first = homeSearchResults.querySelector("a");
+        if (first) location.href = first.getAttribute("href");
+      }
+    });
+  }
+  var spot = document.querySelector("[data-spot]");
+  if (spot) {
+    spot.addEventListener("pointermove", function (e) {
+      var r = spot.getBoundingClientRect();
+      spot.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+      spot.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+  }
+  var reveal = document.querySelector(".tile-reveal");
+  var tileList = document.querySelector(".tile-list");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        if (entry.target.classList.contains("tile-reveal")) entry.target.classList.add("revealed");
+        if (entry.target.classList.contains("tile-list")) entry.target.querySelectorAll(".tile-item").forEach(function (it) { it.classList.add("in"); });
+        io.unobserve(entry.target);
+      });
+    });
+    if (reveal) io.observe(reveal);
+    if (tileList) io.observe(tileList);
+  } else {
+    if (reveal) reveal.classList.add("revealed");
+    document.querySelectorAll(".tile-item").forEach(function (it) { it.classList.add("in"); });
+  }
 })();
 </script>
 </body>

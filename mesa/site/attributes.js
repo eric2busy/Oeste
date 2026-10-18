@@ -280,6 +280,11 @@ const ATTRIBUTES = {
   "date-range-picker": {
     "rows": [
       {
+        "attr": "aria-hidden",
+        "value": "true",
+        "element": "div"
+      },
+      {
         "attr": "role",
         "value": "alert",
         "element": "p"

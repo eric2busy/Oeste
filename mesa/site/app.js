@@ -883,11 +883,11 @@ function demoHTML(c) {
   if (c.id === "result-card") return '<div class="demo"><article class="m-result-card"><p class="m-result-fno">Ref 01</p><h3>Title goes here.</h3><p class="m-result-outcome">Outcome goes here.</p><dl class="m-result-dl"><dt>Status</dt><dd>Open</dd><dt>Count</dt><dd>12</dd></dl></article></div>';
   if (c.id === "forum-thread") return '<div class="demo"><article class="m-thread"><p><span class="m-thread-votes">12</span> Thread text goes here.</p><p class="m-thread-reply">Reply text goes here.</p><p class="m-thread-reply">Second reply.</p></article><p class="muted">Hover the thread for the 4% oxblood wash.</p></div>';
   if (c.id === "mini-gates") return '<div class="demo"><div class="m-mini-gates"><div><p class="m-mini-num">01</p><p class="m-mini-title">Gate one</p><p class="m-mini-body">Description goes here.</p></div><div><p class="m-mini-num">02</p><p class="m-mini-title">Gate two</p><p class="m-mini-body">Description goes here.</p></div><div><p class="m-mini-num">03</p><p class="m-mini-title">Gate three</p><p class="m-mini-body">Description goes here.</p></div><div><p class="m-mini-num">04</p><p class="m-mini-title">Gate four</p><p class="m-mini-body">Description goes here.</p></div></div></div>';
-  if (c.id === "chart") return '<div class="demo"><div style="overflow-x:auto"><svg role="img" aria-label="Bar chart demo: 5 categories, values from 20 to 100." viewBox="0 0 640 240" width="100%" style="display:block;overflow:visible"><g aria-hidden="true"><line x1="40" x2="624" y1="212" y2="212" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="162" y2="162" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="112" y2="112" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="62" y2="62" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="12" y2="12" style="stroke:var(--color-border)" stroke-width="1" /><text x="34" y="216" text-anchor="end" style="fill:var(--color-muted);font-size:11px">0</text><text x="34" y="166" text-anchor="end" style="fill:var(--color-muted);font-size:11px">25</text><text x="34" y="116" text-anchor="end" style="fill:var(--color-muted);font-size:11px">50</text><text x="34" y="66" text-anchor="end" style="fill:var(--color-muted);font-size:11px">75</text><text x="34" y="16" text-anchor="end" style="fill:var(--color-muted);font-size:11px">100</text><rect x="70" y="172" width="56" height="40" style="fill:var(--color-accent)" /><rect x="187" y="132" width="56" height="80" style="fill:var(--color-accent)" /><rect x="304" y="92" width="56" height="120" style="fill:var(--color-accent)" /><rect x="421" y="52" width="56" height="160" style="fill:var(--color-accent)" /><rect x="538" y="12" width="56" height="200" style="fill:var(--color-accent)" /><text x="98" y="167" text-anchor="middle" style="fill:var(--color-text);font-size:11px">20</text><text x="215" y="127" text-anchor="middle" style="fill:var(--color-text);font-size:11px">40</text><text x="332" y="87" text-anchor="middle" style="fill:var(--color-text);font-size:11px">60</text><text x="449" y="47" text-anchor="middle" style="fill:var(--color-text);font-size:11px">80</text><text x="566" y="7" text-anchor="middle" style="fill:var(--color-text);font-size:11px">100</text><text x="98" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px">A</text><text x="215" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px">B</text><text x="332" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px">C</text><text x="449" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px">D</text><text x="566" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px">E</text></g></svg></div><table style="margin-top:12px"><caption class="muted" style="text-align:left;font-size:13px">Bar chart demo. The table lists every value shown in the chart.</caption><thead><tr><th scope="col">Label</th><th scope="col">Value</th></tr></thead><tbody><tr><th scope="row">A</th><td>20</td></tr><tr><th scope="row">B</th><td>40</td></tr><tr><th scope="row">C</th><td>60</td></tr><tr><th scope="row">D</th><td>80</td></tr><tr><th scope="row">E</th><td>100</td></tr></tbody></table></div>';
-  if (c.id === "calendar") return '<div class="demo"><div style="width:280px"><div style="display:flex;align-items:center;justify-content:space-between"><button type="button" aria-label="Previous month" style="font-size:16px">‹</button><div aria-live="polite" style="font-size:14px;font-weight:600">October 2026</div><button type="button" aria-label="Next month" style="font-size:16px">›</button></div><table style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">Su</th><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">Mo</th><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">Tu</th><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">We</th><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">Th</th><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">Fr</th><th scope="col" style="padding:8px 0;text-align:center;font-size:12px;font-weight:600;color:var(--color-muted)">Sa</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 1, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">1</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 2, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">2</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 3, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">3</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 4, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">4</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 5, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">5</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 6, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">6</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 7, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">7</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 8, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">8</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 9, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">9</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 10, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">10</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 11, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">11</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 12, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">12</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 13, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">13</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 14, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">14</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 15, 2026, selected" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;background:var(--color-accent);color:#fff;border:1px solid transparent">15</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 16, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">16</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 17, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">17</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-current="date" aria-label="October 18, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid var(--color-accent);font-weight:600">18</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 19, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">19</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 20, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">20</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 21, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">21</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 22, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">22</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 23, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">23</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 24, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">24</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 25, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">25</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 26, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">26</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 27, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">27</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 28, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">28</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 29, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">29</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 30, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">30</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 31, 2026" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent">31</button></td></tr></tbody></table></div></div>';
-  if (c.id === "date-picker") return '<div class="demo"><div class="field" style="max-width:420px"><label for="demoDatePicker">Date</label><div style="display:flex;gap:8px;align-items:center;margin-top:4px"><input id="demoDatePicker" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div>';
-  if (c.id === "time-picker") return '<div class="demo"><div class="field" style="max-width:420px"><label for="demoTimePicker">Time</label><div style="margin-top:4px"><button type="button" id="demoTimePicker" class="m-btn" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button></div></div></div>';
-  if (c.id === "date-range-picker") return '<div class="demo"><fieldset style="margin:0;border:0;padding:0"><legend style="font-size:13px;font-weight:600">Date range</legend><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;margin-top:4px"><div class="field"><label for="demoRangeStart">Start</label><div style="display:flex;gap:8px;align-items:center;margin-top:4px"><input id="demoRangeStart" type="text" readonly value="2026-10-01" placeholder="YYYY-MM-DD"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div><div class="field"><label for="demoRangeEnd">End</label><div style="display:flex;gap:8px;align-items:center;margin-top:4px"><input id="demoRangeEnd" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div><div style="margin-top:8px"><button type="button" class="m-btn">Clear</button></div></fieldset></div>';
+  if (c.id === "chart") return '<div class="demo"><div style="overflow-x:auto"><svg role="img" aria-label="Bar chart demo: 5 categories, values from 20 to 100." viewBox="0 0 640 240" width="100%" style="display:block;overflow:visible"><g aria-hidden="true"><line x1="40" x2="624" y1="212" y2="212" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="162" y2="162" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="112" y2="112" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="62" y2="62" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="12" y2="12" style="stroke:var(--color-border)" stroke-width="1" /><text x="34" y="216" text-anchor="end" style="fill:var(--color-muted);font-size:11px">0</text><text x="34" y="166" text-anchor="end" style="fill:var(--color-muted);font-size:11px">25</text><text x="34" y="116" text-anchor="end" style="fill:var(--color-muted);font-size:11px">50</text><text x="34" y="66" text-anchor="end" style="fill:var(--color-muted);font-size:11px">75</text><text x="34" y="16" text-anchor="end" style="fill:var(--color-muted);font-size:11px">100</text><rect x="62" y="172" width="72" height="40" style="fill:var(--color-accent)" /><rect x="179" y="132" width="72" height="80" style="fill:var(--color-accent)" /><rect x="296" y="92" width="72" height="120" style="fill:var(--color-accent)" /><rect x="413" y="52" width="72" height="160" style="fill:var(--color-accent)" /><rect x="530" y="12" width="72" height="200" style="fill:var(--color-accent)" /><text x="98" y="167" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">20</text><text x="215" y="127" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">40</text><text x="332" y="87" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">60</text><text x="449" y="47" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">80</text><text x="566" y="7" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">100</text><text x="98" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">A</text><text x="215" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">B</text><text x="332" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">C</text><text x="449" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">D</text><text x="566" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">E</text></g></svg></div><table style="margin-top:12px"><caption class="muted" style="text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Bar chart demo. The table lists every value shown in the chart.</caption><thead><tr><th scope="col" style="border-bottom:4px double var(--color-border);padding:6px 8px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Label</th><th scope="col" style="border-bottom:4px double var(--color-border);padding:6px 8px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Value</th></tr></thead><tbody><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">A</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">20</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">B</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">40</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">C</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">60</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">D</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">80</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">E</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">100</td></tr></tbody></table></div>';
+  if (c.id === "calendar") return '<div class="demo"><div style="width:100%;max-width:300px"><div style="display:flex;align-items:center;justify-content:space-between;border-bottom:4px double var(--color-border);padding-bottom:8px"><button type="button" aria-label="Previous month" style="font-size:16px;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">‹</button><div aria-live="polite" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">October 2026</div><button type="button" aria-label="Next month" style="font-size:16px;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">›</button></div><table class="cal-grid" style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr style="border-bottom:4px double var(--color-border)"><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Su</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Mo</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Tu</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">We</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Th</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Fr</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Sa</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 1, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">1</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 2, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">2</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 3, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">3</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 4, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">4</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 5, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">5</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 6, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">6</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 7, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">7</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 8, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">8</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 9, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">9</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 10, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">10</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 11, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">11</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 12, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">12</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 13, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">13</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 14, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">14</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 15, 2026, selected" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;background:var(--color-accent);color:#fff;font-weight:700;border:1px solid transparent;-webkit-appearance:none;appearance:none">15</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 16, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">16</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 17, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">17</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-current="date" aria-label="October 18, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:2px solid var(--color-accent);font-weight:700;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">18</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 19, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">19</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 20, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">20</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 21, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">21</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 22, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">22</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 23, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">23</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 24, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">24</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 25, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">25</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 26, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">26</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 27, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">27</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 28, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">28</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 29, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">29</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 30, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">30</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 31, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">31</button></td></tr></tbody></table></div></div>';
+  if (c.id === "date-picker") return '<div class="demo"><div class="field" style="max-width:420px"><label for="demoDatePicker">Date</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px"><input id="demoDatePicker" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD" style="width:140px"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div>';
+  if (c.id === "time-picker") return '<div class="demo"><div class="field" style="max-width:420px"><label for="demoTimePicker">Time</label><div style="margin-top:4px"><button type="button" id="demoTimePicker" class="m-btn" style="width:140px;text-align:left" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button></div></div></div>';
+  if (c.id === "date-range-picker") return '<div class="demo"><fieldset style="margin:0;border:0;padding:0"><legend style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Date range</legend><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin-top:4px"><div class="field"><label for="demoRangeStart">Start</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px"><input id="demoRangeStart" type="text" readonly value="2026-10-01" placeholder="YYYY-MM-DD" style="width:140px"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div><div class="field"><label for="demoRangeEnd">End</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px"><input id="demoRangeEnd" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD" style="width:140px"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div><div aria-hidden="true" style="margin-top:8px;background:var(--color-accent);padding:6px 12px;font-size:12px;font-weight:600;color:#ffffff">2026-10-01 → 2026-10-15</div><div style="margin-top:8px"><button type="button" class="m-btn">Clear</button></div></fieldset></div>';
   if (c.id === "start-here") return '<div class="demo"><section class="m-start-here"><p class="m-start-kick">Start here</p><h3>Title goes here.</h3><p>Description goes here. <a href="#/getting-started">Getting started</a></p></section></div>';
   if (c.id === "search-pill") return '<div class="demo">' + cap + '<label class="m-search-pill" for="demoSearchPill"><span class="sr-only">Search</span><input id="demoSearchPill" data-search-pill type="search" placeholder="Search…" aria-label="Search"><kbd aria-hidden="true">⌘K</kbd></label><ul data-search-pill-list style="list-style:none;padding:0;margin:16px 0 0"><li data-search-pill-item="File Card">File Card</li><li data-search-pill-item="Folder Card">Folder Card</li><li data-search-pill-item="Review Queue">Review Queue</li></ul><p class="muted" data-search-pill-empty hidden>No matches.</p></div>';
   if (c.id === "banner") return '<div class="demo"><div class="m-banner"><strong>v0.2.0</strong> — current release.</div><p class="muted" style="margin-top:12px">Always dark, in both themes. Never clickable.</p></div>';
@@ -1241,9 +1241,321 @@ function stateRows(c) {
   [...states.keys()].filter((k) => !ORDER.includes(k)).sort().forEach((name) => rows.push([name, states.get(name).join(" + ")]));
   return rows.map(([name, via]) => "<tr><td>" + esc(name) + "</td><td>" + esc(via) + "</td></tr>").join("");
 }
+
+/* Docs-site upgrades: props playground, entrance pattern, contrast steps.
+   ADD-only layer. Reads the existing COMPONENTS data; it never rewrites it. */
+function playgroundClassify(c) {
+  const KEYWORDS = { string: 1, number: 1, boolean: 1, null: 1, undefined: 1, object: 1, array: 1, function: 1, void: 1, any: 1, unknown: 1, never: 1, true: 1, false: 1 };
+  const editable = [];
+  const skipped = [];
+  (c.props || []).forEach((p) => {
+    const name = String(p[0]);
+    const type = String(p[1]);
+    const req = String(p[2] || "");
+    const m = req.match(/^No\s*[\u2014\u2013-]\s*(.*)$/);
+    let def = m ? m[1] : "";
+    if (def === "\u2014" || def === "\u2013" || def === "-") def = "";
+    if (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name) || /=>|ReactNode|function|callback|\(\)|\{|\[/.test(type)) { skipped.push(name); return; }
+    const parts = type.split("|").map((s) => s.trim().replace(/^["']|["']$/g, ""));
+    if (parts.length >= 2 && parts.every((t) => /^[A-Za-z0-9_-]+$/.test(t) && !KEYWORDS[t])) {
+      editable.push({ name: name, kind: "enum", options: parts, def: parts.indexOf(def) !== -1 ? def : parts[0] });
+      return;
+    }
+    if (type === "boolean") { editable.push({ name: name, kind: "bool", def: /true/i.test(def) }); return; }
+    if (type === "number") { const n = parseFloat(def); editable.push({ name: name, kind: "number", def: isNaN(n) ? 0 : n }); return; }
+    if (type === "string" || type === "string?" || type === "string | null" || type === "string | undefined") {
+      const s = def.replace(/^["']|["']$/g, "");
+      editable.push({ name: name, kind: "string", def: /\s/.test(s) ? "" : s });
+      return;
+    }
+    skipped.push(name);
+  });
+  return { editable: editable, skipped: skipped };
+}
+function playgroundEditable(c) { return playgroundClassify(c).editable; }
+function playgroundSkipped(c) { return playgroundClassify(c).skipped; }
+function pascalFromId(id) {
+  return String(id).split(/[-_]/).map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : "")).join("");
+}
+function playgroundJSX(pascal, id, editable, values) {
+  const parts = [];
+  editable.forEach((e) => {
+    const v = values[e.name];
+    if (v === undefined) return;
+    if (e.kind === "enum") { if (v !== "") parts.push(e.name + '="' + String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'); }
+    else if (e.kind === "bool") parts.push(e.name + "={" + (v ? "true" : "false") + "}");
+    else if (e.kind === "number") parts.push(e.name + "={" + v + "}");
+    else if (e.kind === "string") { if (v) parts.push(e.name + '="' + String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'); }
+  });
+  const attrs = parts.length ? " " + parts.join(" ") : "";
+  return 'import { ' + pascal + ' } from "@/components/ui/' + id + '";\n\nexport function Example() {\n  return <' + pascal + attrs + ' />;\n}';
+}
+function playgroundField(e) {
+  const id = "pg-" + e.name;
+  if (e.kind === "enum") {
+    return '<div class="playground-field"><label for="' + id + '">' + esc(e.name) + '</label><select id="' + id + '" data-pg-prop="' + esc(e.name) + '">' + e.options.map((o) => '<option value="' + esc(o) + '"' + (o === e.def ? " selected" : "") + '>' + esc(o) + '</option>').join("") + '</select></div>';
+  }
+  if (e.kind === "bool") {
+    return '<div class="playground-field"><label><input type="checkbox" data-pg-prop="' + esc(e.name) + '"' + (e.def ? " checked" : "") + '> ' + esc(e.name) + '</label></div>';
+  }
+  if (e.kind === "number") {
+    return '<div class="playground-field"><label for="' + id + '">' + esc(e.name) + '</label><input id="' + id + '" type="number" data-pg-prop="' + esc(e.name) + '" value="' + esc(String(e.def)) + '"></div>';
+  }
+  return '<div class="playground-field"><label for="' + id + '">' + esc(e.name) + '</label><input id="' + id + '" type="text" data-pg-prop="' + esc(e.name) + '" value="' + esc(String(e.def)) + '"></div>';
+}
+/* Which playground controls update BOTH the demo above and the code below.
+   Every other editable control updates the code only; playgroundHTML says so
+   per component instead of promising demo updates it cannot make. */
+function playgroundDemoWired(e) {
+  if (e.kind === "bool") return e.name === "disabled" || e.name === "checked" || e.name === "pressed";
+  if (e.kind === "string") return e.name === "label" || e.name === "placeholder" || e.name === "value";
+  if (e.kind === "number") return e.name === "value";
+  if (e.kind === "enum") return e.name === "variant" || e.name === "tone";
+  return false;
+}
+function playgroundHTML(c) {
+  const cls = playgroundClassify(c);
+  const editable = cls.editable;
+  const values = {};
+  editable.forEach((e) => { values[e.name] = e.def; });
+  const code = playgroundJSX(pascalFromId(c.id), c.id, editable, values);
+  let html = '<section class="playground" data-pg-name="' + esc(pascalFromId(c.id)) + '" data-pg-id="' + esc(c.id) + '">';
+  html += '<div class="playground-head"><h2>Playground</h2><span class="playground-sub">' + esc(c.name) + '</span></div>';
+  html += '<div class="playground-controls">' + editable.map((e) => playgroundField(e)).join("") + '</div>';
+  if (cls.skipped.length) {
+    const shown = cls.skipped.slice(0, 5).map((s) => esc(s)).join(", ");
+    const more = cls.skipped.length > 5 ? " and " + (cls.skipped.length - 5) + " more" : "";
+    html += '<p class="playground-note">Complex props stay in the code: ' + shown + more + '. The playground covers simple props.</p>';
+  }
+  const wired = editable.filter((e) => playgroundDemoWired(e));
+  const codeOnly = editable.filter((e) => !playgroundDemoWired(e));
+  if (editable.length && codeOnly.length === 0) html += '<p class="playground-note">The controls update the demo above and the code below.</p>';
+  else if (editable.length && wired.length === 0) html += '<p class="playground-note">The controls update the code below. The demo above does not change for this component. Use the demo above for interaction.</p>';
+  else if (editable.length) html += '<p class="playground-note">The controls update the code below. The demo above updates for: ' + wired.map((e) => esc(e.name)).join(", ") + '. Other controls update the code only. Use the demo above for interaction.</p>';
+  html += '<pre class="playground-code" data-pg-code data-hl="1">' + esc(code) + '</pre>';
+  html += '<div class="playground-actions"><button type="button" class="copy-btn" data-copy="' + esc(code) + '" data-pg-copy-jsx>Copy JSX</button><button type="button" class="copy-btn" data-copy="' + esc(c.prompt) + '">Copy prompt</button><button type="button" class="copy-btn" data-pg-reset>Reset</button></div>';
+  html += '</section>';
+  return html;
+}
+function applyPlaygroundTransforms(demo, editable, values, pristine, lastEnum) {
+  if (!demo) return;
+  editable.forEach((e) => {
+    const v = values[e.name];
+    if (v === undefined) return;
+    if (e.kind === "bool" && e.name === "disabled") {
+      demo.querySelectorAll("button, input, select, textarea").forEach((el) => {
+        el.disabled = (v === e.def) ? pristine.disabled.indexOf(el) !== -1 : v;
+      });
+    } else if (e.kind === "bool" && e.name === "checked") {
+      demo.querySelectorAll('input[type="checkbox"]').forEach((el) => {
+        el.checked = (v === e.def) ? pristine.checked.indexOf(el) !== -1 : v;
+      });
+      demo.querySelectorAll('[role="switch"]').forEach((el) => {
+        el.setAttribute("aria-checked", String((v === e.def) ? pristine.checked.indexOf(el) !== -1 : v));
+      });
+    } else if (e.kind === "bool" && e.name === "pressed") {
+      demo.querySelectorAll("[aria-pressed]").forEach((el) => {
+        el.setAttribute("aria-pressed", String((v === e.def) ? pristine.pressed.indexOf(el) !== -1 : v));
+      });
+    } else if (e.kind === "string" && e.name === "label") {
+      const lab = demo.querySelector("label");
+      /* A label that wraps a control must never be flattened: setting
+         textContent would delete the control it wraps (Checkbox demo). */
+      if (lab && !lab.querySelector("input, select, textarea, button")) lab.textContent = (v && v !== e.def) ? v : pristine.label;
+    } else if (e.kind === "string" && e.name === "placeholder") {
+      const inp = demo.querySelector("input, textarea");
+      if (inp) {
+        if (v && v !== e.def) inp.setAttribute("placeholder", v);
+        else if (pristine.placeholder === null) inp.removeAttribute("placeholder");
+        else inp.setAttribute("placeholder", pristine.placeholder);
+      }
+    } else if ((e.kind === "string" || e.kind === "number") && e.name === "value") {
+      const inp = demo.querySelector("input, textarea, select");
+      if (inp) inp.value = (v !== "" && v !== e.def) ? v : pristine.value;
+    } else if (e.kind === "enum" && (e.name === "variant" || e.name === "tone")) {
+      const prev = lastEnum[e.name];
+      if (prev && prev !== v) {
+        demo.querySelectorAll("[class]").forEach((el) => {
+          const cls = el.getAttribute("class") || "";
+          const next = cls.split(/\s+/).map((tok) => (tok.length > prev.length + 1 && tok.slice(-(prev.length + 1)) === "-" + prev) ? tok.slice(0, -(prev.length)) + v : tok).join(" ");
+          if (next !== cls) el.setAttribute("class", next);
+        });
+      }
+      lastEnum[e.name] = v;
+    }
+  });
+}
+function bindPlayground() {
+  const panel = document.querySelector(".playground");
+  if (!panel) return;
+  const id = panel.dataset.pgId;
+  const c = COMPONENTS.find((x) => x.id === id);
+  if (!c) return;
+  const editable = playgroundEditable(c);
+  const demo = document.querySelector("#view .demo");
+  const pristine = { label: "", placeholder: null, value: "", disabled: [], checked: [], pressed: [] };
+  if (demo) {
+    const lab = demo.querySelector("label");
+    if (lab) pristine.label = lab.textContent;
+    const inp = demo.querySelector("input, textarea, select");
+    if (inp) { pristine.placeholder = inp.getAttribute("placeholder"); pristine.value = inp.value; }
+    pristine.disabled = Array.prototype.filter.call(demo.querySelectorAll("button, input, select, textarea"), (el) => el.disabled);
+    pristine.checked = Array.prototype.filter.call(demo.querySelectorAll('input[type="checkbox"]'), (el) => el.checked);
+    pristine.pressed = Array.prototype.filter.call(demo.querySelectorAll("[aria-pressed]"), (el) => el.getAttribute("aria-pressed") === "true");
+  }
+  const lastEnum = {};
+  function readValues() {
+    const values = {};
+    panel.querySelectorAll("[data-pg-prop]").forEach((el) => {
+      const prop = editable.find((e) => e.name === el.dataset.pgProp);
+      if (!prop) return;
+      if (prop.kind === "bool") values[prop.name] = el.checked;
+      else if (prop.kind === "number") { const n = parseFloat(el.value); values[prop.name] = isNaN(n) ? prop.def : n; }
+      else values[prop.name] = el.value;
+    });
+    return values;
+  }
+  function refresh() {
+    const values = readValues();
+    const code = playgroundJSX(panel.dataset.pgName, id, editable, values);
+    const pre = panel.querySelector("[data-pg-code]");
+    if (pre) pre.textContent = code;
+    const jsxBtn = panel.querySelector("[data-pg-copy-jsx]");
+    if (jsxBtn) jsxBtn.dataset.copy = code;
+    applyPlaygroundTransforms(demo, editable, values, pristine, lastEnum);
+  }
+  function reset() {
+    panel.querySelectorAll("[data-pg-prop]").forEach((el) => {
+      const prop = editable.find((e) => e.name === el.dataset.pgProp);
+      if (!prop) return;
+      if (prop.kind === "bool") el.checked = prop.def;
+      else el.value = prop.def;
+    });
+    refresh();
+  }
+  /* Correct the playground note against the real demo: playgroundHTML
+     promises demo updates from playgroundDemoWired, but a control only
+     updates the demo when its transform target exists in this demo (a
+     label control cannot update a demo with no plain <label>, a value
+     control cannot update a demo with no field, and so on). */
+  function playgroundTargetExists(e) {
+    if (!demo) return false;
+    if (e.kind === "bool" && e.name === "disabled") return !!demo.querySelector("button, input, select, textarea");
+    if (e.kind === "bool" && e.name === "checked") return !!demo.querySelector('input[type="checkbox"]') || !!demo.querySelector('[role="switch"]');
+    if (e.kind === "bool" && e.name === "pressed") return !!demo.querySelector("[aria-pressed]");
+    if (e.kind === "string" && e.name === "label") { const lab = demo.querySelector("label"); return !!lab && !lab.querySelector("input, select, textarea, button"); }
+    if (e.kind === "string" && e.name === "placeholder") { const inp = demo.querySelector("input, textarea"); return !!inp && inp.type !== "checkbox" && inp.type !== "radio"; }
+    if ((e.kind === "string" || e.kind === "number") && e.name === "value") { const inp = demo.querySelector("input, textarea, select"); return !!inp && inp.type !== "checkbox" && inp.type !== "radio"; }
+    if (e.kind === "enum" && (e.name === "variant" || e.name === "tone")) {
+      const def = String(e.def);
+      let found = false;
+      demo.querySelectorAll("[class]").forEach((el) => {
+        (el.getAttribute("class") || "").split(/\s+/).forEach((tok) => { if (tok.length > def.length + 1 && tok.slice(-(def.length + 1)) === "-" + def) found = true; });
+      });
+      return found;
+    }
+    return false;
+  }
+  function correctPlaygroundNote() {
+    if (!editable.length) return;
+    const wired = editable.filter((e) => playgroundDemoWired(e) && playgroundTargetExists(e));
+    const notes = Array.prototype.slice.call(panel.querySelectorAll(".playground-note"));
+    const note = notes.find((p) => /update the demo above|update the code below/.test(p.textContent));
+    if (!note) return;
+    if (wired.length === editable.length) return;
+    if (!wired.length) note.textContent = "The controls update the code below. The demo above does not change for this component. Use the demo above for interaction.";
+    else note.textContent = "The controls update the code below. The demo above updates for: " + wired.map((e) => e.name).join(", ") + ". Other controls update the code only. Use the demo above for interaction.";
+  }
+  correctPlaygroundNote();
+  panel.addEventListener("input", refresh);
+  panel.addEventListener("change", refresh);
+  panel.addEventListener("click", (e) => {
+    if (e.target.closest("[data-pg-reset]")) { e.preventDefault(); reset(); }
+  });
+  refresh();
+}
+function ensureOesteDocsStyles() {
+  if (document.getElementById("oeste-docs-upgrades")) return;
+  const style = document.createElement("style");
+  style.id = "oeste-docs-upgrades";
+  const css = [
+    "#view.oeste-enter > * { animation: oeste-docs-enter 180ms ease-out both; }",
+    "#view.oeste-enter > *:nth-child(2) { animation-delay: 40ms; }",
+    "#view.oeste-enter > *:nth-child(3) { animation-delay: 80ms; }",
+    "#view.oeste-enter > *:nth-child(4) { animation-delay: 120ms; }",
+    "#view.oeste-enter > *:nth-child(5) { animation-delay: 160ms; }",
+    "#view.oeste-enter > *:nth-child(6) { animation-delay: 200ms; }",
+    "#view.oeste-enter > *:nth-child(7) { animation-delay: 240ms; }",
+    "#view.oeste-enter > *:nth-child(8) { animation-delay: 280ms; }",
+    "@keyframes oeste-docs-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }",
+    "@media (prefers-reduced-motion: reduce) { #view.oeste-enter > * { animation: none; } }",
+    ".playground { border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-surface); padding: 20px; margin-top: 24px; }",
+    ".playground-head { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 12px; }",
+    ".playground-head h2 { margin: 0; }",
+    ".playground-sub { color: var(--color-muted); font-size: 0.875rem; }",
+    ".playground-controls { display: grid; gap: 12px; margin-top: 16px; }",
+    ".playground-field label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 6px; }",
+    ".playground-field input[type=\"text\"], .playground-field input[type=\"number\"], .playground-field select { width: 100%; max-width: 320px; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg); color: var(--color-text); font: inherit; }",
+    ".playground-field input[type=\"checkbox\"] { accent-color: var(--color-accent); }",
+    ".playground-note { color: var(--color-muted); font-size: 0.875rem; margin: 12px 0 0; }",
+    ".playground-code { margin-top: 16px; }",
+    ".playground-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }"
+  ].join("\n");
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+function playOesteEntrance(view) {
+  if (!view) return;
+  view.classList.remove("oeste-enter");
+  void view.offsetWidth;
+  view.classList.add("oeste-enter");
+}
+
+/* Not-found state for unknown component ids. Never silently render a
+   different component, never redirect. Equivalents come from this library's
+   own COMPONENTS data (name/tagline token match). Cross-library links are
+   filled in by bindNotFound after checking the other libraries' manifests. */
+const NOT_FOUND_THIS = { id: "mesa", name: "Mesa", listUrl: "#/components-index" };
+const NOT_FOUND_OTHERS = [{ id: "topanga", name: "Topanga" }, { id: "huntington", name: "Huntington" }];
+function notFoundEquivalents(id) {
+  const toks = String(id).toLowerCase().split(/[-_]+/).filter(Boolean);
+  if (!toks.length) return [];
+  const scored = COMPONENTS.map((c) => {
+    const name = (c.name || "").toLowerCase();
+    const tag = (c.tagline || "").toLowerCase();
+    let score = 0;
+    toks.forEach((t) => {
+      if (name.indexOf(t) !== -1) score += 3;
+      if (tag.indexOf(t) !== -1) score += 1;
+    });
+    return { c: c, score: score };
+  }).filter((x) => x.score > 0).sort((a, b) => (b.score - a.score) || (a.c.name < b.c.name ? -1 : a.c.name > b.c.name ? 1 : 0));
+  return scored.slice(0, 4).map((x) => x.c);
+}
+function renderNotFoundComponent(id) {
+  const eq = notFoundEquivalents(id);
+  let body = entryHead({ eyebrow: "Components", title: "Component not found", deck: 'There is no component called "' + id + '" in ' + NOT_FOUND_THIS.name + '.' });
+  body += '<p><a href="' + NOT_FOUND_THIS.listUrl + '">Browse all ' + NOT_FOUND_THIS.name + ' components</a></p>';
+  if (eq.length) {
+    body += '<h2>Closest in ' + NOT_FOUND_THIS.name + '</h2><ul>' + eq.map((c) => '<li><a href="#/components/' + esc(c.id) + '">' + esc(c.name) + '</a> ' + esc(c.tagline) + '</li>').join("") + '</ul>';
+  }
+  body += '<div data-nf-cross data-nf-id="' + esc(id) + '"><p class="muted">Checking the other libraries.</p></div>';
+  return body;
+}
+function bindNotFound() {
+  const box = document.querySelector("[data-nf-cross]");
+  if (!box) return;
+  const id = box.dataset.nfId;
+  Promise.all(NOT_FOUND_OTHERS.map((lib) => fetch("/" + lib.id + "/components.json").then((r) => r.json()).then((m) => ({ lib: lib, found: (m.components || []).some((c) => c.id === id) })).catch(() => ({ lib: lib, found: false }))))
+    .then((results) => {
+      const found = results.filter((r) => r.found);
+      if (!found.length) { box.innerHTML = '<p class="muted">No other library has a component called <code>' + esc(id) + '</code> either.</p>'; return; }
+      box.innerHTML = '<h2>In other libraries</h2><ul>' + found.map((r) => '<li><a href="/' + r.lib.id + '/#/components/' + esc(id) + '">' + esc(id) + ' in ' + r.lib.name + '</a></li>').join("") + '</ul>';
+    });
+}
 function renderComponent(id, lens) {
   const c = COMPONENTS.find((x) => x.id === id);
-  if (!c) return "<h1>Not found</h1><p>No component with id " + esc(id) + ".</p>";
+  if (!c) return renderNotFoundComponent(id);
   const num = String(COMPONENTS.findIndex((x) => x.id === id) + 1).padStart(2, "0");
   // Order: entry-head -> demo -> lens pills -> lens content -> Anatomy /
   // Props / Keyboard / Invariants. All v0.1.0 content is kept; the shared
@@ -1264,6 +1576,7 @@ function renderComponent(id, lens) {
       + "<pre>" + hl(c.code) + "</pre>";
   } else {
     html += variantsHTML(c);
+    html += playgroundHTML(c);
   }
   const ev = eventRows(c);
   const ay = a11yRows(c);
@@ -1340,7 +1653,8 @@ function renderTokens() {
     + "</tbody></table>"
     + "<h2>Radius</h2><p>No single radius token. Each component carries its own: detail card 14, button 6, card 8, chip 999, CTA band 12, dir search 8, empty state 12, file card 10, folder 10, forum control 999, status badge 999, icon button 50%, input 6, numbers 6/8/10, empty attachment 6, nav toggle 6, palette box 12, pill 999, profile status 999, pipeline strip 12, queue count 10, stamp 4, theme button 50%, media card 8, result card 12, mini gate 8, start here 8, search pill 999, duo card 8, select 6, option row 6, pill flag 4, rail thumb 4.</p>"
     + "<h2>Motion</h2><p>House easing: <code>cubic-bezier(.22,1,.36,1)</code>. Reveal: fade + rise 10px, 0.5s / 0.55s, stagger 45ms. Stamp strike: 0.26s. Pulses: 2.4s (status), 2.2s (queue ping), 1.8s (pipeline). Reduced motion: everything collapses to 0.01ms.</p>"
-    + "<h2>Shadows</h2><p>Shadows exist only on the command palette box, file-card hover, folder hover, and the stamp-hit strike (dark only). Everything else uses hairline borders only. Focus rings are 3px oxblood at 12% (theme-aware).</p>";
+    + "<h2>Shadows</h2><p>Shadows exist only on the command palette box, file-card hover, folder hover, and the stamp-hit strike (dark only). Everything else uses hairline borders only. Focus rings are 3px oxblood at 12% (theme-aware).</p>"
+    + "<h2>Contrast steps</h2><p>Four contrast steps plus two text steps. No values changed here: every row uses an existing token.</p><div style=\"overflow-x:auto\"><table><thead><tr><th>Step</th><th>Token</th><th>Values</th><th>Use</th></tr></thead><tbody><tr><td>Page</td><td><code>--color-bg</code></td><td>Light #faf9f7 · Dark #100e0b</td><td>Page background</td></tr><tr><td>Surface</td><td><code>--color-surface</code></td><td>Light #ffffff · Dark #181410</td><td>Cards, palette box</td></tr><tr><td>Raised</td><td><code>--color-surface + --color-border hairline</code></td><td>Same values as Surface</td><td>Raised by a hairline, not a fill</td></tr><tr><td>Border</td><td><code>--color-border</code></td><td>Light #ddd6c7 · Dark #2e2720</td><td>Hairlines between steps</td></tr><tr><td>Text primary</td><td><code>--color-text</code></td><td>Light #181b1f · Dark #ece3d0</td><td>Headings, body</td></tr><tr><td>Text muted</td><td><code>--color-muted</code></td><td>Light #5b5f65 · Dark #a79b82</td><td>Secondary text</td></tr></tbody></table></div>";
 }
 
 function renderGettingStarted() {
@@ -1499,6 +1813,9 @@ function render() {
   const active = document.querySelector('.nav-link[href="#/' + navRoute + '"]');
   if (active) active.classList.add("active");
   bindDemos();
+  bindPlayground();
+  bindNotFound();
+  playOesteEntrance(view);
   updateReadbar();
   view.focus({ preventScroll: true });
   window.scrollTo(0, 0);
@@ -1638,6 +1955,7 @@ function initPalette(closeMenu) {
 }
 
 function init() {
+  ensureOesteDocsStyles();
   let saved = "dark";
   try { saved = localStorage.getItem("mesa-theme") || "dark"; } catch (e) { /* storage unavailable */ }
   setTheme(saved === "light" ? "light" : "dark");

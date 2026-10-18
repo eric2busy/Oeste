@@ -263,7 +263,52 @@ const COMPONENTS = [
     contract: { format: "oeste.component.v1", component: "EmptyState", props: { title: "string", description: "string", actionLabel: "string?" }, a11y: { icon: "aria-hidden", action: "focusable button" } },
     prompt: "Build an Oeste Empty State: aria-hidden icon, heading that says what is empty in plain words, description with a next step, and a focusable action button. Never blame the user for an empty screen.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/empty-state.json",
-    code: "import { EmptyState } from \"@/components/ui/empty-state\";\n\nexport function NoProjects() {\n  return <EmptyState title=\"No projects yet\" description=\"Create your first project to see it here.\" actionLabel=\"New project\" onAction={() => {}} />;\n}" }
+    code: "import { EmptyState } from \"@/components/ui/empty-state\";\n\nexport function NoProjects() {\n  return <EmptyState title=\"No projects yet\" description=\"Create your first project to see it here.\" actionLabel=\"New project\" onAction={() => {}} />;\n}" },
+  { id: "calendar", name: "Calendar", tagline: "Month grid. One button per day, min/max bounds.",
+    anatomy: ["Prev/next month buttons", "Month/year heading (aria-live polite)", "Weekday header row", "Day buttons (one per day)", "Empty cells (outside the month)"],
+    props: [["value", "string?", "No", "Selected date, ISO YYYY-MM-DD, or null."], ["onChange", "(iso: string) => void", "Yes", "Fires with the clicked day's ISO string."], ["min", "string?", "No", "Earliest selectable date, ISO. Earlier days are disabled."], ["max", "string?", "No", "Latest selectable date, ISO. Later days are disabled."]],
+    keyboard: [["Tab", "Move focus between the nav buttons and day buttons."], ["Enter / Space", "Select the focused day (or move one month on the nav buttons)."]],
+    invariants: ["Dates are ISO strings only (YYYY-MM-DD). No Date objects in props, no locale parsing.", "Week starts Sunday. Month and day names are English.", "The displayed month starts at the value's month, or the current month when no value is set. It follows the value when the parent passes a new date in a different month.", "Prev/next move one month and do not call onChange.", "Days outside the current month render as empty cells (no buttons).", "Days outside min/max are disabled (disabled attribute + aria-disabled).", "The selected day has an accent fill and its aria-label ends with ', selected'. Today has aria-current=\"date\" plus an accent outline.", "Day buttons are 44px circles (Topanga touch minimum).", "Tab + Enter/Space only. No roving tabindex, no arrow-key cell movement."],
+    contract: { format: "oeste.component.v1", component: "Calendar", props: { value: "string?", onChange: "function", min: "string?", max: "string?" }, a11y: { grid: "semantic table + th scope=col weekday headers", days: "one button per day, aria-label with ', selected' suffix, aria-current=date for today", disabled: "disabled + aria-disabled for out-of-range days", nav: "prev/next buttons with aria-labels, heading aria-live=polite" } },
+    prompt: "Build an Oeste Calendar: a month grid for one ISO date (YYYY-MM-DD). Prev-month button (aria-label Previous month), month/year heading (aria-live polite), next-month button (aria-label Next month). A semantic table: weekday header row (Su Mo Tu We Th Fr Sa), one button per day, empty cells outside the month. Clicking a day calls onChange with that day's ISO string. Days outside min/max are disabled (disabled + aria-disabled). Selected day: accent fill + aria-label ending with ', selected'. Today: aria-current=date + accent outline. Week starts Sunday, English names. Displayed month starts at the value's month or the current month and follows the value when the parent passes a new date in a different month; prev/next move one month and do not call onChange. Day buttons are 44px circles. ISO strings only, no locale parsing. Tab + Enter/Space only, no roving tabindex, no arrow keys. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/calendar.json",
+    code: "import { Calendar } from \"@/components/ui/calendar\";\n\nexport function Pick() {\n  const [day, setDay] = React.useState(\"2026-10-18\");\n  return <Calendar value={day} onChange={setDay} />;\n}" },
+  { id: "date-picker", name: "DatePicker", tagline: "Read-only input plus popover calendar. Clear, Today.",
+    anatomy: ["Label", "Read-only input (value or placeholder)", "Calendar trigger button", "Popover div (Calendar + Clear + Today)"],
+    props: [["value", "string?", "No", "Selected date, ISO YYYY-MM-DD, or null."], ["onChange", "(iso: string | null) => void", "Yes", "Fires with the picked ISO string, or null on Clear."], ["label", "string", "No — Date", "Label text."], ["placeholder", "string", "No — YYYY-MM-DD", "Shown when no value is set."], ["min", "string?", "No", "Earliest selectable date, ISO."], ["max", "string?", "No", "Latest selectable date, ISO."], ["clearable", "boolean", "No — true", "Show the Clear button when a value is set."], ["invalid", "boolean", "No — false", "Sets aria-invalid on the input. Used by DateRangePicker for the End input."]],
+    keyboard: [["Tab", "Move focus to the input (read-only), then the Calendar button, then into the popover."], ["Enter / Space", "Toggle the popover on the button; select a day inside it."], ["Escape", "Close the popover and return focus to the Calendar button."]],
+    invariants: ["The input is read-only. Dates come from the Calendar only, so there is no free-text parsing to get wrong.", "Invalid value prop is treated as null (empty input, Calendar shows the current month).", "Selecting a day calls onChange and closes the popover.", "Clear calls onChange(null) and closes. It only renders when clearable and a value is set.", "Today sets today's ISO and closes. Today is disabled when today is outside min/max.", "Escape closes the popover and returns focus to the Calendar button. Clicking outside the picker closes it.", "The popover is a plain div, not a dialog: no modal behavior, no focus trap.", "ISO strings only, no locale parsing."],
+    contract: { format: "oeste.component.v1", component: "DatePicker", props: { value: "string?", onChange: "function", label: "string", placeholder: "string", min: "string?", max: "string?", clearable: "boolean", invalid: "boolean" }, a11y: { input: "read-only input with label, aria-invalid", trigger: "button aria-label Open/Close calendar, aria-expanded, aria-controls", popover: "div with Calendar + Clear + Today", keyboard: "Escape closes, focus returns to trigger" } },
+    prompt: "Build an Oeste DatePicker: a label + a read-only text input (value or placeholder YYYY-MM-DD) + a Calendar button (aria-label Open/Close calendar, aria-expanded, aria-controls) that toggles a popover div with a Calendar + Clear + Today. The input is read-only: dates come from the Calendar only, no free-text parsing. Selecting a day calls onChange and closes. Clear (only when clearable and a value is set) calls onChange(null) and closes. Today sets today's ISO and closes, and is disabled when today is outside min/max. Escape closes and returns focus to the button. Clicking outside the picker closes it. Invalid value prop is treated as null. ISO strings only, no locale parsing. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-picker.json",
+    code: "import { DatePicker } from \"@/components/ui/date-picker\";\n\nexport function Due() {\n  const [day, setDay] = React.useState(null);\n  return <DatePicker value={day} onChange={setDay} label=\"Due date\" />;\n}" },
+  { id: "time-picker", name: "TimePicker", tagline: "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+    anatomy: ["Label", "Trigger button (value or Select time)", "Dropdown ul role=listbox", "Options (li role=option, each a button)"],
+    props: [["value", "string?", "No", "Selected time, HH:MM 24-hour, or null."], ["onChange", "(time: string | null) => void", "Yes", "Fires with the picked HH:MM string."], ["label", "string", "No — Time", "Label text."], ["step", "30 | 60", "No — 30", "Minutes between options. Anything else falls back to 30."]],
+    keyboard: [["Tab", "Move focus to the trigger, then through the option buttons."], ["Enter / Space", "Toggle the listbox on the trigger; select the focused option."], ["Escape", "Close the listbox and return focus to the trigger."]],
+    invariants: ["Times are HH:MM 24-hour strings. The list shows 12-hour labels (12:00 AM, 1:00 PM); the value stays HH:MM.", "Options run 00:00 to 23:30 (step 30) or 23:00 (step 60).", "Invalid value prop is treated as null (trigger shows Select time, no option selected).", "A valid value that is not on the step grid still displays; no option is highlighted.", "Clicking an option calls onChange and closes.", "Escape closes and returns focus to the trigger. Clicking outside the picker closes it.", "Options are buttons. Tab moves through them, Enter selects. No arrow-key navigation."],
+    contract: { format: "oeste.component.v1", component: "TimePicker", props: { value: "string?", onChange: "function", label: "string", step: "30 | 60" }, a11y: { trigger: "button aria-haspopup=listbox, aria-expanded, aria-controls", list: "ul role=listbox, li role=option aria-selected", options: "buttons, Tab navigation, Enter selects", display: "12-hour labels, value stays HH:MM" } },
+    prompt: "Build an Oeste TimePicker: a label + a trigger button (value or Select time, aria-haspopup=listbox, aria-expanded, aria-controls) that toggles a dropdown ul role=listbox. Options are li role=option aria-selected, each holding a button. Step 30 gives 48 options (00:00 to 23:30), step 60 gives 24 (00:00 to 23:00). Labels are 12-hour (12:00 AM, 1:00 PM); the value stays HH:MM 24-hour. Clicking an option calls onChange and closes. Escape closes and returns focus to the trigger. Clicking outside the picker closes it. Options are buttons: Tab moves through them, Enter selects, no arrow keys. Invalid value prop is treated as null. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/time-picker.json",
+    code: "import { TimePicker } from \"@/components/ui/time-picker\";\n\nexport function Start() {\n  const [time, setTime] = React.useState(\"14:30\");\n  return <TimePicker value={time} onChange={setTime} label=\"Start time\" />;\n}" },
+  { id: "date-range-picker", name: "DateRangePicker", tagline: "Two DatePickers, one range. End-before-start is an error.",
+    anatomy: ["Fieldset + legend", "Start DatePicker", "End DatePicker (aria-invalid on error)", "Clear button", "Error message (role=alert)"],
+    props: [["start", "string?", "No", "Start date, ISO YYYY-MM-DD, or null."], ["end", "string?", "No", "End date, ISO YYYY-MM-DD, or null."], ["onChange", "({ start, end }) => void", "Yes", "Fires with the new pair on any valid change, or { start: null, end: null } on Clear."], ["label", "string", "No — Date range", "Legend text."], ["min", "string?", "No", "Earliest selectable date, ISO."], ["max", "string?", "No", "Latest selectable date, ISO."], ["clearable", "boolean", "No — true", "Show the Clear button when either date is set."]],
+    keyboard: [["Tab", "Move focus through the Start picker, then the End picker, then Clear."], ["Enter / Space", "Toggle each picker's popover; select days inside."], ["Escape", "Close the open popover and return focus to its trigger."]],
+    invariants: ["Composes two DatePickers (Start, End) with clearable={false} plus one range Clear button.", "Changing Start or End calls onChange with the new pair.", "When end is before start, an error message (role=alert) shows and the End input gets aria-invalid. onChange is NOT called with the invalid pair; the last valid pair stays.", "A stale error clears when the parent passes a new pair.", "Same-day ranges are valid.", "Clear calls onChange({ start: null, end: null }).", "ISO strings only, no locale parsing."],
+    contract: { format: "oeste.component.v1", component: "DateRangePicker", props: { start: "string?", end: "string?", onChange: "function", label: "string", min: "string?", max: "string?", clearable: "boolean" }, a11y: { group: "fieldset + legend", error: "role=alert message + aria-invalid on End input, invalid pair never passed to onChange", keyboard: "Escape closes popover, focus returns to trigger" } },
+    prompt: "Build an Oeste DateRangePicker: a fieldset + legend holding two DatePickers (Start, End, clearable false) plus one range Clear button. Changing Start or End calls onChange with the new pair. When end is before start, show an error message (role=alert) and set aria-invalid on the End input; do NOT call onChange with the invalid pair, keep the last valid pair. A stale error clears when the parent passes a new pair. Same-day ranges are valid. Clear calls onChange({ start: null, end: null }). ISO strings only, no locale parsing. Use Topanga tokens: danger #A83E22 (light) / #E07A52 (dark) for the error text.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-range-picker.json",
+    code: "import { DateRangePicker } from \"@/components/ui/date-range-picker\";\n\nexport function Trip() {\n  const [range, setRange] = React.useState({ start: \"2026-10-01\", end: \"2026-10-15\" });\n  return <DateRangePicker start={range.start} end={range.end} onChange={setRange} label=\"Trip dates\" />;\n}" },
+  { id: "chart", name: "Chart", tagline: "Bar, line, area, pie, donut. One series, SVG + data table.",
+    anatomy: ["SVG chart (bars, line, area, or slices)", "Value axis (ticks + gridlines, bar/line/area only)", "Category axis (labels, bar/line/area only)", "Legend (pie/donut only: swatch + label + value + percent)", "Data table (caption + Label/Value, Percent for pie/donut)"],
+    props: [["type", "bar | line | area | pie | donut", "No - bar", "Chart type."], ["data", "{ label: string, value: number }[]", "Yes", "One series. Values are non-negative; negatives are treated as 0."], ["title", "string", "No", "Chart title. Used in the table caption and the SVG aria-label."], ["height", "number", "No - 240", "SVG height in px. Width is 100% via viewBox. Minimum 120."], ["showTable", "boolean", "No - true", "Render the accessible data table under the chart."]],
+    keyboard: [["-", "Not interactive. No keyboard behavior. The data table is read with a screen reader; it has no focusable controls."]],
+    invariants: ["One series only. No multi-series, tooltips, zoom, or animation.", "Values are non-negative. Negative values are treated as 0. Empty data, all-zero data, or a zero total (pie/donut) renders 'No data.'", "Bar/line/area share one axis system: value ticks at 0, 25%, 50%, 75%, 100% of max, rounded to a clean step. Horizontal gridlines. Category labels under each point.", "Bar: vertical bars, value label on each bar. Line: polyline + dots + value labels. Area: line + filled area under the line.", "Pie: slices proportional to values, label + percent at centroids. Donut: center hole + total in the center, plus a legend (swatch + label + value + percent).", "Slice labels sit at centroids and can crowd on tiny slices. Long category labels truncate in the SVG; the full label is always in the table.", "The SVG is role=img with a one-line summary aria-label; all shapes are aria-hidden. The semantic data table is the accessible representation. Values are in the table and on slice labels, never color alone."],
+    contract: { format: "oeste.component.v1", component: "Chart", props: { type: ["bar", "line", "area", "pie", "donut"], data: "array", title: "string?", height: "number", showTable: "boolean" }, a11y: { chart: "svg role=img + aria-label, shapes aria-hidden", table: "semantic table + caption + th scope", color: "values in table + slice text labels, never color alone" } },
+    prompt: "Build a Topanga Chart: one series, SVG + data table. Types bar, line, area, pie, donut. Bar/line/area share one axis system (value ticks at 0, 25%, 50%, 75%, 100% of max rounded to a clean step, horizontal gridlines, category labels). Bar has value labels on bars; line has a polyline + dots + value labels; area adds the fill under the line. Pie slices are proportional with label + percent at centroids; donut adds a center hole + total in the center, plus a legend (swatch + label + value + percent). The SVG is role=img with a one-line summary aria-label, shapes aria-hidden; the semantic data table (caption + th scope, Percent column for pie/donut) is the accessible representation. One series only, no tooltips, zoom, or animation. Empty, all-zero, or zero-total data renders 'No data.' Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark), text #1C1917 / #F5F3EF, muted #706963 / #9E968F, sage #5E6B5A / #8B9B87, rust #B85B35 / #D98A63 for the categorical palette.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/chart.json",
+    code: "import { Chart } from \"@/components/ui/chart\";\n\nexport function Sales() {\n  const data = [{ label: \"Jan\", value: 42 }, { label: \"Feb\", value: 87 }, { label: \"Mar\", value: 15 }, { label: \"Apr\", value: 63 }];\n  return <Chart type=\"bar\" data={data} title=\"Sales\" />;\n}" }
 ];
 
 const TOKENS = [
@@ -467,6 +512,11 @@ function demoHTML(c) {
   if (c.id === "pagination") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Pick a page.</p><nav class="pagination" aria-label="Pagination"><button type="button" class="page-btn" data-page-prev disabled>Previous</button><button type="button" class="page-btn" data-page-num aria-current="page">1</button><button type="button" class="page-btn" data-page-num>2</button><button type="button" class="page-btn" data-page-num>3</button><span aria-hidden="true">…</span><button type="button" class="page-btn" data-page-num>9</button><button type="button" class="page-btn" data-page-next>Next</button></nav><p class="muted" id="demoPageOut" aria-live="polite" style="margin-top:12px">Page 1 of 9</p></div>';
   if (c.id === "table") return '<div class="demo"><p class="demo-caption">Semantic table. Caption describes it; headers carry scope.</p><div style="overflow-x:auto"><table class="data-table"><caption>Topanga tokens — light values</caption><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Use</th></tr></thead><tbody><tr><th scope="row">accent</th><td><code>#C47D3B</code></td><td>Primary actions</td></tr><tr><th scope="row">danger</th><td><code>#A83E22</code></td><td>Errors</td></tr></tbody></table></div></div>';
   if (c.id === "empty-state") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="empty-state"><p class="empty-state-icon" aria-hidden="true">○</p><h3 style="margin:12px 0 8px">No projects yet</h3><p class="muted" style="margin:0 0 16px">Create your first project to see it here.</p><button type="button" class="btn btn-primary" data-empty-action>New project</button></div></div>';
+  if (c.id === "calendar") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div style="width:100%;max-width:384px"><div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-border);padding-bottom:12px"><button type="button" class="btn btn-secondary" aria-label="Previous month">‹</button><div aria-live="polite" style="font-size:16px;font-weight:600;letter-spacing:-0.025em">October 2026</div><button type="button" class="btn btn-secondary" aria-label="Next month">›</button></div><table class="cal-grid" style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Su</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Mo</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Tu</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">We</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Th</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Fr</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Sa</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 1, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">1</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 2, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">2</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 3, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">3</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-label="October 4, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">4</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 5, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">5</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 6, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">6</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 7, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">7</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 8, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">8</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 9, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">9</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 10, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">10</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-label="October 11, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">11</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 12, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">12</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 13, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">13</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 14, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">14</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 15, 2026, selected" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;background:var(--color-accent);color:#1c1917;font-weight:600;border:1px solid transparent;-webkit-appearance:none;appearance:none">15</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 16, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">16</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 17, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">17</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-current="date" aria-label="October 18, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:2px solid var(--color-accent);font-weight:600;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">18</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 19, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">19</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 20, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">20</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 21, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">21</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 22, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">22</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 23, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">23</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 24, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">24</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-label="October 25, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">25</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 26, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">26</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 27, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">27</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 28, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">28</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 29, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">29</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 30, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">30</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 31, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">31</button></td></tr></tbody></table></div></div>';
+  if (c.id === "date-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="field" style="max-width:340px"><label for="demoDatePicker">Due date</label><div style="display:flex;gap:12px"><input id="demoDatePicker" type="text" readonly value="2026-10-15" style="width:170px"><button type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div>';
+  if (c.id === "time-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="field" style="max-width:320px"><label for="demoTimePicker">Start time</label><button type="button" id="demoTimePicker" class="btn btn-secondary" style="width:170px;text-align:left" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button></div></div>';
+  if (c.id === "date-range-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><fieldset style="border:0;margin:0;padding:0"><legend style="font-size:14px;font-weight:600;letter-spacing:-0.025em">Trip dates</legend><div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:16px"><div class="field" style="max-width:260px"><label for="demoRangeStart">Start</label><div style="display:flex;gap:12px"><input id="demoRangeStart" type="text" readonly value="2026-10-01"><button type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div><div class="field" style="max-width:260px"><label for="demoRangeEnd">End</label><div style="display:flex;gap:12px"><input id="demoRangeEnd" type="text" readonly value="2026-10-15"><button type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div><button type="button" class="btn btn-secondary" style="margin-top:16px">Clear</button></fieldset></div>';
+  if (c.id === "chart") return '<div class="demo"><p class="demo-caption">SVG chart plus the data table. The table is the accessible version.</p><div style="overflow-x:auto"><svg role="img" aria-label="Bar chart demo: 5 categories, values from 20 to 100." viewBox="0 0 640 240" width="100%" style="display:block;overflow:visible"><g aria-hidden="true"><line x1="40" x2="624" y1="212" y2="212" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="162" y2="162" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="112" y2="112" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="62" y2="62" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="12" y2="12" style="stroke:var(--color-border)" stroke-width="1" /><text x="34" y="216" text-anchor="end" style="fill:var(--color-muted);font-size:11px">0</text><text x="34" y="166" text-anchor="end" style="fill:var(--color-muted);font-size:11px">25</text><text x="34" y="116" text-anchor="end" style="fill:var(--color-muted);font-size:11px">50</text><text x="34" y="66" text-anchor="end" style="fill:var(--color-muted);font-size:11px">75</text><text x="34" y="16" text-anchor="end" style="fill:var(--color-muted);font-size:11px">100</text><rect x="80" y="172" width="36" height="40" style="fill:var(--color-accent)" /><rect x="197" y="132" width="36" height="80" style="fill:var(--color-accent)" /><rect x="314" y="92" width="36" height="120" style="fill:var(--color-accent)" /><rect x="431" y="52" width="36" height="160" style="fill:var(--color-accent)" /><rect x="548" y="12" width="36" height="200" style="fill:var(--color-accent)" /><text x="98" y="167" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">20</text><text x="215" y="127" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">40</text><text x="332" y="87" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">60</text><text x="449" y="47" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">80</text><text x="566" y="7" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">100</text><text x="98" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">A</text><text x="215" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">B</text><text x="332" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">C</text><text x="449" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">D</text><text x="566" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">E</text></g></svg></div><table class="data-table" style="margin-top:16px"><caption style="font-weight:600">Bar chart demo. The table lists every value shown in the chart.</caption><thead><tr><th scope="col" style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Label</th><th scope="col" style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Value</th></tr></thead><tbody><tr><th scope="row" style="padding:12px 16px;font-weight:500">A</th><td style="padding:12px 16px">20</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">B</th><td style="padding:12px 16px">40</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">C</th><td style="padding:12px 16px">60</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">D</th><td style="padding:12px 16px">80</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">E</th><td style="padding:12px 16px">100</td></tr></tbody></table></div>';
   return "";
 }
 
@@ -801,8 +851,323 @@ function stateRows(c) {
   [...states.keys()].filter((k) => !ORDER.includes(k)).sort().forEach((name) => rows.push([name, states.get(name).join(" + ")]));
   return rows.map(([name, via]) => "<tr><td>" + esc(name) + "</td><td>" + esc(via) + "</td></tr>").join("");
 }
+
+/* Docs-site upgrades: props playground, entrance pattern, contrast steps.
+   ADD-only layer. Reads the existing COMPONENTS data; it never rewrites it. */
+function playgroundClassify(c) {
+  const KEYWORDS = { string: 1, number: 1, boolean: 1, null: 1, undefined: 1, object: 1, array: 1, function: 1, void: 1, any: 1, unknown: 1, never: 1, true: 1, false: 1 };
+  const editable = [];
+  const skipped = [];
+  (c.props || []).forEach((p) => {
+    const name = String(p[0]);
+    const type = String(p[1]);
+    const req = String(p[2] || "");
+    const m = req.match(/^No\s*[\u2014\u2013-]\s*(.*)$/);
+    let def = m ? m[1] : "";
+    if (def === "\u2014" || def === "\u2013" || def === "-") def = "";
+    if (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name) || /=>|ReactNode|function|callback|\(\)|\{|\[/.test(type)) { skipped.push(name); return; }
+    const parts = type.split("|").map((s) => s.trim().replace(/^["']|["']$/g, ""));
+    if (parts.length >= 2 && parts.every((t) => /^[A-Za-z0-9_-]+$/.test(t) && !KEYWORDS[t])) {
+      editable.push({ name: name, kind: "enum", options: parts, def: parts.indexOf(def) !== -1 ? def : parts[0] });
+      return;
+    }
+    if (type === "boolean") { editable.push({ name: name, kind: "bool", def: /true/i.test(def) }); return; }
+    if (type === "number") { const n = parseFloat(def); editable.push({ name: name, kind: "number", def: isNaN(n) ? 0 : n }); return; }
+    if (type === "string" || type === "string?" || type === "string | null" || type === "string | undefined") {
+      const s = def.replace(/^["']|["']$/g, "");
+      editable.push({ name: name, kind: "string", def: /\s/.test(s) ? "" : s });
+      return;
+    }
+    skipped.push(name);
+  });
+  return { editable: editable, skipped: skipped };
+}
+function playgroundEditable(c) { return playgroundClassify(c).editable; }
+function playgroundSkipped(c) { return playgroundClassify(c).skipped; }
+function pascalFromId(id) {
+  return String(id).split(/[-_]/).map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : "")).join("");
+}
+function playgroundJSX(pascal, id, editable, values) {
+  const parts = [];
+  editable.forEach((e) => {
+    const v = values[e.name];
+    if (v === undefined) return;
+    if (e.kind === "enum") { if (v !== "") parts.push(e.name + '="' + String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'); }
+    else if (e.kind === "bool") parts.push(e.name + "={" + (v ? "true" : "false") + "}");
+    else if (e.kind === "number") parts.push(e.name + "={" + v + "}");
+    else if (e.kind === "string") { if (v) parts.push(e.name + '="' + String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'); }
+  });
+  const attrs = parts.length ? " " + parts.join(" ") : "";
+  return 'import { ' + pascal + ' } from "@/components/ui/' + id + '";\n\nexport function Example() {\n  return <' + pascal + attrs + ' />;\n}';
+}
+function playgroundField(e) {
+  const id = "pg-" + e.name;
+  if (e.kind === "enum") {
+    return '<div class="playground-field"><label for="' + id + '">' + esc(e.name) + '</label><select id="' + id + '" data-pg-prop="' + esc(e.name) + '">' + e.options.map((o) => '<option value="' + esc(o) + '"' + (o === e.def ? " selected" : "") + '>' + esc(o) + '</option>').join("") + '</select></div>';
+  }
+  if (e.kind === "bool") {
+    return '<div class="playground-field"><label><input type="checkbox" data-pg-prop="' + esc(e.name) + '"' + (e.def ? " checked" : "") + '> ' + esc(e.name) + '</label></div>';
+  }
+  if (e.kind === "number") {
+    return '<div class="playground-field"><label for="' + id + '">' + esc(e.name) + '</label><input id="' + id + '" type="number" data-pg-prop="' + esc(e.name) + '" value="' + esc(String(e.def)) + '"></div>';
+  }
+  return '<div class="playground-field"><label for="' + id + '">' + esc(e.name) + '</label><input id="' + id + '" type="text" data-pg-prop="' + esc(e.name) + '" value="' + esc(String(e.def)) + '"></div>';
+}
+/* Which playground controls update BOTH the demo above and the code below.
+   Every other editable control updates the code only; playgroundHTML says so
+   per component instead of promising demo updates it cannot make. */
+function playgroundDemoWired(e) {
+  if (e.kind === "bool") return e.name === "disabled" || e.name === "checked" || e.name === "pressed";
+  if (e.kind === "string") return e.name === "label" || e.name === "placeholder" || e.name === "value";
+  if (e.kind === "number") return e.name === "value";
+  if (e.kind === "enum") return e.name === "variant" || e.name === "tone";
+  return false;
+}
+function playgroundHTML(c) {
+  const cls = playgroundClassify(c);
+  const editable = cls.editable;
+  const values = {};
+  editable.forEach((e) => { values[e.name] = e.def; });
+  const code = playgroundJSX(pascalFromId(c.id), c.id, editable, values);
+  let html = '<section class="playground" data-pg-name="' + esc(pascalFromId(c.id)) + '" data-pg-id="' + esc(c.id) + '">';
+  html += '<div class="playground-head"><span class="playground-dots" aria-hidden="true"><span></span><span></span><span></span></span><h2>Playground</h2><span class="playground-sub">Live demo + code</span></div>';
+  html += '<div class="playground-controls">' + editable.map((e) => playgroundField(e)).join("") + '</div>';
+  if (cls.skipped.length) {
+    const shown = cls.skipped.slice(0, 5).map((s) => esc(s)).join(", ");
+    const more = cls.skipped.length > 5 ? " and " + (cls.skipped.length - 5) + " more" : "";
+    html += '<p class="playground-note">Complex props stay in the code: ' + shown + more + '. The playground covers simple props.</p>';
+  }
+  const wired = editable.filter((e) => playgroundDemoWired(e));
+  const codeOnly = editable.filter((e) => !playgroundDemoWired(e));
+  if (editable.length && codeOnly.length === 0) html += '<p class="playground-note">The controls update the demo above and the code below.</p>';
+  else if (editable.length && wired.length === 0) html += '<p class="playground-note">The controls update the code below. The demo above does not change for this component. Use the demo above for interaction.</p>';
+  else if (editable.length) html += '<p class="playground-note">The controls update the code below. The demo above updates for: ' + wired.map((e) => esc(e.name)).join(", ") + '. Other controls update the code only. Use the demo above for interaction.</p>';
+  html += '<pre class="playground-code" data-pg-code data-hl="1">' + esc(code) + '</pre>';
+  html += '<div class="playground-actions"><button type="button" class="copy-btn" data-copy="' + esc(code) + '" data-pg-copy-jsx>Copy JSX</button><button type="button" class="copy-btn" data-copy="' + esc(c.prompt) + '">Copy prompt</button><button type="button" class="copy-btn" data-pg-reset>Reset</button></div>';
+  html += '</section>';
+  return html;
+}
+function applyPlaygroundTransforms(demo, editable, values, pristine, lastEnum) {
+  if (!demo) return;
+  editable.forEach((e) => {
+    const v = values[e.name];
+    if (v === undefined) return;
+    if (e.kind === "bool" && e.name === "disabled") {
+      demo.querySelectorAll("button, input, select, textarea").forEach((el) => {
+        el.disabled = (v === e.def) ? pristine.disabled.indexOf(el) !== -1 : v;
+      });
+    } else if (e.kind === "bool" && e.name === "checked") {
+      demo.querySelectorAll('input[type="checkbox"]').forEach((el) => {
+        el.checked = (v === e.def) ? pristine.checked.indexOf(el) !== -1 : v;
+      });
+      demo.querySelectorAll('[role="switch"]').forEach((el) => {
+        el.setAttribute("aria-checked", String((v === e.def) ? pristine.checked.indexOf(el) !== -1 : v));
+      });
+    } else if (e.kind === "bool" && e.name === "pressed") {
+      demo.querySelectorAll("[aria-pressed]").forEach((el) => {
+        el.setAttribute("aria-pressed", String((v === e.def) ? pristine.pressed.indexOf(el) !== -1 : v));
+      });
+    } else if (e.kind === "string" && e.name === "label") {
+      const lab = demo.querySelector("label");
+      /* A label that wraps a control must never be flattened: setting
+         textContent would delete the control it wraps (Checkbox demo). */
+      if (lab && !lab.querySelector("input, select, textarea, button")) lab.textContent = (v && v !== e.def) ? v : pristine.label;
+    } else if (e.kind === "string" && e.name === "placeholder") {
+      const inp = demo.querySelector("input, textarea");
+      if (inp) {
+        if (v && v !== e.def) inp.setAttribute("placeholder", v);
+        else if (pristine.placeholder === null) inp.removeAttribute("placeholder");
+        else inp.setAttribute("placeholder", pristine.placeholder);
+      }
+    } else if ((e.kind === "string" || e.kind === "number") && e.name === "value") {
+      const inp = demo.querySelector("input, textarea, select");
+      if (inp) inp.value = (v !== "" && v !== e.def) ? v : pristine.value;
+    } else if (e.kind === "enum" && (e.name === "variant" || e.name === "tone")) {
+      const prev = lastEnum[e.name];
+      if (prev && prev !== v) {
+        demo.querySelectorAll("[class]").forEach((el) => {
+          const cls = el.getAttribute("class") || "";
+          const next = cls.split(/\s+/).map((tok) => (tok.length > prev.length + 1 && tok.slice(-(prev.length + 1)) === "-" + prev) ? tok.slice(0, -(prev.length)) + v : tok).join(" ");
+          if (next !== cls) el.setAttribute("class", next);
+        });
+      }
+      lastEnum[e.name] = v;
+    }
+  });
+}
+function bindPlayground() {
+  const panel = document.querySelector(".playground");
+  if (!panel) return;
+  const id = panel.dataset.pgId;
+  const c = COMPONENTS.find((x) => x.id === id);
+  if (!c) return;
+  const editable = playgroundEditable(c);
+  const demo = document.querySelector("#view .demo");
+  const pristine = { label: "", placeholder: null, value: "", disabled: [], checked: [], pressed: [] };
+  if (demo) {
+    const lab = demo.querySelector("label");
+    if (lab) pristine.label = lab.textContent;
+    const inp = demo.querySelector("input, textarea, select");
+    if (inp) { pristine.placeholder = inp.getAttribute("placeholder"); pristine.value = inp.value; }
+    pristine.disabled = Array.prototype.filter.call(demo.querySelectorAll("button, input, select, textarea"), (el) => el.disabled);
+    pristine.checked = Array.prototype.filter.call(demo.querySelectorAll('input[type="checkbox"]'), (el) => el.checked);
+    pristine.pressed = Array.prototype.filter.call(demo.querySelectorAll("[aria-pressed]"), (el) => el.getAttribute("aria-pressed") === "true");
+  }
+  const lastEnum = {};
+  function readValues() {
+    const values = {};
+    panel.querySelectorAll("[data-pg-prop]").forEach((el) => {
+      const prop = editable.find((e) => e.name === el.dataset.pgProp);
+      if (!prop) return;
+      if (prop.kind === "bool") values[prop.name] = el.checked;
+      else if (prop.kind === "number") { const n = parseFloat(el.value); values[prop.name] = isNaN(n) ? prop.def : n; }
+      else values[prop.name] = el.value;
+    });
+    return values;
+  }
+  function refresh() {
+    const values = readValues();
+    const code = playgroundJSX(panel.dataset.pgName, id, editable, values);
+    const pre = panel.querySelector("[data-pg-code]");
+    if (pre) pre.textContent = code;
+    const jsxBtn = panel.querySelector("[data-pg-copy-jsx]");
+    if (jsxBtn) jsxBtn.dataset.copy = code;
+    applyPlaygroundTransforms(demo, editable, values, pristine, lastEnum);
+  }
+  function reset() {
+    panel.querySelectorAll("[data-pg-prop]").forEach((el) => {
+      const prop = editable.find((e) => e.name === el.dataset.pgProp);
+      if (!prop) return;
+      if (prop.kind === "bool") el.checked = prop.def;
+      else el.value = prop.def;
+    });
+    refresh();
+  }
+  /* Correct the playground note against the real demo: playgroundHTML
+     promises demo updates from playgroundDemoWired, but a control only
+     updates the demo when its transform target exists in this demo (a
+     label control cannot update a demo with no plain <label>, a value
+     control cannot update a demo with no field, and so on). */
+  function playgroundTargetExists(e) {
+    if (!demo) return false;
+    if (e.kind === "bool" && e.name === "disabled") return !!demo.querySelector("button, input, select, textarea");
+    if (e.kind === "bool" && e.name === "checked") return !!demo.querySelector('input[type="checkbox"]') || !!demo.querySelector('[role="switch"]');
+    if (e.kind === "bool" && e.name === "pressed") return !!demo.querySelector("[aria-pressed]");
+    if (e.kind === "string" && e.name === "label") { const lab = demo.querySelector("label"); return !!lab && !lab.querySelector("input, select, textarea, button"); }
+    if (e.kind === "string" && e.name === "placeholder") { const inp = demo.querySelector("input, textarea"); return !!inp && inp.type !== "checkbox" && inp.type !== "radio"; }
+    if ((e.kind === "string" || e.kind === "number") && e.name === "value") { const inp = demo.querySelector("input, textarea, select"); return !!inp && inp.type !== "checkbox" && inp.type !== "radio"; }
+    if (e.kind === "enum" && (e.name === "variant" || e.name === "tone")) {
+      const def = String(e.def);
+      let found = false;
+      demo.querySelectorAll("[class]").forEach((el) => {
+        (el.getAttribute("class") || "").split(/\s+/).forEach((tok) => { if (tok.length > def.length + 1 && tok.slice(-(def.length + 1)) === "-" + def) found = true; });
+      });
+      return found;
+    }
+    return false;
+  }
+  function correctPlaygroundNote() {
+    if (!editable.length) return;
+    const wired = editable.filter((e) => playgroundDemoWired(e) && playgroundTargetExists(e));
+    const notes = Array.prototype.slice.call(panel.querySelectorAll(".playground-note"));
+    const note = notes.find((p) => /update the demo above|update the code below/.test(p.textContent));
+    if (!note) return;
+    if (wired.length === editable.length) return;
+    if (!wired.length) note.textContent = "The controls update the code below. The demo above does not change for this component. Use the demo above for interaction.";
+    else note.textContent = "The controls update the code below. The demo above updates for: " + wired.map((e) => e.name).join(", ") + ". Other controls update the code only. Use the demo above for interaction.";
+  }
+  correctPlaygroundNote();
+  panel.addEventListener("input", refresh);
+  panel.addEventListener("change", refresh);
+  panel.addEventListener("click", (e) => {
+    if (e.target.closest("[data-pg-reset]")) { e.preventDefault(); reset(); }
+  });
+  refresh();
+}
+function ensureOesteDocsStyles() {
+  if (document.getElementById("oeste-docs-upgrades")) return;
+  const style = document.createElement("style");
+  style.id = "oeste-docs-upgrades";
+  const css = [
+    "#view.oeste-enter > * { animation: oeste-docs-enter 180ms cubic-bezier(0.16,1,0.3,1) both; }",
+    "#view.oeste-enter > *:nth-child(2) { animation-delay: 40ms; }",
+    "#view.oeste-enter > *:nth-child(3) { animation-delay: 80ms; }",
+    "#view.oeste-enter > *:nth-child(4) { animation-delay: 120ms; }",
+    "#view.oeste-enter > *:nth-child(5) { animation-delay: 160ms; }",
+    "#view.oeste-enter > *:nth-child(6) { animation-delay: 200ms; }",
+    "#view.oeste-enter > *:nth-child(7) { animation-delay: 240ms; }",
+    "#view.oeste-enter > *:nth-child(8) { animation-delay: 280ms; }",
+    "@keyframes oeste-docs-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }",
+    "@media (prefers-reduced-motion: reduce) { #view.oeste-enter > * { animation: none; } }",
+    ".playground { border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); padding: 20px; margin-top: 24px; }",
+    ".playground-head { display: flex; align-items: center; gap: 10px; }",
+    ".playground-head h2 { margin: 0; }",
+    ".playground-dots { display: inline-flex; gap: 5px; }",
+    ".playground-dots span { width: 8px; height: 8px; border-radius: 999px; background: var(--color-border); display: inline-block; }",
+    ".playground-sub { color: var(--color-muted); font-size: 0.875rem; }",
+    ".playground-controls { display: grid; gap: 12px; margin-top: 16px; }",
+    ".playground-field label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 6px; }",
+    ".playground-field input[type=\"text\"], .playground-field input[type=\"number\"], .playground-field select { width: 100%; max-width: 320px; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg); color: var(--color-text); font: inherit; }",
+    ".playground-field input[type=\"checkbox\"] { accent-color: var(--color-accent); }",
+    ".playground-note { color: var(--color-muted); font-size: 0.875rem; margin: 12px 0 0; }",
+    ".playground-code { margin-top: 16px; }",
+    ".playground-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }"
+  ].join("\n");
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+function playOesteEntrance(view) {
+  if (!view) return;
+  view.classList.remove("oeste-enter");
+  void view.offsetWidth;
+  view.classList.add("oeste-enter");
+}
+
+/* Not-found state for unknown component ids. Never silently render a
+   different component, never redirect. Equivalents come from this library's
+   own COMPONENTS data (name/tagline token match). Cross-library links are
+   filled in by bindNotFound after checking the other libraries' manifests. */
+const NOT_FOUND_THIS = { id: "topanga", name: "Topanga", listUrl: "#/components" };
+const NOT_FOUND_OTHERS = [{ id: "huntington", name: "Huntington" }, { id: "mesa", name: "Mesa" }];
+function notFoundEquivalents(id) {
+  const toks = String(id).toLowerCase().split(/[-_]+/).filter(Boolean);
+  if (!toks.length) return [];
+  const scored = COMPONENTS.map((c) => {
+    const name = (c.name || "").toLowerCase();
+    const tag = (c.tagline || "").toLowerCase();
+    let score = 0;
+    toks.forEach((t) => {
+      if (name.indexOf(t) !== -1) score += 3;
+      if (tag.indexOf(t) !== -1) score += 1;
+    });
+    return { c: c, score: score };
+  }).filter((x) => x.score > 0).sort((a, b) => (b.score - a.score) || (a.c.name < b.c.name ? -1 : a.c.name > b.c.name ? 1 : 0));
+  return scored.slice(0, 4).map((x) => x.c);
+}
+function renderNotFoundComponent(id) {
+  const eq = notFoundEquivalents(id);
+  let body = '<p class="eyebrow">Components</p><h1>Component not found</h1><p class="lede">There is no component called <code>' + esc(id) + '</code> in ' + NOT_FOUND_THIS.name + '.</p>';
+  body += '<p><a href="' + NOT_FOUND_THIS.listUrl + '">Browse all ' + NOT_FOUND_THIS.name + ' components</a></p>';
+  if (eq.length) {
+    body += '<h2>Closest in ' + NOT_FOUND_THIS.name + '</h2><ul>' + eq.map((c) => '<li><a href="#/components/' + esc(c.id) + '">' + esc(c.name) + '</a> ' + esc(c.tagline) + '</li>').join("") + '</ul>';
+  }
+  body += '<div data-nf-cross data-nf-id="' + esc(id) + '"><p class="muted">Checking the other libraries.</p></div>';
+  return body;
+}
+function bindNotFound() {
+  const box = document.querySelector("[data-nf-cross]");
+  if (!box) return;
+  const id = box.dataset.nfId;
+  Promise.all(NOT_FOUND_OTHERS.map((lib) => fetch("/" + lib.id + "/components.json").then((r) => r.json()).then((m) => ({ lib: lib, found: (m.components || []).some((c) => c.id === id) })).catch(() => ({ lib: lib, found: false }))))
+    .then((results) => {
+      const found = results.filter((r) => r.found);
+      if (!found.length) { box.innerHTML = '<p class="muted">No other library has a component called <code>' + esc(id) + '</code> either.</p>'; return; }
+      box.innerHTML = '<h2>In other libraries</h2><ul>' + found.map((r) => '<li><a href="/' + r.lib.id + '/#/components/' + esc(id) + '">' + esc(id) + ' in ' + r.lib.name + '</a></li>').join("") + '</ul>';
+    });
+}
 function renderComponent(id, lens) {
-  const c = COMPONENTS.find((x) => x.id === id) || COMPONENTS[0];
+  const c = COMPONENTS.find((x) => x.id === id);
+  if (!c) return renderNotFoundComponent(id);
   const rows = c.props.map((p) => "<tr><td><code>" + esc(p[0]) + "</code></td><td><code>" + esc(p[1]) + "</code></td><td>" + esc(p[2]) + "</td><td>" + esc(p[3]) + "</td></tr>").join("");
   const keys = c.keyboard.map((k) => "<tr><td><code>" + esc(k[0]) + "</code></td><td>" + esc(k[1]) + "</td></tr>").join("");
   const inv = c.invariants.map((x) => "<li>" + esc(x) + "</li>").join("");
@@ -813,6 +1178,7 @@ function renderComponent(id, lens) {
   body += demoHTML(c);
   if (lens === "human") {
     body += variantsHTML(c);
+    body += playgroundHTML(c);
     body += "<h2>Anatomy</h2><div style=\"overflow-x:auto\"><table><thead><tr><th>Part</th><th>Notes</th></tr></thead><tbody>" + anatomyRows(c) + "</tbody></table></div>";
     body += '<h2>Props</h2><div style="overflow-x:auto"><table><thead><tr><th>Prop</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
     body += "<h2>Events</h2>" + (ev ? '<div style="overflow-x:auto"><table><thead><tr><th>Event</th><th>Signature</th><th>Notes</th></tr></thead><tbody>' + ev + "</tbody></table></div>" : "<p>No events.</p>");
@@ -846,7 +1212,8 @@ function renderTokens() {
     + '<div class="demo"><p class="demo-caption">Alerts + badges — every tone.</p><div class="site-alert alert-info" role="status"><p style="margin:0;flex:1"><strong>Info.</strong> Accent-adjacent, calm.</p></div><div class="site-alert alert-success" role="status" style="margin-top:12px"><p style="margin:0;flex:1"><strong>Saved.</strong> Success tone.</p></div><div class="site-alert alert-warning" role="status" style="margin-top:12px"><p style="margin:0;flex:1"><strong>Heads up.</strong> Warning tone.</p></div><div class="site-alert alert-danger" role="alert" style="margin-top:12px"><p style="margin:0;flex:1"><strong>Could not save.</strong> Danger tone.</p></div><div class="demo-row" style="margin-top:16px"><span class="badge">Neutral</span><span class="badge badge-accent">Accent</span><span class="badge badge-success">Success</span><span class="badge badge-danger">Danger</span></div></div>'
     + '<div class="demo"><p class="demo-caption">Surface + progress + focus.</p><div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:20px"><p style="margin:0">A card in <code>--color-surface</code>, hairline in <code>--color-border</code>.</p><div class="progress-track" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Demo progress" style="margin-top:16px"><div class="progress-fill" style="width:65%"></div></div><p style="margin:12px 0 0"><strong>Upload</strong> — <span>65%</span>, fill in <code>--color-accent</code>.</p><button type="button" class="btn btn-secondary" style="margin-top:16px">Tab to me</button> <span class="muted">Focus is a 2px ink/paper outline.</span></div></div>'
     + "<h2>Type</h2><p>Manrope for display + body, JetBrains Mono for code. Display steps: 40px phones / 48px ≥480px / 72px ≥720px, title <code>clamp(1.75rem, 4vw, 2.5rem)</code>, heading <code>clamp(1.25rem, 2.5vw, 1.5rem)</code>.</p>"
-    + "<h2>Spacing / radius / motion</h2><p>Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 px. Radii: 4 / 8 / 12 px + 999px pill. Motion: 180ms in / 140ms out, <code>cubic-bezier(.16,1,.3,1)</code>. Reduced motion: no animation. Breakpoints: mobile 0–640px, tablet 641–1024px, desktop 1025px+. Touch targets: min 44px.</p>";
+    + "<h2>Spacing / radius / motion</h2><p>Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 px. Radii: 4 / 8 / 12 px + 999px pill. Motion: 180ms in / 140ms out, <code>cubic-bezier(.16,1,.3,1)</code>. Reduced motion: no animation. Breakpoints: mobile 0–640px, tablet 641–1024px, desktop 1025px+. Touch targets: min 44px.</p>"
+    + "<h2>Contrast steps</h2><p>Four contrast steps plus two text steps. No values changed here: every row uses an existing token.</p><div style=\"overflow-x:auto\"><table><thead><tr><th>Step</th><th>Token</th><th>Values</th><th>Use</th></tr></thead><tbody><tr><td>Page</td><td><code>--color-bg</code></td><td>Light #F6F4F1 · Dark #121110</td><td>Page background</td></tr><tr><td>Surface</td><td><code>--color-surface</code></td><td>Light #FCFAF7 · Dark #1C1917</td><td>Cards, demos, panels</td></tr><tr><td>Raised</td><td><code>--color-surface + --color-border hairline</code></td><td>Same values as Surface</td><td>Raised by a hairline, not a fill</td></tr><tr><td>Border</td><td><code>--color-border</code></td><td>Light rgba(28,25,23,0.10) · Dark rgba(245,243,239,0.10)</td><td>Hairlines between steps</td></tr><tr><td>Text primary</td><td><code>--color-text</code></td><td>Light #1C1917 · Dark #F5F3EF</td><td>Body text, headings</td></tr><tr><td>Text muted</td><td><code>--color-muted</code></td><td>Light #706963 · Dark #9E968F</td><td>Secondary text, captions</td></tr></tbody></table></div>";
 }
 
 function renderGettingStarted() {
@@ -1042,6 +1409,9 @@ function render() {
   document.querySelectorAll("#componentNav a").forEach((a) => a.classList.toggle("active", route === "components" && a.getAttribute("href").includes(id)));
   highlightAll();
   bindDemos();
+  bindPlayground();
+  bindNotFound();
+  playOesteEntrance(view);
   view.focus({ preventScroll: true });
   window.scrollTo(0, 0);
 }
@@ -1182,6 +1552,7 @@ function initSearch() {
 }
 
 function init() {
+  ensureOesteDocsStyles();
   document.getElementById("componentNav").innerHTML = COMPONENTS.map((c) => '<a class="nav-link" href="#/components/' + c.id + '">' + esc(c.name) + "</a>").join("");
   const saved = localStorage.getItem("oeste-theme");
   setTheme(saved === "dark" ? "dark" : "light");

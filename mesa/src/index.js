@@ -1458,20 +1458,20 @@ export function Chart({ type = "bar", data = [], title, height = 240, showTable 
     const cx = (i) => LEFT + (i + 0.5) * slotW;
     const ticks = [0, step, step * 2, step * 3, step * 4];
     const grid = ticks.map((t) => (<g key={t} aria-hidden="true"><line x1={LEFT} x2={LEFT + plotW} y1={y(t)} y2={y(t)} className={CHART_GRID} strokeWidth="1" /><text x={LEFT - 6} y={y(t) + 4} textAnchor="end" className={`text-[11px] ${SOFT}`} fill="currentColor">{String(t)}</text></g>));
-    const cats = rows.map((r, i) => (<text key={i} x={cx(i)} y={baseline + 18} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor">{shortLabel(r.label)}</text>));
+    const cats = rows.map((r, i) => (<text key={i} x={cx(i)} y={baseline + 18} textAnchor="middle" className={`text-[11px] font-semibold ${INK}`} fill="currentColor">{shortLabel(r.label)}</text>));
     return { LEFT, TOP, plotW, plotH, y, baseline, slotW, cx, grid, cats };
   };
   const renderBars = () => {
     const a = renderAxes();
-    const barW = Math.min(a.slotW * 0.6, 48);
-    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{rows.map((r, i) => { const x = a.cx(i) - barW / 2; const h = a.baseline - a.y(r.value); return (<g key={i}><rect x={x} y={a.y(r.value)} width={barW} height={Math.max(h, 0)} className={CHART_PALETTE[0]} /><text x={a.cx(i)} y={a.y(r.value) - 5} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor">{String(r.value)}</text></g>); })}{a.cats}</g>);
+    const barW = Math.min(a.slotW * 0.7, 72);
+    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{rows.map((r, i) => { const x = a.cx(i) - barW / 2; const h = a.baseline - a.y(r.value); return (<g key={i}><rect x={x} y={a.y(r.value)} width={barW} height={Math.max(h, 0)} className={CHART_PALETTE[0]} /><text x={a.cx(i)} y={a.y(r.value) - 5} textAnchor="middle" className={`text-[11px] font-semibold ${INK}`} fill="currentColor">{String(r.value)}</text></g>); })}{a.cats}</g>);
   };
   const renderLineArea = () => {
     const a = renderAxes();
     const pts = rows.map((r, i) => [a.cx(i), a.y(r.value)]);
     const linePts = pts.map((p) => p.join(",")).join(" ");
     const areaD = `M ${pts[0].join(" ")} ` + pts.slice(1).map((p) => `L ${p.join(" ")}`).join(" ") + ` L ${pts[pts.length - 1][0]},${a.baseline} L ${pts[0][0]},${a.baseline} Z`;
-    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{type === "area" && <path d={areaD} className={CHART_PALETTE[0]} fillOpacity="0.15" stroke="none" />}<polyline points={linePts} fill="none" className={CHART_STROKE} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />{pts.map((p, i) => (<g key={i}><circle cx={p[0]} cy={p[1]} r="4" className={CHART_PALETTE[0]} stroke="#ffffff" strokeWidth="1.5" /><text x={p[0]} y={p[1] - 9} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor">{String(rows[i].value)}</text></g>))}{a.cats}</g>);
+    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{type === "area" && <path d={areaD} className={CHART_PALETTE[0]} fillOpacity="0.25" stroke="none" />}<polyline points={linePts} fill="none" className={CHART_STROKE} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />{pts.map((p, i) => (<g key={i}><circle cx={p[0]} cy={p[1]} r="4" className={CHART_PALETTE[0]} stroke="#ffffff" strokeWidth="1.5" /><text x={p[0]} y={p[1] - 9} textAnchor="middle" className={`text-[11px] font-semibold ${INK}`} fill="currentColor">{String(rows[i].value)}</text></g>))}{a.cats}</g>);
   };
   const renderPie = () => {
     const cx = 320, cy = H / 2;
@@ -1480,7 +1480,7 @@ export function Chart({ type = "bar", data = [], title, height = 240, showTable 
     let acc = 0;
     const polar = (angleDeg, radius) => { const a = ((angleDeg - 90) * Math.PI) / 180; return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)]; };
     const slices = rows.map((r, i) => { const start = (acc / total) * 360; acc += r.value; const end = (acc / total) * 360; const large = end - start > 180 ? 1 : 0; const [x1, y1] = polar(start, R); const [x2, y2] = polar(end, R); let d; if (type === "donut") { const [ix2, iy2] = polar(end, inner); const [ix1, iy1] = polar(start, inner); d = `M ${x1},${y1} A ${R},${R} 0 ${large} 1 ${x2},${y2} L ${ix2},${iy2} A ${inner},${inner} 0 ${large} 0 ${ix1},${iy1} Z`; } else { d = `M ${cx},${cy} L ${x1},${y1} A ${R},${R} 0 ${large} 1 ${x2},${y2} Z`; } const mid = (start + end) / 2; const labelR = type === "donut" ? (R + inner) / 2 : R * 0.68; const [lx, ly] = polar(mid, labelR); return { r, i, d, lx, ly }; });
-    return (<g aria-hidden="true">{slices.map((s) => (<g key={s.i}><path d={s.d} className={CHART_PALETTE[s.i % CHART_PALETTE.length]} stroke="#ffffff" strokeWidth="1" /><text x={s.lx} y={s.ly} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor"><tspan x={s.lx} dy="-1">{shortLabel(rows[s.i].label)}</tspan><tspan x={s.lx} dy="13">{pct(rows[s.i].value)}</tspan></text></g>))}{type === "donut" && (<g><text x={cx} y={cy - 2} textAnchor="middle" className={`text-[20px] font-bold ${INK}`} fill="currentColor">{String(total)}</text><text x={cx} y={cy + 16} textAnchor="middle" className={`text-[11px] ${SOFT}`} fill="currentColor">total</text></g>)}</g>);
+    return (<g aria-hidden="true">{slices.map((s) => (<g key={s.i}><path d={s.d} className={CHART_PALETTE[s.i % CHART_PALETTE.length]} stroke="#ffffff" strokeWidth="1" /><text x={s.lx} y={s.ly} textAnchor="middle" className={`text-[11px] font-semibold ${INK}`} fill="currentColor"><tspan x={s.lx} dy="-1">{shortLabel(rows[s.i].label)}</tspan><tspan x={s.lx} dy="13">{pct(rows[s.i].value)}</tspan></text></g>))}{type === "donut" && (<g><text x={cx} y={cy - 2} textAnchor="middle" className={`text-[20px] font-bold ${INK}`} fill="currentColor">{String(total)}</text><text x={cx} y={cy + 16} textAnchor="middle" className={`text-[11px] ${SOFT}`} fill="currentColor">total</text></g>)}</g>);
   };
   return (
     <section>
@@ -1490,32 +1490,32 @@ export function Chart({ type = "bar", data = [], title, height = 240, showTable 
         {isPie && renderPie()}
       </svg>
       {isPie && (
-        <ul className="mt-3 list-none p-0">
+        <ul className="mt-2 list-none p-0">
           {rows.map((r, i) => (
-            <li key={i} className="flex items-center gap-2 py-1">
-              <span aria-hidden="true" className={`inline-block h-3 w-3 shrink-0 ${CHART_PALETTE_BG[i % CHART_PALETTE_BG.length]}`} />
+            <li key={i} className="flex items-center gap-2 py-0.5">
+              <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 shrink-0 rounded-[2px] ${CHART_PALETTE_BG[i % CHART_PALETTE_BG.length]}`} />
               <span className={`text-[13px] ${INK}`}>{r.label}</span>
-              <span className={`ml-auto text-[13px] ${SOFT}`}>{String(r.value)} ({pct(r.value)})</span>
+              <span className={`ml-auto text-[13px] font-semibold ${INK}`}>{String(r.value)} ({pct(r.value)})</span>
             </li>
           ))}
         </ul>
       )}
       {showTable && (
         <table className="mt-3 w-full border-collapse">
-          <caption className={`text-left text-[13px] ${SOFT}`}>{caption}</caption>
+          <caption className={`text-left text-[11px] font-bold uppercase tracking-[0.14em] ${SOFT}`}>{caption}</caption>
           <thead>
             <tr>
-              <th scope="col" className={`border-b ${LINE} px-3 py-2 text-left`}>Label</th>
-              <th scope="col" className={`border-b ${LINE} px-3 py-2 text-left`}>Value</th>
-              {isPie && <th scope="col" className={`border-b ${LINE} px-3 py-2 text-left`}>Percent</th>}
+              <th scope="col" className={`border-b-4 border-double ${LINE} px-2 py-1.5 text-left text-[11px] font-bold uppercase tracking-[0.14em]`}>Label</th>
+              <th scope="col" className={`border-b-4 border-double ${LINE} px-2 py-1.5 text-left text-[11px] font-bold uppercase tracking-[0.14em]`}>Value</th>
+              {isPie && <th scope="col" className={`border-b-4 border-double ${LINE} px-2 py-1.5 text-left text-[11px] font-bold uppercase tracking-[0.14em]`}>Percent</th>}
             </tr>
           </thead>
           <tbody>
             {rows.map((r, i) => (
               <tr key={i}>
-                <th scope="row" className={`border-b ${LINE} px-3 py-2 text-left font-semibold ${INK}`}>{r.label}</th>
-                <td className={`border-b ${LINE} px-3 py-2 ${INK}`}>{String(r.value)}</td>
-                {isPie && <td className={`border-b ${LINE} px-3 py-2 ${INK}`}>{pct(r.value)}</td>}
+                <th scope="row" className={`border-b ${LINE} px-2 py-1.5 text-left font-semibold ${INK}`}>{r.label}</th>
+                <td className={`border-b ${LINE} px-2 py-1.5 ${INK}`}>{String(r.value)}</td>
+                {isPie && <td className={`border-b ${LINE} px-2 py-1.5 ${INK}`}>{pct(r.value)}</td>}
               </tr>
             ))}
           </tbody>
@@ -1596,22 +1596,22 @@ export function Calendar({ value, onChange, min, max }) {
     const isToday = iso === today;
     const isDisabled = (lo !== null && iso < lo) || (hi !== null && iso > hi);
     let dayClass = `border border-transparent ${INK} hover:bg-[#f1ede5] dark:hover:bg-[#14110c]`;
-    if (isSelected) dayClass = "bg-[#8a1f2b] text-[#ffffff] dark:bg-[#c9404f]";
-    else if (isToday) dayClass = `border border-[#8a1f2b] font-semibold ${INK} dark:border-[#c9404f]`;
+    if (isSelected) dayClass = "bg-[#8a1f2b] font-bold text-[#ffffff] dark:bg-[#c9404f]";
+    else if (isToday) dayClass = `border-2 border-[#8a1f2b] font-bold ${INK} dark:border-[#c9404f]`;
     return (
-      <button type="button" key={iso} disabled={isDisabled} aria-disabled={isDisabled} aria-current={isToday ? "date" : undefined} aria-label={`${CAL_MONTHS[view.m - 1]} ${d}, ${view.y}${isSelected ? ", selected" : ""}`} onClick={() => onChange && onChange(iso)} className={`flex h-9 w-9 items-center justify-center rounded text-[13px] ${FOCUS} ${dayClass} disabled:opacity-40`}>{d}</button>
+      <button type="button" key={iso} disabled={isDisabled} aria-disabled={isDisabled} aria-current={isToday ? "date" : undefined} aria-label={`${CAL_MONTHS[view.m - 1]} ${d}, ${view.y}${isSelected ? ", selected" : ""}`} onClick={() => onChange && onChange(iso)} className={`flex h-9 w-9 items-center justify-center rounded-[4px] text-[13px] ${FOCUS} ${dayClass} disabled:opacity-40`}>{d}</button>
     );
   };
   return (
-    <div className="w-[280px]">
-      <div className="flex items-center justify-between">
+    <div className="w-full max-w-[300px]">
+      <div className={`flex items-center justify-between border-b-4 border-double ${LINE} pb-2`}>
         <button type="button" aria-label="Previous month" onClick={() => setView(shiftMonth(view, -1))} className={`rounded px-2 py-1 text-[16px] ${INK} ${FOCUS}`}>‹</button>
-        <div aria-live="polite" className={`text-[14px] font-semibold ${INK}`}>{CAL_MONTHS[view.m - 1]} {view.y}</div>
+        <div aria-live="polite" className={`text-[13px] font-bold uppercase tracking-[0.14em] ${INK}`}>{CAL_MONTHS[view.m - 1]} {view.y}</div>
         <button type="button" aria-label="Next month" onClick={() => setView(shiftMonth(view, 1))} className={`rounded px-2 py-1 text-[16px] ${INK} ${FOCUS}`}>›</button>
       </div>
       <table className="mt-1 w-full border-collapse">
         <thead>
-          <tr>{CAL_WEEKDAYS.map((wd) => (<th key={wd} scope="col" className={`py-2 text-center text-[12px] font-semibold ${SOFT}`}>{wd}</th>))}</tr>
+          <tr className={`border-b-4 border-double ${LINE}`}>{CAL_WEEKDAYS.map((wd) => (<th key={wd} scope="col" className={`py-1.5 text-center text-[11px] font-bold uppercase tracking-[0.14em] ${SOFT}`}>{wd}</th>))}</tr>
         </thead>
         <tbody>
           {weeks.map((week, wi) => (
@@ -1653,17 +1653,17 @@ export function DatePicker({ value, onChange, label = "Date", placeholder = "YYY
   };
   return (
     <div ref={wrapRef} className="relative" onKeyDown={handleKeyDown}>
-      <label htmlFor={inputId} className={`block text-[13px] font-semibold ${INK}`}>{label}</label>
-      <div className="mt-1 flex items-center gap-2">
-        <input id={inputId} type="text" readOnly value={display} placeholder={placeholder} aria-invalid={invalid} className={`w-[150px] rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${CARD} ${FOCUS}`} />
-        <button ref={triggerRef} type="button" aria-label={open ? "Close calendar" : "Open calendar"} aria-expanded={open} aria-controls={popId} onClick={() => setOpen(!open)} className={`rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS}`}>Calendar</button>
+      <label htmlFor={inputId} className={`block text-[11px] font-bold uppercase tracking-[0.14em] ${INK}`}>{label}</label>
+      <div className="mt-1 flex items-center gap-1.5">
+        <input id={inputId} type="text" readOnly value={display} placeholder={placeholder} aria-invalid={invalid} className={`w-[140px] rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${CARD} ${FOCUS}`} />
+        <button ref={triggerRef} type="button" aria-label={open ? "Close calendar" : "Open calendar"} aria-expanded={open} aria-controls={popId} onClick={() => setOpen(!open)} className={`rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS}`}>Calendar</button>
       </div>
       {open && (
-        <div id={popId} className={`absolute z-10 mt-1 p-3 ${CARD} border ${LINE}`}>
+        <div id={popId} className={`absolute z-10 mt-1 max-w-[calc(100vw-32px)] p-2 ${CARD} border ${LINE}`}>
           <Calendar value={display || null} onChange={pick} min={min} max={max} />
-          <div className="mt-2 flex gap-2">
-            {clearable && display && (<button type="button" onClick={() => { if (onChange) onChange(null); close(); }} className={`rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
-            <button type="button" disabled={todayOutOfRange} aria-disabled={todayOutOfRange} onClick={() => pick(today)} className={`rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS} disabled:opacity-40`}>Today</button>
+          <div className="mt-1.5 flex gap-1.5">
+            {clearable && display && (<button type="button" onClick={() => { if (onChange) onChange(null); close(); }} className={`rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
+            <button type="button" disabled={todayOutOfRange} aria-disabled={todayOutOfRange} onClick={() => pick(today)} className={`rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS} disabled:opacity-40`}>Today</button>
           </div>
         </div>
       )}
@@ -1705,15 +1705,15 @@ export function TimePicker({ value, onChange, label = "Time", step = 30 }) {
   };
   return (
     <div ref={wrapRef} className="relative" onKeyDown={handleKeyDown}>
-      <label htmlFor={triggerId} className={`block text-[13px] font-semibold ${INK}`}>{label}</label>
-      <button ref={triggerRef} id={triggerId} type="button" aria-haspopup="listbox" aria-expanded={open} aria-controls={listId} onClick={() => setOpen(!open)} className={`mt-1 w-[150px] rounded border ${LINE} px-3 py-2 text-left text-[13px] ${INK} ${CARD} ${FOCUS}`}>{display}</button>
+      <label htmlFor={triggerId} className={`block text-[11px] font-bold uppercase tracking-[0.14em] ${INK}`}>{label}</label>
+      <button ref={triggerRef} id={triggerId} type="button" aria-haspopup="listbox" aria-expanded={open} aria-controls={listId} onClick={() => setOpen(!open)} className={`mt-1 w-[140px] rounded border ${LINE} px-2.5 py-1.5 text-left text-[13px] ${INK} ${CARD} ${FOCUS}`}>{display}</button>
       {open && (
-        <ul id={listId} role="listbox" className={`absolute z-10 mt-1 max-h-60 w-[150px] overflow-auto p-1 ${CARD} border ${LINE}`}>
+        <ul id={listId} role="listbox" className={`absolute z-10 mt-1 max-h-60 w-[140px] overflow-auto p-1 ${CARD} border ${LINE}`}>
           {options.map((t) => {
             const isSelected = t === valid;
             return (
               <li key={t} role="option" aria-selected={isSelected} className={isSelected ? "bg-[#8a1f2b] dark:bg-[#c9404f]" : ""}>
-                <button type="button" onClick={() => pick(t)} className={`w-full rounded px-3 py-2 text-left text-[13px] ${isSelected ? "text-[#ffffff]" : `${INK} hover:bg-[#f1ede5] dark:hover:bg-[#14110c]`} ${FOCUS}`}>{formatTime12(t)}</button>
+                <button type="button" onClick={() => pick(t)} className={`w-full rounded px-2.5 py-1.5 text-left text-[13px] ${isSelected ? "font-bold text-[#ffffff]" : `${INK} hover:bg-[#f1ede5] dark:hover:bg-[#14110c]`} ${FOCUS}`}>{formatTime12(t)}</button>
               </li>
             );
           })}
@@ -1757,12 +1757,13 @@ export function DateRangePicker({ start, end, onChange, label = "Date range", mi
   };
   return (
     <fieldset className="m-0 border-0 p-0">
-      <legend className={`text-[13px] font-semibold ${INK}`}>{label}</legend>
-      <div className="mt-1 flex flex-wrap items-start gap-3">
+      <legend className={`text-[11px] font-bold uppercase tracking-[0.14em] ${INK}`}>{label}</legend>
+      <div className="mt-1 flex flex-wrap items-start gap-2">
         <DatePicker value={validStart} onChange={handleStart} label="Start" min={min} max={max} clearable={false} />
         <DatePicker value={validEnd} onChange={handleEnd} label="End" min={min} max={max} clearable={false} invalid={hasError} />
       </div>
-      {clearable && (validStart !== null || validEnd !== null) && (<button type="button" onClick={handleClear} className={`mt-2 rounded border ${LINE} px-3 py-2 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
+      {validStart !== null && validEnd !== null && !hasError && (<div aria-hidden="true" className="mt-2 bg-[#8a1f2b] px-3 py-1.5 text-[12px] font-semibold text-[#ffffff] dark:bg-[#c9404f]">{validStart} → {validEnd}</div>)}
+      {clearable && (validStart !== null || validEnd !== null) && (<button type="button" onClick={handleClear} className={`mt-2 rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
       {hasError && (<p role="alert" className="mt-2 text-[13px] text-[#8a1f2b] dark:text-[#c9404f]">{message}</p>)}
     </fieldset>
   );

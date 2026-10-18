@@ -11,11 +11,39 @@
    "url": "https://oeste.hiddeninwest.com/huntington/r/back-link.json"
   },
   {
+   "id": "calendar",
+   "name": "calendar",
+   "title": "Calendar",
+   "description": "Month grid. One button per day, min/max bounds.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/calendar.json"
+  },
+  {
    "id": "carousel",
    "name": "carousel",
    "title": "Carousel",
    "description": "A horizontal scroll-snap row of tall images.",
    "url": "https://oeste.hiddeninwest.com/huntington/r/carousel.json"
+  },
+  {
+   "id": "chart",
+   "name": "chart",
+   "title": "Chart",
+   "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/chart.json"
+  },
+  {
+   "id": "date-picker",
+   "name": "date-picker",
+   "title": "DatePicker",
+   "description": "Read-only input plus popover calendar. Clear, Today.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/date-picker.json"
+  },
+  {
+   "id": "date-range-picker",
+   "name": "date-range-picker",
+   "title": "DateRangePicker",
+   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/date-range-picker.json"
   },
   {
    "id": "equalizer-bars",
@@ -268,6 +296,13 @@
    "title": "TextLink",
    "description": "The call to action. Bold ink, a 2px underline, nothing else.",
    "url": "https://oeste.hiddeninwest.com/huntington/r/text-link.json"
+  },
+  {
+   "id": "time-picker",
+   "name": "time-picker",
+   "title": "TimePicker",
+   "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/time-picker.json"
   },
   {
    "id": "toggle-tabs",

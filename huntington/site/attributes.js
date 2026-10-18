@@ -8,8 +8,103 @@ const ATTRIBUTES = {
     "rows": [],
     "spreads": []
   },
+  "calendar": {
+    "rows": [
+      {
+        "attr": "aria-disabled",
+        "value": "true | false",
+        "element": "button"
+      },
+      {
+        "attr": "aria-current",
+        "value": "date",
+        "element": "button"
+      },
+      {
+        "attr": "aria-label",
+        "value": "{CAL_MONTHS[view.m - 1]} {d}, {view.y}{isSelected ? \", selected\" : \"\"}",
+        "element": "button"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Previous month",
+        "element": "button"
+      },
+      {
+        "attr": "aria-live",
+        "value": "polite",
+        "element": "div"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Next month",
+        "element": "button"
+      }
+    ],
+    "spreads": []
+  },
   "carousel": {
     "rows": [],
+    "spreads": []
+  },
+  "chart": {
+    "rows": [
+      {
+        "attr": "aria-hidden",
+        "value": "true",
+        "element": "g, span"
+      },
+      {
+        "attr": "role",
+        "value": "img",
+        "element": "svg"
+      },
+      {
+        "attr": "aria-label",
+        "value": "{typeLabel} chart{titleSuffix}. {summary}",
+        "element": "svg"
+      }
+    ],
+    "spreads": []
+  },
+  "date-picker": {
+    "rows": [
+      {
+        "attr": "aria-invalid",
+        "value": "true | false",
+        "element": "input"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Close calendar | Open calendar",
+        "element": "button"
+      },
+      {
+        "attr": "aria-expanded",
+        "value": "true | false",
+        "element": "button"
+      },
+      {
+        "attr": "aria-controls",
+        "value": "popId",
+        "element": "button"
+      },
+      {
+        "attr": "aria-disabled",
+        "value": "true | false",
+        "element": "button"
+      }
+    ],
+    "spreads": []
+  },
+  "date-range-picker": {
+    "rows": [
+      {
+        "attr": "role",
+        "value": "alert",
+        "element": "p"
+      }
+    ],
     "spreads": []
   },
   "equalizer-bars": {
@@ -457,6 +552,41 @@ const ATTRIBUTES = {
   },
   "text-link": {
     "rows": [],
+    "spreads": []
+  },
+  "time-picker": {
+    "rows": [
+      {
+        "attr": "aria-haspopup",
+        "value": "listbox",
+        "element": "button"
+      },
+      {
+        "attr": "aria-expanded",
+        "value": "true | false",
+        "element": "button"
+      },
+      {
+        "attr": "aria-controls",
+        "value": "listId",
+        "element": "button"
+      },
+      {
+        "attr": "role",
+        "value": "listbox",
+        "element": "ul"
+      },
+      {
+        "attr": "role",
+        "value": "option",
+        "element": "li"
+      },
+      {
+        "attr": "aria-selected",
+        "value": "true | false",
+        "element": "li"
+      }
+    ],
     "spreads": []
   },
   "toggle-tabs": {

@@ -712,13 +712,13 @@ function bindDemos() {
 
 function renderHome() {
   return '<p class="eyebrow">Oeste · Component library</p>'
-    + "<h1>One system.<br>Three perspectives.</h1>"
-    + '<p class="lede">Oeste is a design system for humans, AI agents, and vibe coders. Humans design it. Agents understand it. Vibe coders ship it — from the same tokens, the same contracts, the same components.</p>'
+    + "<h1>Three libraries.<br>Three lenses.</h1>"
+    + '<p class="lede">Oeste is a design system for humans, AI agents, and vibe coders. Humans design it. Agents understand it. Vibe coders ship it — from the library they pick.</p>'
     + '<div class="install-bar"><strong>Start building</strong><code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code><button type="button" class="copy-btn" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json">Copy command</button><span class="muted">Install Button via shadcn — see <a href="#/getting-started">Getting started</a>.</span></div>'
-    + '<div class="home-grid"><div><h2>One system. Three perspectives.</h2>'
+    + '<div class="home-grid"><div><h2>Three libraries. Three lenses.</h2>'
     + '<p><strong>Topanga</strong> is the first theme: the hidden canyon in Los Angeles where creatives retreat and build. A canyon is not a stage — it is shelter. That is the feeling Topanga is built to carry: warm paper like sun on a wall, canyon clay, ochre, sagebrush, and precision hairlines. Nothing shouts. Everything is placed on purpose.</p>'
-    + '<p>Oeste is a quieter foundation for three ways of making. One set of tokens, one set of contracts, one set of components — read three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because the system already speaks all three languages.</p></div>'
-    + '<div><h2>Three lenses, one system</h2><ul><li><strong>Human</strong> — anatomy, props, keyboard, accessibility.</li><li><strong>Agent</strong> — JSON contract + copyable prompt, so agents don’t hallucinate props.</li><li><strong>Vibe</strong> — CLI + copy-paste React code, dark-mode-complete.</li></ul>'
+    + '<p>Oeste is three libraries under one roof. Topanga, Huntington, and Mesa each have their own tokens, their own components, their own design. What they share is how they are documented. Every component is written three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because every library already speaks all three languages.</p></div>'
+    + '<div><h2>Three lenses, every component</h2><ul><li><strong>Human</strong> — anatomy, props, keyboard, accessibility.</li><li><strong>Agent</strong> — JSON contract + copyable prompt, so agents don’t hallucinate props.</li><li><strong>Vibe</strong> — CLI + copy-paste React code, dark-mode-complete.</li></ul>'
     + '<p><a class="btn btn-primary" href="#/components">Browse components</a></p></div></div>';
 }
 
@@ -727,7 +727,7 @@ function componentsIndexRows() {
 }
 
 function renderComponentsIndex() {
-  return '<p class="eyebrow">Library</p><h1>Components</h1><p class="lede">All ' + COMPONENTS.length + ' components. One set of tokens, one set of contracts — read three ways.</p>'
+  return '<p class="eyebrow">Library</p><h1>Components</h1><p class="lede">All ' + COMPONENTS.length + ' components, one token set, one contract format — read three ways.</p>'
     + componentsIndexRows();
 }
 
@@ -980,7 +980,7 @@ function renderFirstScreen() {
 }
 
 function renderBuildATheme() {
-  return '<p class="eyebrow">Docs · Guide</p><h1>Build a theme</h1><p class="lede">A theme is a token file. Same names, same components, new values. Topanga is theme #1 — future themes (Huntington, Mesa) follow the same pattern.</p>'
+  return '<p class="eyebrow">Docs · Guide</p><h1>Build a theme</h1><p class="lede">A theme is a token file. Same names, same components, new values. Topanga ships two themes: light and dark.</p>'
     + '<h2>What a theme is</h2><p><code>src/tokens.css</code> + <code>src/tokens.json</code>, with the same token names as Topanga. Components never change. A theme becomes a library when it ships its own token file plus its own docs and changelog.</p>'
     + '<h2>Pick in this order</h2><ol><li><strong>Paper + ink.</strong> Background and text first. They must pass 4.5:1 for normal text.</li><li><strong>One accent + one accentAlt.</strong> Accent is for primary actions. AccentAlt is for secondary emphasis. One of each, not five.</li><li><strong>Semantic tokens: Danger, Success, Warning.</strong> Each must pass 4.5:1 on the background — and read as distinct from each other and from Accent.</li><li><strong>One decorative token.</strong> Topanga has Canyon Rust. It may fail text contrast because it is never text: large accents only, never small error text.</li><li><strong>Dark mode is a second full set, not an inversion.</strong> Lighten Accent and Danger so they hold contrast on the dark background. Topanga dark: accent <code>#DB914E</code>, danger <code>#E07A52</code>, background <code>#121110</code>.</li></ol>'
     + '<h2>Dark mode wiring</h2><p>Set <code>data-theme</code> on <code>&lt;html&gt;</code> before first paint, so there is no flash. A tiny script in <code>&lt;head&gt;</code> reads the saved theme, or the system preference on first visit:</p><pre>&lt;script&gt;\n  const saved = localStorage.getItem(\"oeste-theme\");\n  const theme = saved || (matchMedia(\"(prefers-color-scheme: dark)\").matches ? \"dark\" : \"light\");\n  document.documentElement.dataset.theme = theme;\n&lt;/script&gt;</pre><p>The toggle is a plain button that flips the attribute, saves the choice, and says what it did:</p><pre>function ThemeToggle() {\n  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || \"light\");\n  function toggle() {\n    const next = theme === \"light\" ? \"dark\" : \"light\";\n    document.documentElement.dataset.theme = next;\n    localStorage.setItem(\"oeste-theme\", next);\n    setTheme(next);\n  }\n  return (\n    &lt;button type=\"button\" onClick={toggle} aria-pressed={theme === \"dark\"}\n      aria-label={\"Theme: \" + theme + \". Switch to \" + (theme === \"light\" ? \"dark\" : \"light\") + \".\"}&gt;\n      {theme === \"light\" ? \"Dark\" : \"Light\"}\n    &lt;/button&gt;\n  );\n}</pre><p>Every snippet must be dark-mode-complete: test both themes, not just the one you like.</p>'
@@ -1063,7 +1063,7 @@ const SEARCH_DOCS = [
   { title: "Migration", desc: "Adopting Oeste, from scratch or from the earlier preview.", route: "#/migration", keys: "migration upgrade preview" },
   { title: "FAQ", desc: "Is it an npm package? Tailwind v3/v4? React setups? Commercial use?", route: "#/faq", keys: "faq npm package tailwind react commercial license issue bug" },
   { title: "Components", desc: "All components in the library — browse the full index.", route: "#/components", keys: "components list index browse all" },
-  { title: "Home", desc: "One system. Three perspectives.", route: "#/home", keys: "home overview" },
+  { title: "Home", desc: "Three libraries. Three lenses.", route: "#/home", keys: "home overview" },
 ];
 const SEARCH_TOKENS = [
   ["--color-bg", "Paper #F6F4F1 light / ink #121110 dark", "color", "background bg paper"],

@@ -314,13 +314,13 @@ function bindDemos() {
 
 function renderHome() {
   const installCmd = "npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/header.json";
-  return '<div class="h-hero"><p class="eyebrow" style="margin:0 0 12px">Oeste · Component library</p><h1>One column.<br>Five moods.</h1><p class="h-sub">Huntington is a single-column component library for humans, AI agents, and vibe coders. Humans read the anatomy. Agents read the contract. Vibe coders copy the code — from the same tokens, the same components.</p></div>'
+  return '<div class="h-hero"><p class="eyebrow" style="margin:0 0 12px">Oeste · Component library</p><h1>One column.<br>Five moods.</h1><p class="h-sub">Huntington is a single-column component library for humans, AI agents, and vibe coders. Humans read the anatomy. Agents read the contract. Vibe coders copy the code — from Huntington&rsquo;s own tokens and components.</p></div>'
     + '<div class="demo" style="margin-top:32px"><div class="h-sectitle"><h2>Start building</h2></div><pre style="margin-top:16px">' + esc(installCmd) + '</pre><button type="button" class="copy-btn" data-copy="' + esc(installCmd) + '" style="margin-top:12px">Copy command</button><p class="muted" style="margin:12px 0 0">Install Header via shadcn — see <a href="#/getting-started">Getting started</a>.</p></div>'
     + '<div class="h-sectitle" style="margin-top:44px"><h2>What Huntington means</h2></div>'
     + '<p>Huntington is a single column. One column, 672px wide, hairline borders instead of card shadows, underlined text links instead of filled buttons. Nothing shouts. Everything is placed on purpose.</p>'
     + '<p>Five moods, one dot to cycle them: Paper, Ink, Rose, Sage, Dune. The same components, the same tokens — read five ways. Paper is the default; Ink is the dark one; Rose, Sage, and Dune are quiet color.</p>'
-    + '<p>Huntington is built on the same foundation: one set of tokens, one set of contracts, one set of components — read three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because the system already speaks all three languages.</p>'
-    + '<div class="h-sectitle" style="margin-top:44px"><h2>Three lenses, one system</h2></div>'
+    + '<p>Huntington is one of three Oeste libraries. It has its own tokens, its own components, its own design. What it shares with Topanga and Mesa is how it is documented. Every component is written three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because every library already speaks all three languages.</p>'
+    + '<div class="h-sectitle" style="margin-top:44px"><h2>Three lenses, every component</h2></div>'
     + '<ul><li><strong>Human</strong> — anatomy, props, keyboard, accessibility.</li><li><strong>Agent</strong> — JSON contract + copyable prompt, so agents don’t hallucinate props.</li><li><strong>Vibe</strong> — CLI + copy-paste React code, mood-complete.</li></ul>'
     + '<nav class="h-nextfooter" aria-label="Next"><a class="h-listrow" href="#/components"><span><span class="h-rowtitle">Browse components</span> <span class="h-rowdesc">All ' + COMPONENTS.length + ' components</span></span><span class="h-rowmeta">Next</span></a></nav>';
 }

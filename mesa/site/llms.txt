@@ -1,6 +1,6 @@
 # Mesa — Oeste Design System (v0.2.0)
 
-> Mesa is a universal component library under Oeste. Warm paper, near-black ink, oxblood for status. Dark is the default theme. 67 components. MIT, Copyright (c) 2026 hiddeninwest.
+> Mesa is a universal component library under Oeste. Warm paper, near-black ink, oxblood for status. Dark is the default theme. 68 components. MIT, Copyright (c) 2026 hiddeninwest.
 
 ## For agents
 

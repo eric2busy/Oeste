@@ -31,13 +31,13 @@ const COMPONENTS = [
     code: "import { PageHeader } from \"@/components/ui/page-header\";\n\nexport function Head() {\n  return <PageHeader eyebrow=\"Components\" title=\"File Card\" deck=\"Reference, title, description, meta, assignment.\" reference=\"Ref 01\" ghostNumber=\"01\" />;\n}" },
   { id: "hero", name: "Hero", tagline: "Bignum, H1 with accent em, CTAs, trustline.",
     anatomy: ["Eyebrow (oxblood)", "Bignum-label above the bignum + bignum + optional suffix", "H1 with accent em", "Sub + CTA row + trustline"],
-    props: [["eyebrow", "string", "No", "Mono eyebrow, oxblood."], ["bignum", "string", "No", "Big number."], ["bignumLabel", "string", "No", "Label above the bignum — names what the number counts."], ["bignumSuffix", "string", "No", "Suffix after the bignum (e.g. '+')."], ["title", "string", "Yes", "H1 text."], ["accent", "string", "No", "Accent segment of the H1."], ["sub", "string", "No", "Sub copy, max 56ch."], ["trustlineCount", "string", "No", "Linked count text in the trustline (e.g. '67 components')."], ["trustlineCountHref", "string", "No", "Destination of the trustline count link."], ["trustline", "string", "No", "Trustline statement after the count link."]],
+    props: [["eyebrow", "string", "No", "Mono eyebrow, oxblood."], ["bignum", "string", "No", "Big number."], ["bignumLabel", "string", "No", "Label above the bignum — names what the number counts."], ["bignumSuffix", "string", "No", "Suffix after the bignum (e.g. '+')."], ["title", "string", "Yes", "H1 text."], ["accent", "string", "No", "Accent segment of the H1."], ["sub", "string", "No", "Sub copy, max 56ch."], ["trustlineCount", "string", "No", "Linked count text in the trustline (e.g. '68 components')."], ["trustlineCountHref", "string", "No", "Destination of the trustline count link."], ["trustline", "string", "No", "Trustline statement after the count link."]],
     keyboard: [["Tab", "Move through the CTA buttons."], ["Enter / Space", "Activate the focused CTA."]],
     invariants: ["Bignum-label sits above the bignum (names what the number counts); suffix is a small span after the number.", "Bignum is serif 900, clamp(58px,16vw,124px), tabular, -0.015em.", "H1 em is italic accent-deep (light) / #e87a88 (dark).", "CTA row is 6px below the sub. CTAs are .btn + .btn.ghost; ghost carries a live dot.", "Trustline count link is oxblood (deep in light)."],
     contract: { format: "oeste.component.v1", component: "Hero", props: { title: "string", accent: "string?", bignum: "string?", bignumLabel: "string?", bignumSuffix: "string?", sub: "string?", trustlineCount: "string?", trustlineCountHref: "string?", trustline: "string?" }, a11y: { heading: "single h1", em: "accent segment" } },
     prompt: "Build a Mesa Hero: oxblood eyebrow, bignum-label above the bignum, serif-900 bignum clamp(58px,16vw,124px) with optional small suffix, H1 clamp(27px,6.8vw,42px) with italic accent em (accent-deep light / #e87a88 dark), sub max 56ch, CTA row 6px below sub with .btn + .btn.ghost (ghost carries a live dot), trustline with oxblood count link.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/hero.json",
-    code: "import { Hero } from \"@/components/ui/hero\";\n\nexport function Top() {\n  return <Hero eyebrow=\"Library\" bignum=\"67\" bignumLabel=\"Components\" title=\"One system.\" accent=\"Three lenses.\" sub=\"Description goes here.\" trustlineCount=\"67 components\" trustlineCountHref=\"#/components\" trustline=\"3 lenses, 1 token set.\" />;\n}" },
+    code: "import { Hero } from \"@/components/ui/hero\";\n\nexport function Top() {\n  return <Hero eyebrow=\"Library\" bignum=\"68\" bignumLabel=\"Components\" title=\"Mesa.\" accent=\"Three lenses.\" sub=\"Description goes here.\" trustlineCount=\"68 components\" trustlineCountHref=\"#/components\" trustline=\"3 lenses, 1 token set.\" />;\n}" },
   { id: "status-badge", name: "StatusBadge", tagline: "Live status with a pulsing dot.",
     anatomy: ["Dot (7px ok, 2.2s pulse)", "Label"],
     props: [["children", "ReactNode", "Yes", "Badge label."], ["live", "boolean", "No — true", "Shows the pulsing dot."]],
@@ -744,7 +744,7 @@ function entryHead({ eyebrow, title, deck, ref, ghost }) {
     + "</div>";
 }
 // IndexRow list of every component. Home + the components index share it.
-// Number = position in COMPONENTS (01–67). Tag/id columns show at 900px+.
+// Number = position in COMPONENTS (01–68). Tag/id columns show at 900px+.
 function indexRowsHTML() {
   return '<div class="index-list">' + COMPONENTS.map((c, i) => {
     const n = String(i + 1).padStart(2, "0");
@@ -779,7 +779,7 @@ function demoHTML(c) {
   if (c.id === "site-nav") return '<div class="demo">' + cap + '<header class="topbar" style="position:static"><div class="topbar-inner"><a class="wordmark" href="#/home">mesa</a><nav aria-label="Demo"><a class="nav-link" style="display:inline-block" href="#/home">Home</a><a class="nav-link" style="display:inline-block" href="#/components/button">Components</a></nav><div class="nav-tools"><button type="button" class="m-icon-btn js-open-palette" aria-label="Search">⌕</button></div></div></header></div>';
   if (c.id === "command-palette") return '<div class="demo">' + cap + '<div class="m-palette"><input data-palette-input type="text" placeholder="Search or jump…" aria-label="Search or jump"><div data-palette-list><button type="button" class="m-palette-item" data-palette-item="Button"><span>Button</span><span class="kind">Component</span></button><button type="button" class="m-palette-item" data-palette-item="File Card"><span>File Card</span><span class="kind">Component</span></button><button type="button" class="m-palette-item" data-palette-item="Review Queue"><span>Review Queue</span><span class="kind">Component</span></button></div><p class="m-palette-hint">Enter to open. Escape to close.</p></div><p class="muted">Type to filter. This demo shows the palette box; the full overlay has a scrim.</p></div>';
   if (c.id === "page-header") return '<div class="demo"><div class="m-page-header"><p class="m-kicker faint">Components</p><h1>File Card</h1><p class="deck">Reference, title, description, meta, assignment.</p><p class="ref">Ref 01</p><span class="m-ghost-num" aria-hidden="true">01</span></div></div>';
-  if (c.id === "hero") return '<div class="demo"><section class="m-hero-demo"><p class="m-kicker">Library</p><p class="m-hero-label">Components</p><p class="m-hero-bignum">67</p><h1 class="m-hero-h1">One system. <em>Three lenses.</em></h1><p class="lede">Description goes here.</p><div class="cta-row"><button type="button" class="m-btn">Get started</button><button type="button" class="m-btn m-btn-ghost"><span class="m-btn-dot" aria-hidden="true"></span>Browse components</button></div><p class="m-hero-trust"><a class="m-countlink" href="#/components"><strong>67 components</strong></a> · Trusted by teams.</p></section></div>';
+  if (c.id === "hero") return '<div class="demo"><section class="m-hero-demo"><p class="m-kicker">Library</p><p class="m-hero-label">Components</p><p class="m-hero-bignum">68</p><h1 class="m-hero-h1">Mesa. <em>Three lenses.</em></h1><p class="lede">Description goes here.</p><div class="cta-row"><button type="button" class="m-btn">Get started</button><button type="button" class="m-btn m-btn-ghost"><span class="m-btn-dot" aria-hidden="true"></span>Browse components</button></div><p class="m-hero-trust"><a class="m-countlink" href="#/components"><strong>68 components</strong></a> · Trusted by teams.</p></section></div>';
   if (c.id === "status-badge") return '<div class="demo">' + cap + '<span class="m-status-badge"><span class="dot" aria-hidden="true"></span>All systems live</span></div>';
   if (c.id === "file-card") return '<div class="demo">' + cap + '<a class="m-file-card" href="#/components/file-card"><span class="m-file-ref">Ref 01</span><span class="m-file-title">Title goes here.</span><span class="muted" style="display:block">Description goes here.</span><span class="muted" style="display:block;font-size:13px;margin-top:8px">Meta goes here.</span><span class="m-assignment awaiting"><span class="lamp" aria-hidden="true"></span>Awaiting</span></a></div>';
   if (c.id === "folder-card") return '<div class="demo"><div class="demo-row"><article class="m-folder-card"><span class="m-stamp" style="position:absolute;right:16px;top:16px;border-color:var(--color-stamp-open);color:var(--color-stamp-open)">Open</span><p class="m-file-ref">Folder</p><h3 class="m-folder-title">Folder title</h3><p class="m-folder-meta">Meta goes here.</p><p class="m-folder-metarow"><span>Items <strong>12</strong></span></p><span class="m-assignment on"><span class="lamp" aria-hidden="true"></span>Assigned</span></article><article class="m-folder-card"><span class="m-stamp" style="position:absolute;right:16px;top:16px;border-color:var(--color-stamp-new);color:var(--color-stamp-new)">New</span><p class="m-file-ref">Folder</p><h3 class="m-folder-title">Second folder</h3><p class="m-folder-meta">Meta goes here.</p></article></div></div>';
@@ -1092,8 +1092,8 @@ function renderHome() {
   const installCmd = "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json";
   return '<section class="m-hero-demo">'
     + '<p class="m-kicker">Oeste · Mesa</p>'
-    + '<h1 class="m-hero-h1">One system. <em>Three lenses.</em></h1>'
-    + '<p class="lede">Mesa is a universal component library under Oeste, for humans, AI agents, and vibe coders — one set of tokens, one set of contracts, one set of components, read three ways.</p>'
+    + '<h1 class="m-hero-h1">Mesa. <em>Three lenses.</em></h1>'
+    + '<p class="lede">Mesa is a component library under Oeste, for humans, AI agents, and vibe coders — one token set, one contract format, read three ways.</p>'
     + "</section>"
     + '<section class="m-start-here"><h3>Start building</h3>'
     + '<p class="m-install-cmd"><code>' + installCmd + "</code></p>"
@@ -1101,9 +1101,9 @@ function renderHome() {
     + '<p>Install Button via shadcn — see <a href="#/getting-started">Getting started</a>.</p></section>'
     + '<section class="m-home-block"><h2>What Mesa means</h2>'
     + "<p>Mesa is the feeling of a flat surface at the edge of the day \u2014 warm paper, near-black ink, one deep red for status. The light is low and golden, the work is laid out in front of you, and nothing shouts.</p>"
-    + "<p>Mesa is a universal component library under Oeste, built on the shared foundation: one set of tokens, one set of contracts, one set of components. The theme is Mesa\u2019s own \u2014 warm paper, near-black ink, oxblood for status \u2014 but the structure belongs to Oeste.</p>"
-    + "<p>Mesa is a quieter foundation for three ways of making. One set of tokens, one set of contracts, one set of components \u2014 read three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because the system already speaks all three languages.</p></section>"
-    + '<section class="m-home-block"><h2>Three lenses, one system</h2>'
+    + "<p>Mesa is a component library under Oeste, with its own tokens, its own components, its own design. The theme is Mesa\u2019s own \u2014 warm paper, near-black ink, oxblood for status. What it shares with the other libraries is how it is documented: three lenses on every component.</p>"
+    + "<p>Mesa is one of three Oeste libraries. It has its own tokens, its own components, its own design. What it shares with Topanga and Huntington is how it is documented. Every component is written three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because every library already speaks all three languages.</p></section>"
+    + '<section class="m-home-block"><h2>Three lenses, every component</h2>'
     + "<ul><li><strong>Human</strong> \u2014 anatomy, props, keyboard, accessibility.</li>"
     + "<li><strong>Agent</strong> \u2014 JSON contract + copyable prompt, so agents don\u2019t hallucinate props.</li>"
     + "<li><strong>Vibe</strong> \u2014 CLI + copy-paste React code, dark-mode-complete.</li></ul></section>"
@@ -1111,7 +1111,7 @@ function renderHome() {
 }
 
 function renderComponentsIndex() {
-  return entryHead({ eyebrow: "Docs", title: "Components", deck: "Every Mesa component, one index. 67 components.", ref: "Ref 00", ghost: "00" })
+  return entryHead({ eyebrow: "Docs", title: "Components", deck: "Every Mesa component, one index. 68 components.", ref: "Ref 00", ghost: "00" })
     + indexRowsHTML();
 }
 
@@ -1372,7 +1372,7 @@ function renderMigration() {
        ["<code>--radius-lg</code> etc. (shared scale)", "Per-component radii — no shared scale."],
        ["<code>--space-*</code> (shared scale)", "No spacing scale. Use the observed values per component."],
        ["Light default", "Dark default."],
-       ["29 components", "67 components (72 Figma variants + 11 site-derived)."]]
+       ["29 components", "68 components (72 Figma variants + 11 site-derived + DataGrid)."]]
       .map(([a, b]) => "<tr><td>" + a + "</td><td>" + b + "</td></tr>").join("")
     + "</tbody></table>"
     + "<p>Do not mix themes: pick one theme per surface. Components are identical in structure; only tokens change.</p>";
@@ -1467,7 +1467,7 @@ const SEARCH_DOCS = [
   { title: "Migration", desc: "Adopting Mesa, from scratch or from Topanga.", route: "#/migration", keys: "migration upgrade topanga" },
   { title: "FAQ", desc: "Is it an npm package? Tailwind v3/v4? React setups? Commercial use?", route: "#/faq", keys: "faq npm package tailwind react commercial license issue bug" },
   { title: "Guides", desc: "Every guide, one index. 12 guides.", route: "#/guides", keys: "guides docs index how to" },
-  { title: "Home", desc: "One system. Three lenses.", route: "#/home", keys: "home overview" },
+  { title: "Home", desc: "Mesa. Three lenses.", route: "#/home", keys: "home overview" },
 ];
 const SEARCH_TOKENS = [
   ["--color-bg", "Paper #FAF9F7 light / #100E0B dark", "color", "background bg paper"],

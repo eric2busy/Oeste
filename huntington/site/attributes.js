@@ -21,7 +21,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "{label} | Playing",
         "element": "span"
       },
       {
@@ -41,7 +41,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-controls",
-        "value": "true | false",
+        "value": "id",
         "element": "button"
       },
       {
@@ -166,7 +166,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "alt",
         "element": "span"
       }
     ],
@@ -181,7 +181,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "alt",
         "element": "span"
       }
     ],
@@ -284,7 +284,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-controls",
-        "value": "true | false",
+        "value": "id",
         "element": "button"
       },
       {
@@ -334,7 +334,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-controls",
-        "value": "true | false",
+        "value": "id",
         "element": "button"
       }
     ],
@@ -349,7 +349,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "button"
       },
       {
@@ -364,7 +364,7 @@ const ATTRIBUTES = {
     "rows": [
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "placeholder",
         "element": "input"
       },
       {
@@ -374,7 +374,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-controls",
-        "value": "true | false",
+        "value": "listId",
         "element": "input"
       },
       {

@@ -38,7 +38,7 @@ const ATTRIBUTES = {
     "rows": [
       {
         "attr": "role",
-        "value": "true | false",
+        "value": "role",
         "element": "div"
       }
     ],
@@ -53,7 +53,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "name",
         "element": "span"
       },
       {
@@ -72,7 +72,7 @@ const ATTRIBUTES = {
     "rows": [
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "ariaLabel",
         "element": "nav"
       },
       {
@@ -107,7 +107,7 @@ const ATTRIBUTES = {
     "rows": [
       {
         "attr": "aria-labelledby",
-        "value": "true | false",
+        "value": "id",
         "element": "section"
       }
     ],
@@ -172,7 +172,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "ul"
       },
       {
@@ -207,7 +207,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-describedby",
-        "value": "true | false",
+        "value": "{errorId} {hintId}",
         "element": "input"
       },
       {
@@ -259,7 +259,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "span"
       }
     ],
@@ -289,7 +289,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "div"
       }
     ],
@@ -339,7 +339,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "div"
       },
       {

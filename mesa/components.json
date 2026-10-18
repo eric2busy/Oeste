@@ -69,6 +69,17 @@
    ]
   },
   {
+   "id": "chart",
+   "name": "Chart",
+   "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/chart.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/chart.json",
+   "docsUrl": "#/components/chart",
+   "tags": [
+    "data"
+   ]
+  },
+  {
    "id": "citations",
    "name": "Citations",
    "description": "Numbered citation rows.",

@@ -46,6 +46,13 @@
    "url": "https://oeste.hiddeninwest.com/mesa/r/button.json"
   },
   {
+   "id": "chart",
+   "name": "chart",
+   "title": "Chart",
+   "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/chart.json"
+  },
+  {
    "id": "citations",
    "name": "citations",
    "title": "Citations",

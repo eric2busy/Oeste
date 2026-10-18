@@ -1411,6 +1411,120 @@ export function DataGrid({ columns = [], rows = [], rowKey = "id", pageSize = 10
   );
 }
 
+const CHART_PALETTE = [
+  "fill-[#8a1f2b] dark:fill-[#c9404f]",
+  "fill-[#181b1f] dark:fill-[#ece3d0]",
+  "fill-[#5b5f65] dark:fill-[#a79b82]",
+  "fill-[#3f9e4d]",
+  "fill-[#e8c56a]",
+];
+const CHART_PALETTE_BG = [
+  "bg-[#8a1f2b] dark:bg-[#c9404f]",
+  "bg-[#181b1f] dark:bg-[#ece3d0]",
+  "bg-[#5b5f65] dark:bg-[#a79b82]",
+  "bg-[#3f9e4d]",
+  "bg-[#e8c56a]",
+];
+const CHART_STROKE = "stroke-[#8a1f2b] dark:stroke-[#c9404f]";
+const CHART_GRID = "stroke-[#ddd6c7] dark:stroke-[#2e2720]";
+
+export function Chart({ type = "bar", data = [], title, height = 240, showTable = true }) {
+  const rows = (Array.isArray(data) ? data : []).map((d) => ({ label: String(d && d.label != null ? d.label : ""), value: Math.max(0, Number(d && d.value) || 0) }));
+  const n = rows.length;
+  const max = rows.reduce((m, r) => Math.max(m, r.value), 0);
+  const total = rows.reduce((s, r) => s + r.value, 0);
+  const min = n > 0 ? rows.reduce((m, r) => Math.min(m, r.value), Infinity) : 0;
+  const typeLabel = type === "line" ? "Line" : type === "area" ? "Area" : type === "pie" ? "Pie" : type === "donut" ? "Donut" : "Bar";
+  const isPie = type === "pie" || type === "donut";
+  if (n === 0 || max <= 0 || (isPie && total <= 0)) {
+    return (<p className={`text-[14px] ${SOFT}`}>No data.</p>);
+  }
+  const H = Math.max(height || 240, 120);
+  const pct = (v) => ((v / total) * 100).toFixed(1) + "%";
+  const shortLabel = (s) => (s.length > 12 ? s.slice(0, 11) + "…" : s);
+  const titleSuffix = title ? ": " + title : "";
+  const summary = isPie ? `${n} slices, total ${total}.` : `${n} categories, values from ${min} to ${max}.`;
+  const caption = (title ? `${title} — ${typeLabel} chart. ` : `${typeLabel} chart. `) + "The table lists every value shown in the chart.";
+  const niceStep = (m) => { const raw = m / 4; const mag = Math.pow(10, Math.floor(Math.log10(raw))); const norm = raw / mag; if (norm <= 1) return mag; if (norm <= 2) return 2 * mag; if (norm <= 2.5) return 2.5 * mag; if (norm <= 5) return 5 * mag; return 10 * mag; };
+  const renderAxes = () => {
+    const LEFT = 44, RIGHT = 12, TOP = 12, BOTTOM = 28;
+    const plotW = 640 - LEFT - RIGHT;
+    const plotH = H - TOP - BOTTOM;
+    const step = niceStep(max);
+    const tickMax = step * 4;
+    const y = (v) => TOP + plotH * (1 - v / tickMax);
+    const baseline = y(0);
+    const slotW = plotW / n;
+    const cx = (i) => LEFT + (i + 0.5) * slotW;
+    const ticks = [0, step, step * 2, step * 3, step * 4];
+    const grid = ticks.map((t) => (<g key={t} aria-hidden="true"><line x1={LEFT} x2={LEFT + plotW} y1={y(t)} y2={y(t)} className={CHART_GRID} strokeWidth="1" /><text x={LEFT - 6} y={y(t) + 4} textAnchor="end" className={`text-[11px] ${SOFT}`} fill="currentColor">{String(t)}</text></g>));
+    const cats = rows.map((r, i) => (<text key={i} x={cx(i)} y={baseline + 18} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor">{shortLabel(r.label)}</text>));
+    return { LEFT, TOP, plotW, plotH, y, baseline, slotW, cx, grid, cats };
+  };
+  const renderBars = () => {
+    const a = renderAxes();
+    const barW = Math.min(a.slotW * 0.6, 48);
+    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{rows.map((r, i) => { const x = a.cx(i) - barW / 2; const h = a.baseline - a.y(r.value); return (<g key={i}><rect x={x} y={a.y(r.value)} width={barW} height={Math.max(h, 0)} className={CHART_PALETTE[0]} /><text x={a.cx(i)} y={a.y(r.value) - 5} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor">{String(r.value)}</text></g>); })}{a.cats}</g>);
+  };
+  const renderLineArea = () => {
+    const a = renderAxes();
+    const pts = rows.map((r, i) => [a.cx(i), a.y(r.value)]);
+    const linePts = pts.map((p) => p.join(",")).join(" ");
+    const areaD = `M ${pts[0].join(" ")} ` + pts.slice(1).map((p) => `L ${p.join(" ")}`).join(" ") + ` L ${pts[pts.length - 1][0]},${a.baseline} L ${pts[0][0]},${a.baseline} Z`;
+    return (<g aria-hidden="true">{a.grid}<line x1={a.LEFT} x2={a.LEFT + a.plotW} y1={a.baseline} y2={a.baseline} className={CHART_GRID} strokeWidth="1" />{type === "area" && <path d={areaD} className={CHART_PALETTE[0]} fillOpacity="0.15" stroke="none" />}<polyline points={linePts} fill="none" className={CHART_STROKE} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />{pts.map((p, i) => (<g key={i}><circle cx={p[0]} cy={p[1]} r="4" className={CHART_PALETTE[0]} stroke="#ffffff" strokeWidth="1.5" /><text x={p[0]} y={p[1] - 9} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor">{String(rows[i].value)}</text></g>))}{a.cats}</g>);
+  };
+  const renderPie = () => {
+    const cx = 320, cy = H / 2;
+    const R = Math.min(320, H / 2) - 20;
+    const inner = type === "donut" ? R * 0.55 : 0;
+    let acc = 0;
+    const polar = (angleDeg, radius) => { const a = ((angleDeg - 90) * Math.PI) / 180; return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)]; };
+    const slices = rows.map((r, i) => { const start = (acc / total) * 360; acc += r.value; const end = (acc / total) * 360; const large = end - start > 180 ? 1 : 0; const [x1, y1] = polar(start, R); const [x2, y2] = polar(end, R); let d; if (type === "donut") { const [ix2, iy2] = polar(end, inner); const [ix1, iy1] = polar(start, inner); d = `M ${x1},${y1} A ${R},${R} 0 ${large} 1 ${x2},${y2} L ${ix2},${iy2} A ${inner},${inner} 0 ${large} 0 ${ix1},${iy1} Z`; } else { d = `M ${cx},${cy} L ${x1},${y1} A ${R},${R} 0 ${large} 1 ${x2},${y2} Z`; } const mid = (start + end) / 2; const labelR = type === "donut" ? (R + inner) / 2 : R * 0.68; const [lx, ly] = polar(mid, labelR); return { r, i, d, lx, ly }; });
+    return (<g aria-hidden="true">{slices.map((s) => (<g key={s.i}><path d={s.d} className={CHART_PALETTE[s.i % CHART_PALETTE.length]} stroke="#ffffff" strokeWidth="1" /><text x={s.lx} y={s.ly} textAnchor="middle" className={`text-[11px] ${INK}`} fill="currentColor"><tspan x={s.lx} dy="-1">{shortLabel(rows[s.i].label)}</tspan><tspan x={s.lx} dy="13">{pct(rows[s.i].value)}</tspan></text></g>))}{type === "donut" && (<g><text x={cx} y={cy - 2} textAnchor="middle" className={`text-[20px] font-bold ${INK}`} fill="currentColor">{String(total)}</text><text x={cx} y={cy + 16} textAnchor="middle" className={`text-[11px] ${SOFT}`} fill="currentColor">total</text></g>)}</g>);
+  };
+  return (
+    <section>
+      <svg role="img" aria-label={`${typeLabel} chart${titleSuffix}. ${summary}`} viewBox={`0 0 640 ${H}`} width="100%" style={{ display: "block", overflow: "visible" }}>
+        {type === "bar" && renderBars()}
+        {(type === "line" || type === "area") && renderLineArea()}
+        {isPie && renderPie()}
+      </svg>
+      {isPie && (
+        <ul className="mt-3 list-none p-0">
+          {rows.map((r, i) => (
+            <li key={i} className="flex items-center gap-2 py-1">
+              <span aria-hidden="true" className={`inline-block h-3 w-3 shrink-0 ${CHART_PALETTE_BG[i % CHART_PALETTE_BG.length]}`} />
+              <span className={`text-[13px] ${INK}`}>{r.label}</span>
+              <span className={`ml-auto text-[13px] ${SOFT}`}>{String(r.value)} ({pct(r.value)})</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {showTable && (
+        <table className="mt-3 w-full border-collapse">
+          <caption className={`text-left text-[13px] ${SOFT}`}>{caption}</caption>
+          <thead>
+            <tr>
+              <th scope="col" className={`border-b ${LINE} px-3 py-2 text-left`}>Label</th>
+              <th scope="col" className={`border-b ${LINE} px-3 py-2 text-left`}>Value</th>
+              {isPie && <th scope="col" className={`border-b ${LINE} px-3 py-2 text-left`}>Percent</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i}>
+                <th scope="row" className={`border-b ${LINE} px-3 py-2 text-left font-semibold ${INK}`}>{r.label}</th>
+                <td className={`border-b ${LINE} px-3 py-2 ${INK}`}>{String(r.value)}</td>
+                {isPie && <td className={`border-b ${LINE} px-3 py-2 ${INK}`}>{pct(r.value)}</td>}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
+  );
+}
+
 export const COMPONENT_DOCS = [
   {
     id: "site-nav",
@@ -1751,5 +1865,10 @@ export const COMPONENT_DOCS = [
     id: "data-grid",
     name: "DataGrid",
     tagline: "Sortable, filterable, pageable data grid.",
+  },
+  {
+    id: "chart",
+    name: "Chart",
+    tagline: "Bar, line, area, pie, donut. One series, SVG + data table.",
   },
 ];

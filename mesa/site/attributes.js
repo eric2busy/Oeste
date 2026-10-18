@@ -56,6 +56,26 @@ const ATTRIBUTES = {
     "rows": [],
     "spreads": []
   },
+  "chart": {
+    "rows": [
+      {
+        "attr": "aria-hidden",
+        "value": "true",
+        "element": "g, span"
+      },
+      {
+        "attr": "role",
+        "value": "img",
+        "element": "svg"
+      },
+      {
+        "attr": "aria-label",
+        "value": "{typeLabel} chart{titleSuffix}. {summary}",
+        "element": "svg"
+      }
+    ],
+    "spreads": []
+  },
   "citations": {
     "rows": [],
     "spreads": []
@@ -292,7 +312,7 @@ const ATTRIBUTES = {
     "rows": [
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "button"
       },
       {
@@ -334,7 +354,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "label",
         "element": "button"
       },
       {
@@ -471,7 +491,7 @@ const ATTRIBUTES = {
     "rows": [
       {
         "attr": "aria-label",
-        "value": "true | false",
+        "value": "ariaLabel",
         "element": "select"
       },
       {

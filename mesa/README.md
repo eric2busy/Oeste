@@ -13,7 +13,7 @@ The library is for humans, AI agents, and vibe coders. You are reading it on the
 
 **Docs site:** https://oeste.hiddeninwest.com/mesa/
 **Registry:** https://oeste.hiddeninwest.com/mesa/r/
-**Status:** v0.2.0 · 68 components · MIT
+**Status:** v0.2.0 · 69 components · MIT
 
 ---
 
@@ -116,7 +116,7 @@ House easing: `cubic-bezier(.22,1,.36,1)`. Reveal: fade + rise 10px, 0.5s / 0.55
 
 Shadows exist only on the command palette box, file-card hover, folder hover, and the stamp-hit strike (dark only). Everything else uses hairline borders only. Focus rings are 3px oxblood at 12% (theme-aware).
 
-## Components (68)
+## Components (69)
 
 | Component | What it does |
 | --- | --- |
@@ -129,6 +129,7 @@ Shadows exist only on the command palette box, file-card hover, folder hover, an
 | FolderCard | Stamped folder with a meta row. |
 | DataTable | Rows with reference, title, meta, assignment. |
 | DataGrid | Sortable, filterable, pageable data grid. |
+| Chart | Bar, line, area, pie, donut. One series, SVG + data table. |
 | Pill | Small uppercase status. |
 | Stamp | Rotated status mark. |
 | AssignmentLine | Lamp plus status text. |
@@ -189,7 +190,7 @@ Shadows exist only on the command palette box, file-card hover, folder hover, an
 | Select | Native select with custom chevron. |
 | OptionRow | Bordered radio option row. |
 
-Variant sets: Folder Card (Open, New), Pill (Type, Open, Verifying, Reward, Indexed, Flag), Stamp (Default, Ok, Dim, Warn), Assignment Line (Awaiting, On), Button (Primary, Solid, Ghost, Solid Small), Filter Chip (Default, Active), Forum Control (Default, On), Profile Avatar (Default, Lg, Xl). 68 logical components: 56 from Figma (72 variants) + 11 derived from the live prototype site + DataGrid.
+Variant sets: Folder Card (Open, New), Pill (Type, Open, Verifying, Reward, Indexed, Flag), Stamp (Default, Ok, Dim, Warn), Assignment Line (Awaiting, On), Button (Primary, Solid, Ghost, Solid Small), Filter Chip (Default, Active), Forum Control (Default, On), Profile Avatar (Default, Lg, Xl). 69 logical components: 56 from Figma (72 variants) + 11 derived from the live prototype site + DataGrid + Chart.
 
 ## Docs site
 
@@ -214,7 +215,7 @@ site/
   app.js               # docs content + router + search
   styles.css           # docs styles
 src/
-  index.js             # 68 components + DESIGN_TOKENS + COMPONENT_DOCS
+  index.js             # 69 components + DESIGN_TOKENS + COMPONENT_DOCS
   tokens.css           # Mesa custom properties (both themes)
   tokens.json          # Mesa tokens (canonical)
 vercel.json
@@ -227,7 +228,7 @@ python3 scripts/build_registry.py   # regen registry after src/index.js changes
 node scripts/verify.mjs            # token agreement + contrast + registry agreement
 ```
 
-`verify.mjs` checks: no stray `*/` outside comments (a premature `*/` once killed the whole light token block); every color token agrees across CSS, JSON, and JS for both themes; every radius key exists in CSS; every text pair meets WCAG AA 4.5:1; code-highlight colors meet 4.5:1 on surface; the manifest and index each have 68 items; every registry item parses, exports its component, and carries the right URLs.
+`verify.mjs` checks: no stray `*/` outside comments (a premature `*/` once killed the whole light token block); every color token agrees across CSS, JSON, and JS for both themes; every radius key exists in CSS; every text pair meets WCAG AA 4.5:1; code-highlight colors meet 4.5:1 on surface; the manifest and index each have 69 items; every registry item parses, exports its component, and carries the right URLs.
 
 ## Contrast exceptions (documented, not hidden)
 

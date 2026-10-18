@@ -607,6 +607,15 @@ COMPONENTS.push(
     prompt: "Build a Mesa OptionRow: label wrapping a radio, flex gap 12, 1px line border, radius 6, padding 14, margin-bottom 10, cursor pointer, paper bg, 18x18 radio with margin-top 3 and accent-color oxblood-deep, 15px label text.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/option-row.json",
     code: "import { useState } from \"react\";\nimport { OptionRow } from \"@/components/ui/option-row\";\n\nexport function Choice() {\n  const [value, setValue] = useState(\"note\");\n  return <div><OptionRow name=\"type\" value=\"note\" checked={value === \"note\"} onChange={setValue}>Note</OptionRow><OptionRow name=\"type\" value=\"question\" checked={value === \"question\"} onChange={setValue}>Question</OptionRow></div>;\n}" },
+  { id: "data-grid", name: "DataGrid", tagline: "Sortable, filterable, pageable data grid.",
+    anatomy: ["Toolbar (Export CSV + selected count)", "Header row (sort buttons + pin toggles)", "Filter row (per-column inputs)", "Group header (collapsible, when groupBy)", "Data rows (cells + selection checkbox)", "Pagination (prev/next, page indicator, page-size selector)"],
+    props: [["columns", "{ key, label, sortable?, width?, align? }[]", "Yes", "Column definitions. align is left | right | center."], ["rows", "object[]", "Yes", "Rows, keyed by column key."], ["rowKey", "string", "No — id", "Unique key field for selection and identity."], ["pageSize", "number", "No — 10", "Rows per page. Selector offers 10 / 25 / 50 / 100."], ["selectable", "boolean", "No — false", "Enables row selection with checkboxes."], ["groupBy", "string", "No", "Column key to group rows by."], ["initialSort", "{ key, direction: asc | desc }", "No", "Initial sort. Click a header to cycle asc, desc, none."]],
+    keyboard: [["Tab", "Move through sort buttons, filter inputs, pin toggles, checkboxes, group toggles, pagination, and export."], ["Enter / Space", "On a sort button: cycle asc, desc, none. On a checkbox: toggle selection. On a pin toggle: pin or unpin. On a group toggle: collapse or expand."], ["Type", "Filter inputs filter that column by substring, case-insensitive."]],
+    invariants: ["Semantic table: caption with row count, thead, tbody, th scope col, first column th scope row.", "Sort: button in th cycles asc, desc, none; aria-sort on th. Only columns with sortable !== false sort.", "Filter: per-column text input in the filter row, substring match, case-insensitive. Filtering resets to page 1.", "Pagination: prev/next, Page X of Y, page-size selector 10 / 25 / 50 / 100. Only the current page renders (pagination is the virtualization). Pagination resets to page 1 when sort, filter, or grouping change.", "Selection (selectable): checkbox column, header select-all, aria-selected on rows, N selected count (aria-live polite). Selection persists across pages.", "Pinning: pin toggle in th, aria-pressed, pinned columns render first with position sticky left. At least one column stays unpinned.", "Grouping (groupBy): filter, then group, then sort within groups. Group header button with aria-expanded + count. Collapsed groups hide their rows but still occupy page slots; expand a group to see its rows. Grouping changes reset to page 1.", "CSV export: Export CSV downloads the filtered + sorted set (before pagination) as a .csv file, commas/quotes/newlines escaped.", "Selected rows: check + oxblood wash + aria-selected, never color alone."],
+    contract: { format: "oeste.component.v1", component: "DataGrid", props: { columns: "array", rows: "array", rowKey: "string", pageSize: "number", selectable: "boolean", groupBy: "string?", initialSort: "object?" }, a11y: { table: "semantic table + caption + th scope", sort: "button in th + aria-sort", filter: "input + aria-label", select: "checkbox + aria-selected", group: "button + aria-expanded", pin: "button + aria-pressed" } },
+    prompt: "Build a Mesa DataGrid: semantic table with caption, sort buttons in th with aria-sort cycling asc, desc, none, per-column filter inputs in a filter row, pagination with Page X of Y + page-size 10/25/50/100 (only the current page renders), selectable checkboxes with aria-selected + N selected count, pin toggles with aria-pressed (pinned columns render first, sticky left, at least one column stays unpinned), collapsible group headers with aria-expanded + count (collapsed groups hide their rows but still occupy page slots), grouping changes reset to page 1, CSV export of the filtered + sorted set. Selected rows use a check + oxblood wash + aria-selected, never color alone. Pagination is the virtualization; do not claim a separate virtualized scroll window.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/data-grid.json",
+    code: "import { DataGrid } from \"@/components/ui/data-grid\";\n\nexport function Grid() {\n  const columns = [{ key: \"name\", label: \"Name\", sortable: true }, { key: \"status\", label: \"Status\" }];\n  const rows = [{ id: \"1\", name: \"Item A\", status: \"Open\" }, { id: \"2\", name: \"Item B\", status: \"Done\" }];\n  return <DataGrid columns={columns} rows={rows} selectable />;\n}" },
 );
 
 // Functional group per component id, mirroring TAGS in scripts/build_registry.py.
@@ -617,7 +626,7 @@ const TAGS = {
   "page-header": "content", "hero": "content", "section-head": "content", "kicker": "content",
   "ghost-number": "content", "disclaimer": "content", "pledge": "content", "cta-band": "content",
   "start-here": "content",
-  "file-card": "data", "folder-card": "data", "data-table": "data", "stats-band": "data",
+  "file-card": "data", "folder-card": "data", "data-table": "data", "data-grid": "data", "stats-band": "data",
   "activity-feed": "data", "activity-entry": "data", "steps-list": "data", "detail-card": "data",
   "summary-card": "data", "pipeline-strip": "data", "timeline": "data", "media-card": "data",
   "open-questions": "data", "coverage-list": "data", "source-list": "data", "citations": "data",
@@ -834,6 +843,7 @@ function demoHTML(c) {
   if (c.id === "index-row") return '<div class="demo"><div class="index-list"><a class="m-index-row" href="#/components/button"><span class="m-index-num">01</span><span class="m-index-main"><h3 class="m-index-title">Button</h3><span class="m-index-desc">Primary, solid, ghost, solid small.</span></span><span class="m-index-tag">controls</span><span class="m-index-id">button</span><span class="m-index-go" aria-hidden="true">→</span></a><a class="m-index-row" href="#/components/file-card"><span class="m-index-num">02</span><span class="m-index-main"><h3 class="m-index-title">File Card</h3><span class="m-index-desc">Reference, title, description, meta, assignment.</span></span><span class="m-index-tag">data</span><span class="m-index-id">file-card</span><span class="m-index-go" aria-hidden="true">→</span></a><div class="m-index-row dim"><span class="m-index-num">03</span><span class="m-index-main"><h3 class="m-index-title">Dim row</h3><span class="m-index-desc">Not a link. No hover, no arrow.</span></span><span class="m-index-tag">data</span><span class="m-index-id">dim</span></div></div></div>';
   if (c.id === "select") return '<div class="demo">' + cap + '<div class="field" style="max-width:420px"><label for="demoSelect">Choose one</label><span class="m-select-wrap"><select id="demoSelect" data-demo-select><option value="" disabled selected>Choose one</option><option value="a">Option A</option><option value="b">Option B</option></select></span></div></div>';
   if (c.id === "option-row") return '<div class="demo">' + cap + '<fieldset style="border:0;padding:0;margin:0;max-width:520px"><legend class="sr-only">Type</legend><label class="m-option-row"><input type="radio" name="demoOption" value="note" checked> Note</label><label class="m-option-row"><input type="radio" name="demoOption" value="question"> Question</label></fieldset></div>';
+  if (c.id === "data-grid") return '<div class="demo">' + cap + '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px"><button type="button" data-grid-export class="m-btn m-btn-ghost">Export CSV</button><p aria-live="polite" data-grid-selected class="muted" style="margin:0;font-size:13px">0 selected</p></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><caption class="muted" style="text-align:left;font-size:13px">Data grid demo. Sort with the header buttons, filter with the filter row, page with the pagination controls.</caption><thead><tr><th scope="col"><input type="checkbox" data-grid-select-all aria-label="Select all rows"></th><th scope="col" data-grid-th="name" aria-sort="none"><button type="button" data-grid-sort="name">Name</button></th><th scope="col" data-grid-th="status" aria-sort="none"><button type="button" data-grid-sort="status">Status</button></th><th scope="col" data-grid-th="score" aria-sort="none"><button type="button" data-grid-sort="score">Score</button></th></tr><tr><td></td><td><input type="text" data-grid-filter="name" placeholder="Filter Name" aria-label="Filter Name" style="width:100%;border:1px solid var(--color-border);border-radius:6px;background:var(--color-bg);color:var(--color-text);padding:8px 10px;font-size:13px"></td><td><input type="text" data-grid-filter="status" placeholder="Filter Status" aria-label="Filter Status" style="width:100%;border:1px solid var(--color-border);border-radius:6px;background:var(--color-bg);color:var(--color-text);padding:8px 10px;font-size:13px"></td><td><input type="text" data-grid-filter="score" placeholder="Filter Score" aria-label="Filter Score" style="width:100%;border:1px solid var(--color-border);border-radius:6px;background:var(--color-bg);color:var(--color-text);padding:8px 10px;font-size:13px"></td></tr></thead><tbody data-grid-body></tbody></table></div><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:12px"><button type="button" data-grid-prev class="m-btn m-btn-ghost">Previous</button><span data-grid-page class="muted" style="font-size:13px">Page 1 of 3</span><button type="button" data-grid-next class="m-btn m-btn-ghost">Next</button></div></div>';
   return "";
 }
 
@@ -961,6 +971,117 @@ function bindDemos() {
   const patSubmit = document.querySelector("[data-pattern-submit]");
   if (patSubmit) patSubmit.addEventListener("click", () => showToast("Submitted for review. Nothing was sent or stored."));
   document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", () => copyText(b.dataset.copy, "Copied")));
+  // DataGrid demo: sort, filter, paginate, select, export over 12 rows.
+  const gridBody = document.querySelector("[data-grid-body]");
+  if (gridBody) {
+    const gCols = ["name", "status", "score"];
+    const gLabels = { name: "Name", status: "Status", score: "Score" };
+    const gRows = [
+      { id: "1", name: "Item A", status: "Open", score: 42 },
+      { id: "2", name: "Item B", status: "Done", score: 87 },
+      { id: "3", name: "Item C", status: "Open", score: 15 },
+      { id: "4", name: "Item D", status: "Review", score: 63 },
+      { id: "5", name: "Item E", status: "Done", score: 91 },
+      { id: "6", name: "Item F", status: "Open", score: 28 },
+      { id: "7", name: "Item G", status: "Review", score: 54 },
+      { id: "8", name: "Item H", status: "Done", score: 73 },
+      { id: "9", name: "Item I", status: "Open", score: 19 },
+      { id: "10", name: "Item J", status: "Review", score: 68 },
+      { id: "11", name: "Item K", status: "Done", score: 95 },
+      { id: "12", name: "Item L", status: "Open", score: 33 },
+    ];
+    let gSort = null, gDir = null, gPage = 1;
+    const gFilters = { name: "", status: "", score: "" };
+    const gSelected = new Set();
+    const PER = 5;
+    const gCell = (v) => (v == null ? "" : String(v));
+    function gFiltered() {
+      const list = gRows.filter((r) => gCols.every((k) => {
+        const f = (gFilters[k] || "").trim().toLowerCase();
+        return !f || gCell(r[k]).toLowerCase().includes(f);
+      }));
+      if (!gSort) return list;
+      const dir = gDir === "desc" ? -1 : 1;
+      return [...list].sort((a, b) => {
+        const x = a[gSort], y = b[gSort];
+        if (typeof x === "number" && typeof y === "number") return dir * (x - y);
+        return dir * String(x).localeCompare(String(y), undefined, { sensitivity: "base" });
+      });
+    }
+    function gRender() {
+      const list = gFiltered();
+      const totalPages = Math.max(1, Math.ceil(list.length / PER));
+      gPage = Math.min(gPage, totalPages);
+      const pageRows = list.slice((gPage - 1) * PER, gPage * PER);
+      gridBody.innerHTML = pageRows.map((r) => {
+        const sel = gSelected.has(r.id);
+        return '<tr' + (sel ? ' aria-selected="true" style="background:var(--color-surface)"' : '') + '><td><input type="checkbox" data-grid-row="' + r.id + '"' + (sel ? ' checked' : '') + ' aria-label="Select row ' + r.id + '"></td><th scope="row">' + esc(r.name) + '</th><td>' + esc(r.status) + '</td><td>' + esc(String(r.score)) + '</td></tr>';
+      }).join("") || '<tr><td colspan="4" class="muted" style="text-align:center">No rows match the current filters.</td></tr>';
+      gCols.forEach((k) => {
+        const th = document.querySelector('[data-grid-th="' + k + '"]');
+        const btn = document.querySelector('[data-grid-sort="' + k + '"]');
+        if (!th || !btn) return;
+        const sorted = gSort === k;
+        th.setAttribute("aria-sort", sorted ? (gDir === "asc" ? "ascending" : "descending") : "none");
+        btn.textContent = gLabels[k] + (sorted ? (gDir === "asc" ? " ↑" : " ↓") : "");
+      });
+      const prev = document.querySelector("[data-grid-prev]");
+      const next = document.querySelector("[data-grid-next]");
+      const pageLabel = document.querySelector("[data-grid-page]");
+      if (prev) prev.disabled = gPage <= 1;
+      if (next) next.disabled = gPage >= totalPages;
+      if (pageLabel) pageLabel.textContent = "Page " + gPage + " of " + totalPages;
+      const selOut = document.querySelector("[data-grid-selected]");
+      if (selOut) selOut.textContent = gSelected.size + " selected";
+      const all = document.querySelector("[data-grid-select-all]");
+      if (all) {
+        const allKeys = list.map((r) => r.id);
+        all.checked = allKeys.length > 0 && allKeys.every((k) => gSelected.has(k));
+        all.indeterminate = allKeys.some((k) => gSelected.has(k)) && !all.checked;
+      }
+    }
+    document.querySelectorAll("[data-grid-sort]").forEach((b) => b.addEventListener("click", () => {
+      const key = b.dataset.gridSort;
+      if (gSort !== key) { gSort = key; gDir = "asc"; }
+      else if (gDir === "asc") { gDir = "desc"; }
+      else { gSort = null; gDir = null; }
+      gPage = 1; gRender();
+    }));
+    document.querySelectorAll("[data-grid-filter]").forEach((inp) => inp.addEventListener("input", () => {
+      gFilters[inp.dataset.gridFilter] = inp.value;
+      gPage = 1; gRender();
+    }));
+    const prevBtn = document.querySelector("[data-grid-prev]");
+    if (prevBtn) prevBtn.addEventListener("click", () => { gPage = Math.max(1, gPage - 1); gRender(); });
+    const nextBtn = document.querySelector("[data-grid-next]");
+    if (nextBtn) nextBtn.addEventListener("click", () => { gPage = gPage + 1; gRender(); });
+    const allBox = document.querySelector("[data-grid-select-all]");
+    if (allBox) allBox.addEventListener("change", () => {
+      const list = gFiltered();
+      if (allBox.checked) list.forEach((r) => gSelected.add(r.id));
+      else list.forEach((r) => gSelected.delete(r.id));
+      gRender();
+    });
+    gridBody.addEventListener("change", (e) => {
+      const box = e.target.closest("[data-grid-row]");
+      if (!box) return;
+      const id = box.dataset.gridRow;
+      if (box.checked) gSelected.add(id); else gSelected.delete(id);
+      gRender();
+    });
+    const expBtn = document.querySelector("[data-grid-export]");
+    if (expBtn) expBtn.addEventListener("click", () => {
+      const list = gFiltered();
+      const csvEsc = (v) => { const s = gCell(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+      const csv = [[gLabels.name, gLabels.status, gLabels.score].map(csvEsc).join(",")].concat(list.map((r) => [r.name, r.status, r.score].map(csvEsc).join(","))).join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "data-grid-demo.csv"; a.click();
+      URL.revokeObjectURL(url);
+    });
+    gRender();
+  }
 }
 
 function renderHome() {
@@ -999,6 +1120,75 @@ function renderGuides() {
     + guidesRowsHTML();
 }
 
+function anatomyRows(c) {
+  return (c.anatomy || []).map((a) => {
+    const m = String(a).match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+    const part = m ? m[1] : a;
+    const notes = m ? m[2] : "";
+    return "<tr><td>" + esc(part) + "</td><td>" + esc(notes) + "</td></tr>";
+  }).join("");
+}
+function eventRows(c) {
+  return (c.props || []).filter((p) => /=>/.test(p[1]) || /\bfunction\b/i.test(p[1]) || /\bcallback\b/i.test(p[1]))
+    .map((p) => "<tr><td><code>" + esc(p[0]) + "</code></td><td><code>" + esc(p[1]) + "</code></td><td>" + esc(p[3]) + "</td></tr>").join("");
+}
+function a11yRows(c) {
+  const a = (c.contract && c.contract.a11y) || {};
+  return Object.entries(a).map(([k, v]) => "<tr><td><code>" + esc(k) + "</code></td><td>" + esc(typeof v === "string" ? v : JSON.stringify(v)) + "</td></tr>").join("");
+}
+function attributeRows(c) {
+  const a = (typeof ATTRIBUTES !== "undefined" && ATTRIBUTES[c.id]) || { rows: [], spreads: [] };
+  const rows = (a.rows || []).map((r) => "<tr><td><code>" + esc(r.attr) + "</code></td><td><code>" + esc(r.value) + "</code></td><td>" + esc(r.element) + "</td></tr>").join("");
+  const spreadNote = (a.spreads || []).length ? "<p>Plus a <code>{..." + esc(a.spreads.join("} / {...")) + "}</code> spread: caller-provided props may add more attributes.</p>" : "";
+  return { rows, spreadNote };
+}
+function stateRows(c) {
+  const states = new Map();
+  function add(state, via) {
+    if (!states.has(state)) states.set(state, []);
+    const list = states.get(state);
+    if (!list.includes(via)) list.push(via);
+  }
+  const props = c.props || [];
+  const a = (typeof ATTRIBUTES !== "undefined" && ATTRIBUTES[c.id]) || { rows: [] };
+  const isEvent = (p) => /=>/.test(p[1]) || /\bfunction\b/i.test(p[1]) || /\bcallback\b/i.test(p[1]);
+  const hasProp = (name) => props.some((p) => p[0].toLowerCase() === name);
+  // A state ARIA attribute (aria-expanded, aria-selected, ...) only appears on interactive elements.
+  const STATE_ARIA = ["aria-expanded", "aria-selected", "aria-checked", "aria-pressed", "aria-disabled", "aria-invalid", "aria-readonly", "aria-required"];
+  const hasStateAria = (a.rows || []).some((r) => STATE_ARIA.includes(r.attr));
+  if (props.some(isEvent) || hasProp("href") || hasProp("to") || hasProp("disabled") || hasProp("loading") || hasStateAria) {
+    add("Hover", "CSS :hover");
+    add("Focus", "CSS :focus-visible");
+  }
+  const PROP_STATES = { disabled: "Disabled", loading: "Loading", error: "Error", readonly: "Read-only", required: "Required", checked: "Checked", selected: "Selected", open: "Open", expanded: "Expanded", active: "Active", pressed: "Pressed", indeterminate: "Indeterminate", invalid: "Invalid", warning: "Warning" };
+  props.forEach((p) => {
+    // Docs use combined names for controlled props ("checked / onChange", "pressed / onPressedChange").
+    // Match on the first token so those still map to their state.
+    const first = (p[0].toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)[0] || "");
+    const s = PROP_STATES[first];
+    if (s) add(s, "prop `" + p[0] + "`");
+  });
+  (a.rows || []).forEach((r) => {
+    if (r.attr === "aria-expanded") add("Expanded", "aria-expanded");
+    else if (r.attr === "aria-selected") add("Selected", "aria-selected");
+    else if (r.attr === "aria-checked") add("Checked", "aria-checked");
+    else if (r.attr === "aria-pressed") add("Pressed", "aria-pressed");
+    else if (r.attr === "aria-disabled") add("Disabled", "aria-disabled");
+    else if (r.attr === "aria-invalid") add("Invalid", "aria-invalid");
+    else if (r.attr === "aria-readonly") add("Read-only", "aria-readonly");
+    else if (r.attr === "aria-required") add("Required", "aria-required");
+    else if (r.attr === "data-state") {
+      r.value.split("|").map((s) => s.trim()).filter(Boolean).forEach((v) => {
+        add(v.charAt(0).toUpperCase() + v.slice(1), "data-state");
+      });
+    }
+  });
+  const ORDER = ["Hover", "Focus", "Selected", "Checked", "Pressed", "Expanded", "Open", "Active", "Indeterminate", "Disabled", "Read-only", "Required", "Loading", "Error", "Invalid", "Warning"];
+  const rows = [];
+  ORDER.forEach((name) => { if (states.has(name)) rows.push([name, states.get(name).join(" + ")]); });
+  [...states.keys()].filter((k) => !ORDER.includes(k)).sort().forEach((name) => rows.push([name, states.get(name).join(" + ")]));
+  return rows.map(([name, via]) => "<tr><td>" + esc(name) + "</td><td>" + esc(via) + "</td></tr>").join("");
+}
 function renderComponent(id, lens) {
   const c = COMPONENTS.find((x) => x.id === id);
   if (!c) return "<h1>Not found</h1><p>No component with id " + esc(id) + ".</p>";
@@ -1023,13 +1213,21 @@ function renderComponent(id, lens) {
   } else {
     html += variantsHTML(c);
   }
-  html += "<h2>Anatomy</h2><ul>" + c.anatomy.map((a) => "<li>" + esc(a) + "</li>").join("") + "</ul>";
+  const ev = eventRows(c);
+  const ay = a11yRows(c);
+  html += "<h2>Anatomy</h2><table><thead><tr><th>Part</th><th>Notes</th></tr></thead><tbody>" + anatomyRows(c) + "</tbody></table>";
   html += "<h2>Props</h2><table><thead><tr><th>Prop</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead><tbody>"
     + c.props.map((p) => "<tr><td><code>" + esc(p[0]) + "</code></td><td><code>" + esc(p[1]) + "</code></td><td>" + esc(p[2]) + "</td><td>" + esc(p[3]) + "</td></tr>").join("")
     + "</tbody></table>";
+  html += "<h2>Events</h2>" + (ev ? "<table><thead><tr><th>Event</th><th>Signature</th><th>Notes</th></tr></thead><tbody>" + ev + "</tbody></table>" : "<p>No events.</p>");
+  const at = attributeRows(c);
+  html += "<h2>Attributes</h2>" + (at.rows ? "<table><thead><tr><th>Attribute</th><th>Value</th><th>Element</th></tr></thead><tbody>" + at.rows + "</tbody></table>" + at.spreadNote : "<p>No data or ARIA attributes.</p>" + at.spreadNote);
+  const st = stateRows(c);
+  html += "<h2>States</h2>" + (st ? "<table><thead><tr><th>State</th><th>Via</th></tr></thead><tbody>" + st + "</tbody></table>" : "<p>No interaction states.</p>");
   html += "<h2>Keyboard</h2><table><thead><tr><th>Key</th><th>Behavior</th></tr></thead><tbody>"
     + c.keyboard.map((k) => "<tr><td><code>" + esc(k[0]) + "</code></td><td>" + esc(k[1]) + "</td></tr>").join("")
     + "</tbody></table>";
+  html += "<h2>Accessibility contract</h2>" + (ay ? "<table><thead><tr><th>Aspect</th><th>Behavior</th></tr></thead><tbody>" + ay + "</tbody></table>" : "<p>No additional accessibility contract.</p>");
   html += "<h2>Invariants</h2><ul>" + c.invariants.map((i) => "<li>" + esc(i) + "</li>").join("") + "</ul>";
   return html;
 }

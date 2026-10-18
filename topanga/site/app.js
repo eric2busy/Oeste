@@ -731,19 +731,97 @@ function renderComponentsIndex() {
     + componentsIndexRows();
 }
 
+function anatomyRows(c) {
+  return (c.anatomy || []).map((a) => {
+    const m = String(a).match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+    const part = m ? m[1] : a;
+    const notes = m ? m[2] : "";
+    return "<tr><td>" + esc(part) + "</td><td>" + esc(notes) + "</td></tr>";
+  }).join("");
+}
+function eventRows(c) {
+  return (c.props || []).filter((p) => /=>/.test(p[1]) || /\bfunction\b/i.test(p[1]) || /\bcallback\b/i.test(p[1]))
+    .map((p) => "<tr><td><code>" + esc(p[0]) + "</code></td><td><code>" + esc(p[1]) + "</code></td><td>" + esc(p[3]) + "</td></tr>").join("");
+}
+function a11yRows(c) {
+  const a = (c.contract && c.contract.a11y) || {};
+  return Object.entries(a).map(([k, v]) => "<tr><td><code>" + esc(k) + "</code></td><td>" + esc(typeof v === "string" ? v : JSON.stringify(v)) + "</td></tr>").join("");
+}
+function attributeRows(c) {
+  const a = (typeof ATTRIBUTES !== "undefined" && ATTRIBUTES[c.id]) || { rows: [], spreads: [] };
+  const rows = (a.rows || []).map((r) => "<tr><td><code>" + esc(r.attr) + "</code></td><td><code>" + esc(r.value) + "</code></td><td>" + esc(r.element) + "</td></tr>").join("");
+  const spreadNote = (a.spreads || []).length ? "<p>Plus a <code>{..." + esc(a.spreads.join("} / {...")) + "}</code> spread: caller-provided props may add more attributes.</p>" : "";
+  return { rows, spreadNote };
+}
+function stateRows(c) {
+  const states = new Map();
+  function add(state, via) {
+    if (!states.has(state)) states.set(state, []);
+    const list = states.get(state);
+    if (!list.includes(via)) list.push(via);
+  }
+  const props = c.props || [];
+  const a = (typeof ATTRIBUTES !== "undefined" && ATTRIBUTES[c.id]) || { rows: [] };
+  const isEvent = (p) => /=>/.test(p[1]) || /\bfunction\b/i.test(p[1]) || /\bcallback\b/i.test(p[1]);
+  const hasProp = (name) => props.some((p) => p[0].toLowerCase() === name);
+  // A state ARIA attribute (aria-expanded, aria-selected, ...) only appears on interactive elements.
+  const STATE_ARIA = ["aria-expanded", "aria-selected", "aria-checked", "aria-pressed", "aria-disabled", "aria-invalid", "aria-readonly", "aria-required"];
+  const hasStateAria = (a.rows || []).some((r) => STATE_ARIA.includes(r.attr));
+  // Hover + Focus apply to interactive components (events, a link target, a disabled/loading control, or state ARIA).
+  if (props.some(isEvent) || hasProp("href") || hasProp("to") || hasProp("disabled") || hasProp("loading") || hasStateAria) {
+    add("Hover", "CSS :hover");
+    add("Focus", "CSS :focus-visible");
+  }
+  const PROP_STATES = { disabled: "Disabled", loading: "Loading", error: "Error", readonly: "Read-only", required: "Required", checked: "Checked", selected: "Selected", open: "Open", expanded: "Expanded", active: "Active", pressed: "Pressed", indeterminate: "Indeterminate", invalid: "Invalid", warning: "Warning" };
+  props.forEach((p) => {
+    // Docs use combined names for controlled props ("checked / onChange", "pressed / onPressedChange").
+    // Match on the first token so those still map to their state.
+    const first = (p[0].toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)[0] || "");
+    const s = PROP_STATES[first];
+    if (s) add(s, "prop `" + p[0] + "`");
+  });
+  (a.rows || []).forEach((r) => {
+    if (r.attr === "aria-expanded") add("Expanded", "aria-expanded");
+    else if (r.attr === "aria-selected") add("Selected", "aria-selected");
+    else if (r.attr === "aria-checked") add("Checked", "aria-checked");
+    else if (r.attr === "aria-pressed") add("Pressed", "aria-pressed");
+    else if (r.attr === "aria-disabled") add("Disabled", "aria-disabled");
+    else if (r.attr === "aria-invalid") add("Invalid", "aria-invalid");
+    else if (r.attr === "aria-readonly") add("Read-only", "aria-readonly");
+    else if (r.attr === "aria-required") add("Required", "aria-required");
+    else if (r.attr === "data-state") {
+      r.value.split("|").map((s) => s.trim()).filter(Boolean).forEach((v) => {
+        add(v.charAt(0).toUpperCase() + v.slice(1), "data-state");
+      });
+    }
+  });
+  const ORDER = ["Hover", "Focus", "Selected", "Checked", "Pressed", "Expanded", "Open", "Active", "Indeterminate", "Disabled", "Read-only", "Required", "Loading", "Error", "Invalid", "Warning"];
+  const rows = [];
+  ORDER.forEach((name) => { if (states.has(name)) rows.push([name, states.get(name).join(" + ")]); });
+  [...states.keys()].filter((k) => !ORDER.includes(k)).sort().forEach((name) => rows.push([name, states.get(name).join(" + ")]));
+  return rows.map(([name, via]) => "<tr><td>" + esc(name) + "</td><td>" + esc(via) + "</td></tr>").join("");
+}
 function renderComponent(id, lens) {
   const c = COMPONENTS.find((x) => x.id === id) || COMPONENTS[0];
   const rows = c.props.map((p) => "<tr><td><code>" + esc(p[0]) + "</code></td><td><code>" + esc(p[1]) + "</code></td><td>" + esc(p[2]) + "</td><td>" + esc(p[3]) + "</td></tr>").join("");
   const keys = c.keyboard.map((k) => "<tr><td><code>" + esc(k[0]) + "</code></td><td>" + esc(k[1]) + "</td></tr>").join("");
   const inv = c.invariants.map((x) => "<li>" + esc(x) + "</li>").join("");
+  const ev = eventRows(c);
+  const ay = a11yRows(c);
   let body = '<p class="eyebrow">Components · ' + esc(c.name) + "</p><h1>" + esc(c.name) + "</h1><p class=\"lede\">" + esc(c.tagline) + "</p>";
   body += lensBar("components", c.id, lens);
   body += demoHTML(c);
   if (lens === "human") {
     body += variantsHTML(c);
-    body += "<h2>Anatomy</h2><ul>" + c.anatomy.map((a) => "<li>" + esc(a) + "</li>").join("") + "</ul>";
+    body += "<h2>Anatomy</h2><div style=\"overflow-x:auto\"><table><thead><tr><th>Part</th><th>Notes</th></tr></thead><tbody>" + anatomyRows(c) + "</tbody></table></div>";
     body += '<h2>Props</h2><div style="overflow-x:auto"><table><thead><tr><th>Prop</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    body += "<h2>Events</h2>" + (ev ? '<div style="overflow-x:auto"><table><thead><tr><th>Event</th><th>Signature</th><th>Notes</th></tr></thead><tbody>' + ev + "</tbody></table></div>" : "<p>No events.</p>");
+    const at = attributeRows(c);
+    body += "<h2>Attributes</h2>" + (at.rows ? '<div style="overflow-x:auto"><table><thead><tr><th>Attribute</th><th>Value</th><th>Element</th></tr></thead><tbody>' + at.rows + "</tbody></table></div>" + at.spreadNote : "<p>No data or ARIA attributes.</p>" + at.spreadNote);
+    const st = stateRows(c);
+    body += "<h2>States</h2>" + (st ? '<div style="overflow-x:auto"><table><thead><tr><th>State</th><th>Via</th></tr></thead><tbody>' + st + "</tbody></table></div>" : "<p>No interaction states.</p>");
     body += '<h2>Keyboard</h2><div style="overflow-x:auto"><table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody>' + keys + "</tbody></table></div>";
+    body += "<h2>Accessibility contract</h2>" + (ay ? '<div style="overflow-x:auto"><table><thead><tr><th>Aspect</th><th>Behavior</th></tr></thead><tbody>' + ay + "</tbody></table></div>" : "<p>No additional accessibility contract.</p>");
     body += "<h2>Accessibility invariants</h2><ul>" + inv + "</ul>";
   } else if (lens === "agent") {
     body += "<h2>Agent spec</h2><p>Machine-readable contract. Agents: read this before generating code. Never invent props beyond this contract.</p>";

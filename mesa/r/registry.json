@@ -81,6 +81,13 @@
    "url": "https://oeste.hiddeninwest.com/mesa/r/daily-summary.json"
   },
   {
+   "id": "data-grid",
+   "name": "data-grid",
+   "title": "DataGrid",
+   "description": "Sortable, filterable, pageable data grid.",
+   "url": "https://oeste.hiddeninwest.com/mesa/r/data-grid.json"
+  },
+  {
    "id": "data-table",
    "name": "data-table",
    "title": "DataTable",

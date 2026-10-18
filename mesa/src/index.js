@@ -1196,6 +1196,7 @@ export function SearchPill({ value = "", onChange, placeholder = "Search…", kb
       <span className="sr-only">Search</span>
       <input
         type="search"
+        aria-label="Search"
         value={value}
         onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
@@ -1285,6 +1286,128 @@ export function OptionRow({ name, value, checked, onChange, children }) {
       />
       <span className="text-[15px]">{children}</span>
     </label>
+  );
+}
+
+/* ---------------- Data Grid ---------------- */
+
+export function DataGrid({ columns = [], rows = [], rowKey = "id", pageSize = 10, selectable = false, groupBy, initialSort }) {
+  const [sortKey, setSortKey] = React.useState(initialSort ? initialSort.key : null);
+  const [sortDir, setSortDir] = React.useState(initialSort ? initialSort.direction : null);
+  const [filters, setFilters] = React.useState({});
+  const [page, setPage] = React.useState(1);
+  const [prevGroupBy, setPrevGroupBy] = React.useState(groupBy);
+  if (prevGroupBy !== groupBy) { setPrevGroupBy(groupBy); setPage(1); }
+  const [perPage, setPerPage] = React.useState(pageSize);
+  const [selected, setSelected] = React.useState([]);
+  const [pinned, setPinned] = React.useState([]);
+  const [collapsed, setCollapsed] = React.useState([]);
+  const colWidth = (col) => { const n = parseInt(col.width || "", 10); return Number.isFinite(n) ? n : 160; };
+  const cellText = (v) => (v == null ? "" : String(v));
+  const compareValues = (a, b) => { if (a == null && b == null) return 0; if (a == null) return 1; if (b == null) return -1; if (typeof a === "number" && typeof b === "number") return a - b; return String(a).localeCompare(String(b), undefined, { sensitivity: "base" }); };
+  const sortRows = (list) => { if (!sortKey) return list; const dir = sortDir === "desc" ? -1 : 1; return [...list].sort((x, y) => dir * compareValues(x[sortKey], y[sortKey])); };
+  const filtered = rows.filter((row) => columns.every((col) => { const f = (filters[col.key] || "").trim().toLowerCase(); if (!f) return true; return cellText(row[col.key]).toLowerCase().includes(f); }));
+  const groupKeyOf = (row) => { const v = row[groupBy]; return v == null ? "Unassigned" : String(v); };
+  const grouped = (() => { if (!groupBy) return null; const order = []; const map = {}; filtered.forEach((row) => { const g = groupKeyOf(row); if (!map[g]) { map[g] = []; order.push(g); } map[g].push(row); }); return order.map((g) => ({ key: g, rows: sortRows(map[g]) })); })();
+  const flat = grouped ? grouped.flatMap((g) => g.rows) : sortRows(filtered);
+  const totalPages = Math.max(1, Math.ceil(flat.length / perPage));
+  const safePage = Math.min(page, totalPages);
+  const pageRows = flat.slice((safePage - 1) * perPage, safePage * perPage);
+  const pageGroups = (() => { if (!groupBy) return null; const order = []; const map = {}; pageRows.forEach((row) => { const g = groupKeyOf(row); if (!map[g]) { map[g] = []; order.push(g); } map[g].push(row); }); return order.map((g) => { const full = grouped.find((x) => x.key === g) || { rows: [] }; return { key: g, rows: map[g], total: full.rows.length }; }); })();
+  const visibleColumns = [...pinned.map((k) => columns.find((c) => c.key === k)).filter(Boolean), ...columns.filter((c) => !pinned.includes(c.key))];
+  const pinnedOffsets = (() => { const offsets = {}; let left = 0; pinned.forEach((k) => { offsets[k] = left; const col = columns.find((c) => c.key === k); left += col ? colWidth(col) : 160; }); return offsets; })();
+  const isPinned = (key) => pinned.includes(key);
+  const onSort = (key) => { if (sortKey !== key) { setSortKey(key); setSortDir("asc"); } else if (sortDir === "asc") { setSortDir("desc"); } else { setSortKey(null); setSortDir(null); } setPage(1); };
+  const onFilter = (key, value) => { setFilters({ ...filters, [key]: value }); setPage(1); };
+  const onPageSize = (n) => { setPerPage(n); setPage(1); };
+  const toggleRow = (key) => { setSelected(selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key]); };
+  const allKeys = flat.map((row) => row[rowKey]);
+  const allSelected = allKeys.length > 0 && allKeys.every((k) => selected.includes(k));
+  const someSelected = allKeys.some((k) => selected.includes(k));
+  const toggleAll = () => { setSelected(allSelected ? [] : allKeys); };
+  const togglePin = (key) => { if (isPinned(key)) { setPinned(pinned.filter((k) => k !== key)); } else if (pinned.length < columns.length - 1) { setPinned([...pinned, key]); } };
+  const toggleGroup = (key) => { setCollapsed(collapsed.includes(key) ? collapsed.filter((k) => k !== key) : [...collapsed, key]); };
+  const csvEscape = (v) => { const s = cellText(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  const exportCsv = () => { const header = visibleColumns.map((c) => csvEscape(c.label)).join(","); const lines = flat.map((row) => visibleColumns.map((c) => csvEscape(row[c.key])).join(",")); const csv = [header, ...lines].join("\n"); const blob = new Blob([csv], { type: "text/csv" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "data-grid.csv"; a.click(); URL.revokeObjectURL(url); };
+  const totalCols = visibleColumns.length + (selectable ? 1 : 0);
+  const wash = "bg-[rgba(138,31,43,0.06)] dark:bg-[rgba(201,64,79,0.08)]";
+  const surface = "bg-[#ffffff] dark:bg-[#181410]";
+  const renderRow = (row) => { const key = row[rowKey]; const isSelected = selected.includes(key); return (
+    <tr key={key} aria-selected={selectable ? isSelected : undefined} className={selectable && isSelected ? wash : ""}>
+      {selectable && (
+        <td className={`border-b ${LINE} px-3 py-2.5`}>
+          <input type="checkbox" checked={isSelected} onChange={() => toggleRow(key)} aria-label={`Select row ${key}`} className="accent-[#8a1f2b] dark:accent-[#c9404f]" />
+        </td>
+      )}
+      {visibleColumns.map((col, i) => { const isRowHeader = i === 0; const align = col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left"; const pinStyle = isPinned(col.key) ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 1 } : {}; const pinBg = isPinned(col.key) ? (selectable && isSelected ? wash : surface) : ""; const cls = `border-b ${LINE} px-3 py-2.5 text-[14px] ${INK} ${align} ${pinBg}`; const style = { width: col.width || "160px", minWidth: col.width || "160px", ...pinStyle }; if (isRowHeader) return (<th key={col.key} scope="row" style={style} className={cls + " font-semibold"}>{cellText(row[col.key])}</th>); return (<td key={col.key} style={style} className={cls}>{cellText(row[col.key])}</td>); })}
+    </tr>
+  ); };
+  return (
+    <section>
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <button type="button" onClick={exportCsv} className={`rounded-md border ${LINE} bg-[#ffffff] px-4 py-2 text-[13.5px] font-semibold ${INK} hover:border-[#8a1f2b] dark:bg-[#181410] dark:hover:border-[#c9404f] ${FOCUS}`}>Export CSV</button>
+        {selectable && <p aria-live="polite" className={`text-[13px] ${SOFT}`}>{selected.length} selected</p>}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <caption className={`text-left text-[13px] ${SOFT}`}>Data grid. {flat.length} rows, {columns.length} columns. Sort with the header buttons, filter with the filter row, page with the pagination controls.</caption>
+          <thead>
+            <tr>
+              {selectable && (
+                <th scope="col" className={`border-b ${LINE} bg-[#ffffff] px-3 py-2.5 dark:bg-[#181410]`}>
+                  <input type="checkbox" checked={allSelected} ref={(el) => { if (el) el.indeterminate = someSelected && !allSelected; }} onChange={toggleAll} aria-label="Select all rows" className="accent-[#8a1f2b] dark:accent-[#c9404f]" />
+                </th>
+              )}
+              {visibleColumns.map((col) => { const sortable = col.sortable !== false; const sorted = sortKey === col.key; const pinnedCol = isPinned(col.key); const canPin = pinnedCol || pinned.length < columns.length - 1; return (
+                <th key={col.key} scope="col" aria-sort={sorted ? (sortDir === "asc" ? "ascending" : sortDir === "desc" ? "descending" : "none") : "none"} style={{ width: col.width || "160px", minWidth: col.width || "160px", ...(pinnedCol ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 2 } : {}) }} className={`border-b ${LINE} bg-[#ffffff] px-3 py-2.5 text-left dark:bg-[#181410]`}>
+                  <span className="flex items-center gap-2">
+                    {sortable ? (<button type="button" onClick={() => onSort(col.key)} aria-label={`Sort by ${col.label}`} className={`text-left text-[12px] font-bold uppercase tracking-[0.08em] ${INK} hover:underline ${FOCUS}`}>{col.label}{sorted ? (sortDir === "asc" ? " ↑" : " ↓") : ""}</button>) : (<span className={`text-[12px] font-bold uppercase tracking-[0.08em] ${INK}`}>{col.label}</span>)}
+                    <button type="button" onClick={() => togglePin(col.key)} disabled={!canPin} aria-pressed={pinnedCol} aria-label={`${pinnedCol ? "Unpin" : "Pin"} ${col.label} column`} title={canPin ? "" : "At least one column must stay unpinned"} className={`text-[11px] ${MONO} ${pinnedCol ? "text-[#8a1f2b] dark:text-[#c9404f]" : SOFT} ${FOCUS} disabled:opacity-40`}>Pin</button>
+                  </span>
+                </th>
+              ); })}
+            </tr>
+            <tr>
+              {selectable && <td className={`border-b ${LINE} bg-[#ffffff] dark:bg-[#181410]`} />}
+              {visibleColumns.map((col) => (
+                <td key={col.key} style={isPinned(col.key) ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 2 } : {}} className={`border-b ${LINE} bg-[#ffffff] px-3 py-2 dark:bg-[#181410]`}>
+                  <input type="text" value={filters[col.key] || ""} onChange={(e) => onFilter(col.key, e.target.value)} placeholder={`Filter ${col.label}`} aria-label={`Filter ${col.label}`} className={`w-full rounded border ${LINE} bg-[#faf9f7] px-2 py-1.5 text-[13px] ${INK} dark:bg-[#100e0b] ${FOCUS}`} />
+                </td>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {pageGroups ? pageGroups.map((group) => { const isCollapsed = collapsed.includes(group.key); return (
+              <React.Fragment key={group.key}>
+                <tr>
+                  <td colSpan={totalCols} className={`border-b ${LINE} px-3 py-2`}>
+                    <button type="button" onClick={() => toggleGroup(group.key)} aria-expanded={!isCollapsed} className={`flex items-center gap-2 text-left text-[13px] font-bold ${INK} ${FOCUS}`}>
+                      <span aria-hidden="true">{isCollapsed ? "▸" : "▾"}</span>{group.key} ({group.total})
+                    </button>
+                  </td>
+                </tr>
+                {!isCollapsed && group.rows.map((row) => renderRow(row))}
+              </React.Fragment>
+            ); }) : pageRows.map((row) => renderRow(row))}
+            {pageRows.length === 0 && (
+              <tr>
+                <td colSpan={totalCols} className={`px-3 py-6 text-center text-[14px] ${SOFT}`}>{Object.keys(filters).some((k) => filters[k]) ? "No rows match the current filters." : "No rows."}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <button type="button" onClick={() => setPage(Math.max(1, safePage - 1))} disabled={safePage <= 1} className={`rounded-md border ${LINE} bg-[#ffffff] px-4 py-2 text-[13.5px] font-semibold ${INK} hover:border-[#8a1f2b] dark:bg-[#181410] dark:hover:border-[#c9404f] disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`}>Previous</button>
+        <span className={`text-[13px] ${SOFT}`}>Page {safePage} of {totalPages}</span>
+        <button type="button" onClick={() => setPage(Math.min(totalPages, safePage + 1))} disabled={safePage >= totalPages} className={`rounded-md border ${LINE} bg-[#ffffff] px-4 py-2 text-[13.5px] font-semibold ${INK} hover:border-[#8a1f2b] dark:bg-[#181410] dark:hover:border-[#c9404f] disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`}>Next</button>
+        <label className={`text-[13px] ${SOFT}`}>Rows per page
+          <select value={perPage} onChange={(e) => onPageSize(Number(e.target.value))} aria-label="Rows per page" className={`ml-2 rounded border ${LINE} bg-[#ffffff] px-2 py-1.5 text-[13px] ${INK} dark:bg-[#181410] ${FOCUS}`}>
+            {[10, 25, 50, 100].map((n) => (<option key={n} value={n}>{n}</option>))}
+          </select>
+        </label>
+      </div>
+    </section>
   );
 }
 
@@ -1623,5 +1746,10 @@ export const COMPONENT_DOCS = [
     id: "option-row",
     name: "OptionRow",
     tagline: "Bordered radio option row.",
+  },
+  {
+    id: "data-grid",
+    name: "DataGrid",
+    tagline: "Sortable, filterable, pageable data grid.",
   },
 ];

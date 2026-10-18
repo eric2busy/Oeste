@@ -41,6 +41,7 @@ TAGS = {
     "file-card": ["data"],
     "folder-card": ["data"],
     "data-table": ["data"],
+    "data-grid": ["data"],
     "stats-band": ["data"],
     "activity-feed": ["data"],
     "activity-entry": ["data"],

@@ -124,6 +124,17 @@
    ]
   },
   {
+   "id": "data-grid",
+   "name": "DataGrid",
+   "description": "Sortable, filterable, pageable data grid.",
+   "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/data-grid.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/data-grid.json",
+   "docsUrl": "#/components/data-grid",
+   "tags": [
+    "data"
+   ]
+  },
+  {
    "id": "data-table",
    "name": "DataTable",
    "description": "Rows with reference, title, meta, assignment.",

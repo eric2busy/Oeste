@@ -1,6 +1,6 @@
 # Mesa — Oeste Design System (v0.2.0)
 
-> Mesa is a universal component library under Oeste. Warm paper, near-black ink, oxblood for status. Dark is the default theme. 68 components. MIT, Copyright (c) 2026 hiddeninwest.
+> Mesa is a universal component library under Oeste. Warm paper, near-black ink, oxblood for status. Dark is the default theme. 69 components. MIT, Copyright (c) 2026 hiddeninwest.
 
 ## For agents
 
@@ -81,6 +81,8 @@
 - [IndexRow](https://oeste.hiddeninwest.com/mesa/#/components/index-row): Index row with hover-reveal arrow.
 - [Select](https://oeste.hiddeninwest.com/mesa/#/components/select): Native select with custom chevron.
 - [OptionRow](https://oeste.hiddeninwest.com/mesa/#/components/option-row): Bordered radio option row.
+- [DataGrid](https://oeste.hiddeninwest.com/mesa/#/components/data-grid): Sortable, filterable, pageable data grid.
+- [Chart](https://oeste.hiddeninwest.com/mesa/#/components/chart): Bar, line, area, pie, donut. One series, SVG + data table.
 
 ## Docs
 

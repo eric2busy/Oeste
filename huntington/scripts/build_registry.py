@@ -37,6 +37,9 @@ TAGS = {
     "chart": [
         "lists"
     ],
+    "data-grid": [
+        "lists"
+    ],
     "date-picker": [
         "lists"
     ],

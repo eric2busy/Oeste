@@ -130,14 +130,14 @@ console.log(`NOTE: LIVE text ${tokensJson.color.accents.live} on paper card ${li
 const fnNames = [...src.matchAll(/^export function (\w+)\(/gm)].map((m) => m[1]);
 const docsSection = src.slice(src.indexOf("export const COMPONENT_DOCS"));
 const docIds = [...docsSection.matchAll(/^\s*id: "([^"]+)"/gm)].map((m) => m[1]);
-if (fnNames.length !== 40) fail.push("expected 40 export functions, found " + fnNames.length);
-if (docIds.length !== 40) fail.push("expected 40 COMPONENT_DOCS entries, found " + docIds.length);
+if (fnNames.length !== 46) fail.push("expected 46 export functions, found " + fnNames.length);
+if (docIds.length !== 46) fail.push("expected 46 COMPONENT_DOCS entries, found " + docIds.length);
 if (new Set(docIds).size !== docIds.length) fail.push("duplicate COMPONENT_DOCS ids");
 const app = read("site/app.js");
 for (const id of docIds) {
   if (!app.includes('"id": "' + id + '"')) fail.push("site/app.js missing component id " + id);
 }
-if (!fail.length) ok("40 components: functions, COMPONENT_DOCS, and site/app.js agree");
+if (!fail.length) ok("46 components: functions, COMPONENT_DOCS, and site/app.js agree");
 
 // --- no sibling-library leakage in Huntington source ---
 const leaked = ["#C47D3B", "#DB914E", "#A83E22", "#E07A52", "Canyon Rust", "Warm Ochre", "Topanga"];
@@ -150,10 +150,10 @@ if (!fail.length) ok("no sibling-library tokens/copy in src/index.js");
 // --- registry + manifest ---
 const manifest = JSON.parse(read("components.json"));
 if (manifest.version !== "0.2.0") fail.push("components.json version " + manifest.version);
-if (manifest.components.length !== 40) fail.push("components.json has " + manifest.components.length + " components, expected 40");
+if (manifest.components.length !== 46) fail.push("components.json has " + manifest.components.length + " components, expected 46");
 const rdir = join(ROOT, "r");
 const rfiles = readdirSync(rdir).filter((f) => f.endsWith(".json") && f !== "registry.json");
-if (rfiles.length !== 40) fail.push("r/ has " + rfiles.length + " component files, expected 40");
+if (rfiles.length !== 46) fail.push("r/ has " + rfiles.length + " component files, expected 46");
 for (const id of docIds) {
   const p = join(rdir, id + ".json");
   if (!existsSync(p)) { fail.push("missing registry file r/" + id + ".json"); continue; }
@@ -162,8 +162,8 @@ for (const id of docIds) {
   if (item.registryDependencies === undefined) fail.push("registry " + id + " missing registryDependencies");
 }
 const index = JSON.parse(read("r/registry.json"));
-if (index.items.length !== 40) fail.push("r/registry.json has " + index.items.length + " items, expected 40");
-if (!fail.length) ok("registry: 40 items + registry.json + components.json agree");
+if (index.items.length !== 46) fail.push("r/registry.json has " + index.items.length + " items, expected 46");
+if (!fail.length) ok("registry: 46 items + registry.json + components.json agree");
 
 // --- docs text mentions ---
 for (const p of ["README.md", "llms.txt", "site/llms.txt"]) {
@@ -193,4 +193,4 @@ if (fail.length) {
   for (const f of fail) console.error(" - " + f);
   process.exit(1);
 }
-console.log("\nVERIFY OK: Huntington v0.2.0 — 40 components, 5 moods, registry consistent.");
+console.log("\nVERIFY OK: Huntington v0.2.0 — 46 components, 5 moods, registry consistent.");

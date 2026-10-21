@@ -526,15 +526,15 @@ COMPONENTS.push(
     prompt: "Build a Mesa ResultCard: 1px line border, radius 12, padding 28, margin-bottom 18, rgba(255,255,255,0.015) bg, mono 12px oxblood file number, title margin 10/0/8, 15px outcome, dl grid 130px/1fr gap 8/16 with ink-soft uppercase 11px dt.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/result-card.json",
     code: "import { ResultCard } from \"@/components/ui/result-card\";\n\nexport function Result() {\n  return <ResultCard fileNumber=\"Ref 01\" title=\"Title goes here.\" outcome=\"Outcome goes here.\" rows={[{ key: \"Status\", value: \"Open\" }]} />;\n}" },
-  { id: "forum-thread", name: "ForumThread", tagline: "Thread row with votes and replies.",
-    anatomy: ["Votes (oxblood 700)", "Thread text", "Replies (hairline-separated)"],
-    props: [["votes", "number", "No", "Vote count."], ["text", "string", "Yes", "Thread text."], ["replies", "{ text }[]", "No", "Replies."]],
-    keyboard: [["Tab", "Not specified in source."], ["Enter / Space", "Not specified in source."]],
-    invariants: ["Cursor pointer; hover is a 4% oxblood wash (rgba pair, light/dark).", "Paragraphs have margin 0.", "Votes are oxblood 700.", "Replies: border-top 1px line-soft, margin-top 12, padding-top 12. First reply: no border, margin-top 8, padding-top 0."],
-    contract: { format: "oeste.component.v1", component: "ForumThread", props: { votes: "number?", text: "string", replies: "array?" }, a11y: { keyboard: "not specified in source" } },
-    prompt: "Build a Mesa ForumThread: cursor pointer, hover 4% oxblood wash, oxblood 700 votes, margin-0 paragraphs, replies with 1px line-soft top borders (margin-top 12, padding-top 12; first reply no border, margin-top 8, padding-top 0). Keyboard is not specified in source — do not invent it.",
+  { id: "forum-thread", name: "ForumThread", tagline: "Thread row with votes and replies. Real link with href, button with onSelect.",
+    anatomy: ["Votes (oxblood 700)", "Thread text", "Replies (hairline-separated)", "Link (href) or button (onSelect) wrapper"],
+    props: [["votes", "number", "No", "Vote count."], ["text", "string", "Yes", "Thread text."], ["replies", "{ text }[]", "No", "Replies."], ["href", "string", "No", "Thread link. Renders a real anchor."], ["onSelect", "() => void", "No", "Click handler. Renders a real button when href is absent. Fires on link click too."]],
+    keyboard: [["Tab", "Move focus to the thread link or button."], ["Enter", "Follow the link or activate the button."], ["Space", "Activate the button. Links do not respond to Space."]],
+    invariants: ["With href, the thread is a real anchor. With onSelect and no href, it is a real button. With neither, it is a plain article.", "Interactive variants: cursor pointer, hover 4% oxblood wash (rgba pair, light/dark), visible focus ring. The plain article has no pointer cursor and no hover wash.", "When both href and onSelect are set, onSelect fires and the link still navigates.", "Paragraphs have margin 0. The button variant renders text as block spans because a button holds phrasing content only.", "Votes are oxblood 700.", "Replies: border-top 1px line-soft, margin-top 12, padding-top 12. First reply: no border, margin-top 8, padding-top 0."],
+    contract: { format: "oeste.component.v1", component: "ForumThread", props: { votes: "number?", text: "string", replies: "array?", href: "string?", onSelect: "function?" }, a11y: { link: "real <a> with href", button: "real <button type=button>", static: "plain article, not focusable" } },
+    prompt: "Build a Mesa ForumThread: with href it is a real anchor; with onSelect and no href it is a real button; with neither it is a plain article. Interactive variants have a cursor pointer, hover 4% oxblood wash, and a visible focus ring. The plain article has no pointer cursor and no hover wash. When both href and onSelect are set, onSelect fires and the link still navigates. Oxblood 700 votes, margin-0 paragraphs (block spans in the button variant, since a button holds phrasing content only), replies with 1px line-soft top borders (margin-top 12, padding-top 12; first reply no border, margin-top 8, padding-top 0). Tab moves focus to the link or button; Enter follows the link or activates the button; Space activates the button only.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/forum-thread.json",
-    code: "import { ForumThread } from \"@/components/ui/forum-thread\";\n\nexport function Thread() {\n  return <ForumThread votes={12} text=\"Thread text goes here.\" replies={[{ text: \"Reply text goes here.\" }]} />;\n}" },
+    code: "import { ForumThread } from \"@/components/ui/forum-thread\";\n\nexport function Thread() {\n  return <ForumThread votes={12} text=\"Thread text goes here.\" replies={[{ text: \"Reply text goes here.\" }]} href=\"#/threads/1\" />;\n}" },
   { id: "mini-gates", name: "MiniGates", tagline: "Compact gate cards, four across.",
     anatomy: ["Cells (border, radius 8, padding 14)", "Number (mono, accent)", "Title (600 14px) + body (12.5px)"],
     props: [["gates", "{ number, title, body? }[]", "Yes", "Gate cells."]],
@@ -625,22 +625,22 @@ COMPONENTS.push(
     prompt: "Build a Mesa Chart: one series, SVG + data table. Types bar, line, area, pie, donut. Bar/line/area share one axis system (value ticks at 0, 25%, 50%, 75%, 100% of max rounded to a clean step, horizontal gridlines, category labels). Bar has value labels on bars; line has a polyline + dots + value labels; area adds the fill under the line. Pie slices are proportional with label + percent at centroids; donut adds a center hole + total in the center, plus a legend (swatch + label + value + percent). SVG has role=img + an aria-label summary, all shapes aria-hidden. The semantic table (caption + Label/Value, Percent for pie/donut) is the accessible representation. Never color alone. Empty, all-zero, or zero-total data renders 'No data.' No interactivity, no events, no states.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/chart.json",
     code: "import { Chart } from \"@/components/ui/chart\";\n\nexport function Sales() {\n  const data = [{ label: \"Jan\", value: 42 }, { label: \"Feb\", value: 87 }, { label: \"Mar\", value: 15 }, { label: \"Apr\", value: 63 }];\n  return <Chart type=\"bar\" data={data} title=\"Sales\" />;\n}" },
-  { id: "calendar", name: "Calendar", tagline: "Month grid. One button per day, min/max bounds.",
-    anatomy: ["Month navigation (Previous month button, month/year heading, Next month button)", "Weekday header row (Su Mo Tu We Th Fr Sa)", "Day grid (one button per day, empty cells outside the month)"],
-    props: [["value", "string | null", "No (default null)", "Selected day, ISO date YYYY-MM-DD. Invalid values are treated as null."], ["onChange", "(iso: string) => void", "Yes", "Fires when a day is selected."], ["min", "string | null", "No", "Earliest selectable day (ISO). Days before min are disabled."], ["max", "string | null", "No", "Latest selectable day (ISO). Days after max are disabled."]],
+  { id: "calendar", name: "Calendar", tagline: "Month grid. One button per day, min/max bounds, optional range highlight.",
+    anatomy: ["Month navigation (Previous month button, month/year heading, Next month button)", "Weekday header row (Su Mo Tu We Th Fr Sa)", "Day grid (one button per day, empty cells outside the month)", "Range highlight (optional range prop)"],
+    props: [["value", "string | null", "No (default null)", "Selected day, ISO date YYYY-MM-DD. Invalid values are treated as null."], ["onChange", "(iso: string) => void", "Yes", "Fires when a day is selected."], ["min", "string | null", "No", "Earliest selectable day (ISO). Days before min are disabled."], ["max", "string | null", "No", "Latest selectable day (ISO). Days after max are disabled."], ["range", "{ start, end }", "No", "Range to highlight, ISO YYYY-MM-DD pair. Missing, invalid, or reversed ranges highlight nothing."]],
     keyboard: [["Tab", "Move focus between the nav buttons and the day buttons."], ["Enter / Space", "Select the focused day."], ["Arrow keys", "Not implemented. Every day is a Tab stop; there is no roving tabindex or arrow-key cell movement."]],
-    invariants: ["Dates are ISO strings only (YYYY-MM-DD). No Date objects in props, no locale parsing.", "Week starts Sunday. Month and day names are English.", "The displayed month starts at the value's month, or the current month when no value is set. It follows the value when the parent passes a new date in a different month.", "Prev/next move one month and do not call onChange.", "Days outside the current month render as empty cells (no buttons).", "Days outside min/max are disabled (disabled attribute + aria-disabled).", "The selected day has an oxblood fill and its aria-label ends with ', selected'. Today has aria-current=\"date\" plus an oxblood outline.", "Tab + Enter/Space only. No roving tabindex, no arrow-key cell movement."],
-    contract: { format: "oeste.component.v1", component: "Calendar", props: { value: "string?", onChange: "function", min: "string?", max: "string?" }, a11y: { grid: "semantic table + th scope=col weekday headers", days: "one button per day, aria-label with ', selected' suffix, aria-current=date for today", disabled: "disabled + aria-disabled for out-of-range days", nav: "prev/next buttons with aria-labels, heading aria-live=polite" } },
-    prompt: "Build a Mesa Calendar: a month grid for one ISO date (YYYY-MM-DD). Prev-month button (aria-label Previous month), month/year heading (aria-live polite), next-month button (aria-label Next month). A semantic table: weekday header row (Su Mo Tu We Th Fr Sa), one button per day, empty cells outside the month. Clicking a day calls onChange with that day's ISO string. Days outside min/max are disabled (disabled + aria-disabled). Selected day: oxblood fill + aria-label ending with ', selected'. Today: aria-current=date + oxblood outline. Week starts Sunday, English names. Displayed month starts at the value's month or the current month and follows the value when the parent passes a new date in a different month; prev/next move one month and do not call onChange. ISO strings only, no locale parsing. Tab + Enter/Space only, no roving tabindex, no arrow keys.",
+    invariants: ["Dates are ISO strings only (YYYY-MM-DD). No Date objects in props, no locale parsing.", "Week starts Sunday. Month and day names are English.", "The displayed month starts at the value's month, or the current month when no value is set. It follows the value when the parent passes a new date in a different month.", "Prev/next move one month and do not call onChange.", "Days outside the current month render as empty cells (no buttons).", "Days outside min/max are disabled (disabled attribute + aria-disabled).", "The selected day has an oxblood fill and its aria-label ends with ', selected'. Today has aria-current=\"date\" plus an oxblood outline.", "The optional range prop highlights every day from start through end, inclusive, with the oxblood-at-12-percent band (the focus-ring value in each theme). In-range days get an aria-label ending with ', in range'. The selected fill still wins for the selected day. Missing, invalid, or reversed ranges highlight nothing, and a Calendar without range behaves exactly as before.", "Tab + Enter/Space only. No roving tabindex, no arrow-key cell movement."],
+    contract: { format: "oeste.component.v1", component: "Calendar", props: { value: "string?", onChange: "function", min: "string?", max: "string?", range: "{ start, end }?" }, a11y: { grid: "semantic table + th scope=col weekday headers", days: "one button per day, aria-label with ', selected' suffix, ', in range' suffix for in-range days, aria-current=date for today", disabled: "disabled + aria-disabled for out-of-range days", nav: "prev/next buttons with aria-labels, heading aria-live=polite" } },
+    prompt: "Build a Mesa Calendar: a month grid for one ISO date (YYYY-MM-DD). Prev-month button (aria-label Previous month), month/year heading (aria-live polite), next-month button (aria-label Next month). A semantic table: weekday header row (Su Mo Tu We Th Fr Sa), one button per day, empty cells outside the month. Clicking a day calls onChange with that day's ISO string. Days outside min/max are disabled (disabled + aria-disabled). Selected day: oxblood fill + aria-label ending with ', selected'. Today: aria-current=date + oxblood outline. Week starts Sunday, English names. Displayed month starts at the value's month or the current month and follows the value when the parent passes a new date in a different month; prev/next move one month and do not call onChange. ISO strings only, no locale parsing. Tab + Enter/Space only, no roving tabindex, no arrow keys. The optional range prop ({ start, end }, ISO dates) highlights every day from start through end inclusive with the oxblood-at-12-percent band (the focus-ring value in each theme); in-range days get an aria-label ending with ', in range'; the selected fill still wins for the selected day; missing, invalid, or reversed ranges highlight nothing.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/calendar.json",
-    code: "import { Calendar } from \"@/components/ui/calendar\";\n\nexport function Pick() {\n  const [day, setDay] = React.useState(null);\n  return <Calendar value={day} onChange={setDay} />;\n}" },
+    code: "import { Calendar } from \"@/components/ui/calendar\";\n\nexport function Pick() {\n  const [day, setDay] = React.useState(null);\n  return <Calendar value={day} onChange={setDay} range={{ start: \"2026-10-13\", end: \"2026-10-17\" }} />;\n}" },
   { id: "date-picker", name: "DatePicker", tagline: "Read-only input plus popover calendar. Clear, Today.",
     anatomy: ["Label", "Read-only text input (shows the value or the placeholder)", "Calendar button (opens/closes the popover)", "Popover (Calendar + Clear + Today)"],
-    props: [["value", "string | null", "No (default null)", "Selected date, ISO YYYY-MM-DD. Invalid values are treated as null."], ["onChange", "(iso: string | null) => void", "Yes", "Fires when a day is picked, Today is pressed, or Clear is pressed."], ["label", "string", "No (default Date)", "Input label."], ["placeholder", "string", "No (default YYYY-MM-DD)", "Shown when no value is set."], ["min", "string | null", "No", "Earliest selectable day, passed to the Calendar."], ["max", "string | null", "No", "Latest selectable day, passed to the Calendar."], ["clearable", "boolean", "No (default true)", "Show the Clear button when a value is set."], ["invalid", "boolean", "No (default false)", "Marks the input invalid (aria-invalid). Used by DateRangePicker for the end-before-start error."]],
+    props: [["value", "string | null", "No (default null)", "Selected date, ISO YYYY-MM-DD. Invalid values are treated as null."], ["onChange", "(iso: string | null) => void", "Yes", "Fires when a day is picked, Today is pressed, or Clear is pressed."], ["label", "string", "No (default Date)", "Input label."], ["placeholder", "string", "No (default YYYY-MM-DD)", "Shown when no value is set."], ["min", "string | null", "No", "Earliest selectable day, passed to the Calendar."], ["max", "string | null", "No", "Latest selectable day, passed to the Calendar."], ["clearable", "boolean", "No (default true)", "Show the Clear button when a value is set."], ["invalid", "boolean", "No (default false)", "Marks the input invalid (aria-invalid). Used by DateRangePicker for the end-before-start error."], ["range", "{ start, end }", "No", "Range to highlight, passed through to the popover Calendar."]],
     keyboard: [["Tab", "Move focus between the input, the Calendar button, and (when open) the popover controls."], ["Enter / Space", "Open or close the calendar, or select the focused day."], ["Escape", "Close the popover and return focus to the Calendar button."]],
-    invariants: ["The input is read-only. Dates come from the Calendar only, so there is no free-text parsing to get wrong.", "Invalid value prop is treated as null (empty input, Calendar shows the current month).", "Selecting a day calls onChange and closes the popover.", "Clear calls onChange(null) and closes. It only renders when clearable and a value is set.", "Today sets today's ISO and closes. Today is disabled when today is outside min/max.", "Escape closes the popover and returns focus to the Calendar button. Clicking outside the picker closes it.", "The popover is a plain div, not a dialog: no modal behavior, no focus trap.", "ISO strings only, no locale parsing."],
-    contract: { format: "oeste.component.v1", component: "DatePicker", props: { value: "string?", onChange: "function", label: "string", placeholder: "string", min: "string?", max: "string?", clearable: "boolean", invalid: "boolean" }, a11y: { input: "read-only input with label, aria-invalid", trigger: "button aria-label Open/Close calendar, aria-expanded, aria-controls", popover: "div with Calendar + Clear + Today", keyboard: "Escape closes, focus returns to trigger" } },
-    prompt: "Build a Mesa DatePicker: a label + a read-only text input (value or placeholder YYYY-MM-DD) + a Calendar button (aria-label Open/Close calendar, aria-expanded, aria-controls) that toggles a popover div with a Calendar + Clear + Today. The input is read-only: dates come from the Calendar only, no free-text parsing. Selecting a day calls onChange and closes. Clear (only when clearable and a value is set) calls onChange(null) and closes. Today sets today's ISO and closes, and is disabled when today is outside min/max. Escape closes and returns focus to the button. Clicking outside the picker closes it. Invalid value prop is treated as null. ISO strings only, no locale parsing.",
+    invariants: ["The input is read-only. Dates come from the Calendar only, so there is no free-text parsing to get wrong.", "Invalid value prop is treated as null (empty input, Calendar shows the current month).", "Selecting a day calls onChange and closes the popover.", "Clear calls onChange(null) and closes. It only renders when clearable and a value is set.", "Today sets today's ISO and closes. Today is disabled when today is outside min/max.", "Escape closes the popover and returns focus to the Calendar button. Clicking outside the picker closes it.", "The popover is a plain div, not a dialog: no modal behavior, no focus trap.", "The optional range prop passes straight through to the popover Calendar, which highlights the range.", "ISO strings only, no locale parsing."],
+    contract: { format: "oeste.component.v1", component: "DatePicker", props: { value: "string?", onChange: "function", label: "string", placeholder: "string", min: "string?", max: "string?", clearable: "boolean", invalid: "boolean", range: "{ start, end }?" }, a11y: { input: "read-only input with label, aria-invalid", trigger: "button aria-label Open/Close calendar, aria-expanded, aria-controls", popover: "div with Calendar + Clear + Today", keyboard: "Escape closes, focus returns to trigger" } },
+    prompt: "Build a Mesa DatePicker: a label + a read-only text input (value or placeholder YYYY-MM-DD) + a Calendar button (aria-label Open/Close calendar, aria-expanded, aria-controls) that toggles a popover div with a Calendar + Clear + Today. The input is read-only: dates come from the Calendar only, no free-text parsing. Selecting a day calls onChange and closes. Clear (only when clearable and a value is set) calls onChange(null) and closes. Today sets today's ISO and closes, and is disabled when today is outside min/max. Escape closes and returns focus to the button. Clicking outside the picker closes it. Invalid value prop is treated as null. ISO strings only, no locale parsing. The optional range prop passes through to the popover Calendar for range highlighting.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/date-picker.json",
     code: "import { DatePicker } from \"@/components/ui/date-picker\";\n\nexport function Pick() {\n  const [day, setDay] = React.useState(null);\n  return <DatePicker value={day} onChange={setDay} label=\"Start date\" />;\n}" },
   { id: "time-picker", name: "TimePicker", tagline: "Trigger plus time listbox. 12-hour labels, HH:MM value.",
@@ -652,13 +652,13 @@ COMPONENTS.push(
     prompt: "Build a Mesa TimePicker: a label + a trigger button (value or Select time, aria-haspopup=listbox, aria-expanded, aria-controls) that toggles a dropdown ul role=listbox. Options are li role=option aria-selected, each holding a button. Step 30 gives 48 options (00:00 to 23:30), step 60 gives 24 (00:00 to 23:00). Labels are 12-hour (12:00 AM, 1:00 PM); the value stays HH:MM 24-hour. Clicking an option calls onChange and closes. Escape closes and returns focus to the trigger. Options are buttons: Tab moves through them, Enter selects, no arrow keys. Invalid value prop is treated as null.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/time-picker.json",
     code: "import { TimePicker } from \"@/components/ui/time-picker\";\n\nexport function Pick() {\n  const [time, setTime] = React.useState(null);\n  return <TimePicker value={time} onChange={setTime} step={30} />;\n}" },
-  { id: "date-range-picker", name: "DateRangePicker", tagline: "Two DatePickers, one range. End-before-start is an error.",
-    anatomy: ["Fieldset + legend (the range label)", "Start DatePicker", "End DatePicker", "Clear button (when either is set)", "Error message (when end is before start)"],
+  { id: "date-range-picker", name: "DateRangePicker", tagline: "Two DatePickers, one range. Popover Calendars highlight the range. End-before-start is an error.",
+    anatomy: ["Fieldset + legend (the range label)", "Start DatePicker", "End DatePicker", "Range highlight in both popover Calendars", "Clear button (when either is set)", "Error message (when end is before start)"],
     props: [["start", "string | null", "No (default null)", "Range start, ISO YYYY-MM-DD. Invalid values are treated as null."], ["end", "string | null", "No (default null)", "Range end, ISO YYYY-MM-DD. Invalid values are treated as null."], ["onChange", "({ start, end }) => void", "Yes", "Fires with the new pair on any valid change, or { start: null, end: null } on Clear."], ["label", "string", "No (default Date range)", "Fieldset legend."], ["min", "string | null", "No", "Earliest selectable day, passed to both pickers."], ["max", "string | null", "No", "Latest selectable day, passed to both pickers."], ["clearable", "boolean", "No (default true)", "Show the range Clear button when either date is set."]],
     keyboard: [["Tab", "Move focus between the Start picker, the End picker, and the Clear button."], ["Enter / Space", "Same as DatePicker, per picker."], ["Escape", "Same as DatePicker, per picker: close the popover, focus returns to that picker's button."]],
-    invariants: ["Composes two DatePickers (Start, End). It does not build a separate range-mode Calendar.", "The inner pickers have no Clear buttons of their own; the range has one Clear button.", "When end is before start, an error message (role=alert) shows and the End input gets aria-invalid. onChange is NOT called with the invalid pair; the last valid pair stays.", "A stale error clears when the parent passes a new start/end pair.", "A same-day range (start equals end) is valid.", "Clear calls onChange({ start: null, end: null }) and clears the error.", "ISO strings only, no locale parsing."],
-    contract: { format: "oeste.component.v1", component: "DateRangePicker", props: { start: "string?", end: "string?", onChange: "function", label: "string", min: "string?", max: "string?", clearable: "boolean" }, a11y: { group: "fieldset + legend", pickers: "two DatePickers (Start, End)", error: "role=alert message + aria-invalid on End input, invalid pair never passed to onChange", clear: "one Clear button for the range" } },
-    prompt: "Build a Mesa DateRangePicker: a fieldset + legend (the range label) holding two DatePickers (Start, End) with no Clear buttons of their own, plus one range Clear button (when either date is set) and an error message when end is before start. On an end-before-start pick, show the error (role=alert) + aria-invalid on the End input and do NOT call onChange with the invalid pair; keep the last valid pair. A stale error clears when the parent passes a new pair. Same-day ranges are valid. Clear calls onChange({ start: null, end: null }). ISO strings only, no locale parsing.",
+    invariants: ["Composes two DatePickers (Start, End). It does not build a separate range-mode Calendar.", "Each popover Calendar gets range { start, end } and highlights every in-range day with the oxblood-at-12-percent band, plus an aria-label ending with ', in range'. With only one endpoint set, or an end-before-start pair, nothing highlights.", "The inner pickers have no Clear buttons of their own; the range has one Clear button.", "When end is before start, an error message (role=alert) shows and the End input gets aria-invalid. onChange is NOT called with the invalid pair; the last valid pair stays.", "A stale error clears when the parent passes a new start/end pair.", "A same-day range (start equals end) is valid.", "Clear calls onChange({ start: null, end: null }) and clears the error.", "ISO strings only, no locale parsing."],
+    contract: { format: "oeste.component.v1", component: "DateRangePicker", props: { start: "string?", end: "string?", onChange: "function", label: "string", min: "string?", max: "string?", clearable: "boolean" }, a11y: { group: "fieldset + legend", pickers: "two DatePickers (Start, End)", range: "in-range days get the oxblood band plus an aria-label ending with ', in range'", error: "role=alert message + aria-invalid on End input, invalid pair never passed to onChange", clear: "one Clear button for the range" } },
+    prompt: "Build a Mesa DateRangePicker: a fieldset + legend (the range label) holding two DatePickers (Start, End) with no Clear buttons of their own, plus one range Clear button (when either date is set) and an error message when end is before start. Each popover Calendar gets range { start, end } and highlights every in-range day with the oxblood-at-12-percent band plus an aria-label ending with ', in range'; with only one endpoint set, or an end-before-start pair, nothing highlights. On an end-before-start pick, show the error (role=alert) + aria-invalid on the End input and do NOT call onChange with the invalid pair; keep the last valid pair. A stale error clears when the parent passes a new pair. Same-day ranges are valid. Clear calls onChange({ start: null, end: null }). ISO strings only, no locale parsing.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/date-range-picker.json",
     code: "import { DateRangePicker } from \"@/components/ui/date-range-picker\";\n\nexport function Pick() {\n  const [range, setRange] = React.useState({ start: null, end: null });\n  return <DateRangePicker start={range.start} end={range.end} onChange={setRange} />;\n}" },
 );
@@ -881,13 +881,13 @@ function demoHTML(c) {
   if (c.id === "next-up") return '<div class="demo"><section class="m-nextup"><p class="m-kicker faint">Next up</p><p style="margin:4px 0 0;font-size:14.5px">Title goes here.</p><p class="muted" style="margin:2px 0 0;font-size:13px">Sub goes here.</p></section></div>';
   if (c.id === "rail") return '<div class="demo"><div class="m-rail"><article class="m-folder-card"><span class="m-stamp" style="position:absolute;right:16px;top:16px;border-color:var(--color-stamp-open);color:var(--color-stamp-open)">Open</span><p class="m-file-ref">Folder</p><h3 class="m-folder-title">Folder title</h3><p class="m-folder-meta">Meta goes here.</p></article><article class="m-folder-card"><span class="m-stamp" style="position:absolute;right:16px;top:16px;border-color:var(--color-stamp-new);color:var(--color-stamp-new)">New</span><p class="m-file-ref">Folder</p><h3 class="m-folder-title">Second folder</h3><p class="m-folder-meta">Meta goes here.</p></article><article class="m-folder-card"><span class="m-stamp" style="position:absolute;right:16px;top:16px;border-color:var(--color-stamp-review);color:var(--color-stamp-review)">Review</span><p class="m-file-ref">Folder</p><h3 class="m-folder-title">Third folder</h3><p class="m-folder-meta">Meta goes here.</p></article></div><p class="muted">Scroll the rail sideways. Cards snap-start.</p></div>';
   if (c.id === "result-card") return '<div class="demo"><article class="m-result-card"><p class="m-result-fno">Ref 01</p><h3>Title goes here.</h3><p class="m-result-outcome">Outcome goes here.</p><dl class="m-result-dl"><dt>Status</dt><dd>Open</dd><dt>Count</dt><dd>12</dd></dl></article></div>';
-  if (c.id === "forum-thread") return '<div class="demo"><article class="m-thread"><p><span class="m-thread-votes">12</span> Thread text goes here.</p><p class="m-thread-reply">Reply text goes here.</p><p class="m-thread-reply">Second reply.</p></article><p class="muted">Hover the thread for the 4% oxblood wash.</p></div>';
+  if (c.id === "forum-thread") return '<div class="demo">' + cap + '<a class="m-thread" href="#/components/forum-thread"><p><span class="m-thread-votes">12</span> Thread text goes here.</p><p class="m-thread-reply">Reply text goes here.</p><p class="m-thread-reply">Second reply.</p></a><p class="muted">A real link. Tab to focus it, Enter to follow it. Hover for the 4% oxblood wash.</p></div>';
   if (c.id === "mini-gates") return '<div class="demo"><div class="m-mini-gates"><div><p class="m-mini-num">01</p><p class="m-mini-title">Gate one</p><p class="m-mini-body">Description goes here.</p></div><div><p class="m-mini-num">02</p><p class="m-mini-title">Gate two</p><p class="m-mini-body">Description goes here.</p></div><div><p class="m-mini-num">03</p><p class="m-mini-title">Gate three</p><p class="m-mini-body">Description goes here.</p></div><div><p class="m-mini-num">04</p><p class="m-mini-title">Gate four</p><p class="m-mini-body">Description goes here.</p></div></div></div>';
   if (c.id === "chart") return '<div class="demo"><div style="overflow-x:auto"><svg role="img" aria-label="Bar chart demo: 5 categories, values from 20 to 100." viewBox="0 0 640 240" width="100%" style="display:block;overflow:visible"><g aria-hidden="true"><line x1="40" x2="624" y1="212" y2="212" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="162" y2="162" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="112" y2="112" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="62" y2="62" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="12" y2="12" style="stroke:var(--color-border)" stroke-width="1" /><text x="34" y="216" text-anchor="end" style="fill:var(--color-muted);font-size:11px">0</text><text x="34" y="166" text-anchor="end" style="fill:var(--color-muted);font-size:11px">25</text><text x="34" y="116" text-anchor="end" style="fill:var(--color-muted);font-size:11px">50</text><text x="34" y="66" text-anchor="end" style="fill:var(--color-muted);font-size:11px">75</text><text x="34" y="16" text-anchor="end" style="fill:var(--color-muted);font-size:11px">100</text><rect x="62" y="172" width="72" height="40" style="fill:var(--color-accent)" /><rect x="179" y="132" width="72" height="80" style="fill:var(--color-accent)" /><rect x="296" y="92" width="72" height="120" style="fill:var(--color-accent)" /><rect x="413" y="52" width="72" height="160" style="fill:var(--color-accent)" /><rect x="530" y="12" width="72" height="200" style="fill:var(--color-accent)" /><text x="98" y="167" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">20</text><text x="215" y="127" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">40</text><text x="332" y="87" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">60</text><text x="449" y="47" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">80</text><text x="566" y="7" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">100</text><text x="98" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">A</text><text x="215" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">B</text><text x="332" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">C</text><text x="449" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">D</text><text x="566" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:11px;font-weight:600">E</text></g></svg></div><table style="margin-top:12px"><caption class="muted" style="text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Bar chart demo. The table lists every value shown in the chart.</caption><thead><tr><th scope="col" style="border-bottom:4px double var(--color-border);padding:6px 8px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Label</th><th scope="col" style="border-bottom:4px double var(--color-border);padding:6px 8px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Value</th></tr></thead><tbody><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">A</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">20</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">B</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">40</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">C</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">60</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">D</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">80</td></tr><tr><th scope="row" style="border-bottom:1px solid var(--color-border);padding:6px 8px;text-align:left;font-weight:600">E</th><td style="border-bottom:1px solid var(--color-border);padding:6px 8px">100</td></tr></tbody></table></div>';
-  if (c.id === "calendar") return '<div class="demo"><div style="width:100%;max-width:300px"><div style="display:flex;align-items:center;justify-content:space-between;border-bottom:4px double var(--color-border);padding-bottom:8px"><button type="button" aria-label="Previous month" style="font-size:16px;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">‹</button><div aria-live="polite" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">October 2026</div><button type="button" aria-label="Next month" style="font-size:16px;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">›</button></div><table class="cal-grid" style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr style="border-bottom:4px double var(--color-border)"><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Su</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Mo</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Tu</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">We</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Th</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Fr</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Sa</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 1, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">1</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 2, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">2</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 3, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">3</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 4, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">4</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 5, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">5</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 6, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">6</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 7, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">7</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 8, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">8</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 9, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">9</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 10, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">10</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 11, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">11</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 12, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">12</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 13, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">13</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 14, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">14</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 15, 2026, selected" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;background:var(--color-accent);color:#fff;font-weight:700;border:1px solid transparent;-webkit-appearance:none;appearance:none">15</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 16, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">16</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 17, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">17</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-current="date" aria-label="October 18, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:2px solid var(--color-accent);font-weight:700;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">18</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 19, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">19</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 20, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">20</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 21, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">21</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 22, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">22</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 23, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">23</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 24, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">24</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 25, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">25</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 26, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">26</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 27, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">27</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 28, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">28</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 29, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">29</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 30, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">30</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 31, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">31</button></td></tr></tbody></table></div></div>';
-  if (c.id === "date-picker") return '<div class="demo"><div class="field" style="max-width:420px"><label for="demoDatePicker">Date</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px"><input id="demoDatePicker" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD" style="width:140px"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div>';
-  if (c.id === "time-picker") return '<div class="demo"><div class="field" style="max-width:420px"><label for="demoTimePicker">Time</label><div style="margin-top:4px"><button type="button" id="demoTimePicker" class="m-btn" style="width:140px;text-align:left" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button></div></div></div>';
-  if (c.id === "date-range-picker") return '<div class="demo"><fieldset style="margin:0;border:0;padding:0"><legend style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Date range</legend><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin-top:4px"><div class="field"><label for="demoRangeStart">Start</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px"><input id="demoRangeStart" type="text" readonly value="2026-10-01" placeholder="YYYY-MM-DD" style="width:140px"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div><div class="field"><label for="demoRangeEnd">End</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px"><input id="demoRangeEnd" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD" style="width:140px"><button type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div><div aria-hidden="true" style="margin-top:8px;background:var(--color-accent);padding:6px 12px;font-size:12px;font-weight:600;color:#ffffff">2026-10-01 → 2026-10-15</div><div style="margin-top:8px"><button type="button" class="m-btn">Clear</button></div></fieldset></div>';
+  if (c.id === "calendar") return '<div class="demo"><div style="width:100%;max-width:300px"><div style="display:flex;align-items:center;justify-content:space-between;border-bottom:4px double var(--color-border);padding-bottom:8px"><button type="button" aria-label="Previous month" style="font-size:16px;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">‹</button><div aria-live="polite" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">October 2026</div><button type="button" aria-label="Next month" style="font-size:16px;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">›</button></div><table class="cal-grid" style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr style="border-bottom:4px double var(--color-border)"><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Su</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Mo</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Tu</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">We</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Th</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Fr</th><th scope="col" style="padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted)">Sa</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 1, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">1</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 2, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">2</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 3, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">3</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 4, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">4</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 5, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">5</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 6, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">6</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 7, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">7</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 8, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">8</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 9, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">9</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 10, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">10</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 11, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">11</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 12, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">12</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 13, 2026, in range" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:var(--color-focus-ring);-webkit-appearance:none;appearance:none">13</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 14, 2026, in range" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:var(--color-focus-ring);-webkit-appearance:none;appearance:none">14</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 15, 2026, selected" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;background:var(--color-oxblood);color:#fff;font-weight:700;border:1px solid transparent;-webkit-appearance:none;appearance:none">15</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 16, 2026, in range" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:var(--color-focus-ring);-webkit-appearance:none;appearance:none">16</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 17, 2026, in range" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:var(--color-focus-ring);-webkit-appearance:none;appearance:none">17</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-current="date" aria-label="October 18, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:2px solid var(--color-accent);font-weight:700;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">18</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 19, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">19</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 20, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">20</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 21, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">21</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 22, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">22</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 23, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">23</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 24, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">24</button></td></tr><tr><td style="padding:2px;text-align:center"><button type="button" aria-label="October 25, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">25</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 26, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">26</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 27, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">27</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 28, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">28</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 29, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">29</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 30, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">30</button></td><td style="padding:2px;text-align:center"><button type="button" aria-label="October 31, 2026" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">31</button></td></tr></tbody></table><p class="muted">Days 13 to 17 show the range highlight. Day 15 is selected.</p></div></div>';
+  if (c.id === "date-picker") return '<div class="demo"><div data-dp class="field" style="max-width:420px"><label for="demoDatePicker">Date</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px;position:relative"><input data-dp-input id="demoDatePicker" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD" style="width:140px"><button data-dp-trigger type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button><div data-dp-pop hidden></div></div></div></div>';
+  if (c.id === "time-picker") return '<div class="demo"><div data-tp data-tp-value="14:30" class="field" style="max-width:420px;position:relative"><label for="demoTimePicker">Time</label><div style="margin-top:4px"><button data-tp-trigger id="demoTimePicker" type="button" class="m-btn" style="width:140px;text-align:left" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button><ul data-tp-list hidden role="listbox" aria-label="Times"></ul></div></div></div>';
+  if (c.id === "date-range-picker") return '<div class="demo"><fieldset data-dr style="margin:0;border:0;padding:0"><legend style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em">Date range</legend><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin-top:4px"><div data-dp class="field"><label for="demoRangeStart">Start</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px;position:relative"><input data-dp-input id="demoRangeStart" type="text" readonly value="2026-10-01" placeholder="YYYY-MM-DD" style="width:140px"><button data-dp-trigger type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button><div data-dp-pop hidden></div></div></div><div data-dp class="field"><label for="demoRangeEnd">End</label><div style="display:flex;gap:6px;align-items:center;margin-top:4px;position:relative"><input data-dp-input id="demoRangeEnd" type="text" readonly value="2026-10-15" placeholder="YYYY-MM-DD" style="width:140px"><button data-dp-trigger type="button" class="m-btn" aria-label="Open calendar" aria-expanded="false">Calendar</button><div data-dp-pop hidden></div></div></div></div><div data-dr-band aria-hidden="true" style="margin-top:8px;background:var(--color-oxblood);padding:6px 12px;font-size:12px;font-weight:600;color:#ffffff">2026-10-01 → 2026-10-15</div><p data-dr-error role="alert" hidden class="error" style="margin-top:8px;font-size:13px"></p><div style="margin-top:8px"><button data-dr-clear type="button" class="m-btn">Clear</button></div><p class="muted">Opening either popover Calendar highlights the current range.</p></fieldset></div>';
   if (c.id === "start-here") return '<div class="demo"><section class="m-start-here"><p class="m-start-kick">Start here</p><h3>Title goes here.</h3><p>Description goes here. <a href="#/getting-started">Getting started</a></p></section></div>';
   if (c.id === "search-pill") return '<div class="demo">' + cap + '<label class="m-search-pill" for="demoSearchPill"><span class="sr-only">Search</span><input id="demoSearchPill" data-search-pill type="search" placeholder="Search…" aria-label="Search"><kbd aria-hidden="true">⌘K</kbd></label><ul data-search-pill-list style="list-style:none;padding:0;margin:16px 0 0"><li data-search-pill-item="File Card">File Card</li><li data-search-pill-item="Folder Card">Folder Card</li><li data-search-pill-item="Review Queue">Review Queue</li></ul><p class="muted" data-search-pill-empty hidden>No matches.</p></div>';
   if (c.id === "banner") return '<div class="demo"><div class="m-banner"><strong>v0.2.0</strong> — current release.</div><p class="muted" style="margin-top:12px">Always dark, in both themes. Never clickable.</p></div>';
@@ -946,7 +946,325 @@ function variantsHTML(c) {
   return "";
 }
 
+/* Picker demo wiring: the DatePicker, TimePicker, and DateRangePicker demos
+   are live controls. Each [data-dp] unit gets a popover month calendar built
+   by JS; each [data-tp] unit gets a listbox. Open popovers portal to
+   document.body (position fixed) so no ancestor stacking context can trap
+   them behind later page sections; each [data-dr] fieldset
+   coordinates two units plus a range band, a Clear button, and an
+   end-before-start alert. Day styling mirrors the real Calendar component:
+   dense 36px squares, oxblood fill for the selected day, oxblood ring for
+   today, and the 12 percent oxblood band for in-range days. */
+var DP_MONTHS = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+var DP_WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+var DP_STYLE = {
+  range: true,
+  card: "background:var(--color-card);border:1px solid var(--color-border);border-radius:8px;padding:12px;width:300px;max-width:calc(100vw - 48px);box-shadow:0 8px 24px rgba(0,0,0,0.2);",
+  headBtn: "background:transparent;border:0;font-size:16px;color:var(--color-text);cursor:pointer;padding:4px 8px;-webkit-appearance:none;appearance:none;",
+  headLabel: "font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-text);",
+  th: "padding:6px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-muted);",
+  td: "padding:2px;text-align:center;",
+  day: "margin:0 auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:36px;height:36px;border-radius:4px;font-size:13px;border:1px solid transparent;background:transparent;color:var(--color-text);cursor:pointer;-webkit-appearance:none;appearance:none;",
+  daySelected: "background:var(--color-oxblood);color:#ffffff;font-weight:700;",
+  dayInRange: "background:var(--color-focus-ring);",
+  dayToday: "border:2px solid var(--color-accent);font-weight:700;",
+  footBtn: "border:1px solid var(--color-border);border-radius:6px;background:transparent;color:var(--color-text);padding:6px 10px;font-size:13px;cursor:pointer;-webkit-appearance:none;appearance:none;",
+  list: "background:var(--color-card);border:1px solid var(--color-border);border-radius:8px;padding:4px;max-height:240px;overflow:auto;width:140px;box-shadow:0 8px 24px rgba(0,0,0,0.2);list-style:none;margin:4px 0 0;",
+  optBtn: "display:block;width:100%;text-align:left;background:transparent;border:0;padding:6px 10px;font-size:13px;color:var(--color-text);cursor:pointer;border-radius:4px;-webkit-appearance:none;appearance:none;",
+  optSel: "background:var(--color-oxblood);color:#ffffff;font-weight:700;"
+};
+function dpParseISO(s) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+  if (!m) return null;
+  var y = +m[1], mo = +m[2], d = +m[3];
+  var dt = new Date(y, mo - 1, d);
+  if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  return { y: y, m: mo, d: d };
+}
+function dpISO(y, m, d) {
+  return y + "-" + String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+}
+function dpTodayISO() {
+  var t = new Date();
+  return dpISO(t.getFullYear(), t.getMonth() + 1, t.getDate());
+}
+function tpLabel(hh, mm) {
+  var ap = hh < 12 ? "AM" : "PM";
+  var h12 = hh % 12;
+  if (h12 === 0) h12 = 12;
+  return h12 + ":" + String(mm).padStart(2, "0") + " " + ap;
+}
+function dpRenderPop(unit) {
+  var pop = unit._dpPop;
+  var input = unit.querySelector("[data-dp-input]");
+  if (!pop || !input) return;
+  var st = unit._dpState;
+  var r = (unit.getAttribute("data-dp-range") || "").split(":");
+  var validRange = DP_STYLE.range && dpParseISO(r[0]) && dpParseISO(r[1]) && r[0] <= r[1];
+  var first = new Date(st.y, st.m - 1, 1).getDay();
+  var dim = new Date(st.y, st.m, 0).getDate();
+  var today = dpTodayISO();
+  var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
+    + '<button type="button" data-dp-prev aria-label="Previous month" style="' + DP_STYLE.headBtn + '">\u2039</button>'
+    + '<div aria-live="polite" style="' + DP_STYLE.headLabel + '">' + DP_MONTHS[st.m - 1] + " " + st.y + "</div>"
+    + '<button type="button" data-dp-next aria-label="Next month" style="' + DP_STYLE.headBtn + '">\u203a</button></div>';
+  html += '<table style="width:100%;border-collapse:collapse"><thead><tr>';
+  DP_WEEKDAYS.forEach(function (wd) { html += '<th scope="col" style="' + DP_STYLE.th + '">' + wd + "</th>"; });
+  html += "</tr></thead><tbody><tr>";
+  var cell = 0, d, iso, label, sel, rng, isToday, ds;
+  for (d = 0; d < first; d++) { html += "<td></td>"; cell++; }
+  for (d = 1; d <= dim; d++) {
+    if (cell % 7 === 0 && cell > 0) html += "</tr><tr>";
+    iso = dpISO(st.y, st.m, d);
+    label = DP_MONTHS[st.m - 1] + " " + d + ", " + st.y;
+    sel = input.value === iso;
+    rng = validRange && iso >= r[0] && iso <= r[1];
+    if (sel) label += ", selected";
+    else if (rng) label += ", in range";
+    isToday = iso === today;
+    ds = DP_STYLE.day + (sel ? DP_STYLE.daySelected : "") + (!sel && rng ? DP_STYLE.dayInRange : "") + (isToday && !sel ? DP_STYLE.dayToday : "");
+    html += '<td style="' + DP_STYLE.td + '"><button type="button" data-dp-day="' + iso + '"'
+      + (isToday ? ' aria-current="date"' : "") + ' aria-label="' + label + '" style="' + ds + '">' + d + "</button></td>";
+    cell++;
+  }
+  while (cell % 7 !== 0) { html += "<td></td>"; cell++; }
+  html += "</tr></tbody></table>";
+  html += '<div style="display:flex;gap:8px;margin-top:8px">'
+    + (input.value ? '<button type="button" data-dp-clear style="' + DP_STYLE.footBtn + '">Clear</button>' : "")
+    + '<button type="button" data-dp-today style="' + DP_STYLE.footBtn + '">Today</button></div>';
+  pop.innerHTML = html;
+}
+var __dpN = 0;
+var __dpPortals = [];
+function bindPickerDemos() {
+  __dpPortals.forEach(function (p) { if (p.parentNode) p.parentNode.removeChild(p); });
+  __dpPortals = [];
+  document.querySelectorAll("[data-dp]").forEach(function (unit) {
+    var trigger = unit.querySelector("[data-dp-trigger]");
+    var pop = unit.querySelector("[data-dp-pop]");
+    var input = unit.querySelector("[data-dp-input]");
+    if (!trigger || !pop || !input) return;
+    unit._dpPop = pop;
+    pop._dpUnit = unit;
+    pop._dpHome = pop.parentNode;
+    __dpN++;
+    pop.id = "dp-pop-" + __dpN;
+    trigger.setAttribute("aria-controls", pop.id);
+    pop.style.cssText = DP_STYLE.card;
+    var parsed = dpParseISO(input.value);
+    var now = new Date();
+    unit._dpState = { y: parsed ? parsed.y : now.getFullYear(), m: parsed ? parsed.m : now.getMonth() + 1 };
+    unit._dpOpen = false;
+    var setOpen = function (v) {
+      if (v) {
+        var pv = dpParseISO(input.value);
+        if (pv) unit._dpState = { y: pv.y, m: pv.m };
+        dpRenderPop(unit);
+        pop.hidden = false;
+        pop.style.position = "fixed";
+        pop.style.zIndex = "90";
+        pop.style.visibility = "hidden";
+        document.body.appendChild(pop);
+        if (__dpPortals.indexOf(pop) === -1) __dpPortals.push(pop);
+        var r = trigger.getBoundingClientRect();
+        var h = pop.offsetHeight || 420;
+        var w = pop.offsetWidth || 340;
+        var top = (r.bottom + 4 + h <= window.innerHeight) ? r.bottom + 4 : Math.max(8, r.top - h - 4);
+        var left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8));
+        pop.style.top = top + "px";
+        pop.style.left = left + "px";
+        pop.style.visibility = "";
+      } else {
+        pop.hidden = true;
+        pop.style.position = "";
+        pop.style.zIndex = "";
+        pop.style.top = "";
+        pop.style.left = "";
+        pop.style.visibility = "";
+        if (pop._dpHome) pop._dpHome.appendChild(pop);
+      }
+      trigger.setAttribute("aria-expanded", String(v));
+      trigger.setAttribute("aria-label", v ? "Close calendar" : "Open calendar");
+      unit._dpOpen = v;
+    };
+    unit._dpSetOpen = setOpen;
+    unit._dpRender = function () { if (unit._dpOpen) dpRenderPop(unit); };
+    var pick = function (iso) {
+      input.value = iso;
+      var p = dpParseISO(iso);
+      if (p) unit._dpState = { y: p.y, m: p.m };
+      if (unit._dpOnPick) unit._dpOnPick(iso);
+      setOpen(false);
+      trigger.focus();
+    };
+    trigger.addEventListener("click", function () { setOpen(!unit._dpOpen); });
+    pop.addEventListener("click", function (e) {
+      var t = e.target;
+      if (t.closest("[data-dp-prev]") || t.closest("[data-dp-next]")) {
+        var st = unit._dpState;
+        var m = st.m + (t.closest("[data-dp-prev]") ? -1 : 1), y = st.y;
+        if (m < 1) { m = 12; y--; }
+        if (m > 12) { m = 1; y++; }
+        unit._dpState = { y: y, m: m };
+        dpRenderPop(unit);
+        return;
+      }
+      var day = t.closest("[data-dp-day]");
+      if (day) { pick(day.getAttribute("data-dp-day")); return; }
+      if (t.closest("[data-dp-clear]")) { pick(""); return; }
+      if (t.closest("[data-dp-today]")) { pick(dpTodayISO()); return; }
+    });
+    var dpEsc = function (e) {
+      if (e.key === "Escape" && unit._dpOpen) { setOpen(false); trigger.focus(); }
+    };
+    unit.addEventListener("keydown", dpEsc);
+    pop.addEventListener("keydown", dpEsc);
+  });
+  document.querySelectorAll("[data-tp]").forEach(function (unit) {
+    var trigger = unit.querySelector("[data-tp-trigger]");
+    var list = unit.querySelector("[data-tp-list]");
+    if (!trigger || !list) return;
+    unit._tpList = list;
+    list._tpUnit = unit;
+    list._tpHome = list.parentNode;
+    __dpN++;
+    list.id = "tp-list-" + __dpN;
+    trigger.setAttribute("aria-controls", list.id);
+    list.style.cssText = DP_STYLE.list;
+    if (!list.children.length) {
+      var html = "", m, hh, mm, iso;
+      for (m = 0; m < 24 * 60; m += 30) {
+        hh = Math.floor(m / 60); mm = m % 60;
+        iso = String(hh).padStart(2, "0") + ":" + String(mm).padStart(2, "0");
+        html += '<li role="option" data-tp-opt="' + iso + '" aria-selected="false">'
+          + '<button type="button" data-tp-pick="' + iso + '" style="' + DP_STYLE.optBtn + '">' + tpLabel(hh, mm) + "</button></li>";
+      }
+      list.innerHTML = html;
+    }
+    unit._tpOpen = false;
+    var setOpen = function (v) {
+      if (v) {
+        list.hidden = false;
+        list.style.position = "fixed";
+        list.style.zIndex = "90";
+        list.style.visibility = "hidden";
+        document.body.appendChild(list);
+        if (__dpPortals.indexOf(list) === -1) __dpPortals.push(list);
+        var r = trigger.getBoundingClientRect();
+        var h = list.offsetHeight || 240;
+        var w = list.offsetWidth || 220;
+        var top = (r.bottom + 4 + h <= window.innerHeight) ? r.bottom + 4 : Math.max(8, r.top - h - 4);
+        var left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8));
+        list.style.top = top + "px";
+        list.style.left = left + "px";
+        list.style.visibility = "";
+      } else {
+        list.hidden = true;
+        list.style.position = "";
+        list.style.zIndex = "";
+        list.style.top = "";
+        list.style.left = "";
+        list.style.visibility = "";
+        if (list._tpHome) list._tpHome.appendChild(list);
+      }
+      trigger.setAttribute("aria-expanded", String(v));
+      unit._tpOpen = v;
+    };
+    unit._tpSetOpen = setOpen;
+    var markSelected = function (iso) {
+      list.querySelectorAll('[role="option"]').forEach(function (o) {
+        var on = o.getAttribute("data-tp-opt") === iso;
+        o.setAttribute("aria-selected", String(on));
+        var b = o.querySelector("[data-tp-pick]");
+        if (b) b.style.cssText = DP_STYLE.optBtn + (on ? DP_STYLE.optSel : "");
+      });
+    };
+    trigger.addEventListener("click", function () { setOpen(!unit._tpOpen); });
+    list.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-tp-pick]");
+      if (!b) return;
+      var iso = b.getAttribute("data-tp-pick");
+      unit.setAttribute("data-tp-value", iso);
+      trigger.textContent = b.textContent;
+      markSelected(iso);
+      setOpen(false);
+      trigger.focus();
+    });
+    var tpEsc = function (e) {
+      if (e.key === "Escape" && unit._tpOpen) { setOpen(false); trigger.focus(); }
+    };
+    unit.addEventListener("keydown", tpEsc);
+    list.addEventListener("keydown", tpEsc);
+    markSelected(unit.getAttribute("data-tp-value") || "");
+  });
+  document.querySelectorAll("[data-dr]").forEach(function (dr) {
+    var units = dr.querySelectorAll("[data-dp]");
+    if (units.length < 2) return;
+    var sU = units[0], eU = units[1];
+    var sI = sU.querySelector("[data-dp-input]");
+    var eI = eU.querySelector("[data-dp-input]");
+    var band = dr.querySelector("[data-dr-band]");
+    var errBox = dr.querySelector("[data-dr-error]");
+    var clearBtn = dr.querySelector("[data-dr-clear]");
+    if (!sI || !eI) return;
+    var sync = function () {
+      var s = sI.value, e = eI.value;
+      sU.setAttribute("data-dp-range", s + ":" + e);
+      eU.setAttribute("data-dp-range", s + ":" + e);
+      if (band) band.textContent = s && e ? s + " \u2192 " + e : "No range selected.";
+      var bad = !!(s && e && e < s);
+      if (errBox) {
+        errBox.hidden = !bad;
+        if (bad) errBox.textContent = "End date is before the start date.";
+      }
+      eI.setAttribute("aria-invalid", String(bad));
+      sU._dpRender();
+      eU._dpRender();
+    };
+    sU._dpOnPick = sync;
+    eU._dpOnPick = sync;
+    if (clearBtn) clearBtn.addEventListener("click", function () {
+      sI.value = ""; eI.value = ""; sync();
+    });
+    sync();
+  });
+}
+function bindPickerDocOnce() {
+  if (window.__dpDocBound) return;
+  window.__dpDocBound = true;
+  document.addEventListener("mousedown", function (e) {
+    document.querySelectorAll("[data-dp-pop]").forEach(function (pop) {
+      if (pop.hidden) return;
+      var unit = pop._dpUnit;
+      if (unit && !unit.contains(e.target) && !pop.contains(e.target) && unit._dpSetOpen) unit._dpSetOpen(false);
+    });
+    document.querySelectorAll("[data-tp-list]").forEach(function (list) {
+      if (list.hidden) return;
+      var unit = list._tpUnit;
+      if (unit && !unit.contains(e.target) && !list.contains(e.target) && unit._tpSetOpen) unit._tpSetOpen(false);
+    });
+  });
+  var closeOnScroll = function (e) {
+    var t = e && e.target;
+    document.querySelectorAll("[data-dp-pop]").forEach(function (pop) {
+      if (pop.hidden || (t && pop.contains(t))) return;
+      var unit = pop._dpUnit;
+      if (unit && unit._dpSetOpen) unit._dpSetOpen(false);
+    });
+    document.querySelectorAll("[data-tp-list]").forEach(function (list) {
+      if (list.hidden || (t && list.contains(t))) return;
+      var unit = list._tpUnit;
+      if (unit && unit._tpSetOpen) unit._tpSetOpen(false);
+    });
+  };
+  document.addEventListener("scroll", closeOnScroll, true);
+  window.addEventListener("resize", function () { closeOnScroll({ target: null }); });
+}
+
 function bindDemos() {
+  bindPickerDemos();
+  bindPickerDocOnce();
   const btn = document.querySelector("[data-demo-btn]");
   if (btn) btn.addEventListener("click", () => { document.getElementById("demoBtnOut").textContent = "Activated."; });
   document.querySelectorAll("[data-chip]").forEach((chip) => chip.addEventListener("click", () => {
@@ -1603,13 +1921,14 @@ function renderTokens() {
     ["surface", "--color-surface", "#ffffff", "#181410", "Cards, palette box"],
     ["text", "--color-text", "#181b1f", "#ece3d0", "Headings, body"],
     ["muted", "--color-muted", "#5b5f65", "#a79b82", "Secondary text"],
-    ["faint", "--color-faint", "#8a8e93", "#6e6455", "Tertiary only, never body"],
+    ["faint", "--color-faint", "#6e7278", "#8a7e6b", "Tertiary text"],
     ["border", "--color-border", "#ddd6c7", "#2e2720", "Hairlines"],
     ["border-soft", "--color-border-soft", "#ece5d5", "#221c16", "Soft hairlines"],
-    ["accent", "--color-accent", "#8a1f2b", "#c9404f", "Oxblood — status, links, stamps"],
+    ["accent", "--color-accent", "#8a1f2b", "#da4e63", "Oxblood accent for status, links, stamps"],
     ["accent-deep", "--color-accent-deep", "#6d1620", "#a52336", "Deep oxblood — hover, hero em (light)"],
+    ["oxblood", "--color-oxblood", "#8a1f2b", "#c9404f", "Solid fills with white text"],
     ["ok", "--color-ok", "#2e6b3e", "#8fae62", "Success, answers"],
-    ["warn", "--color-warn", "#8a5a1f", "#c9404f", "Warning (dark = accent)"],
+    ["warn", "--color-warn", "#8a5a1f", "#da4e63", "Warning (dark = accent)"],
     ["wash", "--color-wash", "#f1ede5", "#14110c", "Hover wash"],
     ["btn-text", "--color-btn-text", "#f7f4ec", "#ffffff", "Text on ink buttons"],
     ["hero-em", "--color-hero-em", "#6d1620", "#e87a88", "Hero accent em"],
@@ -1663,7 +1982,7 @@ function renderGettingStarted() {
     + "<h2>1 · Import the tokens</h2><p>Import <code>src/tokens.css</code> once, in your app entry. It defines the Mesa custom properties for both themes. Without it, every component is unstyled.</p><pre>" + hl("import \"@oeste/mesa/tokens.css\";") + "</pre>"
     + "<h2>2 · Wire the dark variant</h2><p>Dark is the default theme. In Tailwind v4, add the variant line to your CSS entry so <code>dark:</code> classes respond to <code>data-theme</code>:</p><pre>" + hl("@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));") + "</pre><p>In Tailwind v3, set <code>darkMode: [\"class\", \"[data-theme='dark']\"]</code> in your config. Either way, the toggle must also set <code>data-theme</code> (see <a href=\"#/build-a-theme\">Build a theme</a>).</p>"
     + "<h2>3 · Add one component</h2><p>shadcn (recommended). One command per component; shadcn writes the file into your project:</p><pre>" + hl("npx shadcn@latest add https://oeste.hiddeninwest.com/mesa/r/button.json") + "</pre><p>Import from where shadcn put the file. The docs show the shadcn default:</p><pre>" + hl("import { Button } from \"@/components/ui/button\";") + "</pre><p>Copy-paste. Open a component page, switch to the Vibe lens, copy the code into your own file, and import from where you put it. You own the file — change it like any other code in your project.</p>"
-    + "<h2>4 · Agents</h2><p>Agents: use <a href=\"/llms.txt\">llms.txt</a> and <code>components.json</code>. Each component page has an Agent lens with a fixed <code>oeste.component.v1</code> contract. That contract is the only spec an agent needs for that component.</p>"
+    + "<h2>4 · Agents</h2><p>Agents: use <a href=\"/mesa/llms.txt\">llms.txt</a> and <code>components.json</code>. Each component page has an Agent lens with a fixed <code>oeste.component.v1</code> contract. That contract is the only spec an agent needs for that component.</p>"
     + "<h2>5 · Read the invariants</h2><p>Every component page lists its invariants: the rules that are never optional. The most important ones: never use color alone, never restyle a locked component, never use a spacing scale that does not exist.</p>";
 }
 
@@ -1684,10 +2003,9 @@ function renderAccessibility() {
        ["Dark · ink on paper", "#ece3d0", "#100e0b", "15.11"], ["Dark · muted on paper", "#a79b82", "#100e0b", "7.02"], ["Dark · ok on paper", "#8fae62", "#100e0b", "7.71"], ["Dark · btn-text on oxblood", "#ffffff", "#c9404f", "4.85"], ["Dark · hero-em on paper", "#e87a88", "#100e0b", "6.95"]]
       .map(([label, fg, bg, r]) => '<div class="pair-card"><div class="pair-sample" style="background:' + bg + '"><div class="pair-aa" style="color:' + fg + '">Aa</div></div><p class="pair-caption">' + esc(label) + " — " + r + ":1</p></div>").join("")
     + "</div>"
-    + "<h2>Documented exceptions</h2><p>These four values pass 3:1 (large text / UI components) but NOT 4.5:1 (normal text). They are documented here and in <code>src/tokens.css</code> so nobody ships them as body text by accident.</p>"
-    + "<ul><li><strong>Dark accent #c9404f on dark paper — 3.97:1.</strong> Dark accent text must be large/bold, or use hero-em <code>#e87a88</code> (6.95:1) for normal-size dark accent text.</li>"
+    + "<h2>Documented exceptions</h2><p>These two values pass 3:1 (large text / UI components) but NOT 4.5:1 (normal text). They are documented here and in <code>src/tokens.css</code> so nobody ships them as body text by accident.</p>"
+    + "<ul>"
     + "<li><strong>Dark accent-deep #a52336 on dark paper — 2.66:1.</strong> Never use dark accent-deep for text. Use it for hover surfaces only.</li>"
-    + "<li><strong>Ink-faint, light 3.13:1 / dark 3.32:1.</strong> Tertiary only — timestamps, placeholders, ghost numbers. Never body text, never labels, never code comments.</li>"
     + "<li><strong>Stamp Open #c9404f on dark card — 3.78:1.</strong> Stamps are borders + short labels, treated as non-text contrast (3:1). Stamp labels are never body text.</li></ul>"
     + "<h2>Per-component keyboard</h2><p>Every component page has a Keyboard table. Where the source does not specify a behavior, the table says \"Not specified in source\" rather than inventing one.</p>"
     + "<h2>Reduced motion</h2><p>With <code>prefers-reduced-motion: reduce</code>, all animation collapses to 0.01ms. Pulses stop. Reveals stop. The page is fully readable without motion.</p>";

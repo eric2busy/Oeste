@@ -4,11 +4,12 @@
    Values here MUST match src/tokens.json and DESIGN_TOKENS in src/index.js.
    Dark is the default theme. Accent is oxblood. There is no Topanga-style
    Danger token in Mesa: emphasis and errors use oxblood.
-   Contrast exceptions are documented, not hidden: dark accent on dark paper
-   is 3.97:1 and dark accent-deep is 2.66:1, so they pass 3:1 for large text
-   and UI components but NOT 4.5:1 for normal text. Dark accent text must be
-   large/bold or use hero-em. Ink-faint is tertiary only, never body text.
-   Stamps meet 3:1 non-text contrast. See Accessibility. */
+   Contrast exceptions are documented, not hidden: dark accent-deep is
+   2.66:1 (fill only, never text) and Stamp Open on a dark card is 3.78:1
+   (non-text). Every other text pair meets WCAG AA 4.5:1. Accent is the
+   text-safe oxblood tint (#da4e63 in dark); solid fills with white text
+   use oxblood (#c9404f in dark). Values aligned with the Figma library
+   v0.8.0 on 2026-10-20. Stamps meet 3:1 non-text contrast. See Accessibility. */
 
 :root, [data-theme='light'] {
   color-scheme: light;
@@ -18,11 +19,12 @@
   --color-dark: #141114;
   --color-text: #181b1f;
   --color-muted: #5b5f65;
-  --color-faint: #8a8e93;
+  --color-faint: #6e7278;
   --color-border: #ddd6c7;
   --color-border-soft: #ece5d5;
   --color-accent: #8a1f2b;
   --color-accent-deep: #6d1620;
+  --color-oxblood: #8a1f2b;
   --color-ok: #2e6b3e;
   --color-warn: #8a5a1f;
   --color-wash: #f1ede5;
@@ -32,6 +34,7 @@
   --color-selection-bg: #8a1f2b;
   --color-selection-text: #ffffff;
   --color-scrim: rgba(24, 27, 31, 0.45);
+  --color-palette-scrim: rgba(24, 27, 31, 0.45);
   --color-hero-em: #6d1620;
   --color-ghost-btn-border: #ddd6c7;
   --color-pill-open-text: #2e2b25;
@@ -51,9 +54,9 @@
   --color-pill-reward-text: #7a5c14;
   --color-pill-reward-border: #e3cf9a;
   --color-stamp-open: #c9404f;
-  --color-stamp-new: #d8a93f;
-  --color-stamp-review: #c98a2b;
-  --color-stamp-closed: #777777;
+  --color-stamp-new: #94701e;
+  --color-stamp-review: #9d6c22;
+  --color-stamp-closed: #757575;
   --color-lamp-off: #5a4a1f;
   --color-lamp-off-ring: rgba(216, 169, 63, 0.12);
   --color-lamp-on: #3f9e4d;
@@ -145,13 +148,14 @@
   --color-dark: #0a0806;
   --color-text: #ece3d0;
   --color-muted: #a79b82;
-  --color-faint: #6e6455;
+  --color-faint: #8a7e6b;
   --color-border: #2e2720;
   --color-border-soft: #221c16;
-  --color-accent: #c9404f;
+  --color-accent: #da4e63;
   --color-accent-deep: #a52336;
+  --color-oxblood: #c9404f;
   --color-ok: #8fae62;
-  --color-warn: #c9404f;
+  --color-warn: #da4e63;
   --color-wash: #14110c;
   --color-btn-text: #ffffff;
   --color-nav-bg: rgba(16, 14, 11, 0.87);
@@ -159,6 +163,7 @@
   --color-selection-bg: #c9404f;
   --color-selection-text: #ffffff;
   --color-scrim: rgba(5, 4, 3, 0.6);
+  --color-palette-scrim: rgba(5, 4, 3, 0.6);
   --color-hero-em: #e87a88;
   --color-ghost-btn-border: #4a4034;
   --color-pill-open-text: #ffffff;
@@ -178,9 +183,9 @@
   --color-pill-reward-text: #7a5c14;
   --color-pill-reward-border: #e3cf9a;
   --color-stamp-open: #c9404f;
-  --color-stamp-new: #d8a93f;
-  --color-stamp-review: #c98a2b;
-  --color-stamp-closed: #777777;
+  --color-stamp-new: #94701e;
+  --color-stamp-review: #9d6c22;
+  --color-stamp-closed: #7f7f7f;
   --color-lamp-off: #5a4a1f;
   --color-lamp-off-ring: rgba(216, 169, 63, 0.12);
   --color-lamp-on: #3f9e4d;

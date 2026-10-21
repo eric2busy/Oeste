@@ -182,8 +182,8 @@ main.narrow { max-width: 760px; }
 }
 .m-btn:hover { transform: translateY(-1px); background: var(--color-accent-deep); }
 /* Primary is ink (light) / oxblood (dark) — the docs-site .m-btn is Primary. */
-html[data-theme="dark"] .m-btn { background: var(--color-accent); color: #fff; }
-.m-btn-solid { background: var(--color-accent); color: #fff; }
+html[data-theme="dark"] .m-btn { background: var(--color-oxblood); color: #fff; }
+.m-btn-solid { background: var(--color-oxblood); color: #fff; }
 .m-btn-solid:hover { background: var(--color-accent-deep); }
 .m-btn-ghost { background: transparent; border-color: var(--color-ghost-btn-border); color: var(--color-text); }
 .m-btn-ghost:hover { border-color: var(--color-accent); color: var(--color-accent); background: transparent; }
@@ -240,7 +240,7 @@ html[data-theme="dark"] .m-countlink { color: var(--color-accent); }
 .m-chip[aria-pressed="true"] { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg); }
 .m-chip .count { font-size: 11.5px; opacity: 0.55; margin-left: 5px; }
 .m-forum { font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--color-border); background: transparent; color: var(--color-muted); border-radius: var(--radius-forum-ctl); padding: 8px 14px; text-decoration: none; }
-.m-forum[aria-pressed="true"] { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+.m-forum[aria-pressed="true"] { background: var(--color-oxblood); border-color: var(--color-oxblood); color: #fff; }
 .m-breadcrumb { font-size: 12.5px; color: var(--color-muted); }
 .m-breadcrumb a { color: var(--color-muted); text-decoration: none; }
 .m-breadcrumb a:hover { color: var(--color-accent); }
@@ -429,6 +429,7 @@ html[data-theme="dark"] .m-disclaimer { background: rgba(201,64,79,0.05); }
 .m-result-dl dd { margin: 0; }
 
 .m-thread { cursor: pointer; padding: 12px 8px; }
+a.m-thread { display: block; text-decoration: none; color: inherit; }
 .m-thread:hover { background: rgba(138,31,43,0.04); }
 html[data-theme="dark"] .m-thread:hover { background: rgba(201,64,79,0.04); }
 .m-thread p { margin: 0; }

@@ -5,12 +5,12 @@
 ## For agents
 
 - Read `components.json` first: it lists every component with `id`, `name`, `description`, `registryUrl`, `githubRawUrl`, `docsUrl`, `tags`.
-- Fetch a component's registry item at its `registryUrl` (e.g. `https://oeste.hiddeninwest.com/mesa/r/button.json`). Registry items are generated from `src/index.js` — never hand-edited.
+- Fetch a component's registry item at its `registryUrl` (e.g. `https://oeste.hiddeninwest.com/mesa/r/button.json`). Registry items are generated from `mesa/src/index.js` — never hand-edited.
 - Each component page has an Agent lens with a fixed `oeste.component.v1` contract. That contract is the only spec an agent needs for that component.
-- Import `src/tokens.css` once. Tokens in `src/tokens.json` are canonical. Do not invent token values.
+- Import `mesa/src/tokens.css` once. Tokens in `mesa/src/tokens.json` are canonical. Do not invent token values.
 - Mesa has no Danger token, no modal, no Toast, no Dropdown. Command Palette is the overlay. Do not invent components.
 - Mesa has no spacing scale and no shared radius scale. Use the observed values per component.
-- Contrast exceptions are documented in Accessibility: dark accent (3.97:1), dark accent-deep (2.66:1), ink-faint (3.13 / 3.32:1), Stamp Open on dark card (3.78:1). Never use those as normal-size body text.
+- Contrast exceptions are documented in Accessibility: dark accent-deep (2.66:1), Stamp Open on dark card (3.78:1). Never use those as normal-size body text.
 
 ## Components
 
@@ -72,7 +72,7 @@
 - [NextUp](https://oeste.hiddeninwest.com/mesa/#/components/next-up): Key plus title plus sub.
 - [Rail](https://oeste.hiddeninwest.com/mesa/#/components/rail): Horizontal snap-scroll card rail.
 - [ResultCard](https://oeste.hiddeninwest.com/mesa/#/components/result-card): Outcome card with number, title, outcome, key/value rows.
-- [ForumThread](https://oeste.hiddeninwest.com/mesa/#/components/forum-thread): Thread row with votes and replies.
+- [ForumThread](https://oeste.hiddeninwest.com/mesa/#/components/forum-thread): Thread row with votes and replies. Real link with href, button with onSelect.
 - [MiniGates](https://oeste.hiddeninwest.com/mesa/#/components/mini-gates): Compact gate cards, four across.
 - [StartHere](https://oeste.hiddeninwest.com/mesa/#/components/start-here): Intro card with kick, title, body.
 - [SearchPill](https://oeste.hiddeninwest.com/mesa/#/components/search-pill): Pill search with keyboard hint.
@@ -83,10 +83,10 @@
 - [OptionRow](https://oeste.hiddeninwest.com/mesa/#/components/option-row): Bordered radio option row.
 - [DataGrid](https://oeste.hiddeninwest.com/mesa/#/components/data-grid): Sortable, filterable, pageable data grid.
 - [Chart](https://oeste.hiddeninwest.com/mesa/#/components/chart): Bar, line, area, pie, donut. One series, SVG + data table.
-- [Calendar](https://oeste.hiddeninwest.com/mesa/#/components/calendar): Month grid for one ISO date.
+- [Calendar](https://oeste.hiddeninwest.com/mesa/#/components/calendar): Month grid for one ISO date. Optional range highlight.
 - [DatePicker](https://oeste.hiddeninwest.com/mesa/#/components/date-picker): Read-only input + popover Calendar.
 - [TimePicker](https://oeste.hiddeninwest.com/mesa/#/components/time-picker): Trigger + listbox of times.
-- [DateRangePicker](https://oeste.hiddeninwest.com/mesa/#/components/date-range-picker): Start + End DatePickers with range validation.
+- [DateRangePicker](https://oeste.hiddeninwest.com/mesa/#/components/date-range-picker): Start + End DatePickers with range validation. Popover Calendars highlight the range.
 
 ## Docs
 

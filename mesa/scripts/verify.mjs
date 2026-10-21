@@ -53,7 +53,8 @@ const KEYS = [
   ["faint", "inkFaint", "color-faint"],
   ["border", "line", "color-border"],
   ["borderSoft", "lineSoft", "color-border-soft"],
-  ["accent", "oxblood", "color-accent"],
+  ["accent", "accent", "color-accent"],
+  ["oxblood", "oxblood", "color-oxblood"],
   ["accentDeep", "oxbloodDeep", "color-accent-deep"],
   ["ok", "ok", "color-ok"],
   ["warn", "warn", "color-warn"],
@@ -117,11 +118,10 @@ for (const key of Object.keys(json.radius)) {
 // --- Contrast ---
 // Pairs below must meet WCAG AA 4.5:1 for normal text.
 // DOCUMENTED EXCEPTIONS (not in this list; see Accessibility):
-// dark accent #c9404f on dark paper = 3.97:1, dark accent-deep #a52336 = 2.66:1,
-// ink-faint light 3.13:1 / dark 3.32:1, Stamp Open on dark card 3.78:1.
-// Those pass 3:1 for large text / UI components only: dark accent text must be
-// large/bold or use hero-em; ink-faint is tertiary only, never body; stamps are
-// borders + short labels (non-text contrast).
+// dark accent-deep #a52336 = 2.66:1 (fill only, never text) and Stamp Open
+// on dark card 3.78:1 (borders + short labels, non-text contrast).
+// Accent is the text-safe tint (#da4e63 in dark); solid fills with white
+// text use oxblood. Values aligned with the Figma library v0.8.0 (2026-10-20).
 function lum(hex) {
   const h = hex.replace("#", "");
   const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
@@ -160,6 +160,12 @@ const PAIRS = [
   ["dark", "cta text on cta bg", darkColor.ctaBandText, darkColor.ctaBandBg],
   ["dark", "cta muted on cta bg", darkColor.ctaBandMuted, darkColor.ctaBandBg],
   ["dark", "pill verifying text on bg", darkColor.pillVerifyingText, darkColor.pillVerifyingBg],
+  ["dark", "accent on bg", darkColor.accent, darkColor.bg],
+  ["dark", "accent on surface", darkColor.accent, darkColor.card],
+  ["light", "faint on bg", lightColor.inkFaint, lightColor.bg],
+  ["light", "faint on surface", lightColor.inkFaint, lightColor.card],
+  ["dark", "faint on bg", darkColor.inkFaint, darkColor.bg],
+  ["dark", "faint on surface", darkColor.inkFaint, darkColor.card],
 ];
 for (const [theme, label, fg, bg] of PAIRS) {
   const r = ratio(fg, bg);
@@ -182,9 +188,9 @@ for (const theme of ["light", "dark"]) {
 // --- Registry: r/*.json + components.json exist, parse, and agree ---
 const manifest = JSON.parse(readFileSync(join(root, "components.json"), "utf8"));
 check("registry manifest version matches tokens.json", manifest.version === json.version, manifest.version);
-check("registry manifest has 67 components", manifest.components.length === 67, String(manifest.components.length));
+check("registry manifest has 73 components", manifest.components.length === 73, String(manifest.components.length));
 const registryIndex = JSON.parse(readFileSync(join(root, "r/registry.json"), "utf8"));
-check("registry index has 67 items", registryIndex.items.length === 67, String(registryIndex.items.length));
+check("registry index has 73 items", registryIndex.items.length === 73, String(registryIndex.items.length));
 const manifestIds = new Set(manifest.components.map((c) => c.id));
 const indexIds = new Set(registryIndex.items.map((i) => i.id));
 check("registry index ids == manifest ids", manifestIds.size === indexIds.size && [...manifestIds].every((id) => indexIds.has(id)));

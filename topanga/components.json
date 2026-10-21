@@ -1,13 +1,13 @@
 {
  "version": "0.4.8",
- "registryBase": "https://oeste.hiddeninwest.com/r/",
+ "registryBase": "https://oeste.hiddeninwest.com/topanga/r/",
  "components": [
   {
    "id": "accordion",
    "name": "Accordion",
    "description": "Stacked sections. One open at a time or many \u2014 your call.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/accordion.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/accordion.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/accordion.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/accordion.json",
    "docsUrl": "#/components/accordion",
    "tags": [
     "data"
@@ -17,8 +17,8 @@
    "id": "alert",
    "name": "Alert",
    "description": "Status that stays put. Text first, tone second.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/alert.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/alert.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/alert.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/alert.json",
    "docsUrl": "#/components/alert",
    "tags": [
     "feedback"
@@ -28,8 +28,8 @@
    "id": "avatar",
    "name": "Avatar",
    "description": "A face or initials. Fallback always shows.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/avatar.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/avatar.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/avatar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/avatar.json",
    "docsUrl": "#/components/avatar",
    "tags": [
     "data"
@@ -39,8 +39,8 @@
    "id": "badge",
    "name": "Badge",
    "description": "Small status. Text first, color second.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/badge.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/badge.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/badge.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/badge.json",
    "docsUrl": "#/components/badge",
    "tags": [
     "data"
@@ -50,8 +50,8 @@
    "id": "breadcrumb",
    "name": "Breadcrumb",
    "description": "Where you are, and how you got here.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/breadcrumb.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/breadcrumb.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/breadcrumb.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/breadcrumb.json",
    "docsUrl": "#/components/breadcrumb",
    "tags": [
     "navigation"
@@ -61,8 +61,8 @@
    "id": "button",
    "name": "Button",
    "description": "One action. A clear hierarchy.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/button.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/button.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/button.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/button.json",
    "docsUrl": "#/components/button",
    "tags": [
     "controls"
@@ -72,8 +72,8 @@
    "id": "calendar",
    "name": "Calendar",
    "description": "Month grid. One button per day, min/max bounds.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/calendar.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/calendar.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/calendar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/calendar.json",
    "docsUrl": "#/components/calendar",
    "tags": [
     "forms"
@@ -83,8 +83,8 @@
    "id": "card",
    "name": "Card",
    "description": "Structural container with proper heading hierarchy.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/card.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/card.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/card.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/card.json",
    "docsUrl": "#/components/card",
    "tags": [
     "data"
@@ -94,8 +94,8 @@
    "id": "chart",
    "name": "Chart",
    "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/chart.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/chart.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/chart.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/chart.json",
    "docsUrl": "#/components/chart",
    "tags": [
     "data"
@@ -105,8 +105,8 @@
    "id": "checkbox",
    "name": "Checkbox",
    "description": "Real input. Visible label. Described help.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/checkbox.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/checkbox.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/checkbox.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/checkbox.json",
    "docsUrl": "#/components/checkbox",
    "tags": [
     "forms"
@@ -116,19 +116,30 @@
    "id": "collapsible",
    "name": "Collapsible",
    "description": "One section that opens and closes. Accordion's simpler sibling.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/collapsible.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/collapsible.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/collapsible.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/collapsible.json",
    "docsUrl": "#/components/collapsible",
    "tags": [
     "disclosure"
    ]
   },
   {
+   "id": "data-grid",
+   "name": "DataGrid",
+   "description": "Sortable, filterable, pageable data grid.",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/data-grid.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/data-grid.json",
+   "docsUrl": "#/components/data-grid",
+   "tags": [
+    "data"
+   ]
+  },
+  {
    "id": "date-picker",
    "name": "DatePicker",
    "description": "Read-only input plus popover calendar. Clear, Today.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/date-picker.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/date-picker.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/date-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/date-picker.json",
    "docsUrl": "#/components/date-picker",
    "tags": [
     "forms"
@@ -138,8 +149,8 @@
    "id": "date-range-picker",
    "name": "DateRangePicker",
    "description": "Two DatePickers, one range. End-before-start is an error.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/date-range-picker.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/date-range-picker.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/date-range-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/date-range-picker.json",
    "docsUrl": "#/components/date-range-picker",
    "tags": [
     "forms"
@@ -149,8 +160,8 @@
    "id": "dialog",
    "name": "Dialog",
    "description": "Accessible modal. Focus in, Escape out, focus back.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/dialog.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/dialog.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/dialog.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/dialog.json",
    "docsUrl": "#/components/dialog",
    "tags": [
     "overlays"
@@ -160,8 +171,8 @@
    "id": "dropdown-menu",
    "name": "DropdownMenu",
    "description": "Actions in a list. Arrows move, Escape closes.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/dropdown-menu.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/dropdown-menu.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/dropdown-menu.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/dropdown-menu.json",
    "docsUrl": "#/components/dropdown-menu",
    "tags": [
     "overlays"
@@ -171,8 +182,8 @@
    "id": "empty-state",
    "name": "EmptyState",
    "description": "Nothing here yet \u2014 and a clear next step.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/empty-state.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/empty-state.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/empty-state.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/empty-state.json",
    "docsUrl": "#/components/empty-state",
    "tags": [
     "data"
@@ -182,8 +193,8 @@
    "id": "input",
    "name": "Input",
    "description": "Persistent label. Described errors. No placeholder-only fields.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/input.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/input.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/input.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/input.json",
    "docsUrl": "#/components/input",
    "tags": [
     "forms"
@@ -193,8 +204,8 @@
    "id": "label",
    "name": "Label",
    "description": "A label that stands on its own. Links to its control.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/label.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/label.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/label.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/label.json",
    "docsUrl": "#/components/label",
    "tags": [
     "forms"
@@ -204,8 +215,8 @@
    "id": "pagination",
    "name": "Pagination",
    "description": "Page through a list. Current page is unmistakable.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/pagination.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/pagination.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/pagination.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/pagination.json",
    "docsUrl": "#/components/pagination",
    "tags": [
     "navigation"
@@ -215,8 +226,8 @@
    "id": "popover",
    "name": "Popover",
    "description": "A small panel anchored to a trigger. Escape closes.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/popover.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/popover.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/popover.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/popover.json",
    "docsUrl": "#/components/popover",
    "tags": [
     "overlays"
@@ -226,8 +237,8 @@
    "id": "progress",
    "name": "Progress",
    "description": "How far along. Number + bar, never bar alone.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/progress.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/progress.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/progress.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/progress.json",
    "docsUrl": "#/components/progress",
    "tags": [
     "data"
@@ -237,8 +248,8 @@
    "id": "radiogroup",
    "name": "RadioGroup",
    "description": "One choice from a few. Native radios, real grouping.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/radiogroup.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/radiogroup.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/radiogroup.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/radiogroup.json",
    "docsUrl": "#/components/radiogroup",
    "tags": [
     "forms"
@@ -248,8 +259,8 @@
    "id": "select",
    "name": "Select",
    "description": "One choice from a list. Native select, real label.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/select.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/select.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/select.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/select.json",
    "docsUrl": "#/components/select",
    "tags": [
     "forms"
@@ -259,8 +270,8 @@
    "id": "separator",
    "name": "Separator",
    "description": "A hairline that divides. Decorative or semantic.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/separator.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/separator.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/separator.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/separator.json",
    "docsUrl": "#/components/separator",
    "tags": [
     "data"
@@ -270,8 +281,8 @@
    "id": "skeleton",
    "name": "Skeleton",
    "description": "A placeholder while content loads. Never flashing.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/skeleton.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/skeleton.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/skeleton.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/skeleton.json",
    "docsUrl": "#/components/skeleton",
    "tags": [
     "data"
@@ -281,8 +292,8 @@
    "id": "slider",
    "name": "Slider",
    "description": "Pick a number by dragging. Arrows work too.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/slider.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/slider.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/slider.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/slider.json",
    "docsUrl": "#/components/slider",
    "tags": [
     "forms"
@@ -292,8 +303,8 @@
    "id": "switch",
    "name": "Switch",
    "description": "On / off with a real role=switch.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/switch.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/switch.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/switch.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/switch.json",
    "docsUrl": "#/components/switch",
    "tags": [
     "forms"
@@ -303,8 +314,8 @@
    "id": "table",
    "name": "Table",
    "description": "Rows and columns that screen readers can follow.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/table.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/table.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/table.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/table.json",
    "docsUrl": "#/components/table",
    "tags": [
     "data"
@@ -314,8 +325,8 @@
    "id": "tabs",
    "name": "Tabs",
    "description": "Roving tabindex. Arrow keys move, Home/End jump.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/tabs.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/tabs.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/tabs.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/tabs.json",
    "docsUrl": "#/components/tabs",
    "tags": [
     "data"
@@ -325,8 +336,8 @@
    "id": "textarea",
    "name": "Textarea",
    "description": "Multi-line input. Same label + error pattern as Input.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/textarea.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/textarea.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/textarea.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/textarea.json",
    "docsUrl": "#/components/textarea",
    "tags": [
     "forms"
@@ -336,8 +347,8 @@
    "id": "time-picker",
    "name": "TimePicker",
    "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/time-picker.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/time-picker.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/time-picker.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/time-picker.json",
    "docsUrl": "#/components/time-picker",
    "tags": [
     "forms"
@@ -347,8 +358,8 @@
    "id": "toast",
    "name": "Toast",
    "description": "Polite status. Manual dismissal. Nothing auto-vanishes.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/toast.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/toast.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/toast.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/toast.json",
    "docsUrl": "#/components/toast",
    "tags": [
     "feedback"
@@ -358,8 +369,8 @@
    "id": "toggle",
    "name": "Toggle",
    "description": "A button that stays pressed. Fill + label, not color alone.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/toggle.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/toggle.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/toggle.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/toggle.json",
    "docsUrl": "#/components/toggle",
    "tags": [
     "forms"
@@ -369,8 +380,8 @@
    "id": "tooltip",
    "name": "Tooltip",
    "description": "A hint on hover and focus. Never the only way to know.",
-   "registryUrl": "https://oeste.hiddeninwest.com/r/tooltip.json",
-   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/r/tooltip.json",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/tooltip.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/tooltip.json",
    "docsUrl": "#/components/tooltip",
    "tags": [
     "overlays"

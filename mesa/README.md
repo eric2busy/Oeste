@@ -55,13 +55,14 @@ Mesa tokens live in `src/tokens.json` and `src/tokens.css`. `DESIGN_TOKENS` in `
 | `--color-surface` | `#ffffff` | `#181410` | Cards, palette box |
 | `--color-text` | `#181b1f` | `#ece3d0` | Headings, body |
 | `--color-muted` | `#5b5f65` | `#a79b82` | Secondary text |
-| `--color-faint` | `#8a8e93` | `#6e6455` | Tertiary only, never body |
+| `--color-faint` | `#6e7278` | `#8a7e6b` | Tertiary text |
 | `--color-border` | `#ddd6c7` | `#2e2720` | Hairlines |
 | `--color-border-soft` | `#ece5d5` | `#221c16` | Soft hairlines |
-| `--color-accent` | `#8a1f2b` | `#c9404f` | Oxblood — status, links, stamps |
+| `--color-accent` | `#8a1f2b` | `#da4e63` | Oxblood accent for status, links, stamps |
+| `--color-oxblood` | `#8a1f2b` | `#c9404f` | Solid fills with white text |
 | `--color-accent-deep` | `#6d1620` | `#a52336` | Deep oxblood — hover, hero em (light) |
 | `--color-ok` | `#2e6b3e` | `#8fae62` | Success, answers |
-| `--color-warn` | `#8a5a1f` | `#c9404f` | Warning (dark = accent) |
+| `--color-warn` | `#8a5a1f` | `#da4e63` | Warning (dark = accent) |
 | `--color-wash` | `#f1ede5` | `#14110c` | Hover wash |
 | `--color-btn-text` | `#f7f4ec` | `#ffffff` | Text on ink buttons |
 | `--color-hero-em` | `#6d1620` | `#e87a88` | Hero accent em |
@@ -70,9 +71,9 @@ Mesa tokens live in `src/tokens.json` and `src/tokens.css`. `DESIGN_TOKENS` in `
 | `--color-cta-bg` | `#181b1f` | `#181410` | CTA band background |
 | `--color-pill-reward-bg` | `#f5e6c4` | `#f5e6c4` | Reward pill (fixed) |
 | `--color-stamp-open` | `#c9404f` | `#c9404f` | Open stamp (fixed) |
-| `--color-stamp-new` | `#d8a93f` | `#d8a93f` | New stamp (fixed) |
-| `--color-stamp-review` | `#c98a2b` | `#c98a2b` | Review stamp (fixed) |
-| `--color-stamp-closed` | `#777777` | `#777777` | Closed stamp (fixed) |
+| `--color-stamp-new` | `#94701e` | `#94701e` | New stamp (fixed) |
+| `--color-stamp-review` | `#9d6c22` | `#9d6c22` | Review stamp (fixed) |
+| `--color-stamp-closed` | `#757575` | `#7f7f7f` | Closed stamp (fixed) |
 | `--color-lamp-off` | `#5a4a1f` | `#5a4a1f` | Awaiting lamp (fixed) |
 | `--color-lamp-on` | `#3f9e4d` | `#3f9e4d` | Assigned lamp (fixed) |
 | `--color-queue-ping` | `#c9a227` | `#c9a227` | Queue ping ring (fixed) |
@@ -236,11 +237,9 @@ node scripts/verify.mjs            # token agreement + contrast + registry agree
 
 ## Contrast exceptions (documented, not hidden)
 
-Four values pass 3:1 (large text / UI components) but NOT 4.5:1 (normal text):
+Two values pass 3:1 (large text / UI components) but NOT 4.5:1 (normal text):
 
-- Dark accent `#c9404f` on dark paper — 3.97:1. Dark accent text must be large/bold, or use hero-em `#e87a88` (6.95:1).
 - Dark accent-deep `#a52336` on dark paper — 2.66:1. Never use for text. Hover surfaces only.
-- Ink-faint, light 3.13:1 / dark 3.32:1. Tertiary only — timestamps, placeholders, ghost numbers. Never body text.
 - Stamp Open `#c9404f` on dark card — 3.78:1. Stamps are borders + short labels (non-text contrast). Never body text.
 
 ## Changelog

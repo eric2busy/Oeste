@@ -70,7 +70,7 @@ const ATTRIBUTES = {
       },
       {
         "attr": "aria-label",
-        "value": "{CAL_MONTHS[view.m - 1]} {d}, {view.y}{isSelected ? \", selected\" : \"\"}",
+        "value": "{CAL_MONTHS[view.m - 1]} {d}, {view.y}{rangeSuffix}",
         "element": "button"
       },
       {

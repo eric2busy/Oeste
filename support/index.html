@@ -20,6 +20,10 @@
 .support-nav a { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; padding: 8px 8px; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
 .support-nav a:hover { color: var(--color-text); }
 .support-nav a.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+/* Contrast fix (2026-10-20): Topanga accent #c47d3b on the light background is
+   3.02:1, below AA for this 12px nav text. Same hue and saturation, lightness
+   50% to 39%: #99612e measures 4.66:1. Dark theme keeps the accent (7.34:1). */
+html[data-theme="light"] .support-nav a.active { color: #99612e; border-bottom-color: #99612e; }
 .support-menu-btn { display: none; }
 @media (max-width: 719px) {
   .support-menu-btn { display: block; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-text); background: none; border: 1px solid var(--color-border); border-radius: 999px; padding: 6px 14px; cursor: pointer; }

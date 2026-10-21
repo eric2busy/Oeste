@@ -65,6 +65,7 @@ Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64. Radii: 4 / 8 / 12 + 999 pill.
 - **TimePicker**: trigger plus time listbox. 12-hour labels, HH:MM value.
 - **DateRangePicker**: two DatePickers, one range. End-before-start is an error.
 - **Chart**: bar, line, area, pie, donut. One series, SVG + data table.
+- **DataGrid**: sortable, filterable, pageable data grid. Semantic table, selection, pinning, grouping, CSV export.
 - **Form** (pattern, not a primitive): Label + Input + Select + Checkbox + RadioGroup + Button + error summary (`role=alert`) + Toast confirm. See Patterns.
 
 Every component ships: Human docs (anatomy / props / keyboard / invariants), Agent JSON contract (`oeste.component.v1`) + prompt, Vibe CLI + React code (dark-mode-complete). Demos are local only — no network, no auth.

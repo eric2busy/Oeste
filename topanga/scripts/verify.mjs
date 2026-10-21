@@ -104,9 +104,9 @@ for (const theme of ["light", "dark"]) {
 import { readdirSync, existsSync } from "node:fs";
 const manifest = JSON.parse(readFileSync(join(root, "components.json"), "utf8"));
 check("registry manifest version matches tokens.json", manifest.version === json.version, manifest.version);
-check("registry manifest has 29 components", manifest.components.length === 29, String(manifest.components.length));
+check("registry manifest has 35 components", manifest.components.length === 35, String(manifest.components.length));
 const registryIndex = JSON.parse(readFileSync(join(root, "r/registry.json"), "utf8"));
-check("registry index has 29 items", registryIndex.items.length === 29, String(registryIndex.items.length));
+check("registry index has 35 items", registryIndex.items.length === 35, String(registryIndex.items.length));
 const manifestIds = new Set(manifest.components.map((c) => c.id));
 const indexIds = new Set(registryIndex.items.map((i) => i.id));
 check("registry index ids == manifest ids", manifestIds.size === indexIds.size && [...manifestIds].every((id) => indexIds.has(id)));

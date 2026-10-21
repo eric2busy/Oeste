@@ -39,6 +39,7 @@ TAGS = {
     "collapsible": ["disclosure"],
     "calendar": ["forms"], "date-picker": ["forms"], "time-picker": ["forms"], "date-range-picker": ["forms"],
     "chart": ["data"],
+    "data-grid": ["data"],
 }
 
 HEADER = """// Oeste {name} — Topanga theme (v{version}).

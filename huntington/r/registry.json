@@ -32,6 +32,13 @@
    "url": "https://oeste.hiddeninwest.com/huntington/r/chart.json"
   },
   {
+   "id": "data-grid",
+   "name": "data-grid",
+   "title": "DataGrid",
+   "description": "Sortable, filterable, pageable data grid.",
+   "url": "https://oeste.hiddeninwest.com/huntington/r/data-grid.json"
+  },
+  {
    "id": "date-picker",
    "name": "date-picker",
    "title": "DatePicker",

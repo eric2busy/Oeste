@@ -71,7 +71,7 @@
   {
    "id": "calendar",
    "name": "Calendar",
-   "description": "Month grid. One button per day, min/max bounds.",
+   "description": "Month grid. One button per day, min/max bounds, optional range highlight.",
    "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/calendar.json",
    "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/calendar.json",
    "docsUrl": "#/components/calendar",
@@ -181,7 +181,7 @@
   {
    "id": "date-range-picker",
    "name": "DateRangePicker",
-   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "description": "Two DatePickers, one range. Popover Calendars highlight the range. End-before-start is an error.",
    "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/date-range-picker.json",
    "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/date-range-picker.json",
    "docsUrl": "#/components/date-range-picker",
@@ -324,7 +324,7 @@
   {
    "id": "forum-thread",
    "name": "ForumThread",
-   "description": "Thread row with votes and replies.",
+   "description": "Thread row with votes and replies. Real link with href, button with onSelect.",
    "registryUrl": "https://oeste.hiddeninwest.com/mesa/r/forum-thread.json",
    "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/mesa/r/forum-thread.json",
    "docsUrl": "#/components/forum-thread",

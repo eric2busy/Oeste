@@ -390,9 +390,27 @@ export function Slider({ label, value, onChange, min = 0, max = 100, step = 1, i
 
 export function Tooltip({ children, content, side = "top" }) {
   const [open, setOpen] = React.useState(false);
+  const [shift, setShift] = React.useState(0);
   const id = React.useId();
+  const wrapRef = React.useRef(null);
+  const bubbleRef = React.useRef(null);
+  React.useLayoutEffect(() => {
+    if (!open) return;
+    const wrap = wrapRef.current;
+    const bubble = bubbleRef.current;
+    if (!wrap || !bubble) return;
+    const triggerRect = wrap.getBoundingClientRect();
+    const bubbleWidth = bubble.getBoundingClientRect().width;
+    const margin = 8;
+    const center = triggerRect.left + triggerRect.width / 2;
+    const half = bubbleWidth / 2;
+    let next = 0;
+    if (center - half < margin) next = margin - (center - half);
+    else if (center + half > window.innerWidth - margin) next = (window.innerWidth - margin) - (center + half);
+    setShift(next);
+  }, [open, content, side]);
   return (
-    <span className="relative inline-block"
+    <span ref={wrapRef} className="relative inline-block"
       onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       {React.cloneElement(React.Children.only(children), {
         "aria-describedby": id,
@@ -401,8 +419,9 @@ export function Tooltip({ children, content, side = "top" }) {
         onKeyDown: (e) => { if (e.key === "Escape") setOpen(false); },
       })}
       {open && (
-        <span role="tooltip" id={id}
-          className={`absolute left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1c1917] px-3 py-2 text-xs text-[#f6f4f1] dark:bg-[#f5f3ef] dark:text-[#121110] ${side === "top" ? "bottom-full mb-2" : "top-full mt-2"}`}>
+        <span ref={bubbleRef} role="tooltip" id={id}
+          style={{ transform: `translateX(calc(-50% + ${shift}px))` }}
+          className={`absolute left-1/2 z-10 max-w-[calc(100vw-16px)] rounded-md bg-[#1c1917] px-3 py-2 text-xs text-[#f6f4f1] dark:bg-[#f5f3ef] dark:text-[#121110] ${side === "top" ? "bottom-full mb-2" : "top-full mt-2"}`}>
           {content}
         </span>
       )}
@@ -990,6 +1009,134 @@ export function Chart({ type = "bar", data = [], title, height = 240, showTable 
 /* ---------------- Component docs: Human / Agent / Vibe ---------------- */
 /* Contracts use oeste.component.v1. Keep in sync with site/app.js and llms.txt. */
 
+/* ---------------- DataGrid ---------------- */
+/* Contract parity with Mesa DataGrid: same props, same behavior, Topanga design.
+   Semantic table. No role="grid", no roving tabindex, arrow keys are not implemented. */
+
+export function DataGrid({ columns = [], rows = [], rowKey = "id", pageSize = 10, selectable = false, groupBy, initialSort }) {
+  const [sortKey, setSortKey] = React.useState(initialSort ? initialSort.key : null);
+  const [sortDir, setSortDir] = React.useState(initialSort ? initialSort.direction : null);
+  const [filters, setFilters] = React.useState({});
+  const [page, setPage] = React.useState(1);
+  const [prevGroupBy, setPrevGroupBy] = React.useState(groupBy);
+  if (prevGroupBy !== groupBy) { setPrevGroupBy(groupBy); setPage(1); }
+  const [perPage, setPerPage] = React.useState(pageSize);
+  const [selected, setSelected] = React.useState([]);
+  const [pinned, setPinned] = React.useState([]);
+  const [collapsed, setCollapsed] = React.useState([]);
+  const LINE = "border-[#1c1917]/10 dark:border-[#f5f3ef]/10";
+  const INK = "text-[#1c1917] dark:text-[#f5f3ef]";
+  const SOFT = "text-[#706963] dark:text-[#9e968f]";
+  const SURFACE = "bg-[#fcfaf7] dark:bg-[#1c1917]";
+  const WASH = "bg-[#c47d3b]/10 dark:bg-[#db914e]/15";
+  const BTN = `min-h-11 rounded-md border border-[#1c1917]/20 bg-[#fcfaf7] px-5 py-3 text-sm font-semibold ${INK} hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:bg-[#1c1917] dark:hover:bg-[#f5f3ef]/5 ${FOCUS}`;
+  const colWidth = (col) => { const n = parseInt(col.width || "", 10); return Number.isFinite(n) ? n : 160; };
+  const cellText = (v) => (v == null ? "" : String(v));
+  const compareValues = (a, b) => { if (a == null && b == null) return 0; if (a == null) return 1; if (b == null) return -1; if (typeof a === "number" && typeof b === "number") return a - b; return String(a).localeCompare(String(b), undefined, { sensitivity: "base" }); };
+  const sortRows = (list) => { if (!sortKey) return list; const dir = sortDir === "desc" ? -1 : 1; return [...list].sort((x, y) => dir * compareValues(x[sortKey], y[sortKey])); };
+  const filtered = rows.filter((row) => columns.every((col) => { const f = (filters[col.key] || "").trim().toLowerCase(); if (!f) return true; return cellText(row[col.key]).toLowerCase().includes(f); }));
+  const groupKeyOf = (row) => { const v = row[groupBy]; return v == null ? "Unassigned" : String(v); };
+  const grouped = (() => { if (!groupBy) return null; const order = []; const map = {}; filtered.forEach((row) => { const g = groupKeyOf(row); if (!map[g]) { map[g] = []; order.push(g); } map[g].push(row); }); return order.map((g) => ({ key: g, rows: sortRows(map[g]) })); })();
+  const flat = grouped ? grouped.flatMap((g) => g.rows) : sortRows(filtered);
+  const totalPages = Math.max(1, Math.ceil(flat.length / perPage));
+  const safePage = Math.min(page, totalPages);
+  const pageRows = flat.slice((safePage - 1) * perPage, safePage * perPage);
+  const pageGroups = (() => { if (!groupBy) return null; const order = []; const map = {}; pageRows.forEach((row) => { const g = groupKeyOf(row); if (!map[g]) { map[g] = []; order.push(g); } map[g].push(row); }); return order.map((g) => { const full = grouped.find((x) => x.key === g) || { rows: [] }; return { key: g, rows: map[g], total: full.rows.length }; }); })();
+  const visibleColumns = [...pinned.map((k) => columns.find((c) => c.key === k)).filter(Boolean), ...columns.filter((c) => !pinned.includes(c.key))];
+  const pinnedOffsets = (() => { const offsets = {}; let left = 0; pinned.forEach((k) => { offsets[k] = left; const col = columns.find((c) => c.key === k); left += col ? colWidth(col) : 160; }); return offsets; })();
+  const isPinned = (key) => pinned.includes(key);
+  const onSort = (key) => { if (sortKey !== key) { setSortKey(key); setSortDir("asc"); } else if (sortDir === "asc") { setSortDir("desc"); } else { setSortKey(null); setSortDir(null); } setPage(1); };
+  const onFilter = (key, value) => { setFilters({ ...filters, [key]: value }); setPage(1); };
+  const onPageSize = (n) => { setPerPage(n); setPage(1); };
+  const toggleRow = (key) => { setSelected(selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key]); };
+  const allKeys = flat.map((row) => row[rowKey]);
+  const allSelected = allKeys.length > 0 && allKeys.every((k) => selected.includes(k));
+  const someSelected = allKeys.some((k) => selected.includes(k));
+  const toggleAll = () => { setSelected(allSelected ? [] : allKeys); };
+  const togglePin = (key) => { if (isPinned(key)) { setPinned(pinned.filter((k) => k !== key)); } else if (pinned.length < columns.length - 1) { setPinned([...pinned, key]); } };
+  const toggleGroup = (key) => { setCollapsed(collapsed.includes(key) ? collapsed.filter((k) => k !== key) : [...collapsed, key]); };
+  const csvEscape = (v) => { const s = cellText(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  const exportCsv = () => { const header = visibleColumns.map((c) => csvEscape(c.label)).join(","); const lines = flat.map((row) => visibleColumns.map((c) => csvEscape(row[c.key])).join(",")); const csv = [header, ...lines].join("\n"); const blob = new Blob([csv], { type: "text/csv" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "data-grid.csv"; a.click(); URL.revokeObjectURL(url); };
+  const totalCols = visibleColumns.length + (selectable ? 1 : 0);
+  const renderRow = (row) => { const key = row[rowKey]; const isSelected = selected.includes(key); return (
+    <tr key={key} aria-selected={selectable ? isSelected : undefined} className={selectable && isSelected ? WASH : ""}>
+      {selectable && (
+        <td className={`border-b ${LINE} px-4 py-4`}>
+          <input type="checkbox" checked={isSelected} onChange={() => toggleRow(key)} aria-label={`Select row ${key}`} className="accent-[#c47d3b] dark:accent-[#db914e]" />
+        </td>
+      )}
+      {visibleColumns.map((col, i) => { const isRowHeader = i === 0; const align = col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left"; const pinStyle = isPinned(col.key) ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 1 } : {}; const pinBg = isPinned(col.key) ? (selectable && isSelected ? WASH : SURFACE) : ""; const cls = `border-b ${LINE} px-4 py-4 text-base ${INK} ${align} ${pinBg}`; const style = { width: col.width || "160px", minWidth: col.width || "160px", ...pinStyle }; if (isRowHeader) return (<th key={col.key} scope="row" style={style} className={cls + " font-medium"}>{cellText(row[col.key])}</th>); return (<td key={col.key} style={style} className={cls}>{cellText(row[col.key])}</td>); })}
+    </tr>
+  ); };
+  return (
+    <section>
+      <div className="mb-4 flex flex-wrap items-center gap-4">
+        <button type="button" onClick={exportCsv} className={BTN}>Export CSV</button>
+        {selectable && <p aria-live="polite" className={`text-sm ${SOFT}`}>{selected.length} selected</p>}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <caption className={`py-3 text-left text-sm ${SOFT}`}>Data grid. {flat.length} rows, {columns.length} columns. Sort with the header buttons, filter with the filter row, page with the pagination controls.</caption>
+          <thead>
+            <tr>
+              {selectable && (
+                <th scope="col" className={`border-b ${LINE} ${SURFACE} px-4 py-4`}>
+                  <input type="checkbox" checked={allSelected} ref={(el) => { if (el) el.indeterminate = someSelected && !allSelected; }} onChange={toggleAll} aria-label="Select all rows" className="accent-[#c47d3b] dark:accent-[#db914e]" />
+                </th>
+              )}
+              {visibleColumns.map((col) => { const sortable = col.sortable !== false; const sorted = sortKey === col.key; const pinnedCol = isPinned(col.key); const canPin = pinnedCol || pinned.length < columns.length - 1; return (
+                <th key={col.key} scope="col" aria-sort={sorted ? (sortDir === "asc" ? "ascending" : sortDir === "desc" ? "descending" : "none") : "none"} style={{ width: col.width || "160px", minWidth: col.width || "160px", ...(pinnedCol ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 2 } : {}) }} className={`border-b ${LINE} ${SURFACE} px-4 py-4 text-left`}>
+                  <span className="flex items-center gap-3">
+                    {sortable ? (<button type="button" onClick={() => onSort(col.key)} aria-label={`Sort by ${col.label}`} className={`min-h-11 text-left text-xs font-bold uppercase tracking-[0.08em] ${INK} hover:underline ${FOCUS}`}>{col.label}{sorted ? (<span aria-hidden="true" className="text-[#c47d3b] dark:text-[#db914e]">{sortDir === "asc" ? " ↑" : " ↓"}</span>) : ""}</button>) : (<span className={`text-xs font-bold uppercase tracking-[0.08em] ${INK}`}>{col.label}</span>)}
+                    <button type="button" onClick={() => togglePin(col.key)} disabled={!canPin} aria-pressed={pinnedCol} aria-label={`${pinnedCol ? "Unpin" : "Pin"} ${col.label} column`} title={canPin ? "" : "At least one column must stay unpinned"} className={`min-h-11 text-xs ${pinnedCol ? "font-bold text-[#c47d3b] dark:text-[#db914e]" : SOFT} ${FOCUS} disabled:opacity-40`}>Pin</button>
+                  </span>
+                </th>
+              ); })}
+            </tr>
+            <tr>
+              {selectable && <td className={`border-b ${LINE} ${SURFACE}`} />}
+              {visibleColumns.map((col) => (
+                <td key={col.key} style={isPinned(col.key) ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 2 } : {}} className={`border-b ${LINE} ${SURFACE} px-4 py-3`}>
+                  <input type="text" value={filters[col.key] || ""} onChange={(e) => onFilter(col.key, e.target.value)} placeholder={`Filter ${col.label}`} aria-label={`Filter ${col.label}`} className={`min-h-11 w-full rounded-md border border-[#1c1917]/20 bg-transparent px-3 py-3 text-sm ${INK} placeholder:text-[#706963] dark:border-[#f5f3ef]/20 dark:placeholder:text-[#9e968f] ${FOCUS}`} />
+                </td>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {pageGroups ? pageGroups.map((group) => { const isCollapsed = collapsed.includes(group.key); return (
+              <React.Fragment key={group.key}>
+                <tr>
+                  <td colSpan={totalCols} className={`border-b ${LINE} px-4 py-2`}>
+                    <button type="button" onClick={() => toggleGroup(group.key)} aria-expanded={!isCollapsed} className={`flex min-h-11 items-center gap-3 text-left text-sm font-semibold ${INK} ${FOCUS}`}>
+                      <span aria-hidden="true" className="text-[#b85b35] dark:text-[#d98a63]">{isCollapsed ? "▸" : "▾"}</span>{group.key} <span className={SOFT}>({group.total})</span>
+                    </button>
+                  </td>
+                </tr>
+                {!isCollapsed && group.rows.map((row) => renderRow(row))}
+              </React.Fragment>
+            ); }) : pageRows.map((row) => renderRow(row))}
+            {pageRows.length === 0 && (
+              <tr>
+                <td colSpan={totalCols} className={`px-4 py-8 text-center text-base ${SOFT}`}>{Object.keys(filters).some((k) => filters[k]) ? "No rows match the current filters." : "No rows."}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-4">
+        <button type="button" onClick={() => setPage(Math.max(1, safePage - 1))} disabled={safePage <= 1} className={`${BTN} disabled:cursor-not-allowed disabled:opacity-50`}>Previous</button>
+        <span className={`text-sm ${SOFT}`}>Page {safePage} of {totalPages}</span>
+        <button type="button" onClick={() => setPage(Math.min(totalPages, safePage + 1))} disabled={safePage >= totalPages} className={`${BTN} disabled:cursor-not-allowed disabled:opacity-50`}>Next</button>
+        <label className={`text-sm ${SOFT}`}>Rows per page
+          <select value={perPage} onChange={(e) => onPageSize(Number(e.target.value))} aria-label="Rows per page" className={`ml-2 min-h-11 rounded-md border border-[#1c1917]/20 bg-[#fcfaf7] px-3 py-3 text-sm ${INK} dark:border-[#f5f3ef]/20 dark:bg-[#1c1917] ${FOCUS}`}>
+            {[10, 25, 50, 100].map((n) => (<option key={n} value={n}>{n}</option>))}
+          </select>
+        </label>
+      </div>
+    </section>
+  );
+}
+
 export const COMPONENT_DOCS = Object.freeze([
   {
     id: "button", name: "Button", tagline: "One action. A clear hierarchy.",
@@ -1010,7 +1157,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Label is always visible text, never icon-only without aria-label.", "Disabled buttons never rely on color alone.", "Focus is 2px ink/paper outline, never removed.", "Danger variant only for destructive actions with a confirm step."],
     contract: { format: "oeste.component.v1", component: "Button", props: { variant: ["primary", "secondary", "ghost", "danger"], size: ["sm", "md", "lg"], disabled: "boolean", loading: "boolean" }, a11y: { focus: "2px ink/paper outline", target: "min 44px", busy: "aria-busy when loading" } },
     prompt: "Build an Oeste Button: variant primary/secondary/ghost/danger, size sm/md/lg, optional icon slot, 44px min touch, 2px ink/paper focus outline, aria-busy when loading. Never icon-only without an accessible label. Use Topanga tokens: accent #C47D3B, danger #A83E22 (light) / #E07A52 (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json",
     code: `import { Button } from "@/components/ui/button";\n\nexport function SaveAction() {\n  return <Button variant="primary" onClick={() => {}}>Save changes</Button>;\n}\n// Dark mode: built in via dark: classes. Focus: 2px ink/paper outline.`,
   },
   {
@@ -1030,7 +1177,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Label is always visible, never placeholder-only.", "Errors use text + role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Input", props: { label: "string", error: "string?", hint: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Input with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Never use placeholder as the label. Never use Canyon Rust for error text.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/input.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/input.json",
     code: `import { Input } from "@/components/ui/input";\n\nexport function NameField({ value, onChange, error }) {\n  return <Input label="Project name" value={value} onChange={onChange} error={error} hint="At least 3 characters." />;\n}\n// Related: Textarea and Select share the same label + error pattern.`,
   },
   {
@@ -1051,7 +1198,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Focus moves into the dialog on open and returns to trigger on close.", "Escape always closes.", "Backdrop click closes; content is inert behind the dialog.", "Title + description are always present."],
     contract: { format: "oeste.component.v1", component: "Dialog", props: { open: "boolean", title: "string", description: "string" }, a11y: { modal: "aria-modal=true", labelledby: "title", describedby: "description", focus: "trap + restore on close" } },
     prompt: "Build an Oeste Dialog using native <dialog> + showModal. Title + description required. Escape closes, focus traps inside, focus returns to trigger on close. Backdrop is inert. Use Topanga tokens, hairline border, dialog shadow.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/dialog.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/dialog.json",
     code: `import { useState } from "react";\nimport { Button } from "@/components/ui/button";\nimport { Dialog } from "@/components/ui/dialog";\nimport { Input } from "@/components/ui/input";\n\nexport function EditProject() {\n  const [open, setOpen] = useState(false);\n  return (<>\n    <Button onClick={() => setOpen(true)}>Edit project</Button>\n    <Dialog open={open} onOpenChange={setOpen} title="Edit project" description="Rename this project.">\n      <Input label="Project name" value="" onChange={() => {}} />\n    </Dialog>\n  </>);\n}`,
   },
   {
@@ -1066,7 +1213,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Heading level matches document outline.", "Cards never use color alone to convey status.", "Interactive cards use a real <button> or <a>, never a clickable div."],
     contract: { format: "oeste.component.v1", component: "Card", props: { title: "string", headingLevel: [2, 3, 4] }, a11y: { labelledby: "heading", section: "native <section>" } },
     prompt: "Build an Oeste Card: native <section> + aria-labelledby, heading level matching the page outline, hairline border, card shadow. Never use a clickable div for an interactive card.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/card.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/card.json",
     code: `import { Card } from "@/components/ui/card";\n\nexport function NoteCard() {\n  return <Card title="Field notes" headingLevel={3}><p>Room to think.</p></Card>;\n}`,
   },
   {
@@ -1084,7 +1231,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Only the active tab is in the tab order (roving tabindex).", "Panels are labelled by their tab.", "Inactive panels are hidden, not just visually."],
     contract: { format: "oeste.component.v1", component: "Tabs", props: { items: "array", defaultIndex: "number" }, a11y: { tabs: "roving tabindex", panels: "aria-labelledby tab" } },
     prompt: "Build Oeste Tabs with roving tabindex: only the active tab has tabIndex 0. ArrowRight/Left move, Home/End jump, panels labelled by their tab, inactive panels hidden.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/tabs.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/tabs.json",
     code: `import { Tabs } from "@/components/ui/tabs";\n\nexport function Views() {\n  return <Tabs items={[{ label: "Overview", content: "Overview panel." }, { label: "Details", content: "Details panel." }]} />;\n}`,
   },
   {
@@ -1102,7 +1249,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Toast is role=status + aria-live=polite.", "No auto-expiry: the user dismisses it.", "Message is text, never color alone."],
     contract: { format: "oeste.component.v1", component: "Toast", props: { message: "string", open: "boolean" }, a11y: { live: "polite", role: "status", dismiss: "manual, focusable" } },
     prompt: "Build an Oeste Toast: single clean card (no split rounded top/bottom), role=status + aria-live=polite, manual Dismiss button, no auto-expiry. Keep it in one card.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/toast.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/toast.json",
     code: `import { useState } from "react";\nimport { Button } from "@/components/ui/button";\nimport { Toast } from "@/components/ui/toast";\n\nexport function Preview() {\n  const [open, setOpen] = useState(false);\n  return (<><Button onClick={() => setOpen(true)}>Show toast</Button><Toast message="Preview complete. Nothing was sent." open={open} onDismiss={() => setOpen(false)} /></>);\n}`,
   },
   {
@@ -1116,7 +1263,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Meaning is in the text, never color alone.", "Danger tone uses Danger token, not Canyon Rust.", "Badge text meets 4.5:1 on its background."],
     contract: { format: "oeste.component.v1", component: "Badge", props: { tone: ["neutral", "accent", "success", "danger"] }, a11y: { meaning: "text, never color alone" } },
     prompt: "Build an Oeste Badge: pill, border + tint, tone neutral/accent/success/danger. Meaning in text, never color alone. Danger tone uses Danger #A83E22 / #E07A52.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/badge.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/badge.json",
     code: `import { Badge } from "@/components/ui/badge";\n\nexport function Status() {\n  return <Badge tone="success">Ready</Badge>;\n}`,
   },
   {
@@ -1135,7 +1282,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <input type=checkbox>, never a div.", "Label is clickable and linked via htmlFor.", "Description is linked via aria-describedby."],
     contract: { format: "oeste.component.v1", component: "Checkbox", props: { label: "string", checked: "boolean", disabled: "boolean" }, a11y: { native: "input[type=checkbox]", label: "htmlFor", desc: "aria-describedby" } },
     prompt: "Build an Oeste Checkbox with a native input, clickable label via htmlFor, optional described help text, accent color for the checked state. Never build a checkbox from a div.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/checkbox.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/checkbox.json",
     code: `import { useState } from "react";\nimport { Checkbox } from "@/components/ui/checkbox";\n\nexport function Notify() {\n  const [checked, setChecked] = useState(false);\n  return <Checkbox label="Email me updates" checked={checked} onChange={setChecked} description="One email per change." />;\n}`,
   },
   {
@@ -1154,7 +1301,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Uses role=switch + aria-checked.", "State is visible by position + label, never color alone.", "Label is clickable."],
     contract: { format: "oeste.component.v1", component: "Switch", props: { label: "string", checked: "boolean", disabled: "boolean" }, a11y: { role: "switch", checked: "aria-checked", state: "position + label, never color alone" } },
     prompt: "Build an Oeste Switch with role=switch + aria-checked, thumb position showing state, clickable label. State visible by position + label, never color alone.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/switch.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/switch.json",
     code: `import { useState } from "react";\nimport { Switch } from "@/components/ui/switch";\n\nexport function DarkMode() {\n  const [checked, setChecked] = useState(false);\n  return <Switch label="Dark mode" checked={checked} onChange={setChecked} />;\n}`,
   },
   {
@@ -1174,7 +1321,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Label is always visible, never placeholder-only.", "Errors use text + role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Textarea", props: { label: "string", rows: "number", error: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Textarea with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Same label + error pattern as Input. Never use placeholder as the label.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/textarea.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/textarea.json",
     code: `import { Textarea } from "@/components/ui/textarea";\n\nexport function Notes({ value, onChange }) {\n  return <Textarea label="Field notes" value={value} onChange={onChange} rows={4} hint="Anything worth keeping." />;\n}\n// Dark mode: built in via dark: classes.`,
   },
   {
@@ -1194,7 +1341,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <select>, never a custom listbox.", "Label is always visible and linked via htmlFor.", "Options carry real values, never index-only labels."],
     contract: { format: "oeste.component.v1", component: "Select", props: { label: "string", options: "array", disabled: "boolean" }, a11y: { native: "select", label: "htmlFor" } },
     prompt: "Build an Oeste Select with a native <select>, persistent visible label via htmlFor, options as { value, label } pairs. Never build a custom listbox when a native select will do.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/select.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/select.json",
     code: `import { Select } from "@/components/ui/select";\n\nexport function ThemePicker({ value, onChange }) {\n  return <Select label="Theme" value={value} onChange={onChange} options={[{ value: "topanga", label: "Topanga" }, { value: "paper", label: "Paper" }]} />;\n}`,
   },
   {
@@ -1213,7 +1360,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Meaning is in the text, never color alone.", "role=alert only for urgent errors; status for everything else.", "Danger tone uses Danger token, not Canyon Rust.", "Dismissible alerts remove themselves from the DOM."],
     contract: { format: "oeste.component.v1", component: "Alert", props: { tone: ["info", "success", "warning", "danger"], role: ["alert", "status"] }, a11y: { role: "alert or status", dismiss: "focusable Dismiss button" } },
     prompt: "Build an Oeste Alert: tone info/success/warning/danger, role=status by default (role=alert only for urgent errors), message in text, optional Dismiss button. Danger tone uses Danger #A83E22 / #E07A52, never Canyon Rust.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/alert.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/alert.json",
     code: `import { Alert } from "@/components/ui/alert";\n\nexport function SaveError() {\n  return <Alert tone="danger" role="alert">Could not save. Your changes are still here.</Alert>;\n}\n// Dark mode: built in via dark: classes.`,
   },
   {
@@ -1230,7 +1377,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel has a matching id and is hidden when closed.", "State is visible by indicator + expanded panel, never color alone."],
     contract: { format: "oeste.component.v1", component: "Accordion", props: { items: "array", allowMultiple: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
     prompt: "Build an Oeste Accordion: each trigger is a real <button> with aria-expanded + aria-controls, panel hidden when closed, state visible by indicator + panel. Tab moves between triggers, Enter/Space toggles.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/accordion.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/accordion.json",
     code: `import { Accordion } from "@/components/ui/accordion";\n\nexport function Faq() {\n  return <Accordion items={[{ title: "What is Oeste?", content: "A design system for humans, agents, and vibe coders." }]} />;\n}`,
   },
   {
@@ -1250,7 +1397,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <input type=radio> inside <fieldset> + <legend>.", "All radios share one name.", "Labels are clickable and linked via htmlFor."],
     contract: { format: "oeste.component.v1", component: "RadioGroup", props: { legend: "string", name: "string", options: "array", value: "string" }, a11y: { native: "input[type=radio] in fieldset + legend", group: "shared name" } },
     prompt: "Build an Oeste RadioGroup with native radios inside <fieldset> + <legend>, one shared name, clickable labels. Arrow keys move and select. Never build radios from divs.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/radiogroup.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/radiogroup.json",
     code: `import { RadioGroup } from "@/components/ui/radiogroup";\n\nexport function SizePicker({ value, onChange }) {\n  return <RadioGroup legend="Size" name="size" value={value} onChange={onChange} options={[{ value: "sm", label: "Small" }, { value: "md", label: "Medium" }, { value: "lg", label: "Large" }]} />;\n}`,
   },
   {
@@ -1266,7 +1413,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Uses role=progressbar + aria-valuenow/min/max.", "Value is shown as text, never bar alone.", "Value is clamped to min–max."],
     contract: { format: "oeste.component.v1", component: "Progress", props: { value: "number", min: "number", max: "number" }, a11y: { role: "progressbar", values: "aria-valuenow/min/max", text: "visible value" } },
     prompt: "Build an Oeste Progress with role=progressbar + aria-valuenow/min/max, visible label + value text, value clamped to min–max. Never show a bar without its number.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/progress.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/progress.json",
     code: `import { Progress } from "@/components/ui/progress";\n\nexport function Upload({ done }) {\n  return <Progress label="Upload" value={done} />;\n}\n// Dark mode: built in via dark: classes.`,
   },
   {
@@ -1282,7 +1429,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Fallback initials always render when the image is missing or fails.", "Accessible name is the person's name, never empty.", "Initials are derived from the name, never hardcoded per instance."],
     contract: { format: "oeste.component.v1", component: "Avatar", props: { src: "string?", name: "string", size: ["md", "lg"] }, a11y: { name: "person name", fallback: "initials when image fails" } },
     prompt: "Build an Oeste Avatar: photo with an initials fallback that always renders when the image is missing or fails. Accessible name is the person's name. Sizes md (44px) and lg (64px). Never leave an empty circle.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/avatar.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/avatar.json",
     code: `import { Avatar } from "@/components/ui/avatar";\n\nexport function Teammate() {\n  return <Avatar name="Hidden Inwest" src="/photos/member.jpg" />;\n}\n// If the photo fails, initials show. Dark mode: built in.`,
   },
   {
@@ -1296,7 +1443,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Decorative separators are aria-hidden.", "Semantic separators use role=separator.", "A separator never replaces a heading or a labeled section."],
     contract: { format: "oeste.component.v1", component: "Separator", props: { orientation: ["horizontal", "vertical"], decorative: "boolean" }, a11y: { decorative: "aria-hidden", semantic: "role=separator" } },
     prompt: "Build an Oeste Separator: a hairline rule, horizontal or vertical. Decorative separators are aria-hidden; semantic ones use role=separator. Never use a separator in place of a heading.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/separator.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/separator.json",
     code: `import { Separator } from "@/components/ui/separator";\n\nexport function Sections() {\n  return (<><p>First section.</p><Separator /><p>Second section.</p></>);\n}`,
   },
   {
@@ -1318,7 +1465,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Native <input type=range>, never a div thumb.", "Value is shown as text, never slider alone.", "aria-valuenow/min/max always reflect the value."],
     contract: { format: "oeste.component.v1", component: "Slider", props: { label: "string", value: "number", min: "number", max: "number", step: "number" }, a11y: { native: "input[type=range]", values: "aria-valuenow/min/max" } },
     prompt: "Build an Oeste Slider with a native <input type=range>, visible label, visible value text, aria-valuenow/min/max. Arrow keys step, Home/End jump. Never build a slider thumb from a div.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/slider.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/slider.json",
     code: `import { useState } from "react";\nimport { Slider } from "@/components/ui/slider";\n\nexport function Volume() {\n  const [value, setValue] = useState(40);\n  return <Slider label="Volume" value={value} onChange={setValue} min={0} max={100} />;\n}`,
   },
   {
@@ -1334,10 +1481,10 @@ export const COMPONENT_DOCS = Object.freeze([
       { key: "Escape", action: "Dismiss the tooltip." },
       { key: "Tab away / blur", action: "Hide the tooltip." },
     ],
-    invariants: ["Tooltip shows on hover AND on focus.", "Tooltip content uses role=tooltip + aria-describedby.", "The hint is never the only place its information lives.", "Escape dismisses; blur hides."],
+    invariants: ["Tooltip shows on hover AND on focus.", "Tooltip content uses role=tooltip + aria-describedby.", "The hint is never the only place its information lives.", "Escape dismisses; blur hides.", "The bubble never overflows the viewport: it shifts toward the trigger when the trigger sits near an edge, and wraps at viewport width minus 16px when it cannot fit on one line."],
     contract: { format: "oeste.component.v1", component: "Tooltip", props: { content: "string", side: ["top", "bottom"] }, a11y: { role: "tooltip", describedby: "trigger aria-describedby", dismiss: "Escape / blur" } },
-    prompt: "Build an Oeste Tooltip: shows on hover AND focus, role=tooltip + aria-describedby on the trigger, Escape dismisses, blur hides. Never put information only in a tooltip.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/tooltip.json",
+    prompt: "Build an Oeste Tooltip: shows on hover AND focus, role=tooltip + aria-describedby on the trigger, Escape dismisses, blur hides. Never put information only in a tooltip. The bubble never overflows the viewport: it shifts toward the trigger near an edge and wraps at viewport width minus 16px.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/tooltip.json",
     code: `import { Tooltip } from "@/components/ui/tooltip";\n\nexport function Help() {\n  return <Tooltip content="Saves to this project."><button type="button">Save</button></Tooltip>;\n}`,
   },
   {
@@ -1356,8 +1503,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Panel is labelled by its trigger or label.", "Escape closes and returns focus to the trigger.", "Clicking outside closes; content behind stays interactive.", "Popover is non-modal — unlike Dialog, it does not trap focus or make the page inert."],
     contract: { format: "oeste.component.v1", component: "Popover", props: { label: "string", open: "boolean" }, a11y: { panel: "labelled", dismiss: "Escape / outside click", focus: "returns to trigger" } },
     prompt: "Build an Oeste Popover: trigger-anchored panel, Escape closes and returns focus to the trigger, outside click closes. Non-modal — no focus trap, page stays interactive. Panel is labelled.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/popover.json",
-    code: `import { Popover } from "@/components/ui/popover";\n\nexport function Details() {\n  return <Popover label="Project details"><button type="button">Details</button><p>Topanga theme, 29 components.</p></Popover>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/popover.json",
+    code: `import { Popover } from "@/components/ui/popover";\n\nexport function Details() {\n  return <Popover label="Project details"><button type="button">Details</button><p>Topanga theme, 35 components.</p></Popover>;\n}`,
   },
   {
     id: "dropdown-menu", name: "Dropdown Menu", tagline: "Actions in a list. Arrows move, Escape closes.",
@@ -1376,7 +1523,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Menu uses role=menu, items use role=menuitem.", "Trigger uses aria-haspopup=menu + aria-expanded.", "Escape closes and returns focus to the trigger.", "Menu items are real buttons, never divs."],
     contract: { format: "oeste.component.v1", component: "DropdownMenu", props: { label: "string", items: "array" }, a11y: { menu: "role=menu", items: "role=menuitem", trigger: "aria-haspopup + aria-expanded" } },
     prompt: "Build an Oeste DropdownMenu: trigger with aria-haspopup=menu + aria-expanded, role=menu with role=menuitem buttons, Arrow keys move, Enter activates, Escape closes and returns focus. Items are real buttons, never divs.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/dropdown-menu.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/dropdown-menu.json",
     code: `import { DropdownMenu } from "@/components/ui/dropdown-menu";\n\nexport function Actions() {\n  return <DropdownMenu label="Project actions" items={[{ label: "Rename", onSelect: () => {} }, { label: "Duplicate", onSelect: () => {} }]}><button type="button">Actions</button></DropdownMenu>;\n}`,
   },
   {
@@ -1394,7 +1541,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Uses aria-pressed.", "Pressed state is visible by fill + label, never color alone.", "Toggle is a real <button>, never a div."],
     contract: { format: "oeste.component.v1", component: "Toggle", props: { pressed: "boolean" }, a11y: { pressed: "aria-pressed", state: "fill + label, never color alone" } },
     prompt: "Build an Oeste Toggle: a real <button> with aria-pressed, pressed state visible by fill + label, never color alone. Tab focuses, Enter/Space toggles.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/toggle.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/toggle.json",
     code: `import { useState } from "react";\nimport { Toggle } from "@/components/ui/toggle";\n\nexport function Bold() {\n  const [pressed, setPressed] = useState(false);\n  return <Toggle pressed={pressed} onPressedChange={setPressed}>Bold</Toggle>;\n}`,
   },
   {
@@ -1412,8 +1559,8 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel is hidden when closed.", "State is visible by indicator + panel, never color alone.", "Reduced motion: no height animation."],
     contract: { format: "oeste.component.v1", component: "Collapsible", props: { title: "string", open: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
     prompt: "Build an Oeste Collapsible: one trigger button with aria-expanded + aria-controls, one panel hidden when closed, state visible by indicator + panel. Reduced motion: no height animation.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/collapsible.json",
-    code: `import { Collapsible } from "@/components/ui/collapsible";\n\nexport function Details() {\n  return <Collapsible title="Show details"><p>Topanga theme, 29 components.</p></Collapsible>;\n}`,
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/collapsible.json",
+    code: `import { Collapsible } from "@/components/ui/collapsible";\n\nexport function Details() {\n  return <Collapsible title="Show details"><p>Topanga theme, 35 components.</p></Collapsible>;\n}`,
   },
   {
     id: "skeleton", name: "Skeleton", tagline: "A placeholder while content loads. Never flashing.",
@@ -1427,7 +1574,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Container has aria-busy=true while loading.", "Skeleton is labelled with what is loading.", "No flashing, no shimmer that strobes. Reduced motion: no pulse.", "Real content replaces the skeleton — never both at once."],
     contract: { format: "oeste.component.v1", component: "Skeleton", props: { width: "string", height: "string", label: "string" }, a11y: { busy: "aria-busy=true", label: "what is loading" } },
     prompt: "Build an Oeste Skeleton: placeholder shape with aria-busy=true, labelled with what is loading. No flashing, no strobing shimmer. Reduced motion: no pulse. Real content replaces it.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/skeleton.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/skeleton.json",
     code: `import { Skeleton } from "@/components/ui/skeleton";\n\nexport function LoadingCard() {\n  return <Skeleton label="Loading project" width="100%" height="96px" />;\n}`,
   },
   {
@@ -1442,7 +1589,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Always linked via htmlFor to a real control id.", "Required is shown with a visible indicator AND text, never color alone.", "Label text is visible, never sr-only except when the control already has a visible label."],
     contract: { format: "oeste.component.v1", component: "Label", props: { htmlFor: "string", required: "boolean" }, a11y: { link: "htmlFor", required: "visible indicator + text" } },
     prompt: "Build an Oeste Label: standalone label linked via htmlFor to a real control id. Required shows a visible indicator plus text, never color alone. Clicking the label focuses its control.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/label.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/label.json",
     code: `import { Label } from "@/components/ui/label";\n\nexport function NameRow() {\n  return (<div><Label htmlFor="name" required>Project name</Label><input id="name" type="text" /></div>);\n}`,
   },
   {
@@ -1456,7 +1603,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Wrapped in <nav aria-label=\"Breadcrumb\"> with an <ol>.", "Current page uses aria-current=\"page\" and is not a link.", "Separators are aria-hidden."],
     contract: { format: "oeste.component.v1", component: "Breadcrumb", props: { items: "array" }, a11y: { nav: "aria-label=Breadcrumb", current: "aria-current=page, not a link" } },
     prompt: "Build an Oeste Breadcrumb: <nav aria-label=\"Breadcrumb\"> with an <ol>, links for every step except the current page, current page uses aria-current=\"page\" and is not a link. Separators are aria-hidden.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/breadcrumb.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/breadcrumb.json",
     code: `import { Breadcrumb } from "@/components/ui/breadcrumb";\n\nexport function Trail() {\n  return <Breadcrumb items={[{ label: "Home", href: "#/home" }, { label: "Components", href: "#/components/button" }, { label: "Button" }]} />;\n}`,
   },
   {
@@ -1474,7 +1621,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Wrapped in <nav aria-label=\"Pagination\">.", "Current page uses aria-current=\"page\".", "Previous is disabled on page 1; Next is disabled on the last page.", "Ellipsis is aria-hidden, never a button."],
     contract: { format: "oeste.component.v1", component: "Pagination", props: { page: "number", totalPages: "number" }, a11y: { nav: "aria-label=Pagination", current: "aria-current=page", ellipsis: "aria-hidden" } },
     prompt: "Build an Oeste Pagination: <nav aria-label=\"Pagination\">, Previous / page buttons / Next, current page uses aria-current=\"page\", Previous disabled on page 1, Next disabled on the last page, ellipsis is aria-hidden, never a button.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/pagination.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/pagination.json",
     code: `import { useState } from "react";\nimport { Pagination } from "@/components/ui/pagination";\n\nexport function Pages() {\n  const [page, setPage] = useState(1);\n  return <Pagination page={page} totalPages={9} onChange={setPage} />;\n}`,
   },
   {
@@ -1489,7 +1636,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["<caption> describes what the table shows.", "Header cells use <th scope=\"col\">; row headers use <th scope=\"row\">.", "No layout tables, ever.", "Sticky header keeps column labels visible on long tables."],
     contract: { format: "oeste.component.v1", component: "Table", props: { caption: "string", columns: "array", rows: "array" }, a11y: { caption: "describes the table", headers: "th scope col/row" } },
     prompt: "Build an Oeste Table: semantic <table> with a <caption> describing what it shows, <th scope=\"col\"> headers (scope=\"row\" for row headers), sticky header on long tables. Never use a table for layout.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/table.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/table.json",
     code: `import { Table } from "@/components/ui/table";\n\nexport function Tokens() {\n  return <Table caption="Topanga tokens" columns={[{ key: "token", header: "Token" }, { key: "light", header: "Light" }]} rows={[{ token: "accent", light: "#C47D3B" }]} />;\n}`,
   },
   {
@@ -1508,7 +1655,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Icon is aria-hidden.", "Heading says what is empty, in plain words.", "There is always a next step: an action or a link.", "Empty state never blames the user."],
     contract: { format: "oeste.component.v1", component: "EmptyState", props: { title: "string", description: "string", actionLabel: "string?" }, a11y: { icon: "aria-hidden", action: "focusable button" } },
     prompt: "Build an Oeste Empty State: aria-hidden icon, heading that says what is empty in plain words, description with a next step, and a focusable action button. Never blame the user for an empty screen.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/empty-state.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/empty-state.json",
     code: `import { EmptyState } from "@/components/ui/empty-state";\n\nexport function NoProjects() {\n  return <EmptyState title="No projects yet" description="Create your first project to see it here." actionLabel="New project" onAction={() => {}} />;\n}`,
   },
   {
@@ -1527,7 +1674,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Dates are ISO strings only (YYYY-MM-DD). No Date objects in props, no locale parsing.", "Week starts Sunday. Month and day names are English.", "The displayed month starts at the value's month, or the current month when no value is set. It follows the value when the parent passes a new date in a different month.", "Prev/next move one month and do not call onChange.", "Days outside the current month render as empty cells (no buttons).", "Days outside min/max are disabled (disabled attribute + aria-disabled).", "The selected day has an accent fill and its aria-label ends with ', selected'. Today has aria-current=\"date\" plus an accent outline.", "Day buttons are 44px circles (Topanga touch minimum).", "Tab + Enter/Space only. No roving tabindex, no arrow-key cell movement."],
     contract: { format: "oeste.component.v1", component: "Calendar", props: { value: "string?", onChange: "function", min: "string?", max: "string?" }, a11y: { grid: "semantic table + th scope=col weekday headers", days: "one button per day, aria-label with ', selected' suffix, aria-current=date for today", disabled: "disabled + aria-disabled for out-of-range days", nav: "prev/next buttons with aria-labels, heading aria-live=polite" } },
     prompt: "Build an Oeste Calendar: a month grid for one ISO date (YYYY-MM-DD). Prev-month button (aria-label Previous month), month/year heading (aria-live polite), next-month button (aria-label Next month). A semantic table: weekday header row (Su Mo Tu We Th Fr Sa), one button per day, empty cells outside the month. Clicking a day calls onChange with that day's ISO string. Days outside min/max are disabled (disabled + aria-disabled). Selected day: accent fill + aria-label ending with ', selected'. Today: aria-current=date + accent outline. Week starts Sunday, English names. Displayed month starts at the value's month or the current month and follows the value when the parent passes a new date in a different month; prev/next move one month and do not call onChange. Day buttons are 44px circles. ISO strings only, no locale parsing. Tab + Enter/Space only, no roving tabindex, no arrow keys. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/calendar.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/calendar.json",
     code: `import { Calendar } from "@/components/ui/calendar";\n\nexport function Pick() {\n  const [day, setDay] = React.useState("2026-10-18");\n  return <Calendar value={day} onChange={setDay} />;\n}`,
   },
   {
@@ -1551,7 +1698,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["The input is read-only. Dates come from the Calendar only, so there is no free-text parsing to get wrong.", "Invalid value prop is treated as null (empty input, Calendar shows the current month).", "Selecting a day calls onChange and closes the popover.", "Clear calls onChange(null) and closes. It only renders when clearable and a value is set.", "Today sets today's ISO and closes. Today is disabled when today is outside min/max.", "Escape closes the popover and returns focus to the Calendar button. Clicking outside the picker closes it.", "The popover is a plain div, not a dialog: no modal behavior, no focus trap.", "ISO strings only, no locale parsing."],
     contract: { format: "oeste.component.v1", component: "DatePicker", props: { value: "string?", onChange: "function", label: "string", placeholder: "string", min: "string?", max: "string?", clearable: "boolean", invalid: "boolean" }, a11y: { input: "read-only input with label, aria-invalid", trigger: "button aria-label Open/Close calendar, aria-expanded, aria-controls", popover: "div with Calendar + Clear + Today", keyboard: "Escape closes, focus returns to trigger" } },
     prompt: "Build an Oeste DatePicker: a label + a read-only text input (value or placeholder YYYY-MM-DD) + a Calendar button (aria-label Open/Close calendar, aria-expanded, aria-controls) that toggles a popover div with a Calendar + Clear + Today. The input is read-only: dates come from the Calendar only, no free-text parsing. Selecting a day calls onChange and closes. Clear (only when clearable and a value is set) calls onChange(null) and closes. Today sets today's ISO and closes, and is disabled when today is outside min/max. Escape closes and returns focus to the button. Clicking outside the picker closes it. Invalid value prop is treated as null. ISO strings only, no locale parsing. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-picker.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/date-picker.json",
     code: `import { DatePicker } from "@/components/ui/date-picker";\n\nexport function Due() {\n  const [day, setDay] = React.useState(null);\n  return <DatePicker value={day} onChange={setDay} label="Due date" />;\n}`,
   },
   {
@@ -1571,7 +1718,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Times are HH:MM 24-hour strings. The list shows 12-hour labels (12:00 AM, 1:00 PM); the value stays HH:MM.", "Options run 00:00 to 23:30 (step 30) or 23:00 (step 60).", "Invalid value prop is treated as null (trigger shows Select time, no option selected).", "A valid value that is not on the step grid still displays; no option is highlighted.", "Clicking an option calls onChange and closes.", "Escape closes and returns focus to the trigger. Clicking outside the picker closes it.", "Options are buttons. Tab moves through them, Enter selects. No arrow-key navigation."],
     contract: { format: "oeste.component.v1", component: "TimePicker", props: { value: "string?", onChange: "function", label: "string", step: "30 | 60" }, a11y: { trigger: "button aria-haspopup=listbox, aria-expanded, aria-controls", list: "ul role=listbox, li role=option aria-selected", options: "buttons, Tab navigation, Enter selects", display: "12-hour labels, value stays HH:MM" } },
     prompt: "Build an Oeste TimePicker: a label + a trigger button (value or Select time, aria-haspopup=listbox, aria-expanded, aria-controls) that toggles a dropdown ul role=listbox. Options are li role=option aria-selected, each holding a button. Step 30 gives 48 options (00:00 to 23:30), step 60 gives 24 (00:00 to 23:00). Labels are 12-hour (12:00 AM, 1:00 PM); the value stays HH:MM 24-hour. Clicking an option calls onChange and closes. Escape closes and returns focus to the trigger. Clicking outside the picker closes it. Options are buttons: Tab moves through them, Enter selects, no arrow keys. Invalid value prop is treated as null. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/time-picker.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/time-picker.json",
     code: `import { TimePicker } from "@/components/ui/time-picker";\n\nexport function Start() {\n  const [time, setTime] = React.useState("14:30");\n  return <TimePicker value={time} onChange={setTime} label="Start time" />;\n}`,
   },
   {
@@ -1594,7 +1741,7 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["Composes two DatePickers (Start, End) with clearable={false} plus one range Clear button.", "Changing Start or End calls onChange with the new pair.", "When end is before start, an error message (role=alert) shows and the End input gets aria-invalid. onChange is NOT called with the invalid pair; the last valid pair stays.", "A stale error clears when the parent passes a new pair.", "Same-day ranges are valid.", "Clear calls onChange({ start: null, end: null }).", "ISO strings only, no locale parsing."],
     contract: { format: "oeste.component.v1", component: "DateRangePicker", props: { start: "string?", end: "string?", onChange: "function", label: "string", min: "string?", max: "string?", clearable: "boolean" }, a11y: { group: "fieldset + legend", error: "role=alert message + aria-invalid on End input, invalid pair never passed to onChange", keyboard: "Escape closes popover, focus returns to trigger" } },
     prompt: "Build an Oeste DateRangePicker: a fieldset + legend holding two DatePickers (Start, End, clearable false) plus one range Clear button. Changing Start or End calls onChange with the new pair. When end is before start, show an error message (role=alert) and set aria-invalid on the End input; do NOT call onChange with the invalid pair, keep the last valid pair. A stale error clears when the parent passes a new pair. Same-day ranges are valid. Clear calls onChange({ start: null, end: null }). ISO strings only, no locale parsing. Use Topanga tokens: danger #A83E22 (light) / #E07A52 (dark) for the error text.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-range-picker.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/date-range-picker.json",
     code: `import { DateRangePicker } from "@/components/ui/date-range-picker";\n\nexport function Trip() {\n  const [range, setRange] = React.useState({ start: "2026-10-01", end: "2026-10-15" });\n  return <DateRangePicker start={range.start} end={range.end} onChange={setRange} label="Trip dates" />;\n}`,
   },
   {
@@ -1613,8 +1760,32 @@ export const COMPONENT_DOCS = Object.freeze([
     invariants: ["One series only. No multi-series, tooltips, zoom, or animation.", "Values are non-negative. Negative values are treated as 0. Empty data, all-zero data, or a zero total (pie/donut) renders 'No data.'", "Bar/line/area share one axis system: value ticks at 0, 25%, 50%, 75%, 100% of max, rounded to a clean step. Horizontal gridlines. Category labels under each point.", "Bar: vertical bars, value label on each bar. Line: polyline + dots + value labels. Area: line + filled area under the line.", "Pie: slices proportional to values, label + percent at centroids. Donut: center hole + total in the center, plus a legend (swatch + label + value + percent).", "Slice labels sit at centroids and can crowd on tiny slices. Long category labels truncate in the SVG; the full label is always in the table.", "The SVG is role=img with a one-line summary aria-label; all shapes are aria-hidden. The semantic data table is the accessible representation. Values are in the table and on slice labels, never color alone."],
     contract: { format: "oeste.component.v1", component: "Chart", props: { type: ["bar", "line", "area", "pie", "donut"], data: "array", title: "string?", height: "number", showTable: "boolean" }, a11y: { chart: "svg role=img + aria-label, shapes aria-hidden", table: "semantic table + caption + th scope", color: "values in table + slice text labels, never color alone" } },
     prompt: "Build a Topanga Chart: one series, SVG + data table. Types bar, line, area, pie, donut. Bar/line/area share one axis system (value ticks at 0, 25%, 50%, 75%, 100% of max rounded to a clean step, horizontal gridlines, category labels). Bar has value labels on bars; line has a polyline + dots + value labels; area adds the fill under the line. Pie slices are proportional with label + percent at centroids; donut adds a center hole + total in the center, plus a legend (swatch + label + value + percent). The SVG is role=img with a one-line summary aria-label, shapes aria-hidden; the semantic data table (caption + th scope, Percent column for pie/donut) is the accessible representation. One series only, no tooltips, zoom, or animation. Empty, all-zero, or zero-total data renders 'No data.' Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark), text #1C1917 / #F5F3EF, muted #706963 / #9E968F, sage #5E6B5A / #8B9B87, rust #B85B35 / #D98A63 for the categorical palette.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/chart.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/chart.json",
     code: `import { Chart } from "@/components/ui/chart";\n\nexport function Sales() {\n  const data = [{ label: "Jan", value: 42 }, { label: "Feb", value: 87 }, { label: "Mar", value: 15 }, { label: "Apr", value: 63 }];\n  return <Chart type="bar" data={data} title="Sales" />;\n}`,
+  },
+  {
+    id: "data-grid", name: "DataGrid", tagline: "Sortable, filterable, pageable data grid.",
+    anatomy: ["Toolbar (Export CSV + selected count)", "Header row (sort buttons + pin toggles)", "Filter row (per-column inputs)", "Group header (collapsible, when groupBy)", "Data rows (cells + selection checkbox)", "Pagination (prev/next, page indicator, page-size selector)"],
+    props: [
+      { name: "columns", type: "{ key, label, sortable?, width?, align? }[]", required: true, def: "none", desc: "Column definitions. align is left | right | center." },
+      { name: "rows", type: "object[]", required: true, def: "none", desc: "Rows, keyed by column key." },
+      { name: "rowKey", type: "string", required: false, def: '"id"', desc: "Unique key field for selection and identity." },
+      { name: "pageSize", type: "number", required: false, def: "10", desc: "Rows per page. Selector offers 10 / 25 / 50 / 100." },
+      { name: "selectable", type: "boolean", required: false, def: "false", desc: "Enables row selection with checkboxes." },
+      { name: "groupBy", type: "string", required: false, def: "none", desc: "Column key to group rows by." },
+      { name: "initialSort", type: "{ key, direction: asc | desc }", required: false, def: "none", desc: "Initial sort. Click a header to cycle asc, desc, none." },
+    ],
+    keyboard: [
+      { key: "Tab", action: "Move through sort buttons, filter inputs, pin toggles, checkboxes, group toggles, pagination, and export." },
+      { key: "Enter / Space", action: "On a sort button: cycle asc, desc, none. On a checkbox: toggle selection. On a pin toggle: pin or unpin. On a group toggle: collapse or expand." },
+      { key: "Type", action: "Filter inputs filter that column by substring, case-insensitive." },
+      { key: "Arrow keys", action: "Not implemented. Every control is a Tab stop. No roving tabindex, no arrow-key cell movement." },
+    ],
+    invariants: ["Semantic table: caption with row count, thead, tbody, th scope col, first column th scope row. No role=grid.", "Sort: button in th cycles asc, desc, none; aria-sort on th. Only columns with sortable !== false sort.", "Filter: per-column text input in the filter row, substring match, case-insensitive. Filtering resets to page 1.", "Pagination: prev/next, Page X of Y, page-size selector 10 / 25 / 50 / 100. Only the current page renders (pagination is the virtualization). Pagination resets to page 1 when sort, filter, or grouping change.", "Selection (selectable): checkbox column, header select-all, aria-selected on rows, N selected count (aria-live polite). Selection persists across pages.", "Pinning: pin toggle in th, aria-pressed, pinned columns render first with position sticky left. At least one column stays unpinned.", "Grouping (groupBy): filter, then group, then sort within groups. Group header button with aria-expanded + count. Collapsed groups hide their rows but still occupy page slots; expand a group to see its rows. Grouping changes reset to page 1.", "CSV export: Export CSV downloads the filtered + sorted set (before pagination) as a .csv file, commas/quotes/newlines escaped.", "Selected rows: check + accent wash + aria-selected, never color alone.", "Editorial spacing: 16px cell padding, 44px min touch on every control, precision hairlines. Topanga tokens only."],
+    contract: { format: "oeste.component.v1", component: "DataGrid", props: { columns: "array", rows: "array", rowKey: "string", pageSize: "number", selectable: "boolean", groupBy: "string?", initialSort: "object?" }, a11y: { table: "semantic table + caption + th scope, no role=grid", sort: "button in th + aria-sort", filter: "input + aria-label", select: "checkbox + aria-selected", group: "button + aria-expanded", pin: "button + aria-pressed", keyboard: "Tab + Enter/Space only, no arrow keys" } },
+    prompt: "Build a Topanga DataGrid: semantic table with caption, sort buttons in th with aria-sort cycling asc, desc, none, per-column filter inputs in a filter row, pagination with Page X of Y + page-size 10/25/50/100 (only the current page renders), selectable checkboxes with aria-selected + N selected count, pin toggles with aria-pressed (pinned columns render first, sticky left, at least one column stays unpinned), collapsible group headers with aria-expanded + count (collapsed groups hide their rows but still occupy page slots), grouping changes reset to page 1, CSV export of the filtered + sorted set. Selected rows use a check + accent wash + aria-selected, never color alone. Pagination is the virtualization; do not claim a separate virtualized scroll window. Semantic table, no role=grid, no roving tabindex, arrow keys not implemented. Editorial spacing: 16px cell padding, 44px min touch on every control, precision hairlines. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark), text #1C1917 / #F5F3EF, muted #706963 / #9E968F.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/data-grid.json",
+    code: `import { DataGrid } from \"@/components/ui/data-grid\";\n\nexport function Grid() {\n  const columns = [{ key: \"name\", label: \"Name\", sortable: true }, { key: \"status\", label: \"Status\" }];\n  const rows = [{ id: \"1\", name: \"Item A\", status: \"Open\" }, { id: \"2\", name: \"Item B\", status: \"Done\" }];\n  return <DataGrid columns={columns} rows={rows} selectable />;\n}`,
   },
 
 ]);

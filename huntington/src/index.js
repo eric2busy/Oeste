@@ -3,17 +3,18 @@
 // Requires: React 18+ in scope, Tailwind with arbitrary values, JSX transform.
 // Tokens in this file MUST match src/tokens.json and src/tokens.css exactly.
 // Demos are local only — no network, no auth, no data storage.
-// 45 components: 37 from the Figma plugin v1.0.3 (44 built nodes, 4 variant
+// 46 components: 37 from the Figma plugin v1.0.3 (44 built nodes, 4 variant
 // sets: Photo Card x4, Filter Pill x2, Status Pill x3, Reaction Button x2)
 // plus Toggle Tabs and Next Footer, added from the live site in v0.2.0,
 // plus Search, added in v0.2.0 for consumers who need to filter a list,
 // plus Calendar, DatePicker, TimePicker, and DateRangePicker, added in
 // v0.2.0 for consumers who need to pick dates and times,
-// plus Chart, added in v0.2.0 for consumers who need to chart one series.
+// plus Chart, added in v0.2.0 for consumers who need to chart one series,
+// plus DataGrid, added in v0.2.0 for consumers who need a sortable, filterable, pageable table.
 // One form control (Search). No filled primary button, no toast — the
 // source has none. Props are content slots derived from the Figma builders.
 
-export const DESIGN_TOKENS = Object.freeze({"name": "oeste-huntington", "version": "0.2.0", "defaultMood": "paper", "moods": ["paper", "ink", "rose", "sage", "dune"], "color": {"moods": {"paper": {"paper": "#f6f4f1", "card": "#fffdf9", "ink": "#1c1917", "body": "rgba(28,25,23,0.86)", "muted": "#78716c", "line": "rgba(28,25,23,0.1)"}, "ink": {"paper": "#151412", "card": "#1e1d1b", "ink": "#f0ede8", "body": "rgba(240,237,232,0.86)", "muted": "#a09a93", "line": "rgba(240,237,232,0.14)"}, "rose": {"paper": "#f8efeb", "card": "#fffbf9", "ink": "#2a211d", "body": "rgba(42,33,29,0.86)", "muted": "#a08a80", "line": "rgba(42,33,29,0.1)"}, "sage": {"paper": "#edf0ea", "card": "#fbfdfa", "ink": "#1d211c", "body": "rgba(29,33,28,0.86)", "muted": "#7d857c", "line": "rgba(29,33,28,0.1)"}, "dune": {"paper": "#f3e9d7", "card": "#faf3e4", "ink": "#2b2114", "body": "rgba(43,33,20,0.86)", "muted": "#a08c66", "line": "rgba(43,33,20,0.12)"}}, "accents": {"live": "#e5484d", "pulse": "#1a73e8", "statusActive": "#34d399", "statusIdle": "#60a5fa", "statusOffline": "#fbbf24", "amountUp": "#34d399", "amountDown": "#f87171", "orbDefault": "#ff6b1a", "orbBlue": "#7aa2d9", "orbRose": "#d9b5a3", "orbGreen": "#9dc08b", "white": "#ffffff", "logoCardDark": "#141210"}, "lightboxBg": "rgba(8,8,8,0.95)", "menuscrim": "rgba(0,0,0,0.18)", "photoGradients": {"default": ["#0e0f10", "#1d1e20", "#2b1f11"], "blue": ["#101418", "#1a2230", "#24344d"], "rose": ["#140f0e", "#241a17", "#3d2a22"], "green": ["#0e120e", "#1a241a", "#2a3d2a"]}}, "radius": {"card": "14px", "logocard": "18px", "carouselImage": "14px", "gridArt": "10px", "progressbar": "2px", "menusheetTop": "22px", "pill": "999px", "photo": "14px", "tile": "14px"}, "shadow": {"card": "none (hairline border instead)", "menupill": "0 8px 24px rgba(0,0,0,0.14)", "menusheet": "0 -18px 50px rgba(0,0,0,0.16)"}, "space": {"scale": {"s0": "0px", "s2": "2px", "s3": "3px", "s4": "4px", "s6": "6px", "s7": "7px", "s8": "8px", "s9": "9px", "s10": "10px", "s12": "12px", "s14": "14px", "s16": "16px", "s18": "18px", "s20": "20px", "s22": "22px", "s28": "28px", "s40": "40px", "s44": "44px", "s64": "64px", "s80": "80px"}, "layout": {"maxWidth": "672px", "pagePaddingBottom": "64px", "sectionPaddingTop": "44px", "sidePadding": "20px", "sidePaddingWide": "0px"}}, "type": {"fontFamily": "Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif", "weightRange": "400-800 (variable font, no italics)", "styles": {"h1": {"size": "31px", "weight": 700, "leading": 1.22, "tracking": "-0.03em"}, "lede": {"size": "26px", "weight": 500, "leading": 1.28, "tracking": "-0.025em"}, "ledeWide": {"size": "34px", "weight": 500, "leading": 1.28, "tracking": "-0.025em"}, "ptitle": {"size": "26px", "weight": 600, "leading": 1.28, "tracking": "-0.025em"}, "body": {"size": "16px", "weight": 400, "leading": 1.65, "tracking": "0em"}, "hsub": {"size": "16px", "weight": 400, "leading": 1.65, "tracking": "0em"}, "secTitle": {"size": "17px", "weight": 700, "leading": 1.0, "tracking": "-0.01em"}, "secTitleNote": {"size": "13px", "weight": 500, "leading": 1.0, "tracking": "0em"}, "irowTitle": {"size": "16px", "weight": 600, "leading": 1.0, "tracking": "-0.015em"}, "irowDesc": {"size": "15px", "weight": 400, "leading": 1.5, "tracking": "0em"}, "irowMeta": {"size": "13px", "weight": 400, "leading": 1.0, "tracking": "0em"}, "statusValue": {"size": "15.5px", "weight": 800, "leading": 1.0, "tracking": "-0.01em"}, "statusValuePlain": {"size": "15.5px", "weight": 400, "leading": 1.0, "tracking": "-0.01em"}, "wordmark": {"size": "17px", "weight": 800, "leading": 1.0, "tracking": "-0.02em"}, "plabel": {"size": "12px", "weight": 500, "leading": 1.0, "tracking": "0.06em"}, "tag": {"size": "11px", "weight": 600, "leading": 1.0, "tracking": "0.08em"}, "menuSheetRowTitle": {"size": "17px", "weight": 700, "leading": 1.0, "tracking": "-0.015em"}, "footer": {"size": "13px", "weight": 400, "leading": 1.7, "tracking": "0em"}, "backLink": {"size": "13px", "weight": 400, "leading": 1.0, "tracking": "0em"}, "meta": {"size": "13px", "weight": 400, "leading": 1.0, "tracking": "0em"}}}, "breakpoint": {"narrow": "0-699px", "wide": "700px+"}, "touchMin": "44px", "motion": {"moodPulse": "1.1s scale pulse on mood change (audit)", "liveBlink": "LIVE dot blinks (audit)", "pulseRing": "2.4s ping (audit)", "equalizer": "staggered scaleY (audit)", "accordion": "300px max-height transition (audit)", "mediaDrift": "26s scale drift (audit)", "progressPulse": "fill opacity pulse while charging (audit)", "reducedMotion": "no animation"}, "notes": "Single token source of truth. Must match src/tokens.css and DESIGN_TOKENS in src/index.js. Default mood is Paper. Muted text does NOT meet WCAG AA 4.5:1 on paper in Rose (2.88), Sage (3.31), Dune (2.71), or Paper (4.37) — see Accessibility. Logo Card radius is 18px per these tokens + the audit; the Figma plugin builder used 14px."});
+export const DESIGN_TOKENS = Object.freeze({"name": "oeste-huntington", "version": "0.2.0", "defaultMood": "paper", "moods": ["paper", "ink", "rose", "sage", "dune"], "color": {"moods": {"paper": {"paper": "#f6f4f1", "card": "#fffdf9", "ink": "#1c1917", "body": "rgba(28,25,23,0.86)", "muted": "#756e6a", "line": "rgba(28,25,23,0.1)", "amountUp": "#1f7e5c", "amountDown": "#b25151"}, "ink": {"paper": "#151412", "card": "#1e1d1b", "ink": "#f0ede8", "body": "rgba(240,237,232,0.86)", "muted": "#a09a93", "line": "rgba(240,237,232,0.14)", "amountUp": "#34d399", "amountDown": "#f87171"}, "rose": {"paper": "#f8efeb", "card": "#fffbf9", "ink": "#2a211d", "body": "rgba(42,33,29,0.86)", "muted": "#7a6a62", "line": "rgba(42,33,29,0.1)", "amountUp": "#1e7b5a", "amountDown": "#ae5050"}, "sage": {"paper": "#edf0ea", "card": "#fbfdfa", "ink": "#1d211c", "body": "rgba(29,33,28,0.86)", "muted": "#676e67", "line": "rgba(29,33,28,0.1)", "amountUp": "#1e7a59", "amountDown": "#ad4f4f"}, "dune": {"paper": "#f3e9d7", "card": "#faf3e4", "ink": "#2b2114", "body": "rgba(43,33,20,0.86)", "muted": "#76674b", "line": "rgba(43,33,20,0.12)", "amountUp": "#1d7757", "amountDown": "#a84d4d"}}, "accents": {"live": "#d24247", "pulse": "#1a73e8", "statusActive": "#34d399", "statusIdle": "#60a5fa", "statusOffline": "#fbbf24", "amountUp": "#34d399", "amountDown": "#f87171", "orbDefault": "#ff6b1a", "orbBlue": "#7aa2d9", "orbRose": "#d9b5a3", "orbGreen": "#9dc08b", "white": "#ffffff", "logoCardDark": "#141210"}, "lightboxBg": "rgba(8,8,8,0.95)", "menuscrim": "rgba(0,0,0,0.18)", "photoGradients": {"default": ["#0e0f10", "#1d1e20", "#2b1f11"], "blue": ["#101418", "#1a2230", "#24344d"], "rose": ["#140f0e", "#241a17", "#3d2a22"], "green": ["#0e120e", "#1a241a", "#2a3d2a"]}}, "radius": {"card": "14px", "logocard": "18px", "carouselImage": "14px", "gridArt": "10px", "progressbar": "2px", "menusheetTop": "22px", "pill": "999px", "photo": "14px", "tile": "14px"}, "shadow": {"card": "none (hairline border instead)", "menupill": "0 8px 24px rgba(0,0,0,0.14)", "menusheet": "0 -18px 50px rgba(0,0,0,0.16)"}, "space": {"scale": {"s0": "0px", "s2": "2px", "s3": "3px", "s4": "4px", "s6": "6px", "s7": "7px", "s8": "8px", "s9": "9px", "s10": "10px", "s12": "12px", "s14": "14px", "s16": "16px", "s18": "18px", "s20": "20px", "s22": "22px", "s28": "28px", "s40": "40px", "s44": "44px", "s64": "64px", "s80": "80px"}, "layout": {"maxWidth": "672px", "pagePaddingBottom": "64px", "sectionPaddingTop": "44px", "sidePadding": "20px", "sidePaddingWide": "0px"}}, "type": {"fontFamily": "Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif", "weightRange": "400-800 (variable font, no italics)", "styles": {"h1": {"size": "31px", "weight": 700, "leading": 1.22, "tracking": "-0.03em"}, "lede": {"size": "26px", "weight": 500, "leading": 1.28, "tracking": "-0.025em"}, "ledeWide": {"size": "34px", "weight": 500, "leading": 1.28, "tracking": "-0.025em"}, "ptitle": {"size": "26px", "weight": 600, "leading": 1.28, "tracking": "-0.025em"}, "body": {"size": "16px", "weight": 400, "leading": 1.65, "tracking": "0em"}, "hsub": {"size": "16px", "weight": 400, "leading": 1.65, "tracking": "0em"}, "secTitle": {"size": "17px", "weight": 700, "leading": 1.0, "tracking": "-0.01em"}, "secTitleNote": {"size": "13px", "weight": 500, "leading": 1.0, "tracking": "0em"}, "irowTitle": {"size": "16px", "weight": 600, "leading": 1.0, "tracking": "-0.015em"}, "irowDesc": {"size": "15px", "weight": 400, "leading": 1.5, "tracking": "0em"}, "irowMeta": {"size": "13px", "weight": 400, "leading": 1.0, "tracking": "0em"}, "statusValue": {"size": "15.5px", "weight": 800, "leading": 1.0, "tracking": "-0.01em"}, "statusValuePlain": {"size": "15.5px", "weight": 400, "leading": 1.0, "tracking": "-0.01em"}, "wordmark": {"size": "17px", "weight": 800, "leading": 1.0, "tracking": "-0.02em"}, "plabel": {"size": "12px", "weight": 500, "leading": 1.0, "tracking": "0.06em"}, "tag": {"size": "11px", "weight": 600, "leading": 1.0, "tracking": "0.08em"}, "menuSheetRowTitle": {"size": "17px", "weight": 700, "leading": 1.0, "tracking": "-0.015em"}, "footer": {"size": "13px", "weight": 400, "leading": 1.7, "tracking": "0em"}, "backLink": {"size": "13px", "weight": 400, "leading": 1.0, "tracking": "0em"}, "meta": {"size": "13px", "weight": 400, "leading": 1.0, "tracking": "0em"}}}, "breakpoint": {"narrow": "0-699px", "wide": "700px+"}, "touchMin": "44px", "motion": {"moodPulse": "1.1s scale pulse on mood change (audit)", "liveBlink": "LIVE dot blinks (audit)", "pulseRing": "2.4s ping (audit)", "equalizer": "staggered scaleY (audit)", "accordion": "300px max-height transition (audit)", "mediaDrift": "26s scale drift (audit)", "progressPulse": "fill opacity pulse while charging (audit)", "reducedMotion": "no animation"}, "notes": "Single token source of truth. Must match src/tokens.css and DESIGN_TOKENS in src/index.js. Default mood is Paper. Muted text meets WCAG AA 4.5:1 on paper and card in all five moods (Figma v2.5.0 values applied 2026-10-20). See Accessibility. Logo Card radius is 18px per these tokens + the audit; the Figma plugin builder used 14px."});
 
 const FOCUS = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)]";
 
@@ -968,6 +969,225 @@ export function Chart({ type = "bar", data = [], title, height = 240, showTable 
   );
 }
 
+/* ---------------- DataGrid ---------------- */
+
+/* CSV cell escaping: quote a cell when it holds a comma, a quote, or a newline. */
+const csvEscapeValue = (v) => { const s = v == null ? "" : String(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+
+export function DataGrid({ columns = [], rows = [], rowKey = "id", pageSize = 10, selectable = false, groupBy, initialSort }) {
+  const [sortKey, setSortKey] = React.useState(initialSort ? initialSort.key : null);
+  const [sortDir, setSortDir] = React.useState(initialSort ? initialSort.direction : null);
+  const [filters, setFilters] = React.useState({});
+  const [page, setPage] = React.useState(1);
+  const [prevGroupBy, setPrevGroupBy] = React.useState(groupBy);
+  if (prevGroupBy !== groupBy) { setPrevGroupBy(groupBy); setPage(1); }
+  const [perPage, setPerPage] = React.useState(pageSize);
+  const [selected, setSelected] = React.useState([]);
+  const [pinned, setPinned] = React.useState([]);
+  const [collapsed, setCollapsed] = React.useState([]);
+  const cellText = (v) => (v == null ? "" : String(v));
+  const colWidth = (col) => { const n = parseInt(col.width || "", 10); return Number.isFinite(n) ? n : 160; };
+  const compareValues = (a, b) => {
+    if (a == null && b == null) return 0;
+    if (a == null) return 1;
+    if (b == null) return -1;
+    if (typeof a === "number" && typeof b === "number") return a - b;
+    return String(a).localeCompare(String(b), undefined, { sensitivity: "base" });
+  };
+  const sortList = (list) => {
+    if (!sortKey) return list;
+    const dir = sortDir === "desc" ? -1 : 1;
+    return [...list].sort((x, y) => dir * compareValues(x[sortKey], y[sortKey]));
+  };
+  const filtered = rows.filter((row) => columns.every((col) => {
+    const f = (filters[col.key] || "").trim().toLowerCase();
+    if (!f) return true;
+    return cellText(row[col.key]).toLowerCase().includes(f);
+  }));
+  const groupKeyOf = (row) => {
+    const v = row[groupBy];
+    return v == null ? "Unassigned" : String(v);
+  };
+  const grouped = (() => {
+    if (!groupBy) return null;
+    const order = [];
+    const map = {};
+    filtered.forEach((row) => {
+      const g = groupKeyOf(row);
+      if (!map[g]) { map[g] = []; order.push(g); }
+      map[g].push(row);
+    });
+    return order.map((g) => ({ key: g, rows: sortList(map[g]) }));
+  })();
+  const flat = grouped ? grouped.flatMap((g) => g.rows) : sortList(filtered);
+  const totalPages = Math.max(1, Math.ceil(flat.length / perPage));
+  const safePage = Math.min(page, totalPages);
+  const pageRows = flat.slice((safePage - 1) * perPage, safePage * perPage);
+  const pageGroups = (() => {
+    if (!groupBy) return null;
+    const order = [];
+    const map = {};
+    pageRows.forEach((row) => {
+      const g = groupKeyOf(row);
+      if (!map[g]) { map[g] = []; order.push(g); }
+      map[g].push(row);
+    });
+    return order.map((g) => {
+      const full = grouped.find((x) => x.key === g) || { rows: [] };
+      return { key: g, rows: map[g], total: full.rows.length };
+    });
+  })();
+  const visibleColumns = [...pinned.map((k) => columns.find((c) => c.key === k)).filter(Boolean), ...columns.filter((c) => !pinned.includes(c.key))];
+  const pinnedOffsets = (() => {
+    const offsets = {};
+    let left = 0;
+    pinned.forEach((k) => {
+      offsets[k] = left;
+      const col = columns.find((c) => c.key === k);
+      left += col ? colWidth(col) : 160;
+    });
+    return offsets;
+  })();
+  const isPinned = (key) => pinned.includes(key);
+  const onSort = (key) => {
+    if (sortKey !== key) { setSortKey(key); setSortDir("asc"); }
+    else if (sortDir === "asc") { setSortDir("desc"); }
+    else { setSortKey(null); setSortDir(null); }
+    setPage(1);
+  };
+  const onFilter = (key, value) => { setFilters({ ...filters, [key]: value }); setPage(1); };
+  const onPageSize = (n) => { setPerPage(n); setPage(1); };
+  const toggleRow = (key) => { setSelected(selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key]); };
+  const allKeys = flat.map((row) => row[rowKey]);
+  const allSelected = allKeys.length > 0 && allKeys.every((k) => selected.includes(k));
+  const someSelected = allKeys.some((k) => selected.includes(k));
+  const toggleAll = () => { setSelected(allSelected ? [] : allKeys); };
+  const togglePin = (key) => {
+    if (isPinned(key)) { setPinned(pinned.filter((k) => k !== key)); }
+    else if (pinned.length < columns.length - 1) { setPinned([...pinned, key]); }
+  };
+  const toggleGroup = (key) => { setCollapsed(collapsed.includes(key) ? collapsed.filter((k) => k !== key) : [...collapsed, key]); };
+  const exportCsv = () => {
+    const header = visibleColumns.map((c) => csvEscapeValue(c.label)).join(",");
+    const lines = flat.map((row) => visibleColumns.map((c) => csvEscapeValue(row[c.key])).join(","));
+    const csv = [header, ...lines].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data-grid.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  const totalCols = visibleColumns.length + (selectable ? 1 : 0);
+  const hasFilter = Object.keys(filters).some((k) => filters[k]);
+  const alignCls = (col) => (col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left");
+  const cellBorder = (isFirst, isLast, isSelected) => {
+    if (!isSelected) return "border-b border-[var(--color-line)]";
+    return "border-y-2 border-[var(--color-ink)]" + (isFirst ? " border-l-2" : "") + (isLast ? " border-r-2" : "");
+  };
+  const renderRow = (row) => {
+    const key = row[rowKey];
+    const isSelected = selected.includes(key);
+    return (
+      <tr key={key} aria-selected={selectable ? isSelected : undefined}>
+        {selectable && (
+          <td className={cellBorder(true, visibleColumns.length === 0, isSelected) + " px-3 py-2.5"}>
+            <input type="checkbox" checked={isSelected} onChange={() => toggleRow(key)} aria-label={`Select row ${key}`} />
+          </td>
+        )}
+        {visibleColumns.map((col, i) => {
+          const isFirst = !selectable && i === 0;
+          const isLast = i === visibleColumns.length - 1;
+          const pinStyle = isPinned(col.key) ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 1 } : {};
+          const style = { width: col.width || "160px", minWidth: col.width || "160px", ...pinStyle };
+          const cls = cellBorder(isFirst, isLast, isSelected) + " px-3 py-2.5 text-[14px] text-[var(--color-ink)] " + alignCls(col) + (isPinned(col.key) ? " bg-[var(--color-card)]" : "");
+          if (i === 0) {
+            return (<th key={col.key} scope="row" style={style} className={cls + " font-semibold"}>{cellText(row[col.key])}</th>);
+          }
+          return (<td key={col.key} style={style} className={cls}>{cellText(row[col.key])}</td>);
+        })}
+      </tr>
+    );
+  };
+  return (
+    <section>
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <button type="button" onClick={exportCsv} className={"min-h-11 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2 text-[13px] font-semibold text-[var(--color-ink)] " + FOCUS}>Export CSV</button>
+        {selectable && <p aria-live="polite" className="m-0 text-[13px] text-[var(--color-muted)]">{selected.length} selected</p>}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <caption className="text-left text-[13px] text-[var(--color-muted)]">Data grid. {flat.length} rows, {columns.length} columns. Sort with the header buttons, filter with the filter row, page with the pagination controls.</caption>
+          <thead>
+            <tr>
+              {selectable && (
+                <th scope="col" className="border-b border-[var(--color-line)] bg-[var(--color-card)] px-3 py-2.5">
+                  <input type="checkbox" checked={allSelected} ref={(el) => { if (el) el.indeterminate = someSelected && !allSelected; }} onChange={toggleAll} aria-label="Select all rows" />
+                </th>
+              )}
+              {visibleColumns.map((col) => {
+                const sortable = col.sortable !== false;
+                const sorted = sortKey === col.key;
+                const pinnedCol = isPinned(col.key);
+                const canPin = pinnedCol || pinned.length < columns.length - 1;
+                return (
+                  <th key={col.key} scope="col" aria-sort={sorted ? (sortDir === "asc" ? "ascending" : "descending") : "none"} style={{ width: col.width || "160px", minWidth: col.width || "160px", ...(pinnedCol ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 2 } : {}) }} className="border-b border-[var(--color-line)] bg-[var(--color-card)] px-3 py-2.5 text-left">
+                    <span className="flex items-center gap-2">
+                      {sortable ? (<button type="button" onClick={() => onSort(col.key)} aria-label={`Sort by ${col.label}`} className={"text-left text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-ink)] " + FOCUS + (sorted ? " underline decoration-2 underline-offset-4" : "")}>{col.label}{sorted ? (sortDir === "asc" ? " ↑" : " ↓") : ""}</button>) : (<span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-ink)]">{col.label}</span>)}
+                      <button type="button" onClick={() => togglePin(col.key)} disabled={!canPin} aria-pressed={pinnedCol} aria-label={`${pinnedCol ? "Unpin" : "Pin"} ${col.label} column`} title={canPin ? "" : "At least one column must stay unpinned"} className={"text-[11px] " + FOCUS + " " + (pinnedCol ? "font-bold text-[var(--color-ink)] border-b-2 border-[var(--color-ink)]" : "text-[var(--color-muted)]") + " disabled:opacity-40"}>Pin</button>
+                    </span>
+                  </th>
+                );
+              })}
+            </tr>
+            <tr>
+              {selectable && <td className="border-b border-[var(--color-line)] bg-[var(--color-card)] px-3 py-2" />}
+              {visibleColumns.map((col) => (
+                <td key={col.key} style={isPinned(col.key) ? { position: "sticky", left: pinnedOffsets[col.key], zIndex: 2 } : {}} className="border-b border-[var(--color-line)] bg-[var(--color-card)] px-3 py-2">
+                  <input type="text" value={filters[col.key] || ""} onChange={(e) => onFilter(col.key, e.target.value)} placeholder={`Filter ${col.label}`} aria-label={`Filter ${col.label}`} className={"w-full rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1.5 text-[13px] text-[var(--color-ink)] " + FOCUS} />
+                </td>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {pageGroups ? pageGroups.map((group) => {
+              const isCollapsed = collapsed.includes(group.key);
+              return (
+                <React.Fragment key={group.key}>
+                  <tr>
+                    <td colSpan={totalCols} className="border-b border-[var(--color-line)] px-3 py-2">
+                      <button type="button" onClick={() => toggleGroup(group.key)} aria-expanded={!isCollapsed} className={"flex items-center gap-2 text-left text-[13px] font-bold text-[var(--color-ink)] " + FOCUS}>
+                        <span aria-hidden="true">{isCollapsed ? "▸" : "▾"}</span>{group.key} ({group.total})
+                      </button>
+                    </td>
+                  </tr>
+                  {!isCollapsed && group.rows.map((row) => renderRow(row))}
+                </React.Fragment>
+              );
+            }) : pageRows.map((row) => renderRow(row))}
+            {pageRows.length === 0 && (
+              <tr>
+                <td colSpan={totalCols} className={"px-3 py-6 text-center text-[14px] " + (hasFilter ? "text-[var(--color-live)]" : "text-[var(--color-muted)]")}>{hasFilter ? "No rows match the current filters." : "No rows."}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <button type="button" onClick={() => setPage(Math.max(1, safePage - 1))} disabled={safePage <= 1} className={"min-h-11 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2 text-[13px] font-semibold text-[var(--color-ink)] " + FOCUS + " disabled:opacity-40"}>Previous</button>
+        <span className="text-[13px] text-[var(--color-muted)]">Page {safePage} of {totalPages}</span>
+        <button type="button" onClick={() => setPage(Math.min(totalPages, safePage + 1))} disabled={safePage >= totalPages} className={"min-h-11 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2 text-[13px] font-semibold text-[var(--color-ink)] " + FOCUS + " disabled:opacity-40"}>Next</button>
+        <label className="text-[13px] text-[var(--color-muted)]">Rows per page
+          <select value={perPage} onChange={(e) => onPageSize(Number(e.target.value))} aria-label="Rows per page" className={"ml-2 min-h-11 rounded-[12px] border border-[var(--color-border)] bg-[var(--color-card)] px-2 py-1.5 text-[13px] text-[var(--color-ink)] " + FOCUS}>
+            {[10, 25, 50, 100].map((n) => (<option key={n} value={n}>{n}</option>))}
+          </select>
+        </label>
+      </div>
+    </section>
+  );
+}
+
 export const COMPONENT_DOCS = Object.freeze([
   {
     id: "header", name: "Header", tagline: "Wordmark left, mood control right. The top of every page.",
@@ -1463,5 +1683,16 @@ export const COMPONENT_DOCS = Object.freeze([
     prompt: "Build a Huntington Chart: one series, SVG + data table. Types bar, line, area, pie, donut. Bar/line/area share one axis system (value ticks at 0, 25%, 50%, 75%, 100% of max rounded to a clean step, horizontal gridlines, category labels). Bar has value labels on bars; line has a polyline + dots + value labels; area adds the fill under the line. Pie slices are proportional with label + percent at centroids; donut adds a center hole + total in the center, plus a legend (swatch + label + value + percent). Colors from Huntington tokens: ink for bars/lines, live/pulse/status-active/status-offline/ink for pie slices. The SVG is role=img + a one-line summary aria-label, shapes aria-hidden; the semantic table (caption + th scope, Percent column for pie/donut) is the accessible representation. One series only, no tooltips, zoom, or animation. Empty, all-zero, or zero-total data renders 'No data.' Slice labels can crowd on tiny slices; long labels truncate in the SVG, full label in the table.",
     cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/chart.json",
     code: `import { Chart } from \"@/components/ui/chart\";\n\nexport function Sales() {\n  const data = [{ label: \"Jan\", value: 42 }, { label: \"Feb\", value: 87 }, { label: \"Mar\", value: 15 }, { label: \"Apr\", value: 63 }];\n  return <Chart type=\"bar\" data={data} title=\"Sales\" />;\n}`,
+  },
+  {
+    id: "data-grid", name: "DataGrid", tagline: "Sortable, filterable, pageable data grid.",
+    anatomy: ["Toolbar (Export CSV + selected count)", "Header row (sort buttons + pin toggles)", "Filter row (per-column inputs)", "Group header (collapsible, when groupBy)", "Data rows (cells + selection checkbox)", "Pagination (prev/next, page indicator, page-size selector)"],
+    props: [{"name": "columns", "type": "{ key, label, sortable?, width?, align? }[]", "required": true, "def": "-", "desc": "Column definitions. align is left, right, or center."}, {"name": "rows", "type": "object[]", "required": true, "def": "-", "desc": "Rows, keyed by column key."}, {"name": "rowKey", "type": "string", "required": false, "def": "“id”", "desc": "Unique key field for selection and identity."}, {"name": "pageSize", "type": "number", "required": false, "def": "10", "desc": "Rows per page. Selector offers 10, 25, 50, 100."}, {"name": "selectable", "type": "boolean", "required": false, "def": "false", "desc": "Enables row selection with checkboxes."}, {"name": "groupBy", "type": "string", "required": false, "def": "-", "desc": "Column key to group rows by."}, {"name": "initialSort", "type": "{ key, direction: asc | desc }", "required": false, "def": "-", "desc": "Initial sort. Click a header to cycle asc, desc, none."}],
+    keyboard: [{"key": "Tab", "action": "Move through sort buttons, filter inputs, pin toggles, checkboxes, group toggles, pagination, and export."}, {"key": "Enter / Space", "action": "On a sort button: cycle asc, desc, none. On a checkbox: toggle selection. On a pin toggle: pin or unpin. On a group toggle: collapse or expand."}, {"key": "Type", "action": "Filter inputs filter that column by substring, case-insensitive."}],
+    invariants: ["Semantic table: caption with row count, thead, tbody, th scope col, first column th scope row. No role grid, no roving tabindex, no arrow-key navigation.", "Sort: button in th cycles asc, desc, none; aria-sort on th. Only columns with sortable not false sort. Sorting resets to page 1.", "Filter: per-column text input in the filter row, substring match, case-insensitive. Filtering resets to page 1. A filter that matches nothing renders a live-red message, never a blank table.", "Pagination: prev/next, Page X of Y, page-size selector 10, 25, 50, 100. Only the current page renders. Pagination is the virtualization; there is no separate virtualized scroll window. Page-size changes reset to page 1.", "Selection (selectable): checkbox column, header select-all, aria-selected on rows, N selected count (aria-live polite). Selection persists across pages.", "Pinning: pin toggle in th, aria-pressed, pinned columns render first with position sticky left and a card background. At least one column stays unpinned.", "Grouping (groupBy): filter, then group, then sort within groups. Group header button with aria-expanded plus count. Collapsed groups hide their rows but still occupy page slots, so a collapsed group can leave a page short. Grouping changes reset to page 1.", "CSV export: Export CSV downloads the filtered plus sorted set (before pagination) as a .csv file, commas, quotes, and newlines escaped.", "Selected rows: check plus ink outline plus aria-selected, never a fill, never color alone.", "Controls are outlined: Export, Previous, Next, and the page-size select use hairline borders and card backgrounds. Selected and pinned states use ink outlines and underlines, never fills."],
+    contract: {"props": {"columns": "array", "rows": "array", "rowKey": "string", "pageSize": "number", "selectable": "boolean", "groupBy": "string?", "initialSort": "object?"}, "a11y": {"table": "semantic table + caption + th scope", "sort": "button in th + aria-sort", "filter": "input + aria-label", "select": "checkbox + aria-selected", "group": "button + aria-expanded", "pin": "button + aria-pressed"}},
+    prompt: "Build a Huntington DataGrid: semantic table with caption, sort buttons in th with aria-sort cycling asc, desc, none, per-column filter inputs in a filter row, pagination with Page X of Y plus page-size 10/25/50/100 (only the current page renders), selectable checkboxes with aria-selected plus N selected count, pin toggles with aria-pressed (pinned columns render first, sticky left, card background, at least one column stays unpinned), collapsible group headers with aria-expanded plus count (collapsed groups hide their rows but still occupy page slots), grouping changes reset to page 1, CSV export of the filtered plus sorted set with commas, quotes, and newlines escaped. Selected rows use a check plus ink outline plus aria-selected, never a fill, never color alone. Controls are outlined hairline plus card, never filled. Pagination is the virtualization; do not claim a separate virtualized scroll window. No role grid, no roving tabindex, no arrow keys.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/data-grid.json",
+    code: `import { DataGrid } from \"@/components/ui/data-grid\";\n\nexport function Grid() {\n  const columns = [{ key: \"name\", label: \"Name\", sortable: true }, { key: \"status\", label: \"Status\" }];\n  const rows = [{ id: \"1\", name: \"Item A\", status: \"Open\" }, { id: \"2\", name: \"Item B\", status: \"Done\" }];\n  return <DataGrid columns={columns} rows={rows} selectable />;\n}`,
   }
 ]);

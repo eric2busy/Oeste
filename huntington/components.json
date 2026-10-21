@@ -47,6 +47,17 @@
    ]
   },
   {
+   "id": "data-grid",
+   "name": "DataGrid",
+   "description": "Sortable, filterable, pageable data grid.",
+   "registryUrl": "https://oeste.hiddeninwest.com/huntington/r/data-grid.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/huntington/r/data-grid.json",
+   "docsUrl": "#/components/data-grid",
+   "tags": [
+    "lists"
+   ]
+  },
+  {
    "id": "date-picker",
    "name": "DatePicker",
    "description": "Read-only input plus popover calendar. Clear, Today.",

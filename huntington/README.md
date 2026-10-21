@@ -5,20 +5,20 @@
 Huntington is the second public component library under Oeste, built with Figma-source discipline: every component ships Human docs (anatomy / props / keyboard / invariants), an Agent JSON contract (`oeste.component.v1`) + prompt, and Vibe CLI + React code. Demos are local only — no network, no auth.
 
 ## Theme: Huntington
-Huntington is a single-column index. One column, 672px wide, hairline borders instead of card shadows, underlined text links instead of filled buttons. Five moods — Paper (default), Ink, Rose, Sage, Dune — cycle with one dot button and persist. The source is the Huntington Figma library (plugin v1.0.3, 44 built nodes / 37 components, plus Toggle Tabs, Next Footer, Search, Calendar, DatePicker, TimePicker, DateRangePicker, and Chart, 45 components total).
+Huntington is a single-column index. One column, 672px wide, hairline borders instead of card shadows, underlined text links instead of filled buttons. Five moods — Paper (default), Ink, Rose, Sage, Dune — cycle with one dot button and persist. The source is the Huntington Figma library (plugin v1.0.3, 44 built nodes / 37 components, plus Toggle Tabs, Next Footer, Search, Calendar, DatePicker, TimePicker, DateRangePicker, Chart, and DataGrid, 46 components total).
 
 ### Moods (single source of truth)
 `src/tokens.css` + `src/tokens.json` + `DESIGN_TOKENS` in `src/index.js` agree exactly. Run `npm run verify` to check.
 
 | Mood | Paper | Card | Ink | Muted |
 |---|---|---|---|---|
-| Paper | `#f6f4f1` | `#fffdf9` | `#1c1917` | `#78716c` |
+| Paper | `#f6f4f1` | `#fffdf9` | `#1c1917` | `#756e6a` |
 | Ink | `#151412` | `#1e1d1b` | `#f0ede8` | `#a09a93` |
-| Rose | `#f8efeb` | `#fffbf9` | `#2a211d` | `#a08a80` |
-| Sage | `#edf0ea` | `#fbfdfa` | `#1d211c` | `#7d857c` |
-| Dune | `#f3e9d7` | `#faf3e4` | `#2b2114` | `#a08c66` |
+| Rose | `#f8efeb` | `#fffbf9` | `#2a211d` | `#7a6a62` |
+| Sage | `#edf0ea` | `#fbfdfa` | `#1d211c` | `#676e67` |
+| Dune | `#f3e9d7` | `#faf3e4` | `#2b2114` | `#76674b` |
 
-Accents (same in all moods): live `#e5484d`, pulse `#1a73e8`, status Active `#34d399` / Idle `#60a5fa` / Offline `#fbbf24`, amount up `#34d399` / down `#f87171`, orbs default `#ff6b1a` / blue `#7aa2d9` / rose `#d9b5a3` / green `#9dc08b`, logoCardDark `#141210`.
+Accents (same in all moods): live `#d24247`, pulse `#1a73e8`, status Active `#34d399` / Idle `#60a5fa` / Offline `#fbbf24`, orbs default `#ff6b1a` / blue `#7aa2d9` / rose `#d9b5a3` / green `#9dc08b`, logoCardDark `#141210`. Amount up / down are per-mood: Paper `#1f7e5c` / `#b25151`, Ink `#34d399` / `#f87171`, Rose `#1e7b5a` / `#ae5050`, Sage `#1e7a59` / `#ad4f4f`, Dune `#1d7757` / `#a84d4d`.
 
 Type: Manrope only, variable 400–800, no italics. 20 text styles (see `src/tokens.json`). Layout: max width 672px, side padding 20px (0 at 700px+), section padding-top 44px, page padding-bottom 64px, one breakpoint at 700px. Radii: cards/photos 14, Logo Card 18, grid art 10, menu-sheet top 22, pills 999, Progress Bar 2. Shadows: cards none (hairline instead); Menu Pill `0 8px 24px rgba(0,0,0,0.14)`; Menu Bottom Sheet `0 -18px 50px rgba(0,0,0,0.16)`.
 
@@ -70,6 +70,7 @@ Muted-text contrast is honest, not rounded up: muted meets 4.5:1 on card only in
 - **TimePicker**: Trigger plus time listbox. 12-hour labels, HH:MM value.
 - **DateRangePicker**: Two DatePickers, one range. End-before-start is an error.
 - **Chart**: Bar, line, area, pie, donut. One series, SVG + data table.
+- **DataGrid**: Sortable, filterable, pageable data grid.
 
 Deliberately absent: no filled/primary Button, no toast, no dialog. The source has none. Form controls: Search filters a list; it never submits one. Calendar, DatePicker, TimePicker, and DateRangePicker pick dates and times. Actions are Text Link, Filter Pill, View All, Menu Pill, and rows that are real links/buttons.
 

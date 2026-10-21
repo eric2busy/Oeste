@@ -4,19 +4,19 @@ A component reference for humans, AI agents, and vibe coders.
 Oeste — Three libraries. Three lenses. Huntington = second public library: a single-column index with five moods, hairlines instead of shadows, and no filled button.
 
 ## Usage
-Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; nothing leaves your browser. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/<id>.json` (index at /r/registry.json, manifest at /components.json). The registry goes live when Huntington is integrated into oeste.hiddeninwest.com/huntington; until then, copy from the Vibe lens. Registry files are self-contained React + Tailwind and need src/tokens.css loaded once. `@oeste/huntington` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.
+Use semantic HTML, explicit labels, keyboard interaction, and visible focus. Never use color alone to communicate state. All demos are local; nothing leaves your browser. Install components from the shadcn registry: `npx shadcn@latest add https://oeste.hiddeninwest.com/huntington/r/<id>.json` (index at /huntington/r/registry.json, manifest at /huntington/components.json). The registry is live at https://oeste.hiddeninwest.com/huntington/r/ — install via shadcn, or copy from the Vibe lens. Registry files are self-contained React + Tailwind and need huntington/src/tokens.css loaded once. `@oeste/huntington` is not a published package. Snippets import from `@/components/ui/…` — where shadcn puts the files. Paste snippets into an existing React + Tailwind app with React in scope. Use the complete contract below when generating UI.
 
 ## Tokens (single source of truth)
 Tokens live in src/tokens.css + src/tokens.json + DESIGN_TOKENS in src/index.js and agree exactly.
-- Paper: paper #f6f4f1, card #fffdf9, ink #1c1917, body rgba(28,25,23,0.86), muted #78716c, line rgba(28,25,23,0.1)
+- Paper: paper #f6f4f1, card #fffdf9, ink #1c1917, body rgba(28,25,23,0.86), muted #756e6a, line rgba(28,25,23,0.1)
 - Ink: paper #151412, card #1e1d1b, ink #f0ede8, body rgba(240,237,232,0.86), muted #a09a93, line rgba(240,237,232,0.14)
-- Rose: paper #f8efeb, card #fffbf9, ink #2a211d, body rgba(42,33,29,0.86), muted #a08a80, line rgba(42,33,29,0.1)
-- Sage: paper #edf0ea, card #fbfdfa, ink #1d211c, body rgba(29,33,28,0.86), muted #7d857c, line rgba(29,33,28,0.1)
-- Dune: paper #f3e9d7, card #faf3e4, ink #2b2114, body rgba(43,33,20,0.86), muted #a08c66, line rgba(43,33,20,0.12)
-- Accents (all moods): live #e5484d, pulse #1a73e8, status Active #34d399 / Idle #60a5fa / Offline #fbbf24, amount up #34d399 / down #f87171, orbs default #ff6b1a / blue #7aa2d9 / rose #d9b5a3 / green #9dc08b, logoCardDark #141210
+- Rose: paper #f8efeb, card #fffbf9, ink #2a211d, body rgba(42,33,29,0.86), muted #7a6a62, line rgba(42,33,29,0.1)
+- Sage: paper #edf0ea, card #fbfdfa, ink #1d211c, body rgba(29,33,28,0.86), muted #676e67, line rgba(29,33,28,0.1)
+- Dune: paper #f3e9d7, card #faf3e4, ink #2b2114, body rgba(43,33,20,0.86), muted #76674b, line rgba(43,33,20,0.12)
+- Accents (all moods): live #d24247, pulse #1a73e8, status Active #34d399 / Idle #60a5fa / Offline #fbbf24, orbs default #ff6b1a / blue #7aa2d9 / rose #d9b5a3 / green #9dc08b, logoCardDark #141210. Amount up / down are per-mood: Paper #1f7e5c / #b25151, Ink #34d399 / #f87171, Rose #1e7b5a / #ae5050, Sage #1e7a59 / #ad4f4f, Dune #1d7757 / #a84d4d
 - Type: Manrope only, variable 400-800, no italics. 20 text styles; H1 31/700/-0.03/1.22, Lede 26/500/1.28/-0.025 (34px at >=700px), Page Title 26/600/1.28/-0.025, Section Title 17/700/-0.01, body 16/1.65.
 - Spacing scale: 0/2/3/4/6/7/8/9/10/12/14/16/18/20/22/28/40/44/64/80. Layout: max width 672, side padding 20 (0 at 700px+), section padding-top 44, page padding-bottom 64. Radii: card/photo/tile/carousel 14, Logo Card 18, grid art 10, Progress Bar 2, menu-sheet top 22, pill 999. Shadows: cards none (hairline); Menu Pill 0 8px 24px rgba(0,0,0,0.14); Menu Bottom Sheet 0 -18px 50px rgba(0,0,0,0.16). One breakpoint: 700px. Touch targets: min 44px for primary actions; compact inline controls (Filter Pill, Status Pill, Tag, text links) are source-faithful compact sizes.
-- Muted-text contrast (measured, honest): muted meets 4.5:1 on card only in Paper (4.72) and Ink (6.05); Rose 3.17, Sage 3.72, Dune 2.95 fall short. Muted is for secondary/caption text, never body copy. LIVE text is 3.85:1 on a paper card / 4.30:1 on an ink card — a status indicator with a dot, never body copy.
+- Muted-text contrast (measured, honest): muted meets 4.5:1 on paper and card in every mood (paper 4.56 to 4.58, card 4.93 to 5.13; Ink 6.61 / 6.05). Muted is for secondary/caption text. LIVE text is 4.48:1 on a paper card / 3.70:1 on an ink card. It is a status indicator with a dot, never body copy.
 - Absent by design: no filled primary button, no toast, no dialog. One form control: Search filters a list; it never submits one. Actions are Text Link, Filter Pill, View All, Menu Pill, and rows that are real links/buttons.
 
 ## System prompt for AI editors
@@ -62,10 +62,16 @@ You are implementing Huntington UI in a React + Tailwind application. Read the H
 - Footer — The bottom of the page. Small, muted, done.
 - Toggle Tabs — Two or more views, one row. Active is ink + underline.
 - Next Footer — The way onward. A hairline, then the next row.
+- Calendar: Month grid. One button per day, min/max bounds.
+- Date Picker: Read-only input plus popover calendar. Clear, Today.
+- Time Picker: Trigger plus time listbox. 12-hour labels, HH:MM value.
+- Date Range Picker: Two DatePickers, one range. End-before-start is an error.
+- Chart: Bar, line, area, pie, donut. One series, SVG + data table.
+- Data Grid: Sortable, filterable, pageable data grid.
 - Patterns (not components) — Home page (Header + Live Hero + Start building + What Huntington means + Three lenses + Browse + Footer); Components page (Header + Page Title + List Rows + Footer); Detail page (Back Link + Page Title + Standfirst + Photo Card + Gallery + Reaction Button + Footer); Overlay flow (Menu Pill -> Menu Bottom Sheet + Lightbox); see Patterns
 
 ## Docs site
-Static site in /site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components, #/components/<id>?lens=human|agent|vibe, #/guides, #/tokens, #/getting-started, #/accessibility, #/patterns, #/changelog, #/migration, #/faq. Lens persists in the URL. Component contracts use oeste.component.v1. Guide: #/getting-started (install, moods, troubleshooting).
+Static site in /huntington/site/ (index.html + styles.css + app.js, no build step, Vercel-ready). Routes: #/home, #/components, #/components/<id>?lens=human|agent|vibe, #/guides, #/tokens, #/getting-started, #/accessibility, #/patterns, #/changelog, #/migration, #/faq. Lens persists in the URL. Component contracts use oeste.component.v1. Guide: #/getting-started (install, moods, troubleshooting).
 
 ## Registry (v0.2.0)
-shadcn-compatible registry at https://oeste.hiddeninwest.com/huntington/r/ — per-component items r/<id>.json ($schema ui.shadcn.com/schema/registry-item.json, type registry:ui, files[].content = self-contained React + Tailwind). The registry goes live with integration into oeste.hiddeninwest.com/huntington. components.json at the repo root is the machine manifest: version, registryBase, components[] with id, name, description, registryUrl, githubRawUrl, docsUrl, tags. Registry files are generated by scripts/build_registry.py from src/index.js — never hand-edit r/*.json.
+shadcn-compatible registry at https://oeste.hiddeninwest.com/huntington/r/ — per-component items r/<id>.json ($schema ui.shadcn.com/schema/registry-item.json, type registry:ui, files[].content = self-contained React + Tailwind). The registry is live at https://oeste.hiddeninwest.com/huntington/r/. components.json in the library folder is the machine manifest: version, registryBase, components[] with id, name, description, registryUrl, githubRawUrl, docsUrl, tags. Registry files are generated by huntington/scripts/build_registry.py from src/index.js — never hand-edit r/*.json.

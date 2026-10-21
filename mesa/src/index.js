@@ -24,7 +24,7 @@ export const DESIGN_TOKENS = Object.freeze({
     ctaBandText: "#f4f1ea",
     dark: "#141114",
     darkMode: {
-      accent: "#c9404f",
+      accent: "#da4e63",
       accentDeep: "#a52336",
       bg: "#100e0b",
       btnText: "#ffffff",
@@ -36,7 +36,7 @@ export const DESIGN_TOKENS = Object.freeze({
       ghostBtnBorder: "#4a4034",
       heroEm: "#e87a88",
       ink: "#ece3d0",
-      inkFaint: "#6e6455",
+      inkFaint: "#8a7e6b",
       inkSoft: "#a79b82",
       line: "#2e2720",
       lineSoft: "#221c16",
@@ -49,10 +49,11 @@ export const DESIGN_TOKENS = Object.freeze({
       pillOpenText: "#ffffff",
       pillVerifyingBg: "#2a2112",
       pillVerifyingText: "#e87a88",
+      stampClosed: "#7f7f7f",
       selectionBg: "#c9404f",
       selectionText: "#ffffff",
       themeColor: "#100e0b",
-      warn: "#c9404f",
+      warn: "#da4e63",
       wash: "#14110c",
     },
     diffBandBg: "#181b1f",
@@ -65,7 +66,7 @@ export const DESIGN_TOKENS = Object.freeze({
     ghostBtnBorder: "#ddd6c7",
     heroEm: "#6d1620",
     ink: "#181b1f",
-    inkFaint: "#8a8e93",
+    inkFaint: "#6e7278",
     inkSoft: "#5b5f65",
     line: "#ddd6c7",
     lineSoft: "#ece5d5",
@@ -84,10 +85,10 @@ export const DESIGN_TOKENS = Object.freeze({
     queuePingRing: "#c9a227",
     selectionBg: "#8a1f2b",
     selectionText: "#ffffff",
-    stampClosed: "#777777",
-    stampNew: "#d8a93f",
+    stampClosed: "#757575",
+    stampNew: "#94701e",
     stampOpen: "#c9404f",
-    stampReview: "#c98a2b",
+    stampReview: "#9d6c22",
     themeColor: "#faf9f7",
     warn: "#8a5a1f",
     wash: "#f1ede5",
@@ -1142,20 +1143,45 @@ export function ResultCard({ fileNumber, title, outcome, rows = [] }) {
 
 /* ---------------- Forum Thread ---------------- */
 
-export function ForumThread({ votes, text, replies = [] }) {
-  return (
-    <article className="cursor-pointer px-2 py-3 hover:bg-[rgba(138,31,43,0.04)] dark:hover:bg-[rgba(201,64,79,0.04)]">
-      <div className="flex items-baseline gap-3">
+export function ForumThread({ votes, text, replies = [], href, onSelect }) {
+  // A button holds phrasing content only, so the button variant renders
+  // text as block spans. The link and article variants keep paragraphs.
+  const isButton = !href && !!onSelect;
+  const Block = isButton ? "span" : "div";
+  const Text = isButton ? "span" : "p";
+  const body = (
+    <>
+      <Block className="flex items-baseline gap-3">
         {votes !== undefined && <span className="font-bold text-[#8a1f2b] dark:text-[#c9404f]">{votes}</span>}
-        {text && <p className="m-0 text-[14.5px]">{text}</p>}
-      </div>
+        {text && <Text className="m-0 block text-[14.5px]">{text}</Text>}
+      </Block>
       {replies.length > 0 && (
-        <div>
+        <Block className="block">
           {replies.map((reply, i) => (
-            <p key={i} className={`m-0 text-[14px] ${i === 0 ? "mt-2 border-t-0 pt-0" : "mt-3 border-t border-[#ece5d5] pt-3 dark:border-[#221c16]"}`}>{reply.text}</p>
+            <Text key={i} className={`m-0 block text-[14px] ${i === 0 ? "mt-2 border-t-0 pt-0" : "mt-3 border-t border-[#ece5d5] pt-3 dark:border-[#221c16]"}`}>{reply.text}</Text>
           ))}
-        </div>
+        </Block>
       )}
+    </>
+  );
+  const interactiveClass = `block cursor-pointer px-2 py-3 hover:bg-[rgba(138,31,43,0.04)] dark:hover:bg-[rgba(201,64,79,0.04)] ${FOCUS}`;
+  if (href) {
+    return (
+      <a href={href} onClick={() => { if (onSelect) onSelect(); }} className={`no-underline ${INK} ${interactiveClass}`}>
+        {body}
+      </a>
+    );
+  }
+  if (onSelect) {
+    return (
+      <button type="button" onClick={() => onSelect()} className={`w-full text-left ${INK} ${interactiveClass}`}>
+        {body}
+      </button>
+    );
+  }
+  return (
+    <article className="px-2 py-3">
+      {body}
     </article>
   );
 }
@@ -1570,7 +1596,7 @@ const shiftMonth = (v, delta) => {
   return { y, m };
 };
 
-export function Calendar({ value, onChange, min, max }) {
+export function Calendar({ value, onChange, min, max, range }) {
   const parsed = parseISODate(value);
   const today = todayISO();
   const todayParsed = parseISODate(today);
@@ -1582,6 +1608,11 @@ export function Calendar({ value, onChange, min, max }) {
   }
   const lo = isValidISODate(min) ? min : null;
   const hi = isValidISODate(max) ? max : null;
+  // Optional range highlight. Needs both endpoints valid and ordered.
+  // Missing, invalid, or reversed ranges highlight nothing.
+  const rangeStart = range && isValidISODate(range.start) ? range.start : null;
+  const rangeEnd = range && isValidISODate(range.end) ? range.end : null;
+  const hasRange = rangeStart !== null && rangeEnd !== null && rangeEnd >= rangeStart;
   const daysInMonth = new Date(view.y, view.m, 0).getDate();
   const firstWeekday = new Date(view.y, view.m - 1, 1).getDay();
   const cells = [];
@@ -1595,11 +1626,16 @@ export function Calendar({ value, onChange, min, max }) {
     const isSelected = parsed !== null && iso === value;
     const isToday = iso === today;
     const isDisabled = (lo !== null && iso < lo) || (hi !== null && iso > hi);
+    const isInRange = hasRange && iso >= rangeStart && iso <= rangeEnd;
+    const rangeSuffix = isSelected ? ", selected" : isInRange ? ", in range" : "";
+    // In-range band is the focus-ring token value (oxblood at 12 percent)
+    // in each theme. The selected fill still wins for the selected day.
     let dayClass = `border border-transparent ${INK} hover:bg-[#f1ede5] dark:hover:bg-[#14110c]`;
+    if (isInRange) dayClass = `border border-transparent ${INK} bg-[rgba(138,31,43,0.12)] dark:bg-[rgba(201,64,79,0.12)]`;
+    if (isToday) dayClass = `border-2 border-[#8a1f2b] font-bold ${INK} dark:border-[#c9404f]${isInRange ? " bg-[rgba(138,31,43,0.12)] dark:bg-[rgba(201,64,79,0.12)]" : ""}`;
     if (isSelected) dayClass = "bg-[#8a1f2b] font-bold text-[#ffffff] dark:bg-[#c9404f]";
-    else if (isToday) dayClass = `border-2 border-[#8a1f2b] font-bold ${INK} dark:border-[#c9404f]`;
     return (
-      <button type="button" key={iso} disabled={isDisabled} aria-disabled={isDisabled} aria-current={isToday ? "date" : undefined} aria-label={`${CAL_MONTHS[view.m - 1]} ${d}, ${view.y}${isSelected ? ", selected" : ""}`} onClick={() => onChange && onChange(iso)} className={`flex h-9 w-9 items-center justify-center rounded-[4px] text-[13px] ${FOCUS} ${dayClass} disabled:opacity-40`}>{d}</button>
+      <button type="button" key={iso} disabled={isDisabled} aria-disabled={isDisabled} aria-current={isToday ? "date" : undefined} aria-label={`${CAL_MONTHS[view.m - 1]} ${d}, ${view.y}${rangeSuffix}`} onClick={() => onChange && onChange(iso)} className={`flex h-9 w-9 items-center justify-center rounded-[4px] text-[13px] ${FOCUS} ${dayClass} disabled:opacity-40`}>{d}</button>
     );
   };
   return (
@@ -1623,7 +1659,7 @@ export function Calendar({ value, onChange, min, max }) {
   );
 }
 
-export function DatePicker({ value, onChange, label = "Date", placeholder = "YYYY-MM-DD", min, max, clearable = true, invalid = false }) {
+export function DatePicker({ value, onChange, label = "Date", placeholder = "YYYY-MM-DD", min, max, clearable = true, invalid = false, range }) {
   const [open, setOpen] = React.useState(false);
   const inputId = React.useId();
   const popId = React.useId();
@@ -1660,7 +1696,7 @@ export function DatePicker({ value, onChange, label = "Date", placeholder = "YYY
       </div>
       {open && (
         <div id={popId} className={`absolute z-10 mt-1 max-w-[calc(100vw-32px)] p-2 ${CARD} border ${LINE}`}>
-          <Calendar value={display || null} onChange={pick} min={min} max={max} />
+          <Calendar value={display || null} onChange={pick} min={min} max={max} range={range} />
           <div className="mt-1.5 flex gap-1.5">
             {clearable && display && (<button type="button" onClick={() => { if (onChange) onChange(null); close(); }} className={`rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
             <button type="button" disabled={todayOutOfRange} aria-disabled={todayOutOfRange} onClick={() => pick(today)} className={`rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS} disabled:opacity-40`}>Today</button>
@@ -1759,8 +1795,8 @@ export function DateRangePicker({ start, end, onChange, label = "Date range", mi
     <fieldset className="m-0 border-0 p-0">
       <legend className={`text-[11px] font-bold uppercase tracking-[0.14em] ${INK}`}>{label}</legend>
       <div className="mt-1 flex flex-wrap items-start gap-2">
-        <DatePicker value={validStart} onChange={handleStart} label="Start" min={min} max={max} clearable={false} />
-        <DatePicker value={validEnd} onChange={handleEnd} label="End" min={min} max={max} clearable={false} invalid={hasError} />
+        <DatePicker value={validStart} onChange={handleStart} label="Start" min={min} max={max} clearable={false} range={{ start: validStart, end: validEnd }} />
+        <DatePicker value={validEnd} onChange={handleEnd} label="End" min={min} max={max} clearable={false} invalid={hasError} range={{ start: validStart, end: validEnd }} />
       </div>
       {validStart !== null && validEnd !== null && !hasError && (<div aria-hidden="true" className="mt-2 bg-[#8a1f2b] px-3 py-1.5 text-[12px] font-semibold text-[#ffffff] dark:bg-[#c9404f]">{validStart} → {validEnd}</div>)}
       {clearable && (validStart !== null || validEnd !== null) && (<button type="button" onClick={handleClear} className={`mt-2 rounded border ${LINE} px-2.5 py-1.5 text-[13px] ${INK} ${FOCUS}`}>Clear</button>)}
@@ -2063,7 +2099,7 @@ export const COMPONENT_DOCS = [
   {
     id: "forum-thread",
     name: "ForumThread",
-    tagline: "Thread row with votes and replies.",
+    tagline: "Thread row with votes and replies. Real link with href, button with onSelect.",
   },
   {
     id: "mini-gates",
@@ -2118,7 +2154,7 @@ export const COMPONENT_DOCS = [
   {
     id: "calendar",
     name: "Calendar",
-    tagline: "Month grid. One button per day, min/max bounds.",
+    tagline: "Month grid. One button per day, min/max bounds, optional range highlight.",
   },
   {
     id: "date-picker",
@@ -2133,6 +2169,6 @@ export const COMPONENT_DOCS = [
   {
     id: "date-range-picker",
     name: "DateRangePicker",
-    tagline: "Two DatePickers, one range. End-before-start is an error.",
+    tagline: "Two DatePickers, one range. Popover Calendars highlight the range. End-before-start is an error.",
   },
 ];

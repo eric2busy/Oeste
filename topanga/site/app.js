@@ -9,7 +9,7 @@ const COMPONENTS = [
     invariants: ["Label is always visible text, never icon-only without aria-label.", "Disabled buttons never rely on color alone.", "Focus is 2px ink/paper outline, never removed.", "Danger variant only for destructive actions with a confirm step."],
     contract: { format: "oeste.component.v1", component: "Button", props: { variant: ["primary", "secondary", "ghost", "danger"], size: ["sm", "md", "lg"], disabled: "boolean", loading: "boolean" }, a11y: { focus: "2px ink/paper outline", target: "min 44px", busy: "aria-busy when loading" } },
     prompt: "Build an Oeste Button: variant primary/secondary/ghost/danger, size sm/md/lg, optional icon slot, 44px min touch, 2px ink/paper focus outline, aria-busy when loading. Never icon-only without an accessible label. Use Topanga tokens: accent #C47D3B, danger #A83E22 (light) / #E07A52 (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json",
     code: "import { Button } from \"@/components/ui/button\";\n\nexport function SaveAction() {\n  return <Button variant=\"primary\" onClick={() => {}}>Save changes</Button>;\n}\n// Dark mode: built in via dark: classes. Focus: 2px ink/paper outline." },
   { id: "input", name: "Input", tagline: "Persistent label. Described errors. No placeholder-only fields.",
     anatomy: ["Label", "Field", "Hint", "Error message"],
@@ -18,7 +18,7 @@ const COMPONENTS = [
     invariants: ["Label is always visible, never placeholder-only.", "Errors use text + role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Input", props: { label: "string", error: "string?", hint: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Input with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Never use placeholder as the label. Never use Canyon Rust for error text.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/input.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/input.json",
     code: "import { Input } from \"@/components/ui/input\";\n\nexport function NameField({ value, onChange, error }) {\n  return <Input label=\"Project name\" value={value} onChange={onChange} error={error} hint=\"At least 3 characters.\" />;\n}\n// Related: Textarea and Select share the same label + error pattern." },
 
   { id: "textarea", name: "Textarea", tagline: "Multi-line input. Same label + error pattern as Input.",
@@ -28,7 +28,7 @@ const COMPONENTS = [
     invariants: ["Label is always visible, never placeholder-only.", "Errors use text + role, never color alone.", "aria-invalid is set when error is present.", "Error text uses Danger (#A83E22 light / #E07A52 dark), never Canyon Rust."],
     contract: { format: "oeste.component.v1", component: "Textarea", props: { label: "string", rows: "number", error: "string?", disabled: "boolean" }, a11y: { invalid: "aria-invalid + described error", label: "persistent <label>", errorRole: "status" } },
     prompt: "Build an Oeste Textarea with a persistent visible label, aria-invalid + described error when error is set, error text in Danger #A83E22 (light) / #E07A52 (dark). Same label + error pattern as Input. Never use placeholder as the label.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/textarea.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/textarea.json",
     code: "import { Textarea } from \"@/components/ui/textarea\";\n\nexport function Notes({ value, onChange }) {\n  return <Textarea label=\"Field notes\" value={value} onChange={onChange} rows={4} hint=\"Anything worth keeping.\" />;\n}\n// Dark mode: built in via dark: classes." },
   { id: "select", name: "Select", tagline: "One choice from a list. Native select, real label.",
     anatomy: ["Label", "Field", "Options"],
@@ -37,7 +37,7 @@ const COMPONENTS = [
     invariants: ["Native <select>, never a custom listbox.", "Label is always visible and linked via htmlFor.", "Options carry real values, never index-only labels."],
     contract: { format: "oeste.component.v1", component: "Select", props: { label: "string", options: "array", disabled: "boolean" }, a11y: { native: "select", label: "htmlFor" } },
     prompt: "Build an Oeste Select with a native <select>, persistent visible label via htmlFor, options as { value, label } pairs. Never build a custom listbox when a native select will do.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/select.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/select.json",
     code: "import { Select } from \"@/components/ui/select\";\n\nexport function ThemePicker({ value, onChange }) {\n  return <Select label=\"Theme\" value={value} onChange={onChange} options={[{ value: \"topanga\", label: \"Topanga\" }, { value: \"paper\", label: \"Paper\" }]} />;\n}" },
   { id: "dialog", name: "Dialog", tagline: "Accessible modal. Focus in, Escape out, focus back.",
     anatomy: ["Trigger", "Backdrop", "Surface", "Title + description", "Fields", "Actions"],
@@ -46,7 +46,7 @@ const COMPONENTS = [
     invariants: ["Focus moves into the dialog on open and returns to trigger on close.", "Escape always closes.", "Backdrop click closes; content is inert behind the dialog.", "Title + description are always present."],
     contract: { format: "oeste.component.v1", component: "Dialog", props: { open: "boolean", title: "string", description: "string" }, a11y: { modal: "aria-modal=true", labelledby: "title", describedby: "description", focus: "trap + restore on close" } },
     prompt: "Build an Oeste Dialog using native <dialog> + showModal. Title + description required. Escape closes, focus traps inside, focus returns to trigger on close. Backdrop is inert. Use Topanga tokens, hairline border, dialog shadow.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/dialog.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/dialog.json",
     code: "import { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Dialog } from \"@/components/ui/dialog\";\nimport { Input } from \"@/components/ui/input\";\n\nexport function EditProject() {\n  const [open, setOpen] = useState(false);\n  return (<>\n    <Button onClick={() => setOpen(true)}>Edit project</Button>\n    <Dialog open={open} onOpenChange={setOpen} title=\"Edit project\" description=\"Rename this project.\">\n      <Input label=\"Project name\" value=\"\" onChange={() => {}} />\n    </Dialog>\n  </>);\n}" },
   { id: "card", name: "Card", tagline: "Structural container with proper heading hierarchy.",
     anatomy: ["Heading", "Body", "Actions (optional)"],
@@ -55,7 +55,7 @@ const COMPONENTS = [
     invariants: ["Heading level matches document outline.", "Cards never use color alone to convey status.", "Interactive cards use a real <button> or <a>, never a clickable div."],
     contract: { format: "oeste.component.v1", component: "Card", props: { title: "string", headingLevel: [2, 3, 4] }, a11y: { labelledby: "heading", section: "native <section>" } },
     prompt: "Build an Oeste Card: native <section> + aria-labelledby, heading level matching the page outline, hairline border, card shadow. Never use a clickable div for an interactive card.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/card.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/card.json",
     code: "import { Card } from \"@/components/ui/card\";\n\nexport function NoteCard() {\n  return <Card title=\"Field notes\" headingLevel={3}><p>Room to think.</p></Card>;\n}" },
   { id: "tabs", name: "Tabs", tagline: "Roving tabindex. Arrow keys move, Home/End jump.",
     anatomy: ["Tab list", "Tab", "Panel"],
@@ -64,7 +64,7 @@ const COMPONENTS = [
     invariants: ["Only the active tab is in the tab order (roving tabindex).", "Panels are labelled by their tab.", "Inactive panels are hidden, not just visually."],
     contract: { format: "oeste.component.v1", component: "Tabs", props: { items: "array", defaultIndex: "number" }, a11y: { tabs: "roving tabindex", panels: "aria-labelledby tab" } },
     prompt: "Build Oeste Tabs with roving tabindex: only the active tab has tabIndex 0. ArrowRight/Left move, Home/End jump, panels labelled by their tab, inactive panels hidden.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/tabs.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/tabs.json",
     code: "import { Tabs } from \"@/components/ui/tabs\";\n\nexport function Views() {\n  return <Tabs items={[{ label: \"Overview\", content: \"Overview panel.\" }, { label: \"Details\", content: \"Details panel.\" }]} />;\n}" },
   { id: "toast", name: "Toast", tagline: "Polite status. Manual dismissal. Nothing auto-vanishes.",
     anatomy: ["Message", "Dismiss button"],
@@ -73,7 +73,7 @@ const COMPONENTS = [
     invariants: ["Toast is role=status + aria-live=polite.", "No auto-expiry: the user dismisses it.", "Message is text, never color alone."],
     contract: { format: "oeste.component.v1", component: "Toast", props: { message: "string", open: "boolean" }, a11y: { live: "polite", role: "status", dismiss: "manual, focusable" } },
     prompt: "Build an Oeste Toast: single clean card (no split rounded top/bottom), role=status + aria-live=polite, manual Dismiss button, no auto-expiry. Keep it in one card.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/toast.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/toast.json",
     code: "import { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Toast } from \"@/components/ui/toast\";\n\nexport function Preview() {\n  const [open, setOpen] = useState(false);\n  return (<><Button onClick={() => setOpen(true)}>Show toast</Button><Toast message=\"Preview complete. Nothing was sent.\" open={open} onDismiss={() => setOpen(false)} /></>);\n}" },
   { id: "badge", name: "Badge", tagline: "Small status. Text first, color second.",
     anatomy: ["Label"],
@@ -82,7 +82,7 @@ const COMPONENTS = [
     invariants: ["Meaning is in the text, never color alone.", "Danger tone uses Danger token, not Canyon Rust.", "Badge text meets 4.5:1 on its background."],
     contract: { format: "oeste.component.v1", component: "Badge", props: { tone: ["neutral", "accent", "success", "danger"] }, a11y: { meaning: "text, never color alone" } },
     prompt: "Build an Oeste Badge: pill, border + tint, tone neutral/accent/success/danger. Meaning in text, never color alone. Danger tone uses Danger #A83E22 / #E07A52.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/badge.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/badge.json",
     code: "import { Badge } from \"@/components/ui/badge\";\n\nexport function Status() {\n  return <Badge tone=\"success\">Ready</Badge>;\n}" },
   { id: "checkbox", name: "Checkbox", tagline: "Real input. Visible label. Described help.",
     anatomy: ["Box", "Label", "Description (optional)"],
@@ -91,7 +91,7 @@ const COMPONENTS = [
     invariants: ["Native <input type=checkbox>, never a div.", "Label is clickable and linked via htmlFor.", "Description is linked via aria-describedby."],
     contract: { format: "oeste.component.v1", component: "Checkbox", props: { label: "string", checked: "boolean", disabled: "boolean" }, a11y: { native: "input[type=checkbox]", label: "htmlFor", desc: "aria-describedby" } },
     prompt: "Build an Oeste Checkbox with a native input, clickable label via htmlFor, optional described help text, accent color for the checked state. Never build a checkbox from a div.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/checkbox.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/checkbox.json",
     code: "import { useState } from \"react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\n\nexport function Notify() {\n  const [checked, setChecked] = useState(false);\n  return <Checkbox label=\"Email me updates\" checked={checked} onChange={setChecked} description=\"One email per change.\" />;\n}" },
   { id: "switch", name: "Switch", tagline: "On / off with a real role=switch.",
     anatomy: ["Track", "Thumb", "Label", "Description (optional)"],
@@ -100,7 +100,7 @@ const COMPONENTS = [
     invariants: ["Uses role=switch + aria-checked.", "State is visible by position + label, never color alone.", "Label is clickable."],
     contract: { format: "oeste.component.v1", component: "Switch", props: { label: "string", checked: "boolean", disabled: "boolean" }, a11y: { role: "switch", checked: "aria-checked", state: "position + label, never color alone" } },
     prompt: "Build an Oeste Switch with role=switch + aria-checked, thumb position showing state, clickable label. State visible by position + label, never color alone.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/switch.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/switch.json",
     code: "import { useState } from \"react\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport function DarkMode() {\n  const [checked, setChecked] = useState(false);\n  return <Switch label=\"Dark mode\" checked={checked} onChange={setChecked} />;\n}" },
 { id: "alert", name: "Alert", tagline: "Status that stays put. Text first, tone second.",
     anatomy: ["Tone border / tint", "Message", "Dismiss button (optional)"],
@@ -109,7 +109,7 @@ const COMPONENTS = [
     invariants: ["Meaning is in the text, never color alone.", "role=alert only for urgent errors; status for everything else.", "Danger tone uses Danger token, not Canyon Rust.", "Dismissible alerts remove themselves from the DOM."],
     contract: { format: "oeste.component.v1", component: "Alert", props: { tone: ["info", "success", "warning", "danger"], role: ["alert", "status"] }, a11y: { role: "alert or status", dismiss: "focusable Dismiss button" } },
     prompt: "Build an Oeste Alert: tone info/success/warning/danger, role=status by default (role=alert only for urgent errors), message in text, optional Dismiss button. Danger tone uses Danger #A83E22 / #E07A52, never Canyon Rust.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/alert.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/alert.json",
     code: "import { Alert } from \"@/components/ui/alert\";\n\nexport function SaveError() {\n  return <Alert tone=\"danger\" role=\"alert\">Could not save. Your changes are still here.</Alert>;\n}\n// Dark mode: built in via dark: classes." },
   { id: "accordion", name: "Accordion", tagline: "Stacked sections. One open at a time or many — your call.",
     anatomy: ["Trigger button", "Panel", "Chevron / indicator"],
@@ -118,7 +118,7 @@ const COMPONENTS = [
     invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel has a matching id and is hidden when closed.", "State is visible by indicator + expanded panel, never color alone."],
     contract: { format: "oeste.component.v1", component: "Accordion", props: { items: "array", allowMultiple: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
     prompt: "Build an Oeste Accordion: each trigger is a real <button> with aria-expanded + aria-controls, panel hidden when closed, state visible by indicator + panel. Tab moves between triggers, Enter/Space toggles.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/accordion.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/accordion.json",
     code: "import { Accordion } from \"@/components/ui/accordion\";\n\nexport function Faq() {\n  return <Accordion items={[{ title: \"What is Oeste?\", content: \"A design system for humans, agents, and vibe coders.\" }]} />;\n}" },
   { id: "radiogroup", name: "RadioGroup", tagline: "One choice from a few. Native radios, real grouping.",
     anatomy: ["Fieldset", "Legend", "Radio + label options"],
@@ -127,7 +127,7 @@ const COMPONENTS = [
     invariants: ["Native <input type=radio> inside <fieldset> + <legend>.", "All radios share one name.", "Labels are clickable and linked via htmlFor."],
     contract: { format: "oeste.component.v1", component: "RadioGroup", props: { legend: "string", name: "string", options: "array", value: "string" }, a11y: { native: "input[type=radio] in fieldset + legend", group: "shared name" } },
     prompt: "Build an Oeste RadioGroup with native radios inside <fieldset> + <legend>, one shared name, clickable labels. Arrow keys move and select. Never build radios from divs.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/radiogroup.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/radiogroup.json",
     code: "import { RadioGroup } from \"@/components/ui/radiogroup\";\n\nexport function SizePicker({ value, onChange }) {\n  return <RadioGroup legend=\"Size\" name=\"size\" value={value} onChange={onChange} options={[{ value: \"sm\", label: \"Small\" }, { value: \"md\", label: \"Medium\" }, { value: \"lg\", label: \"Large\" }]} />;\n}" },
   { id: "progress", name: "Progress", tagline: "How far along. Number + bar, never bar alone.",
     anatomy: ["Label", "Bar + fill", "Value text"],
@@ -136,7 +136,7 @@ const COMPONENTS = [
     invariants: ["Uses role=progressbar + aria-valuenow/min/max.", "Value is shown as text, never bar alone.", "Value is clamped to min–max."],
     contract: { format: "oeste.component.v1", component: "Progress", props: { value: "number", min: "number", max: "number" }, a11y: { role: "progressbar", values: "aria-valuenow/min/max", text: "visible value" } },
     prompt: "Build an Oeste Progress with role=progressbar + aria-valuenow/min/max, visible label + value text, value clamped to min–max. Never show a bar without its number.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/progress.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/progress.json",
     code: "import { Progress } from \"@/components/ui/progress\";\n\nexport function Upload({ done }) {\n  return <Progress label=\"Upload\" value={done} />;\n}\n// Dark mode: built in via dark: classes." },
   { id: "avatar", name: "Avatar", tagline: "A face or initials. Fallback always shows.",
     anatomy: ["Image (optional)", "Fallback initials", "Accessible name"],
@@ -145,7 +145,7 @@ const COMPONENTS = [
     invariants: ["Fallback initials always render when the image is missing or fails.", "Accessible name is the person's name, never empty.", "Initials are derived from the name, never hardcoded per instance."],
     contract: { format: "oeste.component.v1", component: "Avatar", props: { src: "string?", name: "string", size: ["md", "lg"] }, a11y: { name: "person name", fallback: "initials when image fails" } },
     prompt: "Build an Oeste Avatar: photo with an initials fallback that always renders when the image is missing or fails. Accessible name is the person's name. Sizes md (44px) and lg (64px). Never leave an empty circle.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/avatar.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/avatar.json",
     code: "import { Avatar } from \"@/components/ui/avatar\";\n\nexport function Teammate() {\n  return <Avatar name=\"Alex Rivera\" src=\"/photos/member.jpg\" />;\n}\n// If the photo fails, initials show. Dark mode: built in." },
   { id: "separator", name: "Separator", tagline: "A hairline that divides. Decorative or semantic.",
     anatomy: ["Line", "Orientation"],
@@ -154,7 +154,7 @@ const COMPONENTS = [
     invariants: ["Decorative separators are aria-hidden.", "Semantic separators use role=separator.", "A separator never replaces a heading or a labeled section."],
     contract: { format: "oeste.component.v1", component: "Separator", props: { orientation: ["horizontal", "vertical"], decorative: "boolean" }, a11y: { decorative: "aria-hidden", semantic: "role=separator" } },
     prompt: "Build an Oeste Separator: a hairline rule, horizontal or vertical. Decorative separators are aria-hidden; semantic ones use role=separator. Never use a separator in place of a heading.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/separator.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/separator.json",
     code: "import { Separator } from \"@/components/ui/separator\";\n\nexport function Sections() {\n  return (<><p>First section.</p><Separator /><p>Second section.</p></>);\n}" },
   { id: "slider", name: "Slider", tagline: "Pick a number by dragging. Arrows work too.",
     anatomy: ["Label", "Track + fill", "Thumb", "Value text"],
@@ -163,16 +163,16 @@ const COMPONENTS = [
     invariants: ["Native <input type=range>, never a div thumb.", "Value is shown as text, never slider alone.", "aria-valuenow/min/max always reflect the value."],
     contract: { format: "oeste.component.v1", component: "Slider", props: { label: "string", value: "number", min: "number", max: "number", step: "number" }, a11y: { native: "input[type=range]", values: "aria-valuenow/min/max" } },
     prompt: "Build an Oeste Slider with a native <input type=range>, visible label, visible value text, aria-valuenow/min/max. Arrow keys step, Home/End jump. Never build a slider thumb from a div.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/slider.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/slider.json",
     code: "import { useState } from \"react\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport function Volume() {\n  const [value, setValue] = useState(40);\n  return <Slider label=\"Volume\" value={value} onChange={setValue} min={0} max={100} />;\n}" },
   { id: "tooltip", name: "Tooltip", tagline: "A hint on hover and focus. Never the only way to know.",
     anatomy: ["Trigger", "Bubble", "Text"],
     props: [["children", "ReactNode", "Yes", "Trigger element."], ["content", "string", "Yes", "Hint text."], ["side", "top | bottom", "No — top", "Bubble placement."]],
     keyboard: [["Tab", "Focus the trigger to show the tooltip."], ["Escape", "Dismiss the tooltip."], ["Tab away / blur", "Hide the tooltip."]],
-    invariants: ["Tooltip shows on hover AND on focus.", "Tooltip content uses role=tooltip + aria-describedby.", "The hint is never the only place its information lives.", "Escape dismisses; blur hides."],
+    invariants: ["Tooltip shows on hover AND on focus.", "Tooltip content uses role=tooltip + aria-describedby.", "The hint is never the only place its information lives.", "Escape dismisses; blur hides.", "The bubble never overflows the viewport: the shift is clamped to 8px viewport margins, moving the bubble toward the trigger when the trigger sits near an edge, and the bubble wraps at viewport width minus 16px when it cannot fit on one line."],
     contract: { format: "oeste.component.v1", component: "Tooltip", props: { content: "string", side: ["top", "bottom"] }, a11y: { role: "tooltip", describedby: "trigger aria-describedby", dismiss: "Escape / blur" } },
-    prompt: "Build an Oeste Tooltip: shows on hover AND focus, role=tooltip + aria-describedby on the trigger, Escape dismisses, blur hides. Never put information only in a tooltip.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/tooltip.json",
+    prompt: "Build an Oeste Tooltip: shows on hover AND focus, role=tooltip + aria-describedby on the trigger, Escape dismisses, blur hides. Never put information only in a tooltip. The bubble never overflows the viewport: the shift is clamped to 8px viewport margins, moving the bubble toward the trigger near an edge, and the bubble wraps at viewport width minus 16px.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/tooltip.json",
     code: "import { Tooltip } from \"@/components/ui/tooltip\";\n\nexport function Help() {\n  return <Tooltip content=\"Saves to this project.\"><button type=\"button\">Save</button></Tooltip>;\n}" },
   { id: "popover", name: "Popover", tagline: "A small panel anchored to a trigger. Escape closes.",
     anatomy: ["Trigger", "Panel", "Content"],
@@ -181,8 +181,8 @@ const COMPONENTS = [
     invariants: ["Panel is labelled by its trigger or label.", "Escape closes and returns focus to the trigger.", "Clicking outside closes; content behind stays interactive.", "Popover is non-modal — unlike Dialog, it does not trap focus or make the page inert."],
     contract: { format: "oeste.component.v1", component: "Popover", props: { label: "string", open: "boolean" }, a11y: { panel: "labelled", dismiss: "Escape / outside click", focus: "returns to trigger" } },
     prompt: "Build an Oeste Popover: trigger-anchored panel, Escape closes and returns focus to the trigger, outside click closes. Non-modal — no focus trap, page stays interactive. Panel is labelled.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/popover.json",
-    code: "import { Popover } from \"@/components/ui/popover\";\n\nexport function Details() {\n  return <Popover label=\"Project details\"><button type=\"button\">Details</button><p>Topanga theme, 29 components.</p></Popover>;\n}" },
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/popover.json",
+    code: "import { Popover } from \"@/components/ui/popover\";\n\nexport function Details() {\n  return <Popover label=\"Project details\"><button type=\"button\">Details</button><p>Topanga theme, 35 components.</p></Popover>;\n}" },
   { id: "dropdown-menu", name: "Dropdown Menu", tagline: "Actions in a list. Arrows move, Escape closes.",
     anatomy: ["Trigger", "Menu", "Menu items", "Separator (optional)"],
     props: [["label", "string", "Yes", "Accessible name for the menu."], ["items", "{ label, onSelect?, separator? }[]", "Yes", "Menu items."], ["children", "ReactNode", "Yes", "Trigger element."]],
@@ -190,7 +190,7 @@ const COMPONENTS = [
     invariants: ["Menu uses role=menu, items use role=menuitem.", "Trigger uses aria-haspopup=menu + aria-expanded.", "Escape closes and returns focus to the trigger.", "Menu items are real buttons, never divs."],
     contract: { format: "oeste.component.v1", component: "DropdownMenu", props: { label: "string", items: "array" }, a11y: { menu: "role=menu", items: "role=menuitem", trigger: "aria-haspopup + aria-expanded" } },
     prompt: "Build an Oeste DropdownMenu: trigger with aria-haspopup=menu + aria-expanded, role=menu with role=menuitem buttons, Arrow keys move, Enter activates, Escape closes and returns focus. Items are real buttons, never divs.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/dropdown-menu.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/dropdown-menu.json",
     code: "import { DropdownMenu } from \"@/components/ui/dropdown-menu\";\n\nexport function Actions() {\n  return <DropdownMenu label=\"Project actions\" items={[{ label: \"Rename\", onSelect: () => {} }, { label: \"Duplicate\", onSelect: () => {} }]}><button type=\"button\">Actions</button></DropdownMenu>;\n}" },
   { id: "toggle", name: "Toggle", tagline: "A button that stays pressed. Fill + label, not color alone.",
     anatomy: ["Button", "Pressed state", "Label"],
@@ -199,7 +199,7 @@ const COMPONENTS = [
     invariants: ["Uses aria-pressed.", "Pressed state is visible by fill + label, never color alone.", "Toggle is a real <button>, never a div."],
     contract: { format: "oeste.component.v1", component: "Toggle", props: { pressed: "boolean" }, a11y: { pressed: "aria-pressed", state: "fill + label, never color alone" } },
     prompt: "Build an Oeste Toggle: a real <button> with aria-pressed, pressed state visible by fill + label, never color alone. Tab focuses, Enter/Space toggles.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/toggle.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/toggle.json",
     code: "import { useState } from \"react\";\nimport { Toggle } from \"@/components/ui/toggle\";\n\nexport function Bold() {\n  const [pressed, setPressed] = useState(false);\n  return <Toggle pressed={pressed} onPressedChange={setPressed}>Bold</Toggle>;\n}" },
   { id: "collapsible", name: "Collapsible", tagline: "One section that opens and closes. Accordion's simpler sibling.",
     anatomy: ["Trigger button", "Panel"],
@@ -208,8 +208,8 @@ const COMPONENTS = [
     invariants: ["Trigger is a real <button> with aria-expanded + aria-controls.", "Panel is hidden when closed.", "State is visible by indicator + panel, never color alone.", "Reduced motion: no height animation."],
     contract: { format: "oeste.component.v1", component: "Collapsible", props: { title: "string", open: "boolean" }, a11y: { trigger: "button + aria-expanded + aria-controls", panel: "hidden when closed" } },
     prompt: "Build an Oeste Collapsible: one trigger button with aria-expanded + aria-controls, one panel hidden when closed, state visible by indicator + panel. Reduced motion: no height animation.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/collapsible.json",
-    code: "import { Collapsible } from \"@/components/ui/collapsible\";\n\nexport function Details() {\n  return <Collapsible title=\"Show details\"><p>Topanga theme, 29 components.</p></Collapsible>;\n}" },
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/collapsible.json",
+    code: "import { Collapsible } from \"@/components/ui/collapsible\";\n\nexport function Details() {\n  return <Collapsible title=\"Show details\"><p>Topanga theme, 35 components.</p></Collapsible>;\n}" },
   { id: "skeleton", name: "Skeleton", tagline: "A placeholder while content loads. Never flashing.",
     anatomy: ["Shape", "aria-busy region"],
     props: [["width", "string", "No — 100%", "Placeholder width."], ["height", "string", "No — 16px", "Placeholder height."], ["label", "string", "Yes", "What is loading, e.g. \"Loading project\"."]],
@@ -217,7 +217,7 @@ const COMPONENTS = [
     invariants: ["Container has aria-busy=true while loading.", "Skeleton is labelled with what is loading.", "No flashing, no shimmer that strobes. Reduced motion: no pulse.", "Real content replaces the skeleton — never both at once."],
     contract: { format: "oeste.component.v1", component: "Skeleton", props: { width: "string", height: "string", label: "string" }, a11y: { busy: "aria-busy=true", label: "what is loading" } },
     prompt: "Build an Oeste Skeleton: placeholder shape with aria-busy=true, labelled with what is loading. No flashing, no strobing shimmer. Reduced motion: no pulse. Real content replaces it.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/skeleton.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/skeleton.json",
     code: "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport function LoadingCard() {\n  return <Skeleton label=\"Loading project\" width=\"100%\" height=\"96px\" />;\n}" },
   { id: "label", name: "Label", tagline: "A label that stands on its own. Links to its control.",
     anatomy: ["Text", "Required indicator (optional)"],
@@ -226,7 +226,7 @@ const COMPONENTS = [
     invariants: ["Always linked via htmlFor to a real control id.", "Required is shown with a visible indicator AND text, never color alone.", "Label text is visible, never sr-only except when the control already has a visible label."],
     contract: { format: "oeste.component.v1", component: "Label", props: { htmlFor: "string", required: "boolean" }, a11y: { link: "htmlFor", required: "visible indicator + text" } },
     prompt: "Build an Oeste Label: standalone label linked via htmlFor to a real control id. Required shows a visible indicator plus text, never color alone. Clicking the label focuses its control.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/label.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/label.json",
     code: "import { Label } from \"@/components/ui/label\";\n\nexport function NameRow() {\n  return (<div><Label htmlFor=\"name\" required>Project name</Label><input id=\"name\" type=\"text\" /></div>);\n}" },
   { id: "breadcrumb", name: "Breadcrumb", tagline: "Where you are, and how you got here.",
     anatomy: ["List", "Links", "Current page"],
@@ -235,7 +235,7 @@ const COMPONENTS = [
     invariants: ["Wrapped in <nav aria-label=\"Breadcrumb\"> with an <ol>.", "Current page uses aria-current=\"page\" and is not a link.", "Separators are aria-hidden."],
     contract: { format: "oeste.component.v1", component: "Breadcrumb", props: { items: "array" }, a11y: { nav: "aria-label=Breadcrumb", current: "aria-current=page, not a link" } },
     prompt: "Build an Oeste Breadcrumb: <nav aria-label=\"Breadcrumb\"> with an <ol>, links for every step except the current page, current page uses aria-current=\"page\" and is not a link. Separators are aria-hidden.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/breadcrumb.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/breadcrumb.json",
     code: "import { Breadcrumb } from \"@/components/ui/breadcrumb\";\n\nexport function Trail() {\n  return <Breadcrumb items={[{ label: \"Home\", href: \"#/home\" }, { label: \"Components\", href: \"#/components/button\" }, { label: \"Button\" }]} />;\n}" },
   { id: "pagination", name: "Pagination", tagline: "Page through a list. Current page is unmistakable.",
     anatomy: ["Previous", "Page buttons", "Ellipsis", "Next"],
@@ -244,7 +244,7 @@ const COMPONENTS = [
     invariants: ["Wrapped in <nav aria-label=\"Pagination\">.", "Current page uses aria-current=\"page\".", "Previous is disabled on page 1; Next is disabled on the last page.", "Ellipsis is aria-hidden, never a button."],
     contract: { format: "oeste.component.v1", component: "Pagination", props: { page: "number", totalPages: "number" }, a11y: { nav: "aria-label=Pagination", current: "aria-current=page", ellipsis: "aria-hidden" } },
     prompt: "Build an Oeste Pagination: <nav aria-label=\"Pagination\">, Previous / page buttons / Next, current page uses aria-current=\"page\", Previous disabled on page 1, Next disabled on the last page, ellipsis is aria-hidden, never a button.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/pagination.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/pagination.json",
     code: "import { useState } from \"react\";\nimport { Pagination } from \"@/components/ui/pagination\";\n\nexport function Pages() {\n  const [page, setPage] = useState(1);\n  return <Pagination page={page} totalPages={9} onChange={setPage} />;\n}" },
   { id: "table", name: "Table", tagline: "Rows and columns that screen readers can follow.",
     anatomy: ["Caption", "Header row", "Body rows"],
@@ -253,7 +253,7 @@ const COMPONENTS = [
     invariants: ["<caption> describes what the table shows.", "Header cells use <th scope=\"col\">; row headers use <th scope=\"row\">.", "No layout tables, ever.", "Sticky header keeps column labels visible on long tables."],
     contract: { format: "oeste.component.v1", component: "Table", props: { caption: "string", columns: "array", rows: "array" }, a11y: { caption: "describes the table", headers: "th scope col/row" } },
     prompt: "Build an Oeste Table: semantic <table> with a <caption> describing what it shows, <th scope=\"col\"> headers (scope=\"row\" for row headers), sticky header on long tables. Never use a table for layout.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/table.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/table.json",
     code: "import { Table } from \"@/components/ui/table\";\n\nexport function Tokens() {\n  return <Table caption=\"Topanga tokens\" columns={[{ key: \"token\", header: \"Token\" }, { key: \"light\", header: \"Light\" }]} rows={[{ token: \"accent\", light: \"#C47D3B\" }]} />;\n}" },
   { id: "empty-state", name: "Empty State", tagline: "Nothing here yet — and a clear next step.",
     anatomy: ["Icon (decorative)", "Heading", "Text", "Action"],
@@ -262,7 +262,7 @@ const COMPONENTS = [
     invariants: ["Icon is aria-hidden.", "Heading says what is empty, in plain words.", "There is always a next step: an action or a link.", "Empty state never blames the user."],
     contract: { format: "oeste.component.v1", component: "EmptyState", props: { title: "string", description: "string", actionLabel: "string?" }, a11y: { icon: "aria-hidden", action: "focusable button" } },
     prompt: "Build an Oeste Empty State: aria-hidden icon, heading that says what is empty in plain words, description with a next step, and a focusable action button. Never blame the user for an empty screen.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/empty-state.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/empty-state.json",
     code: "import { EmptyState } from \"@/components/ui/empty-state\";\n\nexport function NoProjects() {\n  return <EmptyState title=\"No projects yet\" description=\"Create your first project to see it here.\" actionLabel=\"New project\" onAction={() => {}} />;\n}" },
   { id: "calendar", name: "Calendar", tagline: "Month grid. One button per day, min/max bounds.",
     anatomy: ["Prev/next month buttons", "Month/year heading (aria-live polite)", "Weekday header row", "Day buttons (one per day)", "Empty cells (outside the month)"],
@@ -271,7 +271,7 @@ const COMPONENTS = [
     invariants: ["Dates are ISO strings only (YYYY-MM-DD). No Date objects in props, no locale parsing.", "Week starts Sunday. Month and day names are English.", "The displayed month starts at the value's month, or the current month when no value is set. It follows the value when the parent passes a new date in a different month.", "Prev/next move one month and do not call onChange.", "Days outside the current month render as empty cells (no buttons).", "Days outside min/max are disabled (disabled attribute + aria-disabled).", "The selected day has an accent fill and its aria-label ends with ', selected'. Today has aria-current=\"date\" plus an accent outline.", "Day buttons are 44px circles (Topanga touch minimum).", "Tab + Enter/Space only. No roving tabindex, no arrow-key cell movement."],
     contract: { format: "oeste.component.v1", component: "Calendar", props: { value: "string?", onChange: "function", min: "string?", max: "string?" }, a11y: { grid: "semantic table + th scope=col weekday headers", days: "one button per day, aria-label with ', selected' suffix, aria-current=date for today", disabled: "disabled + aria-disabled for out-of-range days", nav: "prev/next buttons with aria-labels, heading aria-live=polite" } },
     prompt: "Build an Oeste Calendar: a month grid for one ISO date (YYYY-MM-DD). Prev-month button (aria-label Previous month), month/year heading (aria-live polite), next-month button (aria-label Next month). A semantic table: weekday header row (Su Mo Tu We Th Fr Sa), one button per day, empty cells outside the month. Clicking a day calls onChange with that day's ISO string. Days outside min/max are disabled (disabled + aria-disabled). Selected day: accent fill + aria-label ending with ', selected'. Today: aria-current=date + accent outline. Week starts Sunday, English names. Displayed month starts at the value's month or the current month and follows the value when the parent passes a new date in a different month; prev/next move one month and do not call onChange. Day buttons are 44px circles. ISO strings only, no locale parsing. Tab + Enter/Space only, no roving tabindex, no arrow keys. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/calendar.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/calendar.json",
     code: "import { Calendar } from \"@/components/ui/calendar\";\n\nexport function Pick() {\n  const [day, setDay] = React.useState(\"2026-10-18\");\n  return <Calendar value={day} onChange={setDay} />;\n}" },
   { id: "date-picker", name: "DatePicker", tagline: "Read-only input plus popover calendar. Clear, Today.",
     anatomy: ["Label", "Read-only input (value or placeholder)", "Calendar trigger button", "Popover div (Calendar + Clear + Today)"],
@@ -280,7 +280,7 @@ const COMPONENTS = [
     invariants: ["The input is read-only. Dates come from the Calendar only, so there is no free-text parsing to get wrong.", "Invalid value prop is treated as null (empty input, Calendar shows the current month).", "Selecting a day calls onChange and closes the popover.", "Clear calls onChange(null) and closes. It only renders when clearable and a value is set.", "Today sets today's ISO and closes. Today is disabled when today is outside min/max.", "Escape closes the popover and returns focus to the Calendar button. Clicking outside the picker closes it.", "The popover is a plain div, not a dialog: no modal behavior, no focus trap.", "ISO strings only, no locale parsing."],
     contract: { format: "oeste.component.v1", component: "DatePicker", props: { value: "string?", onChange: "function", label: "string", placeholder: "string", min: "string?", max: "string?", clearable: "boolean", invalid: "boolean" }, a11y: { input: "read-only input with label, aria-invalid", trigger: "button aria-label Open/Close calendar, aria-expanded, aria-controls", popover: "div with Calendar + Clear + Today", keyboard: "Escape closes, focus returns to trigger" } },
     prompt: "Build an Oeste DatePicker: a label + a read-only text input (value or placeholder YYYY-MM-DD) + a Calendar button (aria-label Open/Close calendar, aria-expanded, aria-controls) that toggles a popover div with a Calendar + Clear + Today. The input is read-only: dates come from the Calendar only, no free-text parsing. Selecting a day calls onChange and closes. Clear (only when clearable and a value is set) calls onChange(null) and closes. Today sets today's ISO and closes, and is disabled when today is outside min/max. Escape closes and returns focus to the button. Clicking outside the picker closes it. Invalid value prop is treated as null. ISO strings only, no locale parsing. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-picker.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/date-picker.json",
     code: "import { DatePicker } from \"@/components/ui/date-picker\";\n\nexport function Due() {\n  const [day, setDay] = React.useState(null);\n  return <DatePicker value={day} onChange={setDay} label=\"Due date\" />;\n}" },
   { id: "time-picker", name: "TimePicker", tagline: "Trigger plus time listbox. 12-hour labels, HH:MM value.",
     anatomy: ["Label", "Trigger button (value or Select time)", "Dropdown ul role=listbox", "Options (li role=option, each a button)"],
@@ -289,7 +289,7 @@ const COMPONENTS = [
     invariants: ["Times are HH:MM 24-hour strings. The list shows 12-hour labels (12:00 AM, 1:00 PM); the value stays HH:MM.", "Options run 00:00 to 23:30 (step 30) or 23:00 (step 60).", "Invalid value prop is treated as null (trigger shows Select time, no option selected).", "A valid value that is not on the step grid still displays; no option is highlighted.", "Clicking an option calls onChange and closes.", "Escape closes and returns focus to the trigger. Clicking outside the picker closes it.", "Options are buttons. Tab moves through them, Enter selects. No arrow-key navigation."],
     contract: { format: "oeste.component.v1", component: "TimePicker", props: { value: "string?", onChange: "function", label: "string", step: "30 | 60" }, a11y: { trigger: "button aria-haspopup=listbox, aria-expanded, aria-controls", list: "ul role=listbox, li role=option aria-selected", options: "buttons, Tab navigation, Enter selects", display: "12-hour labels, value stays HH:MM" } },
     prompt: "Build an Oeste TimePicker: a label + a trigger button (value or Select time, aria-haspopup=listbox, aria-expanded, aria-controls) that toggles a dropdown ul role=listbox. Options are li role=option aria-selected, each holding a button. Step 30 gives 48 options (00:00 to 23:30), step 60 gives 24 (00:00 to 23:00). Labels are 12-hour (12:00 AM, 1:00 PM); the value stays HH:MM 24-hour. Clicking an option calls onChange and closes. Escape closes and returns focus to the trigger. Clicking outside the picker closes it. Options are buttons: Tab moves through them, Enter selects, no arrow keys. Invalid value prop is treated as null. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark).",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/time-picker.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/time-picker.json",
     code: "import { TimePicker } from \"@/components/ui/time-picker\";\n\nexport function Start() {\n  const [time, setTime] = React.useState(\"14:30\");\n  return <TimePicker value={time} onChange={setTime} label=\"Start time\" />;\n}" },
   { id: "date-range-picker", name: "DateRangePicker", tagline: "Two DatePickers, one range. End-before-start is an error.",
     anatomy: ["Fieldset + legend", "Start DatePicker", "End DatePicker (aria-invalid on error)", "Clear button", "Error message (role=alert)"],
@@ -298,7 +298,7 @@ const COMPONENTS = [
     invariants: ["Composes two DatePickers (Start, End) with clearable={false} plus one range Clear button.", "Changing Start or End calls onChange with the new pair.", "When end is before start, an error message (role=alert) shows and the End input gets aria-invalid. onChange is NOT called with the invalid pair; the last valid pair stays.", "A stale error clears when the parent passes a new pair.", "Same-day ranges are valid.", "Clear calls onChange({ start: null, end: null }).", "ISO strings only, no locale parsing."],
     contract: { format: "oeste.component.v1", component: "DateRangePicker", props: { start: "string?", end: "string?", onChange: "function", label: "string", min: "string?", max: "string?", clearable: "boolean" }, a11y: { group: "fieldset + legend", error: "role=alert message + aria-invalid on End input, invalid pair never passed to onChange", keyboard: "Escape closes popover, focus returns to trigger" } },
     prompt: "Build an Oeste DateRangePicker: a fieldset + legend holding two DatePickers (Start, End, clearable false) plus one range Clear button. Changing Start or End calls onChange with the new pair. When end is before start, show an error message (role=alert) and set aria-invalid on the End input; do NOT call onChange with the invalid pair, keep the last valid pair. A stale error clears when the parent passes a new pair. Same-day ranges are valid. Clear calls onChange({ start: null, end: null }). ISO strings only, no locale parsing. Use Topanga tokens: danger #A83E22 (light) / #E07A52 (dark) for the error text.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/date-range-picker.json",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/date-range-picker.json",
     code: "import { DateRangePicker } from \"@/components/ui/date-range-picker\";\n\nexport function Trip() {\n  const [range, setRange] = React.useState({ start: \"2026-10-01\", end: \"2026-10-15\" });\n  return <DateRangePicker start={range.start} end={range.end} onChange={setRange} label=\"Trip dates\" />;\n}" },
   { id: "chart", name: "Chart", tagline: "Bar, line, area, pie, donut. One series, SVG + data table.",
     anatomy: ["SVG chart (bars, line, area, or slices)", "Value axis (ticks + gridlines, bar/line/area only)", "Category axis (labels, bar/line/area only)", "Legend (pie/donut only: swatch + label + value + percent)", "Data table (caption + Label/Value, Percent for pie/donut)"],
@@ -307,8 +307,17 @@ const COMPONENTS = [
     invariants: ["One series only. No multi-series, tooltips, zoom, or animation.", "Values are non-negative. Negative values are treated as 0. Empty data, all-zero data, or a zero total (pie/donut) renders 'No data.'", "Bar/line/area share one axis system: value ticks at 0, 25%, 50%, 75%, 100% of max, rounded to a clean step. Horizontal gridlines. Category labels under each point.", "Bar: vertical bars, value label on each bar. Line: polyline + dots + value labels. Area: line + filled area under the line.", "Pie: slices proportional to values, label + percent at centroids. Donut: center hole + total in the center, plus a legend (swatch + label + value + percent).", "Slice labels sit at centroids and can crowd on tiny slices. Long category labels truncate in the SVG; the full label is always in the table.", "The SVG is role=img with a one-line summary aria-label; all shapes are aria-hidden. The semantic data table is the accessible representation. Values are in the table and on slice labels, never color alone."],
     contract: { format: "oeste.component.v1", component: "Chart", props: { type: ["bar", "line", "area", "pie", "donut"], data: "array", title: "string?", height: "number", showTable: "boolean" }, a11y: { chart: "svg role=img + aria-label, shapes aria-hidden", table: "semantic table + caption + th scope", color: "values in table + slice text labels, never color alone" } },
     prompt: "Build a Topanga Chart: one series, SVG + data table. Types bar, line, area, pie, donut. Bar/line/area share one axis system (value ticks at 0, 25%, 50%, 75%, 100% of max rounded to a clean step, horizontal gridlines, category labels). Bar has value labels on bars; line has a polyline + dots + value labels; area adds the fill under the line. Pie slices are proportional with label + percent at centroids; donut adds a center hole + total in the center, plus a legend (swatch + label + value + percent). The SVG is role=img with a one-line summary aria-label, shapes aria-hidden; the semantic data table (caption + th scope, Percent column for pie/donut) is the accessible representation. One series only, no tooltips, zoom, or animation. Empty, all-zero, or zero-total data renders 'No data.' Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark), text #1C1917 / #F5F3EF, muted #706963 / #9E968F, sage #5E6B5A / #8B9B87, rust #B85B35 / #D98A63 for the categorical palette.",
-    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/r/chart.json",
-    code: "import { Chart } from \"@/components/ui/chart\";\n\nexport function Sales() {\n  const data = [{ label: \"Jan\", value: 42 }, { label: \"Feb\", value: 87 }, { label: \"Mar\", value: 15 }, { label: \"Apr\", value: 63 }];\n  return <Chart type=\"bar\" data={data} title=\"Sales\" />;\n}" }
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/chart.json",
+    code: "import { Chart } from \"@/components/ui/chart\";\n\nexport function Sales() {\n  const data = [{ label: \"Jan\", value: 42 }, { label: \"Feb\", value: 87 }, { label: \"Mar\", value: 15 }, { label: \"Apr\", value: 63 }];\n  return <Chart type=\"bar\" data={data} title=\"Sales\" />;\n}" },
+  { id: "data-grid", name: "DataGrid", tagline: "Sortable, filterable, pageable data grid.",
+    anatomy: ["Toolbar (Export CSV + selected count)", "Header row (sort buttons + pin toggles)", "Filter row (per-column inputs)", "Group header (collapsible, when groupBy)", "Data rows (cells + selection checkbox)", "Pagination (prev/next, page indicator, page-size selector)"],
+    props: [["columns", "{ key, label, sortable?, width?, align? }[]", "Yes", "Column definitions. align is left | right | center."], ["rows", "object[]", "Yes", "Rows, keyed by column key."], ["rowKey", "string", "No - id", "Unique key field for selection and identity."], ["pageSize", "number", "No - 10", "Rows per page. Selector offers 10 / 25 / 50 / 100."], ["selectable", "boolean", "No - false", "Enables row selection with checkboxes."], ["groupBy", "string", "No", "Column key to group rows by."], ["initialSort", "{ key, direction: asc | desc }", "No", "Initial sort. Click a header to cycle asc, desc, none."]],
+    keyboard: [["Tab", "Move through sort buttons, filter inputs, pin toggles, checkboxes, group toggles, pagination, and export."], ["Enter / Space", "On a sort button: cycle asc, desc, none. On a checkbox: toggle selection. On a pin toggle: pin or unpin. On a group toggle: collapse or expand."], ["Type", "Filter inputs filter that column by substring, case-insensitive."], ["Arrow keys", "Not implemented. Every control is a Tab stop. No roving tabindex, no arrow-key cell movement."]],
+    invariants: ["Semantic table: caption with row count, thead, tbody, th scope col, first column th scope row. No role=grid.", "Sort: button in th cycles asc, desc, none; aria-sort on th. Only columns with sortable !== false sort.", "Filter: per-column text input in the filter row, substring match, case-insensitive. Filtering resets to page 1.", "Pagination: prev/next, Page X of Y, page-size selector 10 / 25 / 50 / 100. Only the current page renders (pagination is the virtualization). Pagination resets to page 1 when sort, filter, or grouping change.", "Selection (selectable): checkbox column, header select-all, aria-selected on rows, N selected count (aria-live polite). Selection persists across pages.", "Pinning: pin toggle in th, aria-pressed, pinned columns render first with position sticky left. At least one column stays unpinned.", "Grouping (groupBy): filter, then group, then sort within groups. Group header button with aria-expanded + count. Collapsed groups hide their rows but still occupy page slots; expand a group to see its rows. Grouping changes reset to page 1.", "CSV export: Export CSV downloads the filtered + sorted set (before pagination) as a .csv file, commas/quotes/newlines escaped.", "Selected rows: check + accent wash + aria-selected, never color alone.", "Editorial spacing: 16px cell padding, 44px min touch on every control, precision hairlines. Topanga tokens only."],
+    contract: { format: "oeste.component.v1", component: "DataGrid", props: { columns: "array", rows: "array", rowKey: "string", pageSize: "number", selectable: "boolean", groupBy: "string?", initialSort: "object?" }, a11y: { table: "semantic table + caption + th scope, no role=grid", sort: "button in th + aria-sort", filter: "input + aria-label", select: "checkbox + aria-selected", group: "button + aria-expanded", pin: "button + aria-pressed", keyboard: "Tab + Enter/Space only, no arrow keys" } },
+    prompt: "Build a Topanga DataGrid: semantic table with caption, sort buttons in th with aria-sort cycling asc, desc, none, per-column filter inputs in a filter row, pagination with Page X of Y + page-size 10/25/50/100 (only the current page renders), selectable checkboxes with aria-selected + N selected count, pin toggles with aria-pressed (pinned columns render first, sticky left, at least one column stays unpinned), collapsible group headers with aria-expanded + count (collapsed groups hide their rows but still occupy page slots), grouping changes reset to page 1, CSV export of the filtered + sorted set. Selected rows use a check + accent wash + aria-selected, never color alone. Pagination is the virtualization; do not claim a separate virtualized scroll window. Semantic table, no role=grid, no roving tabindex, arrow keys not implemented. Editorial spacing: 16px cell padding, 44px min touch on every control, precision hairlines. Use Topanga tokens: accent #C47D3B (light) / #DB914E (dark), text #1C1917 / #F5F3EF, muted #706963 / #9E968F.",
+    cli: "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/data-grid.json",
+    code: "import { DataGrid } from \"@/components/ui/data-grid\";\n\nexport function Grid() {\n  const columns = [{ key: \"name\", label: \"Name\", sortable: true }, { key: \"status\", label: \"Status\" }];\n  const rows = [{ id: \"1\", name: \"Item A\", status: \"Open\" }, { id: \"2\", name: \"Item B\", status: \"Done\" }];\n  return <DataGrid columns={columns} rows={rows} selectable />;\n}" }
 ];
 
 const TOKENS = [
@@ -502,10 +511,10 @@ function demoHTML(c) {
     + '<div style="display:flex;gap:16px;align-items:center;margin-top:16px"><span>Left</span><span class="separator-v" aria-hidden="true"></span><span>Right</span></div></div>';
   if (c.id === "slider") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Arrow keys step by 1.</p><div class="field" style="max-width:420px"><label for="demoSlider">Volume</label><input id="demoSlider" class="slider" type="range" min="0" max="100" step="1" value="40" aria-valuetext="40 percent"><p class="muted" id="demoSliderOut" aria-live="polite">Volume: 40%</p></div></div>';
   if (c.id === "tooltip") return '<div class="demo"><p class="demo-caption">Hover or Tab to the button. Escape dismisses.</p><span class="tooltip-wrap"><button type="button" class="btn btn-primary" data-tooltip-trigger aria-describedby="demoTooltip">Save</button><span class="tooltip-bubble" role="tooltip" id="demoTooltip" hidden>Saves to this project.</span></span></div>';
-  if (c.id === "popover") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Escape or outside click closes.</p><span class="popover-wrap"><button type="button" class="btn btn-primary" data-popover-trigger aria-expanded="false" aria-controls="demoPopover">Details</button><div class="popover-panel" id="demoPopover" hidden><p style="margin:0 0 8px"><strong>Project details</strong></p><p style="margin:0" class="muted">Topanga theme, 29 components.</p></div></span></div>';
+  if (c.id === "popover") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Escape or outside click closes.</p><span class="popover-wrap"><button type="button" class="btn btn-primary" data-popover-trigger aria-expanded="false" aria-controls="demoPopover">Details</button><div class="popover-panel" id="demoPopover" hidden><p style="margin:0 0 8px"><strong>Project details</strong></p><p style="margin:0" class="muted">Topanga theme, 35 components.</p></div></span></div>';
   if (c.id === "dropdown-menu") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Enter opens, arrows move, Escape closes.</p><span class="dropdown-wrap"><button type="button" class="btn btn-primary" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-controls="demoDropdown">Actions</button><ul class="dropdown-menu" role="menu" id="demoDropdown" aria-label="Project actions" hidden><li><button type="button" role="menuitem" data-menu-item>Rename</button></li><li><button type="button" role="menuitem" data-menu-item>Duplicate</button></li><li><button type="button" role="menuitem" data-menu-item>Archive</button></li></ul></span><p class="muted" id="demoMenuOut" aria-live="polite" style="margin-top:12px"></p></div>';
   if (c.id === "toggle") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" class="toggle-btn" data-demo-toggle aria-pressed="false">Bold</button><p class="muted" id="demoToggleOut" aria-live="polite" style="margin-top:12px">Bold: off</p></div>';
-  if (c.id === "collapsible") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" class="collapsible-trigger" data-collapsible-trigger aria-expanded="false" aria-controls="demoCollapsiblePanel">Show details <span aria-hidden="true">+</span></button><div id="demoCollapsiblePanel" hidden><p style="margin:12px 0 0">Topanga theme, 29 components. One trigger, one panel.</p></div></div>';
+  if (c.id === "collapsible") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><button type="button" class="collapsible-trigger" data-collapsible-trigger aria-expanded="false" aria-controls="demoCollapsiblePanel">Show details <span aria-hidden="true">+</span></button><div id="demoCollapsiblePanel" hidden><p style="margin:12px 0 0">Topanga theme, 35 components. One trigger, one panel.</p></div></div>';
   if (c.id === "skeleton") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Load the content to replace the skeleton.</p><div id="demoSkeletonWrap" aria-busy="true" aria-label="Loading project"><div class="skeleton" style="height:20px;width:60%;margin-bottom:12px"></div><div class="skeleton" style="height:16px;width:100%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:80%"></div></div><button type="button" class="btn btn-secondary" style="margin-top:16px" data-skeleton-load>Load content</button></div>';
   if (c.id === "label") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Click the label — focus moves to the input.</p><div class="field" style="max-width:420px"><label for="demoLabelInput">Project name <span aria-hidden="true">*</span> <span class="muted">(required)</span></label><input id="demoLabelInput" type="text" aria-required="true" placeholder="Topanga"></div></div>';
   if (c.id === "breadcrumb") return '<div class="demo"><p class="demo-caption">Real navigation. Current page is not a link.</p><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#/home">Home</a></li><li><a href="#/components/button">Components</a></li><li><a href="#/components/avatar">Avatar</a></li><li aria-current="page">Breadcrumb</li></ol></nav></div>';
@@ -513,10 +522,23 @@ function demoHTML(c) {
   if (c.id === "table") return '<div class="demo"><p class="demo-caption">Semantic table. Caption describes it; headers carry scope.</p><div style="overflow-x:auto"><table class="data-table"><caption>Topanga tokens — light values</caption><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Use</th></tr></thead><tbody><tr><th scope="row">accent</th><td><code>#C47D3B</code></td><td>Primary actions</td></tr><tr><th scope="row">danger</th><td><code>#A83E22</code></td><td>Errors</td></tr></tbody></table></div></div>';
   if (c.id === "empty-state") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="empty-state"><p class="empty-state-icon" aria-hidden="true">○</p><h3 style="margin:12px 0 8px">No projects yet</h3><p class="muted" style="margin:0 0 16px">Create your first project to see it here.</p><button type="button" class="btn btn-primary" data-empty-action>New project</button></div></div>';
   if (c.id === "calendar") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div style="width:100%;max-width:384px"><div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-border);padding-bottom:12px"><button type="button" class="btn btn-secondary" aria-label="Previous month">‹</button><div aria-live="polite" style="font-size:16px;font-weight:600;letter-spacing:-0.025em">October 2026</div><button type="button" class="btn btn-secondary" aria-label="Next month">›</button></div><table class="cal-grid" style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Su</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Mo</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Tu</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">We</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Th</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Fr</th><th scope="col" style="padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted)">Sa</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 1, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">1</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 2, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">2</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 3, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">3</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-label="October 4, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">4</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 5, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">5</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 6, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">6</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 7, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">7</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 8, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">8</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 9, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">9</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 10, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">10</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-label="October 11, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">11</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 12, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">12</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 13, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">13</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 14, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">14</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 15, 2026, selected" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;background:var(--color-accent);color:#1c1917;font-weight:600;border:1px solid transparent;-webkit-appearance:none;appearance:none">15</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 16, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">16</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 17, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">17</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-current="date" aria-label="October 18, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:2px solid var(--color-accent);font-weight:600;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">18</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 19, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">19</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 20, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">20</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 21, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">21</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 22, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">22</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 23, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">23</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 24, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">24</button></td></tr><tr><td style="padding:4px;text-align:center"><button type="button" aria-label="October 25, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">25</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 26, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">26</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 27, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">27</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 28, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">28</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 29, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">29</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 30, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">30</button></td><td style="padding:4px;text-align:center"><button type="button" aria-label="October 31, 2026" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:44px;height:44px;border-radius:999px;font-size:15px;border:1px solid transparent;color:var(--color-text);background:transparent;-webkit-appearance:none;appearance:none">31</button></td></tr></tbody></table></div></div>';
-  if (c.id === "date-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="field" style="max-width:340px"><label for="demoDatePicker">Due date</label><div style="display:flex;gap:12px"><input id="demoDatePicker" type="text" readonly value="2026-10-15" style="width:170px"><button type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div>';
-  if (c.id === "time-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div class="field" style="max-width:320px"><label for="demoTimePicker">Start time</label><button type="button" id="demoTimePicker" class="btn btn-secondary" style="width:170px;text-align:left" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button></div></div>';
-  if (c.id === "date-range-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><fieldset style="border:0;margin:0;padding:0"><legend style="font-size:14px;font-weight:600;letter-spacing:-0.025em">Trip dates</legend><div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:16px"><div class="field" style="max-width:260px"><label for="demoRangeStart">Start</label><div style="display:flex;gap:12px"><input id="demoRangeStart" type="text" readonly value="2026-10-01"><button type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div><div class="field" style="max-width:260px"><label for="demoRangeEnd">End</label><div style="display:flex;gap:12px"><input id="demoRangeEnd" type="text" readonly value="2026-10-15"><button type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button></div></div></div><button type="button" class="btn btn-secondary" style="margin-top:16px">Clear</button></fieldset></div>';
+  if (c.id === "date-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div data-dp class="field" style="max-width:340px"><label for="demoDatePicker">Due date</label><div style="display:flex;gap:12px;position:relative"><input data-dp-input id="demoDatePicker" type="text" readonly value="2026-10-15" style="width:170px"><button data-dp-trigger type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button><div data-dp-pop hidden></div></div></div></div>';
+  if (c.id === "time-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><div data-tp data-tp-value="14:30" class="field" style="max-width:320px;position:relative"><label for="demoTimePicker">Start time</label><button data-tp-trigger id="demoTimePicker" type="button" class="btn btn-secondary" style="width:170px;text-align:left" aria-haspopup="listbox" aria-expanded="false">2:30 PM</button><ul data-tp-list hidden role="listbox" aria-label="Times"></ul></div></div>';
+  if (c.id === "date-range-picker") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup.</p><fieldset data-dr style="border:0;margin:0;padding:0"><legend style="font-size:14px;font-weight:600;letter-spacing:-0.025em">Trip dates</legend><div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:16px"><div data-dp class="field" style="max-width:260px"><label for="demoRangeStart">Start</label><div style="display:flex;gap:12px;position:relative"><input data-dp-input id="demoRangeStart" type="text" readonly value="2026-10-01"><button data-dp-trigger type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button><div data-dp-pop hidden></div></div></div><div data-dp class="field" style="max-width:260px"><label for="demoRangeEnd">End</label><div style="display:flex;gap:12px;position:relative"><input data-dp-input id="demoRangeEnd" type="text" readonly value="2026-10-15"><button data-dp-trigger type="button" class="btn btn-secondary" aria-label="Open calendar" aria-expanded="false">Calendar</button><div data-dp-pop hidden></div></div></div></div><p data-dr-band class="muted" style="margin-top:16px" aria-hidden="true">2026-10-01 \u2192 2026-10-15</p><p data-dr-error role="alert" hidden style="color:var(--color-danger);font-size:14px;margin-top:8px"></p><button data-dr-clear type="button" class="btn btn-secondary" style="margin-top:16px">Clear</button></fieldset></div>';
   if (c.id === "chart") return '<div class="demo"><p class="demo-caption">SVG chart plus the data table. The table is the accessible version.</p><div style="overflow-x:auto"><svg role="img" aria-label="Bar chart demo: 5 categories, values from 20 to 100." viewBox="0 0 640 240" width="100%" style="display:block;overflow:visible"><g aria-hidden="true"><line x1="40" x2="624" y1="212" y2="212" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="162" y2="162" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="112" y2="112" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="62" y2="62" style="stroke:var(--color-border)" stroke-width="1" /><line x1="40" x2="624" y1="12" y2="12" style="stroke:var(--color-border)" stroke-width="1" /><text x="34" y="216" text-anchor="end" style="fill:var(--color-muted);font-size:11px">0</text><text x="34" y="166" text-anchor="end" style="fill:var(--color-muted);font-size:11px">25</text><text x="34" y="116" text-anchor="end" style="fill:var(--color-muted);font-size:11px">50</text><text x="34" y="66" text-anchor="end" style="fill:var(--color-muted);font-size:11px">75</text><text x="34" y="16" text-anchor="end" style="fill:var(--color-muted);font-size:11px">100</text><rect x="80" y="172" width="36" height="40" style="fill:var(--color-accent)" /><rect x="197" y="132" width="36" height="80" style="fill:var(--color-accent)" /><rect x="314" y="92" width="36" height="120" style="fill:var(--color-accent)" /><rect x="431" y="52" width="36" height="160" style="fill:var(--color-accent)" /><rect x="548" y="12" width="36" height="200" style="fill:var(--color-accent)" /><text x="98" y="167" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">20</text><text x="215" y="127" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">40</text><text x="332" y="87" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">60</text><text x="449" y="47" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">80</text><text x="566" y="7" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">100</text><text x="98" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">A</text><text x="215" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">B</text><text x="332" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">C</text><text x="449" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">D</text><text x="566" y="230" text-anchor="middle" style="fill:var(--color-text);font-size:12px;font-weight:600">E</text></g></svg></div><table class="data-table" style="margin-top:16px"><caption style="font-weight:600">Bar chart demo. The table lists every value shown in the chart.</caption><thead><tr><th scope="col" style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Label</th><th scope="col" style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Value</th></tr></thead><tbody><tr><th scope="row" style="padding:12px 16px;font-weight:500">A</th><td style="padding:12px 16px">20</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">B</th><td style="padding:12px 16px">40</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">C</th><td style="padding:12px 16px">60</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">D</th><td style="padding:12px 16px">80</td></tr><tr><th scope="row" style="padding:12px 16px;font-weight:500">E</th><td style="padding:12px 16px">100</td></tr></tbody></table></div>';
+  if (c.id === "data-grid") return '<div class="demo"><p class="demo-caption">Real controls. Not a mockup. Sort, filter, page, select, export over 12 rows.</p>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px"><button type="button" class="btn btn-secondary" data-grid-export>Export CSV</button><p aria-live="polite" data-grid-selected class="muted" style="margin:0">0 selected</p></div>'
+    + '<div style="overflow-x:auto"><table class="data-table" style="width:100%;border-collapse:collapse"><caption style="text-align:left;padding:12px 16px" class="muted">Data grid demo. Sort with the header buttons, filter with the filter row, page with the pagination controls.</caption>'
+    + '<thead><tr><th scope="col" style="padding:16px;border-bottom:1px solid var(--color-border);text-align:left"><input type="checkbox" data-grid-select-all aria-label="Select all rows"></th>'
+    + '<th scope="col" data-grid-th="name" aria-sort="none" style="padding:16px;border-bottom:1px solid var(--color-border);text-align:left"><button type="button" data-grid-sort="name" style="background:none;border:0;padding:0;min-height:44px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text);cursor:pointer;text-align:left">Name</button></th>'
+    + '<th scope="col" data-grid-th="status" aria-sort="none" style="padding:16px;border-bottom:1px solid var(--color-border);text-align:left"><button type="button" data-grid-sort="status" style="background:none;border:0;padding:0;min-height:44px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text);cursor:pointer;text-align:left">Status</button></th>'
+    + '<th scope="col" data-grid-th="score" aria-sort="none" style="padding:16px;border-bottom:1px solid var(--color-border);text-align:left"><button type="button" data-grid-sort="score" style="background:none;border:0;padding:0;min-height:44px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text);cursor:pointer;text-align:left">Score</button></th></tr>'
+    + '<tr><td style="padding:12px 16px;border-bottom:1px solid var(--color-border)"></td>'
+    + '<td style="padding:12px 16px;border-bottom:1px solid var(--color-border)"><input type="text" data-grid-filter="name" placeholder="Filter Name" aria-label="Filter Name" style="width:100%;min-height:44px;border:1px solid var(--color-border);border-radius:8px;background:transparent;color:var(--color-text);padding:12px;font-size:14px"></td>'
+    + '<td style="padding:12px 16px;border-bottom:1px solid var(--color-border)"><input type="text" data-grid-filter="status" placeholder="Filter Status" aria-label="Filter Status" style="width:100%;min-height:44px;border:1px solid var(--color-border);border-radius:8px;background:transparent;color:var(--color-text);padding:12px;font-size:14px"></td>'
+    + '<td style="padding:12px 16px;border-bottom:1px solid var(--color-border)"><input type="text" data-grid-filter="score" placeholder="Filter Score" aria-label="Filter Score" style="width:100%;min-height:44px;border:1px solid var(--color-border);border-radius:8px;background:transparent;color:var(--color-text);padding:12px;font-size:14px"></td></tr></thead>'
+    + '<tbody data-grid-body></tbody></table></div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:16px"><button type="button" class="btn btn-secondary" data-grid-prev>Previous</button><span data-grid-page class="muted">Page 1 of 3</span><button type="button" class="btn btn-secondary" data-grid-next>Next</button></div></div>';
   return "";
 }
 
@@ -568,7 +590,324 @@ function variantsHTML(c) {
   return "";
 }
 
+/* Picker demo wiring: the DatePicker, TimePicker, and DateRangePicker demos
+   are live controls. Each [data-dp] unit gets a popover month calendar built
+   by JS; each [data-tp] unit gets a listbox. Open popovers portal to
+   document.body (position fixed) so no ancestor stacking context can trap
+   them behind later page sections; each [data-dr] fieldset
+   coordinates two units plus a range band, a Clear button, and an
+   end-before-start alert. Day styling mirrors the real Calendar component:
+   44px circles, accent fill for the selected day, accent ring for today. */
+var DP_MONTHS = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+var DP_WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+var DP_STYLE = {
+  range: false,
+  card: "background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:12px;width:340px;max-width:calc(100vw - 48px);box-shadow:0 12px 32px rgba(0,0,0,0.16);",
+  headBtn: "background:transparent;border:0;min-width:44px;min-height:44px;font-size:20px;line-height:1;color:var(--color-text);cursor:pointer;border-radius:8px;",
+  headLabel: "font-size:16px;font-weight:600;letter-spacing:-0.025em;color:var(--color-text);",
+  th: "padding:12px 0;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted);",
+  td: "padding:4px;text-align:center;",
+  day: "margin:0 auto;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:9999px;font-size:15px;border:1px solid transparent;background:transparent;color:var(--color-text);cursor:pointer;",
+  daySelected: "background:var(--color-accent);color:var(--color-on-accent);font-weight:600;",
+  dayInRange: "",
+  dayToday: "border:2px solid var(--color-accent);font-weight:600;",
+  footBtn: "min-height:44px;padding:0 16px;border:1px solid var(--color-border);border-radius:8px;background:transparent;color:var(--color-text);font-size:14px;cursor:pointer;",
+  list: "background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:8px;max-height:240px;overflow:auto;width:220px;box-shadow:0 12px 32px rgba(0,0,0,0.16);list-style:none;margin:4px 0 0;",
+  optBtn: "display:block;width:100%;text-align:left;background:transparent;border:0;min-height:44px;padding:0 12px;font-size:14px;color:var(--color-text);cursor:pointer;border-radius:8px;",
+  optSel: "background:var(--color-accent);color:var(--color-on-accent);font-weight:600;"
+};
+function dpParseISO(s) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+  if (!m) return null;
+  var y = +m[1], mo = +m[2], d = +m[3];
+  var dt = new Date(y, mo - 1, d);
+  if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  return { y: y, m: mo, d: d };
+}
+function dpISO(y, m, d) {
+  return y + "-" + String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+}
+function dpTodayISO() {
+  var t = new Date();
+  return dpISO(t.getFullYear(), t.getMonth() + 1, t.getDate());
+}
+function tpLabel(hh, mm) {
+  var ap = hh < 12 ? "AM" : "PM";
+  var h12 = hh % 12;
+  if (h12 === 0) h12 = 12;
+  return h12 + ":" + String(mm).padStart(2, "0") + " " + ap;
+}
+function dpRenderPop(unit) {
+  var pop = unit._dpPop;
+  var input = unit.querySelector("[data-dp-input]");
+  if (!pop || !input) return;
+  var st = unit._dpState;
+  var r = (unit.getAttribute("data-dp-range") || "").split(":");
+  var validRange = DP_STYLE.range && dpParseISO(r[0]) && dpParseISO(r[1]) && r[0] <= r[1];
+  var first = new Date(st.y, st.m - 1, 1).getDay();
+  var dim = new Date(st.y, st.m, 0).getDate();
+  var today = dpTodayISO();
+  var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
+    + '<button type="button" data-dp-prev aria-label="Previous month" style="' + DP_STYLE.headBtn + '">\u2039</button>'
+    + '<div aria-live="polite" style="' + DP_STYLE.headLabel + '">' + DP_MONTHS[st.m - 1] + " " + st.y + "</div>"
+    + '<button type="button" data-dp-next aria-label="Next month" style="' + DP_STYLE.headBtn + '">\u203a</button></div>';
+  html += '<table style="width:100%;border-collapse:collapse"><thead><tr>';
+  DP_WEEKDAYS.forEach(function (wd) { html += '<th scope="col" style="' + DP_STYLE.th + '">' + wd + "</th>"; });
+  html += "</tr></thead><tbody><tr>";
+  var cell = 0, d, iso, label, sel, rng, isToday, ds;
+  for (d = 0; d < first; d++) { html += "<td></td>"; cell++; }
+  for (d = 1; d <= dim; d++) {
+    if (cell % 7 === 0 && cell > 0) html += "</tr><tr>";
+    iso = dpISO(st.y, st.m, d);
+    label = DP_MONTHS[st.m - 1] + " " + d + ", " + st.y;
+    sel = input.value === iso;
+    rng = validRange && iso >= r[0] && iso <= r[1];
+    if (sel) label += ", selected";
+    else if (rng) label += ", in range";
+    isToday = iso === today;
+    ds = DP_STYLE.day + (sel ? DP_STYLE.daySelected : "") + (!sel && rng ? DP_STYLE.dayInRange : "") + (isToday && !sel ? DP_STYLE.dayToday : "");
+    html += '<td style="' + DP_STYLE.td + '"><button type="button" data-dp-day="' + iso + '"'
+      + (isToday ? ' aria-current="date"' : "") + ' aria-label="' + label + '" style="' + ds + '">' + d + "</button></td>";
+    cell++;
+  }
+  while (cell % 7 !== 0) { html += "<td></td>"; cell++; }
+  html += "</tr></tbody></table>";
+  html += '<div style="display:flex;gap:8px;margin-top:8px">'
+    + (input.value ? '<button type="button" data-dp-clear style="' + DP_STYLE.footBtn + '">Clear</button>' : "")
+    + '<button type="button" data-dp-today style="' + DP_STYLE.footBtn + '">Today</button></div>';
+  pop.innerHTML = html;
+}
+var __dpN = 0;
+var __dpPortals = [];
+function bindPickerDemos() {
+  __dpPortals.forEach(function (p) { if (p.parentNode) p.parentNode.removeChild(p); });
+  __dpPortals = [];
+  document.querySelectorAll("[data-dp]").forEach(function (unit) {
+    var trigger = unit.querySelector("[data-dp-trigger]");
+    var pop = unit.querySelector("[data-dp-pop]");
+    var input = unit.querySelector("[data-dp-input]");
+    if (!trigger || !pop || !input) return;
+    unit._dpPop = pop;
+    pop._dpUnit = unit;
+    pop._dpHome = pop.parentNode;
+    __dpN++;
+    pop.id = "dp-pop-" + __dpN;
+    trigger.setAttribute("aria-controls", pop.id);
+    pop.style.cssText = DP_STYLE.card;
+    var parsed = dpParseISO(input.value);
+    var now = new Date();
+    unit._dpState = { y: parsed ? parsed.y : now.getFullYear(), m: parsed ? parsed.m : now.getMonth() + 1 };
+    unit._dpOpen = false;
+    var setOpen = function (v) {
+      if (v) {
+        var pv = dpParseISO(input.value);
+        if (pv) unit._dpState = { y: pv.y, m: pv.m };
+        dpRenderPop(unit);
+        pop.hidden = false;
+        pop.style.position = "fixed";
+        pop.style.zIndex = "90";
+        pop.style.visibility = "hidden";
+        document.body.appendChild(pop);
+        if (__dpPortals.indexOf(pop) === -1) __dpPortals.push(pop);
+        var r = trigger.getBoundingClientRect();
+        var h = pop.offsetHeight || 420;
+        var w = pop.offsetWidth || 340;
+        var top = (r.bottom + 4 + h <= window.innerHeight) ? r.bottom + 4 : Math.max(8, r.top - h - 4);
+        var left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8));
+        pop.style.top = top + "px";
+        pop.style.left = left + "px";
+        pop.style.visibility = "";
+      } else {
+        pop.hidden = true;
+        pop.style.position = "";
+        pop.style.zIndex = "";
+        pop.style.top = "";
+        pop.style.left = "";
+        pop.style.visibility = "";
+        if (pop._dpHome) pop._dpHome.appendChild(pop);
+      }
+      trigger.setAttribute("aria-expanded", String(v));
+      trigger.setAttribute("aria-label", v ? "Close calendar" : "Open calendar");
+      unit._dpOpen = v;
+    };
+    unit._dpSetOpen = setOpen;
+    unit._dpRender = function () { if (unit._dpOpen) dpRenderPop(unit); };
+    var pick = function (iso) {
+      input.value = iso;
+      var p = dpParseISO(iso);
+      if (p) unit._dpState = { y: p.y, m: p.m };
+      if (unit._dpOnPick) unit._dpOnPick(iso);
+      setOpen(false);
+      trigger.focus();
+    };
+    trigger.addEventListener("click", function () { setOpen(!unit._dpOpen); });
+    pop.addEventListener("click", function (e) {
+      var t = e.target;
+      if (t.closest("[data-dp-prev]") || t.closest("[data-dp-next]")) {
+        var st = unit._dpState;
+        var m = st.m + (t.closest("[data-dp-prev]") ? -1 : 1), y = st.y;
+        if (m < 1) { m = 12; y--; }
+        if (m > 12) { m = 1; y++; }
+        unit._dpState = { y: y, m: m };
+        dpRenderPop(unit);
+        return;
+      }
+      var day = t.closest("[data-dp-day]");
+      if (day) { pick(day.getAttribute("data-dp-day")); return; }
+      if (t.closest("[data-dp-clear]")) { pick(""); return; }
+      if (t.closest("[data-dp-today]")) { pick(dpTodayISO()); return; }
+    });
+    var dpEsc = function (e) {
+      if (e.key === "Escape" && unit._dpOpen) { setOpen(false); trigger.focus(); }
+    };
+    unit.addEventListener("keydown", dpEsc);
+    pop.addEventListener("keydown", dpEsc);
+  });
+  document.querySelectorAll("[data-tp]").forEach(function (unit) {
+    var trigger = unit.querySelector("[data-tp-trigger]");
+    var list = unit.querySelector("[data-tp-list]");
+    if (!trigger || !list) return;
+    unit._tpList = list;
+    list._tpUnit = unit;
+    list._tpHome = list.parentNode;
+    __dpN++;
+    list.id = "tp-list-" + __dpN;
+    trigger.setAttribute("aria-controls", list.id);
+    list.style.cssText = DP_STYLE.list;
+    if (!list.children.length) {
+      var html = "", m, hh, mm, iso;
+      for (m = 0; m < 24 * 60; m += 30) {
+        hh = Math.floor(m / 60); mm = m % 60;
+        iso = String(hh).padStart(2, "0") + ":" + String(mm).padStart(2, "0");
+        html += '<li role="option" data-tp-opt="' + iso + '" aria-selected="false">'
+          + '<button type="button" data-tp-pick="' + iso + '" style="' + DP_STYLE.optBtn + '">' + tpLabel(hh, mm) + "</button></li>";
+      }
+      list.innerHTML = html;
+    }
+    unit._tpOpen = false;
+    var setOpen = function (v) {
+      if (v) {
+        list.hidden = false;
+        list.style.position = "fixed";
+        list.style.zIndex = "90";
+        list.style.visibility = "hidden";
+        document.body.appendChild(list);
+        if (__dpPortals.indexOf(list) === -1) __dpPortals.push(list);
+        var r = trigger.getBoundingClientRect();
+        var h = list.offsetHeight || 240;
+        var w = list.offsetWidth || 220;
+        var top = (r.bottom + 4 + h <= window.innerHeight) ? r.bottom + 4 : Math.max(8, r.top - h - 4);
+        var left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8));
+        list.style.top = top + "px";
+        list.style.left = left + "px";
+        list.style.visibility = "";
+      } else {
+        list.hidden = true;
+        list.style.position = "";
+        list.style.zIndex = "";
+        list.style.top = "";
+        list.style.left = "";
+        list.style.visibility = "";
+        if (list._tpHome) list._tpHome.appendChild(list);
+      }
+      trigger.setAttribute("aria-expanded", String(v));
+      unit._tpOpen = v;
+    };
+    unit._tpSetOpen = setOpen;
+    var markSelected = function (iso) {
+      list.querySelectorAll('[role="option"]').forEach(function (o) {
+        var on = o.getAttribute("data-tp-opt") === iso;
+        o.setAttribute("aria-selected", String(on));
+        var b = o.querySelector("[data-tp-pick]");
+        if (b) b.style.cssText = DP_STYLE.optBtn + (on ? DP_STYLE.optSel : "");
+      });
+    };
+    trigger.addEventListener("click", function () { setOpen(!unit._tpOpen); });
+    list.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-tp-pick]");
+      if (!b) return;
+      var iso = b.getAttribute("data-tp-pick");
+      unit.setAttribute("data-tp-value", iso);
+      trigger.textContent = b.textContent;
+      markSelected(iso);
+      setOpen(false);
+      trigger.focus();
+    });
+    var tpEsc = function (e) {
+      if (e.key === "Escape" && unit._tpOpen) { setOpen(false); trigger.focus(); }
+    };
+    unit.addEventListener("keydown", tpEsc);
+    list.addEventListener("keydown", tpEsc);
+    markSelected(unit.getAttribute("data-tp-value") || "");
+  });
+  document.querySelectorAll("[data-dr]").forEach(function (dr) {
+    var units = dr.querySelectorAll("[data-dp]");
+    if (units.length < 2) return;
+    var sU = units[0], eU = units[1];
+    var sI = sU.querySelector("[data-dp-input]");
+    var eI = eU.querySelector("[data-dp-input]");
+    var band = dr.querySelector("[data-dr-band]");
+    var errBox = dr.querySelector("[data-dr-error]");
+    var clearBtn = dr.querySelector("[data-dr-clear]");
+    if (!sI || !eI) return;
+    var sync = function () {
+      var s = sI.value, e = eI.value;
+      sU.setAttribute("data-dp-range", s + ":" + e);
+      eU.setAttribute("data-dp-range", s + ":" + e);
+      if (band) band.textContent = s && e ? s + " \u2192 " + e : "No range selected.";
+      var bad = !!(s && e && e < s);
+      if (errBox) {
+        errBox.hidden = !bad;
+        if (bad) errBox.textContent = "End date is before the start date.";
+      }
+      eI.setAttribute("aria-invalid", String(bad));
+      sU._dpRender();
+      eU._dpRender();
+    };
+    sU._dpOnPick = sync;
+    eU._dpOnPick = sync;
+    if (clearBtn) clearBtn.addEventListener("click", function () {
+      sI.value = ""; eI.value = ""; sync();
+    });
+    sync();
+  });
+}
+function bindPickerDocOnce() {
+  if (window.__dpDocBound) return;
+  window.__dpDocBound = true;
+  document.addEventListener("mousedown", function (e) {
+    document.querySelectorAll("[data-dp-pop]").forEach(function (pop) {
+      if (pop.hidden) return;
+      var unit = pop._dpUnit;
+      if (unit && !unit.contains(e.target) && !pop.contains(e.target) && unit._dpSetOpen) unit._dpSetOpen(false);
+    });
+    document.querySelectorAll("[data-tp-list]").forEach(function (list) {
+      if (list.hidden) return;
+      var unit = list._tpUnit;
+      if (unit && !unit.contains(e.target) && !list.contains(e.target) && unit._tpSetOpen) unit._tpSetOpen(false);
+    });
+  });
+  var closeOnScroll = function (e) {
+    var t = e && e.target;
+    document.querySelectorAll("[data-dp-pop]").forEach(function (pop) {
+      if (pop.hidden || (t && pop.contains(t))) return;
+      var unit = pop._dpUnit;
+      if (unit && unit._dpSetOpen) unit._dpSetOpen(false);
+    });
+    document.querySelectorAll("[data-tp-list]").forEach(function (list) {
+      if (list.hidden || (t && list.contains(t))) return;
+      var unit = list._tpUnit;
+      if (unit && unit._tpSetOpen) unit._tpSetOpen(false);
+    });
+  };
+  document.addEventListener("scroll", closeOnScroll, true);
+  window.addEventListener("resize", function () { closeOnScroll({ target: null }); });
+}
+
 function bindDemos() {
+  bindPickerDemos();
+  bindPickerDocOnce();
   const btn = document.querySelector("[data-demo-btn]");
   if (btn) btn.addEventListener("click", () => { document.getElementById("demoBtnOut").textContent = "Activated."; });
   const input = document.getElementById("demoInput");
@@ -651,7 +990,18 @@ function bindDemos() {
   const tipTrigger = document.querySelector("[data-tooltip-trigger]");
   if (tipTrigger) {
     const bubble = document.getElementById("demoTooltip");
-    const show = () => { bubble.hidden = false; };
+    const show = () => {
+      bubble.hidden = false;
+      const triggerRect = tipTrigger.getBoundingClientRect();
+      const bubbleWidth = bubble.getBoundingClientRect().width;
+      const margin = 8;
+      const center = triggerRect.left + triggerRect.width / 2;
+      const half = bubbleWidth / 2;
+      let shift = 0;
+      if (center - half < margin) shift = margin - (center - half);
+      else if (center + half > window.innerWidth - margin) shift = (window.innerWidth - margin) - (center + half);
+      bubble.style.transform = "translateX(calc(-50% + " + shift + "px))";
+    };
     const hide = () => { bubble.hidden = true; };
     tipTrigger.addEventListener("mouseenter", show);
     tipTrigger.addEventListener("focus", show);
@@ -731,6 +1081,116 @@ function bindDemos() {
   }
   const emptyBtn = document.querySelector("[data-empty-action]");
   if (emptyBtn) emptyBtn.addEventListener("click", () => showToast("New project started. Nothing was sent or stored."));
+  // DataGrid demo: sort, filter, paginate, select, export over 12 rows.
+  const gridBody = document.querySelector("[data-grid-body]");
+  if (gridBody) {
+    const gCols = ["name", "status", "score"];
+    const gLabels = { name: "Name", status: "Status", score: "Score" };
+    const gRows = [
+      { id: "1", name: "Item A", status: "Open", score: 42 },
+      { id: "2", name: "Item B", status: "Done", score: 87 },
+      { id: "3", name: "Item C", status: "Open", score: 15 },
+      { id: "4", name: "Item D", status: "Review", score: 63 },
+      { id: "5", name: "Item E", status: "Done", score: 91 },
+      { id: "6", name: "Item F", status: "Open", score: 28 },
+      { id: "7", name: "Item G", status: "Review", score: 54 },
+      { id: "8", name: "Item H", status: "Done", score: 73 },
+      { id: "9", name: "Item I", status: "Open", score: 19 },
+      { id: "10", name: "Item J", status: "Review", score: 68 },
+      { id: "11", name: "Item K", status: "Done", score: 95 },
+      { id: "12", name: "Item L", status: "Open", score: 33 },
+    ];
+    let gSort = null, gDir = null, gPage = 1;
+    const gFilters = { name: "", status: "", score: "" };
+    const gSelected = new Set();
+    const PER = 5;
+    const gCell = (v) => (v == null ? "" : String(v));
+    function gFiltered() {
+      const list = gRows.filter((r) => gCols.every((k) => {
+        const f = (gFilters[k] || "").trim().toLowerCase();
+        return !f || gCell(r[k]).toLowerCase().includes(f);
+      }));
+      if (!gSort) return list;
+      const dir = gDir === "desc" ? -1 : 1;
+      return [...list].sort((a, b) => {
+        const x = a[gSort], y = b[gSort];
+        if (typeof x === "number" && typeof y === "number") return dir * (x - y);
+        return dir * String(x).localeCompare(String(y), undefined, { sensitivity: "base" });
+      });
+    }
+    function gRender() {
+      const list = gFiltered();
+      const totalPages = Math.max(1, Math.ceil(list.length / PER));
+      gPage = Math.min(gPage, totalPages);
+      const pageRows = list.slice((gPage - 1) * PER, gPage * PER);
+      gridBody.innerHTML = pageRows.map((r) => {
+        const sel = gSelected.has(r.id);
+        return '<tr' + (sel ? ' aria-selected="true" style="background:color-mix(in srgb, var(--color-accent) 10%, transparent)"' : '') + '><td style="padding:16px;border-bottom:1px solid var(--color-border)"><input type="checkbox" data-grid-row="' + r.id + '"' + (sel ? ' checked' : '') + ' aria-label="Select row ' + r.id + '"></td><th scope="row" style="padding:16px;border-bottom:1px solid var(--color-border);font-weight:500">' + esc(r.name) + '</th><td style="padding:16px;border-bottom:1px solid var(--color-border)">' + esc(r.status) + '</td><td style="padding:16px;border-bottom:1px solid var(--color-border)">' + esc(String(r.score)) + '</td></tr>';
+      }).join("") || '<tr><td colspan="4" class="muted" style="text-align:center;padding:32px 16px">No rows match the current filters.</td></tr>';
+      gCols.forEach((k) => {
+        const th = document.querySelector('[data-grid-th="' + k + '"]');
+        const btn = document.querySelector('[data-grid-sort="' + k + '"]');
+        if (!th || !btn) return;
+        const sorted = gSort === k;
+        th.setAttribute("aria-sort", sorted ? (gDir === "asc" ? "ascending" : "descending") : "none");
+        btn.textContent = gLabels[k] + (sorted ? (gDir === "asc" ? " \u2191" : " \u2193") : "");
+      });
+      const prev = document.querySelector("[data-grid-prev]");
+      const next = document.querySelector("[data-grid-next]");
+      const pageLabel = document.querySelector("[data-grid-page]");
+      if (prev) prev.disabled = gPage <= 1;
+      if (next) next.disabled = gPage >= totalPages;
+      if (pageLabel) pageLabel.textContent = "Page " + gPage + " of " + totalPages;
+      const selOut = document.querySelector("[data-grid-selected]");
+      if (selOut) selOut.textContent = gSelected.size + " selected";
+      const all = document.querySelector("[data-grid-select-all]");
+      if (all) {
+        const allKeys = list.map((r) => r.id);
+        all.checked = allKeys.length > 0 && allKeys.every((k) => gSelected.has(k));
+        all.indeterminate = allKeys.some((k) => gSelected.has(k)) && !all.checked;
+      }
+    }
+    document.querySelectorAll("[data-grid-sort]").forEach((b) => b.addEventListener("click", () => {
+      const key = b.dataset.gridSort;
+      if (gSort !== key) { gSort = key; gDir = "asc"; }
+      else if (gDir === "asc") { gDir = "desc"; }
+      else { gSort = null; gDir = null; }
+      gPage = 1; gRender();
+    }));
+    document.querySelectorAll("[data-grid-filter]").forEach((inp) => inp.addEventListener("input", () => {
+      gFilters[inp.dataset.gridFilter] = inp.value;
+      gPage = 1; gRender();
+    }));
+    const prevBtn = document.querySelector("[data-grid-prev]");
+    if (prevBtn) prevBtn.addEventListener("click", () => { gPage = Math.max(1, gPage - 1); gRender(); });
+    const nextBtn = document.querySelector("[data-grid-next]");
+    if (nextBtn) nextBtn.addEventListener("click", () => { gPage = gPage + 1; gRender(); });
+    const allBox = document.querySelector("[data-grid-select-all]");
+    if (allBox) allBox.addEventListener("change", () => {
+      const list = gFiltered();
+      if (allBox.checked) list.forEach((r) => gSelected.add(r.id)); else list.forEach((r) => gSelected.delete(r.id));
+      gRender();
+    });
+    gridBody.addEventListener("change", (e) => {
+      const box = e.target.closest("[data-grid-row]");
+      if (!box) return;
+      const id = box.dataset.gridRow;
+      if (box.checked) gSelected.add(id); else gSelected.delete(id);
+      gRender();
+    });
+    const expBtn = document.querySelector("[data-grid-export]");
+    if (expBtn) expBtn.addEventListener("click", () => {
+      const list = gFiltered();
+      const csvEsc = (v) => { const s = gCell(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+      const csv = [[gLabels.name, gLabels.status, gLabels.score].map(csvEsc).join(",")].concat(list.map((r) => [r.name, r.status, r.score].map(csvEsc).join(","))).join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "data-grid-demo.csv"; a.click();
+      URL.revokeObjectURL(url);
+    });
+    gRender();
+  }
   // Patterns demos
   const patSave = document.querySelector("[data-pattern-save]");
   if (patSave) patSave.addEventListener("click", () => showToast("Settings saved. Nothing was sent or stored."));
@@ -764,7 +1224,7 @@ function renderHome() {
   return '<p class="eyebrow">Oeste · Component library</p>'
     + "<h1>Three libraries.<br>Three lenses.</h1>"
     + '<p class="lede">Oeste is a design system for humans, AI agents, and vibe coders. Humans design it. Agents understand it. Vibe coders ship it — from the library they pick.</p>'
-    + '<div class="install-bar"><strong>Start building</strong><code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code><button type="button" class="copy-btn" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json">Copy command</button><span class="muted">Install Button via shadcn — see <a href="#/getting-started">Getting started</a>.</span></div>'
+    + '<div class="install-bar"><strong>Start building</strong><code>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</code><button type="button" class="copy-btn" data-copy="npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json">Copy command</button><span class="muted">Install Button via shadcn — see <a href="#/getting-started">Getting started</a>.</span></div>'
     + '<div class="home-grid"><div><h2>Three libraries. Three lenses.</h2>'
     + '<p><strong>Topanga</strong> is the first theme: the hidden canyon in Los Angeles where creatives retreat and build. A canyon is not a stage — it is shelter. That is the feeling Topanga is built to carry: warm paper like sun on a wall, canyon clay, ochre, sagebrush, and precision hairlines. Nothing shouts. Everything is placed on purpose.</p>'
     + '<p>Oeste is three libraries under one roof. Topanga, Huntington, and Mesa each have their own tokens, their own components, their own design. What they share is how they are documented. Every component is written three ways. A designer reads the anatomy. An agent reads the contract. A vibe coder copies the code and ships. Nobody has to translate for anyone else, because every library already speaks all three languages.</p></div>'
@@ -1218,11 +1678,11 @@ function renderTokens() {
 
 function renderGettingStarted() {
   return '<p class="eyebrow">Docs</p><h1>Getting started</h1><p class="lede">Oeste is React + Tailwind, copy-paste ready. No heavy dependency, no config hell. Five steps and you are building.</p>'
-    + '<h2>1 · Get the tokens</h2><p>shadcn does <em>not</em> install the tokens — this step is manual. Download <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/src/tokens.css">tokens.css</a> (and <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/src/tokens.json">tokens.json</a> if you want the machine-readable copy), save it as <code>src/tokens.css</code>, and import it once at your app entry:</p><pre>import "./tokens.css";</pre><p>Light + dark ship together via <code>data-theme</code>.</p>'
+    + '<h2>1 · Get the tokens</h2><p>shadcn does <em>not</em> install the tokens — this step is manual. Download <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/src/tokens.css">tokens.css</a> (and <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/src/tokens.json">tokens.json</a> if you want the machine-readable copy), save it as <code>src/tokens.css</code>, and import it once at your app entry:</p><pre>import "./tokens.css";</pre><p>Light + dark ship together via <code>data-theme</code>.</p>'
     + '<h2>2 · Point Tailwind at data-theme</h2><p>Oeste components use <code>dark:</code> classes, but <code>dark:</code> does not follow <code>data-theme</code> until you tell Tailwind to. Tailwind v4, in your CSS after the Tailwind import:</p><pre>@custom-variant dark (&amp;:where([data-theme="dark"], [data-theme="dark"] *));</pre><p>Tailwind v3? See <a href="#/setup">Setup</a>. Without this line, dark mode silently does nothing.</p>'
-    + '<h2>3 · Install a component</h2><p>Install any component with shadcn. shadcn writes the component file into your project:</p><pre>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</pre><p>Replace <code>button</code> with any component id. The registry lives at <code>https://oeste.hiddeninwest.com/r/</code> (index: <code>r/registry.json</code>). Agents: the machine manifest is <code>components.json</code> at the repo root — every component with its registry URL, raw GitHub URL, docs link, and tags.</p>'
+    + '<h2>3 · Install a component</h2><p>Install any component with shadcn. shadcn writes the component file into your project:</p><pre>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</pre><p>Replace <code>button</code> with any component id. The registry lives at <code>https://oeste.hiddeninwest.com/topanga/r/</code> (index: <code>r/registry.json</code>). Agents: the machine manifest is <code>components.json</code> at the repo root — every component with its registry URL, raw GitHub URL, docs link, and tags.</p>'
     + '<h2>4 · Use it</h2><p>Import from where shadcn put the file:</p><pre>import { Button } from "@/components/ui/button";\n\nexport function SaveAction() {\n  return &lt;Button variant="primary" onClick={() =&gt; {}}&gt;Save changes&lt;/Button&gt;;\n}</pre><p>The <code>@/components/ui/…</code> path is the shadcn default — adjust it if your setup puts files elsewhere.</p>'
-    + '<h2>5 · For agents</h2><p>Paste the Agent prompt + JSON contract into your editor. Agents must not invent props beyond the contract. The full machine contract lives in <a href="llms.txt">llms.txt</a>.</p>'
+    + '<h2>5 · For agents</h2><p>Paste the Agent prompt + JSON contract into your editor. Agents must not invent props beyond the contract. The full machine contract lives in <a href="/topanga/llms.txt">llms.txt</a>.</p>'
     + '<div class="callout"><strong>Honest install story.</strong> <code>@oeste/ui</code> is not a published package — there is nothing to <code>npm install</code>. Install via shadcn above, or copy a snippet and own the file (see <a href="#/setup">Setup</a> for the copy-paste path).</div>'
     + '<h2>Guides — go deeper</h2><p>Getting started covers the mechanics. The guides cover the judgment.</p><ul><li><a href="#/setup">Setup</a> — the full setup: Tailwind v3, copy-paste path, troubleshooting.</li><li><a href="#/first-screen">First screen</a> — one finished settings screen, end to end: Card + Input + Select + Switch + Button + Toast.</li><li><a href="#/build-a-theme">Build a theme</a> — derive a palette, wire dark mode, and turn a token file into a second theme.</li><li><a href="#/layout">Layout</a> — no layout primitives on purpose: native HTML + the spacing scale.</li><li><a href="#/customizing">Customizing</a> — tokens first, compose second, fork third. Never break the invariants.</li></ul><p>Also in these docs: <a href="#/theming">Theming</a>, <a href="#/tokens">Tokens</a>, <a href="#/accessibility">Accessibility</a>, <a href="#/patterns">Patterns</a>, <a href="#/changelog">Changelog</a>, <a href="#/migration">Migration</a>, <a href="#/faq">FAQ</a>.</p>';
 }
@@ -1273,7 +1733,7 @@ function renderPatterns() {
     + '<button type="button" class="btn btn-primary" style="margin-top:20px" data-pattern-save>Save settings</button></div>'
     + '<h3>Human notes</h3><ul><li>One primary action (Save settings). Everything else is a field.</li><li>Labels are visible and persistent. No placeholder-only fields.</li><li>Confirmation is a Toast the user dismisses — nothing auto-vanishes.</li></ul>'
     + '<h3>Agent prompt</h3><pre>Compose an Oeste Settings form from Input + Checkbox + Switch + Select + Button + Toast. Persistent labels. One primary Save action. Toast confirm on save, manual dismiss, no auto-expiry. Never invent props beyond the component contracts.</pre>'
-    + '<h3>Vibe</h3><p>Copy each component from its Vibe lens, compose in one form, wire Save to a Toast. CLI: <code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/input.json</code>. The React snippets work today.</p>'
+    + '<h3>Vibe</h3><p>Copy each component from its Vibe lens, compose in one form, wire Save to a Toast. CLI: <code>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/input.json</code>. The React snippets work today.</p>'
     + '<h2>Project edit flow</h2><p>Card + Button + Dialog with Input + Toast. Open, rename, confirm — focus in, Escape out, focus back.</p>'
     + '<div class="demo"><section aria-labelledby="patCardTitle" style="border:1px solid var(--color-border);border-radius:12px;padding:24px;background:var(--color-bg)"><h3 id="patCardTitle" style="margin:0">Field notes</h3><p style="margin:12px 0 0">Room to think.</p><button type="button" class="btn btn-primary" style="margin-top:16px" data-pattern-open>Edit project</button></section>'
     + '<dialog class="site-dialog" id="patternDialog"><form id="patternEditForm"><h3 style="margin-top:0">Edit project</h3><p class="muted">Rename this project.</p><div class="field" style="margin-top:16px"><label for="patEditInput">Project name</label><input id="patEditInput" type="text" value="Field notes"></div><div class="demo-row" style="margin-top:20px"><button type="submit" class="btn btn-primary">Save</button><button type="button" class="btn btn-secondary" data-pattern-close>Cancel</button></div></form></dialog></div>'
@@ -1297,14 +1757,14 @@ function renderPatterns() {
 
 function renderFaq() {
   return '<p class="eyebrow">Docs</p><h1>FAQ</h1><p class="lede">Short answers to the questions people actually ask. If yours isn’t here, <a href="https://github.com/eric2busy/Oeste/issues">open an issue on GitHub</a>.</p>'
-    + '<h2>Is Oeste an npm package?</h2><p>No. There is no <code>@oeste/ui</code> package to install. Install a component with shadcn (<code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code>) or copy the code from the Vibe lens and own the file. See <a href="#/getting-started">Getting started</a>.</p>'
+    + '<h2>Is Oeste an npm package?</h2><p>No. There is no <code>@oeste/ui</code> package to install. Install a component with shadcn (<code>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</code>) or copy the code from the Vibe lens and own the file. See <a href="#/getting-started">Getting started</a>.</p>'
     + '<h2>Does it work with Tailwind v3 and v4?</h2><p>Yes, both. The one wiring step is pointing Tailwind’s <code>dark:</code> variant at <code>data-theme</code> — see <a href="#/setup">Setup</a>.</p>'
     + '<h2>Can I use Oeste without React?</h2><p>The components are React. The tokens (<code>src/tokens.css</code>) are plain CSS and work anywhere.</p>'
     + '<h2>Which React setups does it work with?</h2><p>Any React project — Vite, Next.js, Remix, and friends. Registry files are self-contained React + Tailwind.</p>'
     + '<h2>How does dark mode work?</h2><p>Two things, both required: the <code>data-theme</code> toggle and the Tailwind dark variant. Either one alone does nothing visible. See <a href="#/setup">Setup</a> and <a href="#/build-a-theme">Build a theme</a>.</p>'
-    + '<h2>Do I have to use all 29 components?</h2><p>No. Install one at a time, only what you need.</p>'
+    + '<h2>Do I have to use all 35 components?</h2><p>No. Install one at a time, only what you need.</p>'
     + '<h2>How do I customize the theme?</h2><p>Tokens first, compose second, fork third — and never break the accessibility invariants. See <a href="#/build-a-theme">Build a theme</a>.</p>'
-    + '<h2>Can I use Oeste in a commercial project?</h2><p>Yes. Oeste is <a href="https://github.com/eric2busy/Oeste/blob/main/LICENSE">MIT licensed</a> — use it in commercial work, including closed-source work. Just keep the MIT copyright notice in copies of the code.</p>'
+    + '<h2>Can I use Oeste in a commercial project?</h2><p>Yes. Oeste is <a href="https://github.com/eric2busy/Oeste/blob/main/topanga/LICENSE">MIT licensed</a> — use it in commercial work, including closed-source work. Just keep the MIT copyright notice in copies of the code.</p>'
     + '<h2>How do I report a bug or request a component?</h2><p><a href="https://github.com/eric2busy/Oeste/issues">Open an issue on GitHub</a> — bugs, missing components, and docs fixes all live there.</p>';
 }
 
@@ -1318,12 +1778,12 @@ function renderChangelog() {
     + '<h2>v0.4.3 — 2026-10-14</h2><ul><li><strong>Copy audit:</strong> removed leaked-rules copy from the home page, README, <code>llms.txt</code>, and the sidebar footer; home eyebrow no longer claims <code>oeste.design</code>; Tokens type section corrected (stepped display scale, no “telemetry”); Huntington / Mesa framed as future themes; error docs corrected to “text + role”; Button <code>icon</code> prop documented; unexplained name-drops removed; Avatar demo uses neutral example names.</li><li><strong>Show-more:</strong> component pages gain a Variants section (Button 4 variants × 3 sizes + states; Input / Checkbox / Switch / Toggle / Select states; Progress + Slider values). Accessibility contrast pairs now render live, in both themes, with real tokens. Tokens swatches follow the current theme, and the Tokens page gains a Tokens-in-use section (buttons, text, alerts, badges, surface, progress, focus).</li><li><strong>Nested themes:</strong> <code>data-theme</code> now scopes to any container — a dark card on a light page gets the dark tokens. <code>src/tokens.css</code> + <code>scripts/verify.mjs</code> updated.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.2 — 2026-10-14</h2><ul><li><strong>Setup page (new):</strong> the full setup — tokens, Tailwind v4 + v3, shadcn or copy-paste, troubleshooting.</li><li><strong>Getting started rewritten:</strong> the minimal complete setup — token download, Tailwind dark variant, shadcn install, real import.</li><li><strong>Every snippet + CLI is now real:</strong> Vibe snippets import from <code>@/components/ui/…</code> (where shadcn puts the files); CLI fields are real shadcn registry commands; the home install bar is the real Button command. <code>@oeste/ui</code> is not a published package — the docs no longer imply it is.</li><li><strong>Display headings use the wordmark treatment:</strong> Manrope 700, tracking -0.06em (was 500 / -0.04em).</li><li><strong>Menu:</strong> on mobile/tablet the open menu pops up in the current viewport instead of at the top of the document.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.4.1 — 2026-10-14</h2><ul><li><strong>Guides:</strong> four new docs pages, linked from Getting started as a hub — <a href="#/first-screen">First screen</a> (one finished settings screen, end to end), <a href="#/build-a-theme">Build a theme</a> (palette derivation, dark-mode wiring, what makes a second theme), <a href="#/layout">Layout</a> (native HTML + spacing scale, no layout primitives), <a href="#/customizing">Customizing</a> (tokens first, compose second, fork third). All four are in the sidebar and the search index.</li><li><strong>Breaking:</strong> none.</li></ul>'
-    + '<h2>v0.4.0 — 2026-10-14</h2><ul><li><strong>Registry (shadcn-compatible):</strong> every component ships as a registry item at <code>https://oeste.hiddeninwest.com/r/&lt;id&gt;.json</code> (index: <code>r/registry.json</code>). Install with <code>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</code>. Files are self-contained React + Tailwind, extracted from <code>src/index.js</code> by <code>scripts/build_registry.py</code> — regenerate, never hand-edit. Registry files need <code>src/tokens.css</code> (Topanga tokens) loaded once. The registry is served from oeste.hiddeninwest.com. Machine manifest: <code>components.json</code> at the repo root.</li><li><strong>Advanced search:</strong> header search is now faceted instant search: one box searches components + tokens + docs, results grouped with facet filters (All / Components / Tokens / Docs), instant as you type. Keys: Cmd+K / Ctrl+K focuses search, ArrowUp / Down moves through results, Enter opens, Escape closes.</li><li><strong>Breaking:</strong> none.</li></ul>'
+    + '<h2>v0.4.0 — 2026-10-14</h2><ul><li><strong>Registry (shadcn-compatible):</strong> every component ships as a registry item at <code>https://oeste.hiddeninwest.com/topanga/r/&lt;id&gt;.json</code> (index: <code>r/registry.json</code>). Install with <code>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</code>. Files are self-contained React + Tailwind, extracted from <code>src/index.js</code> by <code>scripts/build_registry.py</code> — regenerate, never hand-edit. Registry files need <code>src/tokens.css</code> (Topanga tokens) loaded once. The registry is served from oeste.hiddeninwest.com. Machine manifest: <code>components.json</code> at the repo root.</li><li><strong>Advanced search:</strong> header search is now faceted instant search: one box searches components + tokens + docs, results grouped with facet filters (All / Components / Tokens / Docs), instant as you type. Keys: Cmd+K / Ctrl+K focuses search, ArrowUp / Down moves through results, Enter opens, Escape closes.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.4 — 2026-10-14</h2><ul><li><strong>Header cluster tightened:</strong> the gap between the theme toggle and the Menu button is closed up. The Ghost component itself is untouched.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.3 — 2026-10-14</h2><ul><li><strong>Header Menu uses the Ghost Button component:</strong> the Menu button is now a real <code>.btn.btn-ghost</code> — no one-off menu styles. The docs site also gains real <code>.btn-ghost</code> and <code>.btn-danger</code> rules matching the library variants (ghost: transparent + ink/paper 5% hover; danger: Danger bg + paper text, dark text #121110). The Button demo’s fake Ghost (secondary + inline <code>border:0</code>) and inline-styled Danger now use the real components.</li><li><strong>Theme toggle goes borderless:</strong> the icon-only theme control drops its border and fill (ghost-equivalent for an icon button). The 44px touch targets, hover background, and 2px focus outline are unchanged.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.2 — 2026-10-14</h2><ul><li><strong>Wordmark:</strong> the header wordmark is now all lowercase — <strong>oeste</strong> (was “Oeste”). Same type treatment: Manrope 700, 24px, -0.06em.</li><li><strong>Breaking:</strong> none.</li></ul>'
     + '<h2>v0.3.1 — 2026-10-14</h2><ul><li><strong>Typography correction (the v0.3.0 display treatment was wrong):</strong> the real treatment from the reference preview build is Manrope <strong>500</strong>, tracking <strong>-0.04em</strong>, leading <strong>1.1</strong> — not 800 / -0.025em / 1.05. Headings (h2/h3) are also 500, tracking -0.025em. Wordmark is 700, 24px, -0.06em. Body leading is 1.55, hero copy 1.65. The unused Manrope 800 weight is no longer loaded.</li><li><strong>Hero heading locked to 2 lines:</strong> display size now steps 40px on phones, 48px at ≥480px, 72px at ≥720px, so “One system. / Three perspectives.” never wraps to a third line.</li><li><strong>Breaking:</strong> none. Token values only.</li></ul>'
-    + '<h2>v0.3.0 — 2026-10-14</h2><ul><li><strong>Menu auto-close:</strong> tapping any sidebar link navigates and closes the menu. Escape also closes the menu when it is open.</li><li><strong>Syntax highlighting:</strong> every code block is now colorized (keywords, strings, numbers, comments, JSON keys, JSX tags/props, CLI flags) in light and dark, with code-text colors that pass WCAG AA 4.5:1 on the code background.</li><li><strong>Display typography (superseded by v0.3.1):</strong> display type was set to Manrope 800, 48px mobile → 72px desktop (clamp), line-height 1.05, letter-spacing -0.025em. Headings were weight 700. This was corrected in v0.3.1 to 500 / -0.04em / 1.1 (the reference build treatment).</li><li><strong>New primitives (14):</strong> Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State — React + Tailwind in <code>src/index.js</code>, full docs pages with demos. Total: 29 components.</li><li><strong>Form pattern:</strong> a third Patterns entry — Label + Input + Select + Checkbox + RadioGroup + Button + error summary (role=alert) + Toast confirm.</li><li><strong>Breaking:</strong> none for consumers. Additive-only release.</li></ul>'
+    + '<h2>v0.3.0 — 2026-10-14</h2><ul><li><strong>Menu auto-close:</strong> tapping any sidebar link navigates and closes the menu. Escape also closes the menu when it is open.</li><li><strong>Syntax highlighting:</strong> every code block is now colorized (keywords, strings, numbers, comments, JSON keys, JSX tags/props, CLI flags) in light and dark, with code-text colors that pass WCAG AA 4.5:1 on the code background.</li><li><strong>Display typography (superseded by v0.3.1):</strong> display type was set to Manrope 800, 48px mobile → 72px desktop (clamp), line-height 1.05, letter-spacing -0.025em. Headings were weight 700. This was corrected in v0.3.1 to 500 / -0.04em / 1.1 (the reference build treatment).</li><li><strong>New primitives (14):</strong> Avatar, Separator, Slider, Tooltip, Popover, Dropdown Menu, Toggle, Collapsible, Skeleton, Label, Breadcrumb, Pagination, Table, Empty State — React + Tailwind in <code>src/index.js</code>, full docs pages with demos. Total: 35 components.</li><li><strong>Form pattern:</strong> a third Patterns entry — Label + Input + Select + Checkbox + RadioGroup + Button + error summary (role=alert) + Toast confirm.</li><li><strong>Breaking:</strong> none for consumers. Additive-only release.</li></ul>'
     + '<h2>v0.2.0 — 2026-10-14</h2><ul><li><strong>New primitives:</strong> Alert, Accordion, RadioGroup, Progress — React + Tailwind in <code>src/index.js</code>, full docs pages with demos.</li><li><strong>New docs pages:</strong> Textarea and Select (implementations existed; docs did not). Total: 15 components.</li><li><strong>New routes:</strong> Patterns (Settings form + Project edit flow), Changelog, Migration.</li><li><strong>Accessibility page:</strong> per-component keyboard + ARIA checklist for all 15 components, full contrast table, reduced-motion / focus / touch-target / live-region rules.</li><li><strong>Home:</strong> fuller Oeste / Topanga brand story.</li><li><strong>Header + lens pills:</strong> on mobile/tablet, Menu is far right with the theme toggle as an icon to its left (desktop shows the sidebar, so no Menu button is needed); lens pills are pill-only (no underline), text centered.</li><li><strong>Breaking:</strong> none for consumers. Docs-only + additive release.</li></ul>'
     + '<h2>v0.1.0 — 2026-10-14</h2><ul><li><strong>Foundation:</strong> single token source of truth (<code>src/tokens.css</code> + <code>src/tokens.json</code> + <code>DESIGN_TOKENS</code>), verified by <code>scripts/verify.mjs</code>.</li><li><strong>Canonical tokens:</strong> Warm Ochre accent #C47D3B, Canyon Rust #B85B35 decorative-only, Danger #A83E22 / #E07A52 at 5.66:1 / 6.35:1, Focus = ink/paper.</li><li><strong>9 primitives:</strong> Button, Input, Dialog, Card, Tabs, Toast, Badge, Checkbox, Switch — plus Textarea + Select implementations.</li><li><strong>Docs site:</strong> static, hash routes, Human / Agent / Vibe lenses, lens in URL, Getting started / Theming / Tokens / Accessibility.</li><li><strong>CLI:</strong> reference commands only. No npm package — the React snippets work today.</li></ul>';
 }
@@ -1376,9 +1836,9 @@ function renderCustomizing() {
 function renderSetup() {
   return '<p class="eyebrow">Docs · Guide</p><h1>Setup</h1><p class="lede">The full setup. Getting started gives you the minimal path — this page has everything else: Tailwind v3, the copy-paste path, and what to do when it breaks.</p>'
     + '<p>Requirements: React 18+, Tailwind, JSX transform.</p>'
-    + '<h2>1 · Tokens</h2><p>Download <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/src/tokens.css">tokens.css</a> (and <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/src/tokens.json">tokens.json</a> if you want the machine-readable copy). Save it as <code>src/tokens.css</code> and import it first at your app entry:</p><pre>import "./tokens.css";</pre><p>shadcn does <em>not</em> install the tokens — this step is always manual.</p>'
+    + '<h2>1 · Tokens</h2><p>Download <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/src/tokens.css">tokens.css</a> (and <a href="https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/src/tokens.json">tokens.json</a> if you want the machine-readable copy). Save it as <code>src/tokens.css</code> and import it first at your app entry:</p><pre>import "./tokens.css";</pre><p>shadcn does <em>not</em> install the tokens — this step is always manual.</p>'
     + '<h2>2 · Tailwind</h2><p>Oeste components use <code>dark:</code> classes. <code>dark:</code> follows <code>data-theme</code> only when you point it there.</p><p><strong>Tailwind v4</strong> — in your CSS, after the Tailwind import:</p><pre>@custom-variant dark (&amp;:where([data-theme="dark"], [data-theme="dark"] *));</pre><p><strong>Tailwind v3</strong> — in <code>tailwind.config.js</code>, then restart the dev server:</p><pre>export default {\n  darkMode: ["class", \'[data-theme="dark"]\'],\n  // …the rest of your config\n};</pre><p>Which version? Check <code>tailwindcss</code> in your <code>package.json</code>: <code>^4</code> is v4, <code>^3</code> is v3.</p>'
-    + '<h2>3 · Install</h2><p><strong>shadcn (recommended).</strong> One command per component; shadcn writes the file into your project:</p><pre>npx shadcn@latest add https://oeste.hiddeninwest.com/r/button.json</pre><p>Import from where shadcn put the file. The docs show the shadcn default:</p><pre>import { Button } from "@/components/ui/button";</pre><p><strong>Copy-paste.</strong> Open a component page, switch to the Vibe lens, copy the code into your own file, and import from where you put it. You own the file — change it like any other code in your project.</p>'
+    + '<h2>3 · Install</h2><p><strong>shadcn (recommended).</strong> One command per component; shadcn writes the file into your project:</p><pre>npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/button.json</pre><p>Import from where shadcn put the file. The docs show the shadcn default:</p><pre>import { Button } from "@/components/ui/button";</pre><p><strong>Copy-paste.</strong> Open a component page, switch to the Vibe lens, copy the code into your own file, and import from where you put it. You own the file — change it like any other code in your project.</p>'
     + '<h2>4 · Dark mode</h2><p>Dark mode needs two things: the <code>data-theme</code> toggle (see <a href="#/build-a-theme">Build a theme</a>) <em>and</em> the Tailwind variant in §2. Either one alone does nothing visible.</p>'
     + '<h2>5 · Troubleshooting</h2><ul><li><strong>Dark mode does nothing</strong> — the §2 variant line is missing, or in the wrong file.</li><li><strong>“Cannot find module ‘@oeste/ui’”</strong> — <code>@oeste/ui</code> is not a published package. Import from the file path where shadcn put the component, or where you copied it.</li><li><strong>Styles look unstyled, or colors are wrong</strong> — <code>tokens.css</code> is not imported, or something overrides it. Check the import is in your app entry.</li><li><strong>shadcn asks where to put the file</strong> — any components directory works. Keep the <code>@/components/ui</code> convention so the docs’ import paths match.</li><li><strong>Tailwind v3 config change has no effect</strong> — restart the dev server.</li></ul>';
 }

@@ -1,245 +1,252 @@
 {
  "name": "oeste",
  "version": "0.4.8",
- "registryBase": "https://oeste.hiddeninwest.com/r/",
+ "registryBase": "https://oeste.hiddeninwest.com/topanga/r/",
  "items": [
   {
    "id": "accordion",
    "name": "accordion",
    "title": "Accordion",
    "description": "Stacked sections. One open at a time or many \u2014 your call.",
-   "url": "https://oeste.hiddeninwest.com/r/accordion.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/accordion.json"
   },
   {
    "id": "alert",
    "name": "alert",
    "title": "Alert",
    "description": "Status that stays put. Text first, tone second.",
-   "url": "https://oeste.hiddeninwest.com/r/alert.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/alert.json"
   },
   {
    "id": "avatar",
    "name": "avatar",
    "title": "Avatar",
    "description": "A face or initials. Fallback always shows.",
-   "url": "https://oeste.hiddeninwest.com/r/avatar.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/avatar.json"
   },
   {
    "id": "badge",
    "name": "badge",
    "title": "Badge",
    "description": "Small status. Text first, color second.",
-   "url": "https://oeste.hiddeninwest.com/r/badge.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/badge.json"
   },
   {
    "id": "breadcrumb",
    "name": "breadcrumb",
    "title": "Breadcrumb",
    "description": "Where you are, and how you got here.",
-   "url": "https://oeste.hiddeninwest.com/r/breadcrumb.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/breadcrumb.json"
   },
   {
    "id": "button",
    "name": "button",
    "title": "Button",
    "description": "One action. A clear hierarchy.",
-   "url": "https://oeste.hiddeninwest.com/r/button.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/button.json"
   },
   {
    "id": "calendar",
    "name": "calendar",
    "title": "Calendar",
    "description": "Month grid. One button per day, min/max bounds.",
-   "url": "https://oeste.hiddeninwest.com/r/calendar.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/calendar.json"
   },
   {
    "id": "card",
    "name": "card",
    "title": "Card",
    "description": "Structural container with proper heading hierarchy.",
-   "url": "https://oeste.hiddeninwest.com/r/card.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/card.json"
   },
   {
    "id": "chart",
    "name": "chart",
    "title": "Chart",
    "description": "Bar, line, area, pie, donut. One series, SVG + data table.",
-   "url": "https://oeste.hiddeninwest.com/r/chart.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/chart.json"
   },
   {
    "id": "checkbox",
    "name": "checkbox",
    "title": "Checkbox",
    "description": "Real input. Visible label. Described help.",
-   "url": "https://oeste.hiddeninwest.com/r/checkbox.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/checkbox.json"
   },
   {
    "id": "collapsible",
    "name": "collapsible",
    "title": "Collapsible",
    "description": "One section that opens and closes. Accordion's simpler sibling.",
-   "url": "https://oeste.hiddeninwest.com/r/collapsible.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/collapsible.json"
+  },
+  {
+   "id": "data-grid",
+   "name": "data-grid",
+   "title": "DataGrid",
+   "description": "Sortable, filterable, pageable data grid.",
+   "url": "https://oeste.hiddeninwest.com/topanga/r/data-grid.json"
   },
   {
    "id": "date-picker",
    "name": "date-picker",
    "title": "DatePicker",
    "description": "Read-only input plus popover calendar. Clear, Today.",
-   "url": "https://oeste.hiddeninwest.com/r/date-picker.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/date-picker.json"
   },
   {
    "id": "date-range-picker",
    "name": "date-range-picker",
    "title": "DateRangePicker",
    "description": "Two DatePickers, one range. End-before-start is an error.",
-   "url": "https://oeste.hiddeninwest.com/r/date-range-picker.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/date-range-picker.json"
   },
   {
    "id": "dialog",
    "name": "dialog",
    "title": "Dialog",
    "description": "Accessible modal. Focus in, Escape out, focus back.",
-   "url": "https://oeste.hiddeninwest.com/r/dialog.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/dialog.json"
   },
   {
    "id": "dropdown-menu",
    "name": "dropdown-menu",
    "title": "DropdownMenu",
    "description": "Actions in a list. Arrows move, Escape closes.",
-   "url": "https://oeste.hiddeninwest.com/r/dropdown-menu.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/dropdown-menu.json"
   },
   {
    "id": "empty-state",
    "name": "empty-state",
    "title": "EmptyState",
    "description": "Nothing here yet \u2014 and a clear next step.",
-   "url": "https://oeste.hiddeninwest.com/r/empty-state.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/empty-state.json"
   },
   {
    "id": "input",
    "name": "input",
    "title": "Input",
    "description": "Persistent label. Described errors. No placeholder-only fields.",
-   "url": "https://oeste.hiddeninwest.com/r/input.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/input.json"
   },
   {
    "id": "label",
    "name": "label",
    "title": "Label",
    "description": "A label that stands on its own. Links to its control.",
-   "url": "https://oeste.hiddeninwest.com/r/label.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/label.json"
   },
   {
    "id": "pagination",
    "name": "pagination",
    "title": "Pagination",
    "description": "Page through a list. Current page is unmistakable.",
-   "url": "https://oeste.hiddeninwest.com/r/pagination.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/pagination.json"
   },
   {
    "id": "popover",
    "name": "popover",
    "title": "Popover",
    "description": "A small panel anchored to a trigger. Escape closes.",
-   "url": "https://oeste.hiddeninwest.com/r/popover.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/popover.json"
   },
   {
    "id": "progress",
    "name": "progress",
    "title": "Progress",
    "description": "How far along. Number + bar, never bar alone.",
-   "url": "https://oeste.hiddeninwest.com/r/progress.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/progress.json"
   },
   {
    "id": "radiogroup",
    "name": "radiogroup",
    "title": "RadioGroup",
    "description": "One choice from a few. Native radios, real grouping.",
-   "url": "https://oeste.hiddeninwest.com/r/radiogroup.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/radiogroup.json"
   },
   {
    "id": "select",
    "name": "select",
    "title": "Select",
    "description": "One choice from a list. Native select, real label.",
-   "url": "https://oeste.hiddeninwest.com/r/select.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/select.json"
   },
   {
    "id": "separator",
    "name": "separator",
    "title": "Separator",
    "description": "A hairline that divides. Decorative or semantic.",
-   "url": "https://oeste.hiddeninwest.com/r/separator.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/separator.json"
   },
   {
    "id": "skeleton",
    "name": "skeleton",
    "title": "Skeleton",
    "description": "A placeholder while content loads. Never flashing.",
-   "url": "https://oeste.hiddeninwest.com/r/skeleton.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/skeleton.json"
   },
   {
    "id": "slider",
    "name": "slider",
    "title": "Slider",
    "description": "Pick a number by dragging. Arrows work too.",
-   "url": "https://oeste.hiddeninwest.com/r/slider.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/slider.json"
   },
   {
    "id": "switch",
    "name": "switch",
    "title": "Switch",
    "description": "On / off with a real role=switch.",
-   "url": "https://oeste.hiddeninwest.com/r/switch.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/switch.json"
   },
   {
    "id": "table",
    "name": "table",
    "title": "Table",
    "description": "Rows and columns that screen readers can follow.",
-   "url": "https://oeste.hiddeninwest.com/r/table.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/table.json"
   },
   {
    "id": "tabs",
    "name": "tabs",
    "title": "Tabs",
    "description": "Roving tabindex. Arrow keys move, Home/End jump.",
-   "url": "https://oeste.hiddeninwest.com/r/tabs.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/tabs.json"
   },
   {
    "id": "textarea",
    "name": "textarea",
    "title": "Textarea",
    "description": "Multi-line input. Same label + error pattern as Input.",
-   "url": "https://oeste.hiddeninwest.com/r/textarea.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/textarea.json"
   },
   {
    "id": "time-picker",
    "name": "time-picker",
    "title": "TimePicker",
    "description": "Trigger plus time listbox. 12-hour labels, HH:MM value.",
-   "url": "https://oeste.hiddeninwest.com/r/time-picker.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/time-picker.json"
   },
   {
    "id": "toast",
    "name": "toast",
    "title": "Toast",
    "description": "Polite status. Manual dismissal. Nothing auto-vanishes.",
-   "url": "https://oeste.hiddeninwest.com/r/toast.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/toast.json"
   },
   {
    "id": "toggle",
    "name": "toggle",
    "title": "Toggle",
    "description": "A button that stays pressed. Fill + label, not color alone.",
-   "url": "https://oeste.hiddeninwest.com/r/toggle.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/toggle.json"
   },
   {
    "id": "tooltip",
    "name": "tooltip",
    "title": "Tooltip",
    "description": "A hint on hover and focus. Never the only way to know.",
-   "url": "https://oeste.hiddeninwest.com/r/tooltip.json"
+   "url": "https://oeste.hiddeninwest.com/topanga/r/tooltip.json"
   }
  ]
 }

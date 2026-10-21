@@ -198,6 +198,71 @@ const ATTRIBUTES = {
     ],
     "spreads": []
   },
+  "data-grid": {
+    "rows": [
+      {
+        "attr": "aria-selected",
+        "value": "true | false",
+        "element": "tr"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Select row {key}",
+        "element": "input"
+      },
+      {
+        "attr": "aria-live",
+        "value": "polite",
+        "element": "p"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Select all rows",
+        "element": "input"
+      },
+      {
+        "attr": "aria-sort",
+        "value": "ascending | descending | none",
+        "element": "th"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Sort by {col.label}",
+        "element": "button"
+      },
+      {
+        "attr": "aria-hidden",
+        "value": "true",
+        "element": "span"
+      },
+      {
+        "attr": "aria-pressed",
+        "value": "true | false",
+        "element": "button"
+      },
+      {
+        "attr": "aria-label",
+        "value": "{pinnedCol ? \"Unpin\" : \"Pin\"} {col.label} column",
+        "element": "button"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Filter {col.label}",
+        "element": "input"
+      },
+      {
+        "attr": "aria-expanded",
+        "value": "true | false",
+        "element": "button"
+      },
+      {
+        "attr": "aria-label",
+        "value": "Rows per page",
+        "element": "select"
+      }
+    ],
+    "spreads": []
+  },
   "date-picker": {
     "rows": [
       {

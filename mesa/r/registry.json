@@ -49,7 +49,7 @@
    "id": "calendar",
    "name": "calendar",
    "title": "Calendar",
-   "description": "Month grid. One button per day, min/max bounds.",
+   "description": "Month grid. One button per day, min/max bounds, optional range highlight.",
    "url": "https://oeste.hiddeninwest.com/mesa/r/calendar.json"
   },
   {
@@ -119,7 +119,7 @@
    "id": "date-range-picker",
    "name": "date-range-picker",
    "title": "DateRangePicker",
-   "description": "Two DatePickers, one range. End-before-start is an error.",
+   "description": "Two DatePickers, one range. Popover Calendars highlight the range. End-before-start is an error.",
    "url": "https://oeste.hiddeninwest.com/mesa/r/date-range-picker.json"
   },
   {
@@ -210,7 +210,7 @@
    "id": "forum-thread",
    "name": "forum-thread",
    "title": "ForumThread",
-   "description": "Thread row with votes and replies.",
+   "description": "Thread row with votes and replies. Real link with href, button with onSelect.",
    "url": "https://oeste.hiddeninwest.com/mesa/r/forum-thread.json"
   },
   {

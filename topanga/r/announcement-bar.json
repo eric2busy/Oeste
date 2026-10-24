@@ -1,0 +1,25 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "announcement-bar",
+ "type": "registry:block",
+ "title": "BlockAnnouncementBar",
+ "description": "A slim persistent band above the navbar with one message and one action.",
+ "registryDependencies": [
+  "badge",
+  "button",
+  "separator"
+ ],
+ "files": [
+  {
+   "path": "blocks/BlockAnnouncementBar.jsx",
+   "content": "// Oeste BlockAnnouncementBar \u2014 Topanga block (v0.4.8).\n// A full page section composed from Oeste components, inlined below so\n// this file is self-contained. Copy-paste ready. Requires: React 18+,\n// Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/topanga/src/blocks.js\n// Docs: https://oeste.hiddeninwest.com/topanga/#/blocks/announcement-bar\nimport React from \"react\";\n\nconst FOCUS = \"focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1917] dark:focus-visible:outline-[#f5f3ef]\";\n\nconst TOUCH = \"min-h-11\";\n\nconst BUTTON_VARIANTS = {\n  primary: \"bg-[#c47d3b] text-[#1c1917] hover:opacity-90 dark:bg-[#db914e] dark:text-[#1c1917]\",\n  secondary: \"border border-[#1c1917]/20 bg-transparent text-[#1c1917] hover:bg-[#1c1917]/5 dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5\",\n  ghost: \"bg-transparent text-[#1c1917] hover:bg-[#1c1917]/5 dark:text-[#f5f3ef] dark:hover:bg-[#f5f3ef]/5\",\n  danger: \"bg-[#a83e22] text-[#f6f4f1] hover:opacity-90 dark:bg-[#e07a52] dark:text-[#121110]\",\n};\n\nconst BUTTON_SIZES = {\n  sm: \"px-3 py-2 text-sm\",\n  md: \"px-5 py-3 text-base\",\n  lg: \"px-6 py-3.5 text-lg\",\n};\n\nconst BADGE_TONES = {\n  neutral: \"border-[#1c1917]/20 text-[#1c1917] dark:border-[#f5f3ef]/20 dark:text-[#f5f3ef]\",\n  accent: \"border-[#c47d3b]/40 bg-[#c47d3b]/10 text-[#1c1917] dark:border-[#db914e]/40 dark:bg-[#db914e]/10 dark:text-[#f5f3ef]\",\n  success: \"border-[#2f6b3a]/40 bg-[#2f6b3a]/10 text-[#2f6b3a] dark:border-[#6ba368]/40 dark:bg-[#6ba368]/10 dark:text-[#6ba368]\",\n  danger: \"border-[#a83e22]/40 bg-[#a83e22]/10 text-[#a83e22] dark:border-[#e07a52]/40 dark:bg-[#e07a52]/10 dark:text-[#e07a52]\",\n};\n\nexport function Badge({ children, tone = \"neutral\" }) {\n  return <span className={`inline-flex min-h-8 items-center rounded-full border px-3 py-1 text-xs font-semibold ${BADGE_TONES[tone]}`}>{children}</span>;\n}\n\nexport function Button({ children, variant = \"primary\", size = \"md\", disabled = false, loading = false, type = \"button\", onClick, icon = null }) {\n  return (\n    <button\n      type={type}\n      disabled={disabled || loading}\n      onClick={onClick}\n      aria-busy={loading || undefined}\n      className={`${TOUCH} inline-flex items-center justify-center gap-2 rounded-md font-semibold disabled:cursor-not-allowed disabled:opacity-50 ${BUTTON_VARIANTS[variant]} ${BUTTON_SIZES[size]} ${FOCUS}`}\n    >\n      {loading ? <span aria-hidden=\"true\">\u2026</span> : icon}\n      {children}\n    </button>\n  );\n}\n\nexport function Separator({ orientation = \"horizontal\", decorative = true }) {\n  if (orientation === \"vertical\") {\n    return decorative\n      ? <span aria-hidden=\"true\" className=\"inline-block w-px self-stretch bg-[#1c1917]/10 dark:bg-[#f5f3ef]/10\" />\n      : <span role=\"separator\" aria-orientation=\"vertical\" className=\"inline-block w-px self-stretch bg-[#1c1917]/10 dark:bg-[#f5f3ef]/10\" />;\n  }\n  return decorative\n    ? <hr aria-hidden=\"true\" className=\"my-4 border-0 border-t border-[#1c1917]/10 dark:border-[#f5f3ef]/10\" />\n    : <hr role=\"separator\" aria-orientation=\"horizontal\" className=\"my-4 border-0 border-t border-[#1c1917]/10 dark:border-[#f5f3ef]/10\" />;\n}\n\nexport function BlockAnnouncementBar({ variant = \"dismissible\" }) {\n  const [dismissed, setDismissed] = React.useState(false);\n  if (dismissed) return null;\n  return (\n    <div className=\"bg-[#fcfaf7] text-[#1c1917] dark:bg-[#1c1917] dark:text-[#f5f3ef]\">\n      <div className=\"mx-auto flex max-w-[1200px] flex-wrap items-center gap-3 px-6 py-2 lg:px-8\">\n        <Badge tone=\"accent\">New</Badge>\n        <p className=\"leading-relaxed\">Fieldbook 2.0 is here: project pages now load twice as fast.</p>\n        <span className=\"ml-auto flex items-center gap-2\">\n          <Button variant=\"ghost\" size=\"sm\" onClick={() => {}}>See what changed</Button>\n          {variant === \"dismissible\" ? (\n            <Button variant=\"ghost\" size=\"sm\" onClick={() => setDismissed(true)}>Dismiss</Button>\n          ) : null}\n        </span>\n      </div>\n      <Separator />\n    </div>\n  );\n}\n",
+   "type": "registry:block"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/topanga/#/blocks/announcement-bar",
+ "categories": [
+  "oeste",
+  "blocks",
+  "marketing"
+ ]
+}

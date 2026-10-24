@@ -122,5 +122,33 @@ for (const c of manifest.components) {
   check(`registry item ${c.id} docsUrl matches manifest`, c.docsUrl === `#/components/${c.id}`);
 }
 
+// --- Blocks: blocks.json + r/<id>.json (type registry:block) agree with src/blocks.js.
+// Blocks carry their OWN count; the component checks above must not move. ---
+const blocksManifestPath = join(root, "blocks.json");
+check("blocks manifest exists", existsSync(blocksManifestPath));
+if (existsSync(blocksManifestPath)) {
+  const bman = JSON.parse(readFileSync(blocksManifestPath, "utf8"));
+  check("blocks manifest version matches tokens.json", bman.version === json.version, bman.version);
+  check("blocks manifest count == blocks length", bman.count === bman.blocks.length, `${bman.count} vs ${bman.blocks.length}`);
+  const bfileCount = bman.blocks.filter((b) => existsSync(join(root, "r", b.id + ".json"))).length;
+  check("r/<block id>.json present for every block", bfileCount === bman.blocks.length, `${bfileCount} vs ${bman.blocks.length}`);
+  const blocksSrc = existsSync(join(root, "src", "blocks.js")) ? readFileSync(join(root, "src", "blocks.js"), "utf8") : "";
+  const docCount = (blocksSrc.match(/\n    id: "/g) || []).length;
+  check("BLOCK_DOCS entries == blocks manifest count", docCount === bman.blocks.length, `${docCount} vs ${bman.blocks.length}`);
+  for (const b of bman.blocks) {
+    const file = join(root, "r", b.id + ".json");
+    check(`block item ${b.id} exists`, existsSync(file));
+    if (!existsSync(file)) continue;
+    const item = JSON.parse(readFileSync(file, "utf8"));
+    const content = item.files?.[0]?.content || "";
+    check(`block item ${b.id} is registry:block + exports its block`, item.type === "registry:block" && content.includes("export function " + b.export), `${content.length} chars`);
+    check(`block item ${b.id} registryUrl matches manifest`, b.registryUrl === `https://oeste.hiddeninwest.com/r/${b.id}.json`);
+    check(`block item ${b.id} githubRawUrl matches manifest`, b.githubRawUrl === `https://raw.githubusercontent.com/eric2busy/Oeste/main/r/${b.id}.json`);
+    check(`block item ${b.id} docsUrl matches manifest`, b.docsUrl === `#/blocks/${b.id}`);
+    check(`block item ${b.id} uses are real component ids`, (b.uses || []).every((u) => manifestIds.has(u)), (b.uses || []).join(","));
+    check(`block item ${b.id} registryDependencies == manifest includes`, JSON.stringify(item.registryDependencies || []) === JSON.stringify([...(b.includes || [])].sort()));
+  }
+}
+
 if (failures > 0) { console.error(`\n${failures} check(s) failed.`); process.exit(1); }
 console.log("\nAll token + contrast checks passed.");

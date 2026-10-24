@@ -1241,6 +1241,510 @@ function renderComponentsIndex() {
     + componentsIndexRows();
 }
 
+/* Blocks: full page sections composed from the components above.
+   Source of truth for compositions: src/blocks.js (BLOCK_DOCS), built
+   into r/<id>.json (type registry:block) + blocks.json by scripts/build_registry.py.
+   Entries here carry the docs demo + usage snippet for each block;
+   id / name / tagline / uses must match BLOCK_DOCS exactly. Blocks
+   carry their own count everywhere: they are not components. */
+const BLOCKS = [
+  { id: "announcement-bar", name: "Announcement Bar", tagline: "A slim persistent band above the navbar with one message and one action.", category: "Marketing", uses: ["badge", "button", "separator"],
+    code: "import { BlockAnnouncementBar } from \"@/components/blocks/BlockAnnouncementBar\";\n\nexport function PageTop() {\n  return <BlockAnnouncementBar />;\n}\n// Variants: variant=\"standard\" drops the Dismiss button." },
+  { id: "navbar", name: "Navbar", tagline: "The top bar: wordmark, section links, one action, and an account menu.", category: "Navigation", uses: ["button", "dropdown-menu", "avatar", "badge", "separator"],
+    code: "import { BlockNavbar } from \"@/components/blocks/BlockNavbar\";\n\nexport function SiteHeader() {\n  return <BlockNavbar />;\n}\n// Variants: variant=\"app\" swaps the sign-in row for an account menu with a count badge." },
+  { id: "hero", name: "Hero", tagline: "The opening statement: headline, lede, two actions, and one composed product panel.", category: "Marketing", uses: ["badge", "button", "card", "chart", "progress", "avatar", "separator"],
+    code: "import { BlockHero } from \"@/components/blocks/BlockHero\";\n\nexport function LandingTop() {\n  return <BlockHero />;\n}\n// Variants: variant=\"centred\" drops the panel for a centred statement." },
+  { id: "logo-cloud", name: "Logo Cloud", tagline: "A ruled band of customer wordmarks set as text.", category: "Marketing", uses: ["separator"],
+    code: "import { BlockLogoCloud } from \"@/components/blocks/BlockLogoCloud\";\n\nexport function ProofBand() {\n  return <BlockLogoCloud />;\n}" },
+  { id: "features-bento", name: "Features", tagline: "A bento grid of feature tiles led by headings, with live component insets.", category: "Marketing", uses: ["card", "badge", "chart", "progress", "table", "calendar"],
+    code: "import { BlockFeaturesBento } from \"@/components/blocks/BlockFeaturesBento\";\n\nexport function Features() {\n  return <BlockFeaturesBento />;\n}" },
+  { id: "stats-band", name: "Stats Band", tagline: "A ruled band of three or four labelled figures.", category: "Marketing", uses: ["separator", "badge"],
+    code: "import { BlockStatsBand } from \"@/components/blocks/BlockStatsBand\";\n\nexport function ProofNumbers() {\n  return <BlockStatsBand />;\n}\n// Variants: headed adds a section header above the band." },
+  { id: "pricing", name: "Pricing", tagline: "Plan cards with a billing period control and an optional comparison table.", category: "Marketing", uses: ["card", "badge", "button", "separator", "radiogroup", "table"],
+    code: "import { BlockPricing } from \"@/components/blocks/BlockPricing\";\n\nexport function Pricing() {\n  return <BlockPricing />;\n}\n// Variants: variant=\"full\" adds the comparison table under the cards." },
+  { id: "testimonials", name: "Testimonials", tagline: "Quote cards with initial avatars, names, and roles.", category: "Marketing", uses: ["card", "avatar", "badge"],
+    code: "import { BlockTestimonials } from \"@/components/blocks/BlockTestimonials\";\n\nexport function Quotes() {\n  return <BlockTestimonials />;\n}" },
+  { id: "faq", name: "FAQ", tagline: "An accordion of questions with a contact route at the foot.", category: "Marketing", uses: ["accordion", "collapsible", "separator", "button"],
+    code: "import { BlockFaq } from \"@/components/blocks/BlockFaq\";\n\nexport function Questions() {\n  return <BlockFaq />;\n}\n// Variants: variant=\"compact\" renders a collapsible list for narrow columns." },
+  { id: "cta", name: "CTA", tagline: "One closing ask on a single card: heading, one line, one primary action.", category: "Marketing", uses: ["card", "button", "badge"],
+    code: "import { BlockCta } from \"@/components/blocks/BlockCta\";\n\nexport function ClosingAsk() {\n  return <BlockCta />;\n}" },
+  { id: "footer", name: "Footer", tagline: "The closing index: link columns, a wordmark, and a legal line.", category: "Navigation", uses: ["separator", "input", "button"],
+    code: "import { BlockFooter } from \"@/components/blocks/BlockFooter\";\n\nexport function SiteFooter() {\n  return <BlockFooter />;\n}\n// Variants: variant=\"newsletter\" adds the signup row to the identity zone." },
+  { id: "login-auth", name: "Login", tagline: "A sign-in card with labelled fields, an error alert, and an account switch.", category: "Application", uses: ["card", "input", "checkbox", "button", "alert", "separator", "tabs"],
+    code: "import { BlockLoginAuth } from \"@/components/blocks/BlockLoginAuth\";\n\nexport function SignInPage() {\n  return <BlockLoginAuth />;\n}\n// Variants: mode=\"create\" opens on the create account tab with the matching heading." },
+  { id: "blog-list", name: "Blog List", tagline: "A list of text-led post cards with category tabs and pagination.", category: "Content", uses: ["card", "badge", "avatar", "tabs", "pagination", "input", "separator", "skeleton"],
+    code: "import { BlockBlogList } from \"@/components/blocks/BlockBlogList\";\n\nexport function JournalIndex() {\n  return <BlockBlogList />;\n}\n// Variants: layout=\"search\" adds the labelled search field; loading shows skeleton cards." },
+  { id: "empty-state-block", name: "Empty State", tagline: "A full section empty state with one clear next step.", category: "Application", uses: ["empty-state", "card", "button"],
+    code: "import { BlockEmptyStateBlock } from \"@/components/blocks/BlockEmptyStateBlock\";\n\nexport function EmptyProjects() {\n  return <BlockEmptyStateBlock />;\n}\n// Variants: variant=\"no-results\" and variant=\"error\" change the copy and the action discipline." },
+];
+
+/* The Phase 1 block set (Oeste Gap Plan, 2026-10-23). Shown on the
+   index as planned until each block is composed from the spec pack
+   (figma-libraries/topanga/blocks-spec.md) and lands in BLOCKS. */
+const PLANNED_BLOCKS = [
+  { id: "announcement-bar", name: "Announcement Bar", purpose: "A slim announcement bar above the navbar." },
+  { id: "navbar", name: "Navbar", purpose: "Site navigation with wordmark, links, and actions." },
+  { id: "hero", name: "Hero", purpose: "A first screen: headline, supporting line, primary actions." },
+  { id: "logo-cloud", name: "Logo Cloud", purpose: "A row of customer or partner marks." },
+  { id: "features", name: "Features", purpose: "A feature grid with a bento layout." },
+  { id: "stats-band", name: "Stats Band", purpose: "A band of headline numbers." },
+  { id: "pricing", name: "Pricing", purpose: "Pricing tiers with a featured plan." },
+  { id: "testimonials", name: "Testimonials", purpose: "Quotes from customers, with names and roles." },
+  { id: "faq", name: "FAQ", purpose: "Frequently asked questions in an accordion." },
+  { id: "blog-list", name: "Blog List", purpose: "A list of article cards with dates and excerpts." },
+  { id: "login", name: "Login", purpose: "A sign in and sign up card." },
+  { id: "empty-state", name: "Empty State", purpose: "A page-level empty state with guidance and next steps." },
+  { id: "cta", name: "CTA", purpose: "A closing call to action band." },
+  { id: "footer", name: "Footer", purpose: "A full site footer with link columns." },
+];
+
+/* Block demos are static HTML strings in the same spirit as the
+   component demos: real markup with the site's component classes,
+   wired by bindDemos() where a block is interactive. Filled per block
+   at compose time, from the spec pack. */
+function blkBars(data, label) {
+  const max = Math.max.apply(null, data.map((d) => d[1]));
+  const w = 320, h = 120, base = 100, bw = 28, gap = (w - data.length * bw) / (data.length + 1);
+  let rects = "", labels = "";
+  data.forEach((d, i) => {
+    const bh = Math.round((d[1] / max) * 84);
+    const x = Math.round(gap + i * (bw + gap));
+    rects += '<rect x="' + x + '" y="' + (base - bh) + '" width="' + bw + '" height="' + bh + '" style="fill:var(--color-accent)"></rect>';
+    labels += '<text x="' + (x + bw / 2) + '" y="116" text-anchor="middle" style="fill:var(--color-muted);font-size:10px">' + d[0] + "</text>";
+  });
+  const rows = data.map((d) => "<tr><th scope=\"row\">" + d[0] + "</th><td>" + d[1] + "</td></tr>").join("");
+  return '<svg role="img" aria-label="' + esc(label) + '" viewBox="0 0 ' + w + ' ' + h + '" width="100%" style="display:block" aria-hidden="false"><line x1="0" x2="' + w + '" y1="' + base + '" y2="' + base + '" style="stroke:var(--color-border)" stroke-width="1"></line>' + rects + labels + "</svg>"
+    + '<table class="sr-only"><caption>' + esc(label) + "</caption><tbody>" + rows + "</tbody></table>";
+}
+
+function blkDemoAnnouncementBar() {
+  return '<div class="blk-announce" data-blk-announce>'
+    + '<div class="blk-announce-in"><span class="badge badge-accent">New</span>'
+    + "<p>Fieldbook 2.0 is here: project pages now load twice as fast.</p>"
+    + '<span class="blk-announce-actions"><button type="button" class="btn btn-ghost btn-sm">See what changed</button>'
+    + '<button type="button" class="btn btn-ghost btn-sm" data-blk-dismiss>Dismiss</button></span></div>'
+    + '<hr class="blk-rule"></div>';
+}
+
+function blkDemoNavbar() {
+  const items = ["Product", "Pricing", "Journal", "About", "Start free"].map((l) => '<li><button type="button" role="menuitem" data-blk-menu-item>' + l + "</button></li>").join("");
+  return '<header class="blk-navwrap"><nav class="blk-nav" aria-label="Main">'
+    + '<a href="#" class="blk-wordmark">Fieldbook</a>'
+    + '<span class="blk-navlinks"><a href="#" aria-current="page" class="blk-navlink blk-navlink-current">Product</a><a href="#" class="blk-navlink">Pricing</a><a href="#" class="blk-navlink">Journal</a><a href="#" class="blk-navlink">About</a></span>'
+    + '<span class="blk-navright"><a href="#" class="blk-navlink blk-desktop-only">Sign in</a>'
+    + '<button type="button" class="btn btn-primary blk-desktop-only">Start free</button>'
+    + '<span class="dropdown-wrap blk-mobile-only"><button type="button" class="btn btn-ghost" data-blk-menu aria-haspopup="menu" aria-expanded="false">Menu</button>'
+    + '<ul class="dropdown-menu" role="menu" aria-label="Site sections" hidden data-blk-menu-panel>' + items + "</ul></span></span>"
+    + '</nav><hr class="blk-rule"></header>';
+}
+
+function blkDemoHero() {
+  return '<section class="blk-section"><div class="blk-inner"><div class="blk-hero-grid" style="margin-top:0">'
+    + '<div><span class="badge badge-accent">For small studios</span>'
+    + '<h2 class="blk-display">Every project, one calm page.</h2>'
+    + '<p class="blk-lede" style="font-size:1.125rem">Fieldbook keeps a project’s notes, decisions, and files on one page your whole studio can read at a glance. No digging through threads to find what was decided.</p>'
+    + '<div class="blk-actions"><button type="button" class="btn btn-primary">Start a project</button><button type="button" class="btn btn-secondary">See how it works</button></div>'
+    + '<div class="blk-proof"><span class="blk-avatars" aria-hidden="true"><span class="avatar">MC</span><span class="avatar">JW</span><span class="avatar">PN</span></span><p class="muted" style="margin:0">Trusted by 2,400 small studios.</p></div></div>'
+    + '<div class="blk-card"><h3>Projects this year</h3>'
+    + blkBars([["Feb", 18], ["Mar", 24], ["Apr", 21], ["May", 29], ["Jun", 33], ["Jul", 31]], "Projects completed per month: Feb 18, Mar 24, Apr 21, May 29, Jun 33, Jul 31.")
+    + '<p style="margin:20px 0 8px"><strong>Workspace migration</strong> — 68%</p>'
+    + '<div class="progress-track" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="Workspace migration"><div class="progress-fill" style="width:68%"></div></div>'
+    + '<p style="margin:16px 0 0"><span class="badge badge-success">On track</span></p></div>'
+    + '</div><hr class="blk-rule" style="margin-top:64px"></div></section>';
+}
+
+function blkDemoLogoCloud() {
+  const marks = ["Alder Studio", "Northlight", "Casa Verde", "Fern and Co", "Bluehour", "Atlas Ceramics"];
+  return '<section class="blk-section" style="padding-top:48px;padding-bottom:48px" aria-label="Studios using Fieldbook"><div class="blk-inner">'
+    + '<p class="muted" style="margin:0">Studios that keep their projects in Fieldbook</p>'
+    + '<hr class="blk-rule" style="margin-top:24px">'
+    + '<ul class="blk-marks">' + marks.map((m) => "<li>" + m + "</li>").join("") + "</ul>"
+    + '<hr class="blk-rule"></div></section>';
+}
+
+function blkDemoFeatures() {
+  const days = [[null, null, null, null, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10], [11, 12, 13, 14, 15, 16, 17], [18, 19, 20, 21, 22, 23, 24], [25, 26, 27, 28, 29, 30, 31]];
+  const cal = '<table class="cal-grid" aria-label="October 2026"><thead><tr>' + ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => '<th scope="col" style="text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-muted);padding:8px 0">' + d + "</th>").join("") + "</tr></thead><tbody>"
+    + days.map((week) => "<tr>" + week.map((d) => d === null ? "<td></td>" : '<td style="text-align:center;padding:2px"><button type="button" class="blk-day' + (d === 14 ? " blk-day-selected" : "") + '" data-blk-day aria-label="October ' + d + ', 2026' + (d === 14 ? ", selected" : "") + '"' + (d === 23 ? ' aria-current="date"' : "") + ">" + d + "</button></td>").join("") + "</tr>").join("") + "</tbody></table>";
+  return '<section class="blk-section"><div class="blk-inner">'
+    + '<div class="blk-head"><span class="badge badge-accent">Capabilities</span>'
+    + '<h2 class="blk-h2">Everything a project needs, nothing it does not</h2>'
+    + '<p class="blk-lede">Five capabilities carry a project from first note to final delivery. Each one is a working part of the page, not a picture of one.</p></div>'
+    + '<div class="blk-bento">'
+    + '<div class="blk-card blk-span2"><h3>Progress you can see</h3><p class="blk-muted" style="line-height:1.55;margin:0">The page chart updates as work lands, so a client sees the same shape of the project you do.</p><div style="margin-top:16px">' + blkBars([["W1", 12], ["W2", 19], ["W3", 15], ["W4", 22], ["W5", 26]], "Tasks finished per week: W1 12, W2 19, W3 15, W4 22, W5 26.") + "</div></div>"
+    + '<div class="blk-card blk-span2"><h3>Dates everyone shares</h3><p class="blk-muted" style="line-height:1.55;margin:0">Milestones sit on one calendar. Pick a day and the whole studio sees the same deadline.</p><div style="margin-top:16px;max-width:384px">' + cal + "</div></div>"
+    + '<div class="blk-card"><h3>Budgets that stay honest</h3><p class="blk-muted" style="line-height:1.55;margin:0">Hours logged against the estimate, visible before the overrun, not after.</p><p style="margin:16px 0 8px"><strong>Hours used of 120</strong> — 57%</p><div class="progress-track" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" aria-label="Hours used of 120"><div class="progress-fill" style="width:57%"></div></div></div>'
+    + '<div class="blk-card"><h3>Decisions on record</h3><p class="blk-muted" style="line-height:1.55;margin:0">Every decision lands in a table the client can read: what was decided, when, and by whom.</p><table style="width:100%;border-collapse:collapse;margin-top:8px"><caption style="text-align:left;font-weight:600;padding:8px 0">Recent decisions</caption><tbody>'
+    + [["Homepage direction B", "Oct 6"], ["Print run of 500", "Oct 9"], ["Launch moved to Nov", "Oct 12"]].map((r) => '<tr><td style="padding:8px 8px 8px 0;border-bottom:1px solid var(--color-border)">' + r[0] + '</td><td style="padding:8px 0;border-bottom:1px solid var(--color-border)">' + r[1] + "</td></tr>").join("") + "</tbody></table></div>"
+    + '<div class="blk-card blk-span2"><h3>Calm by default</h3><p class="blk-muted" style="line-height:1.55;margin:0">No feeds, no pings, no red dots. A project page is a place to read and write, and it behaves like one.</p><p style="margin:16px 0 0;display:flex;flex-wrap:wrap;gap:8px"><span class="badge">No notifications</span><span class="badge">No activity feed</span><span class="badge badge-accent">Weekly digest only</span></p></div>'
+    + "</div></div></section>";
+}
+
+function blkDemoStats() {
+  const figs = [
+    ["2,400", "studios run their projects in Fieldbook", null],
+    ["12,800", "projects completed last year", "Up 18 percent on the year before"],
+    ["96%", "of studios renew after the first year", null],
+    ["9 min", "median time to a first project page", null],
+  ];
+  return '<section class="blk-section"><div class="blk-inner"><hr class="blk-rule">'
+    + '<dl class="blk-stats" style="margin:0">' + figs.map((f) => '<div><dd class="blk-figure">' + f[0] + '</dd><dt class="blk-stat-label">' + f[1] + "</dt>" + (f[2] ? '<p style="margin:12px 0 0"><span class="badge badge-success">' + f[2] + "</span></p>" : "") + "</div>").join("") + "</dl>"
+    + '<p class="muted" style="margin:0 0 32px;font-size:0.875rem">From Fieldbook customer accounts, January to September 2026.</p>'
+    + '<hr class="blk-rule"></div></section>';
+}
+
+function blkDemoPricing() {
+  const plans = [
+    { name: "Starter", monthly: 12, annual: 9, audience: "For one person getting organised.", features: ["Up to 5 active projects", "Notes, decisions, and files on one page", "One collaborator per project", "Email support"], recommended: false, action: "Start with Starter" },
+    { name: "Studio", monthly: 24, annual: 18, audience: "For small studios working with clients.", features: ["Unlimited active projects", "Client-readable project pages", "Budgets and hour tracking", "Up to 15 seats included", "Priority support"], recommended: true, action: "Start with Studio" },
+    { name: "Practice", monthly: 48, annual: 36, audience: "For practices with several teams.", features: ["Everything in Studio", "Multiple workspaces", "Decision archive and exports", "Unlimited seats", "A named support contact"], recommended: false, action: "Start with Practice" },
+  ];
+  const card = (p) => '<div class="blk-card"><h3>' + p.name + "</h3>"
+    + (p.recommended ? '<p style="margin:0 0 16px"><span class="badge badge-accent">Recommended</span></p>' : "")
+    + '<p style="margin:0"><span style="font-size:2.5rem;font-weight:700;letter-spacing:-0.06em;line-height:1" data-blk-price data-monthly="' + p.monthly + '" data-annual="' + p.annual + '">$' + p.monthly + '</span> <span class="muted">per person, per month, billed <span data-blk-period-word>monthly</span></span></p>'
+    + '<p class="blk-muted" style="line-height:1.55;margin:12px 0 0">' + p.audience + "</p>"
+    + '<hr class="blk-rule" style="margin:20px 0">'
+    + '<ul style="list-style:none;margin:0;padding:0;line-height:1.9">' + p.features.map((f) => "<li>" + f + "</li>").join("") + "</ul>"
+    + '<hr class="blk-rule" style="margin:20px 0">'
+    + '<button type="button" class="btn ' + (p.recommended ? "btn-primary" : "btn-secondary") + '">' + p.action + "</button></div>";
+  return '<section class="blk-section"><div class="blk-inner">'
+    + '<div class="blk-head"><span class="badge badge-accent">Pricing</span>'
+    + '<h2 class="blk-h2">One price per person, every feature included</h2>'
+    + '<p class="blk-lede">Plans differ by scale, not by which features unlock. Pick the size of your studio; change plans whenever it changes.</p></div>'
+    + '<fieldset style="border:0;margin:32px 0 0;padding:0;max-width:420px"><legend style="font-weight:600;margin-bottom:8px">Billing period</legend>'
+    + '<label class="radio-row"><input type="radio" name="blk-period" value="monthly" checked> <span>Monthly</span></label>'
+    + '<label class="radio-row"><input type="radio" name="blk-period" value="annual"> <span>Annual<span class="muted" style="display:block;font-size:0.875rem">Annual billing saves 25 percent on every plan.</span></span></label></fieldset>'
+    + '<div class="blk-price-grid">' + plans.map(card).join("") + "</div>"
+    + '<p class="muted" style="margin:32px 0 0;font-size:0.875rem">Prices in US dollars. Cancel any time; annual plans are refunded pro rata for unused months.</p>'
+    + "</div></section>";
+}
+
+function blkDemoTestimonials() {
+  const quotes = [
+    { quote: "We stopped losing decisions in chat threads. Every call we make on a project sits on its page, and clients read the same page we do.", name: "Maya Chen", role: "Studio lead, Alder Studio", badge: "Studio plan" },
+    { quote: "Bringing a freelancer in takes an afternoon now. They read the project page and start; nobody has to brief them from memory.", name: "Jonas Weber", role: "Producer, Northlight", badge: null },
+    { quote: "Our end-of-project reviews write themselves. The page already holds what happened, in the order it happened, with the reasons attached.", name: "Priya Nair", role: "Founder, Fern and Co", badge: null },
+  ];
+  const initials = (n) => n.split(" ").map((w) => w[0]).join("");
+  return '<section class="blk-section"><div class="blk-inner">'
+    + '<div class="blk-head"><span class="badge badge-accent">Customers</span>'
+    + '<h2 class="blk-h2">Studios that switched, in their words</h2>'
+    + '<p class="blk-lede">Three studios on what changed once every project had one page.</p></div>'
+    + '<div class="blk-quote-grid">' + quotes.map((q) => '<div class="blk-card"><h3>' + q.name + '</h3><blockquote style="margin:0"><p style="line-height:1.55;margin:0">' + q.quote + '</p></blockquote><footer style="margin-top:20px;display:flex;align-items:center;gap:12px"><span class="avatar" aria-hidden="true">' + initials(q.name) + '</span><p class="muted" style="margin:0;font-size:0.875rem">' + q.role + "</p></footer>" + (q.badge ? '<p style="margin:16px 0 0"><span class="badge">' + q.badge + "</span></p>" : "") + "</div>").join("") + "</div>"
+    + "</div></section>";
+}
+
+function blkDemoFaq() {
+  const items = [
+    ["How much does Fieldbook cost?", "Plans run per person, per month: Starter is $12 monthly or $9 on annual billing, Studio is $24 or $18, and Practice is $48 or $36. Every plan includes every feature; plans differ by scale, not by unlocks."],
+    ["Is there a free trial?", "Yes. Every plan starts with 30 days free, and no card is asked for up front. If you do nothing at the end of the trial, the workspace simply pauses; your pages stay readable for another 60 days."],
+    ["Can clients read our project pages?", "Yes, on Studio and Practice plans. A client sees the page you share: notes, decisions, dates, and files, without needing an account or a login. You choose which pages are shared, and sharing can be withdrawn at any time."],
+    ["How do we move existing projects in?", "Most studios start with their active projects and leave the archive where it is. Notes paste in as text, files attach to the page, and a typical project page takes about nine minutes to set up. Imports from common note tools are supported on every plan."],
+    ["What happens to our pages if we cancel?", "Your pages export as plain files you keep, in full, including decisions and attachments. Cancellation takes effect at the end of the billing period, and annual plans are refunded pro rata for unused months."],
+    ["Who can see a project page inside our studio?", "Only the people you add to the workspace. A page is visible to its project members and to workspace owners; there is no public directory of pages, and nothing is indexed or shared outside your studio."],
+  ];
+  return '<section class="blk-section"><div class="blk-inner">'
+    + '<div class="blk-head"><h2 class="blk-h2" style="margin-top:0">Questions, answered plainly</h2>'
+    + '<p class="blk-lede">The six questions every studio asks before switching, with the short answer first.</p></div>'
+    + '<div style="max-width:880px;margin-top:40px"><div class="accordion">'
+    + items.map((it, i) => '<div class="accordion-item"><h3 style="margin:0"><button type="button" class="blk-acc-trigger" aria-expanded="false" data-blk-acc aria-controls="blkFaqPanel' + i + '" id="blkFaqTrig' + i + '">' + it[0] + ' <span class="acc-glyph" aria-hidden="true">+</span></button></h3><div id="blkFaqPanel' + i + '" role="region" aria-labelledby="blkFaqTrig' + i + '" hidden><p style="margin:12px 0 16px;line-height:1.55">' + it[1] + "</p></div></div>").join("")
+    + "</div></div>"
+    + '<div style="max-width:880px;margin-top:40px"><hr class="blk-rule"><div style="margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:16px"><p class="muted" style="margin:0">Still deciding? Talk it through with a person.</p><button type="button" class="btn btn-secondary">Contact support</button></div></div>'
+    + "</div></section>";
+}
+
+function blkDemoCta() {
+  return '<section class="blk-section"><div class="blk-inner"><div class="blk-card" style="padding:32px">'
+    + '<p style="margin:0 0 16px"><span class="badge">30 days free</span></p>'
+    + '<h2 class="blk-h2" style="margin-top:0">Give every project a calm page</h2>'
+    + '<p class="blk-lede">Set up a workspace in minutes, put one real project on a page, and see whether your studio reads it the way ours do.</p>'
+    + '<div class="blk-actions"><button type="button" class="btn btn-primary">Create your workspace</button><a href="#" style="display:inline-flex;align-items:center;min-height:44px;font-weight:600">Talk to us first</a></div>'
+    + "</div></div></section>";
+}
+
+function blkDemoFooter() {
+  const columns = [
+    ["Product", ["Features", "Pricing", "Journal", "Changelog"]],
+    ["Studio", ["About", "Customers", "Careers", "Contact"]],
+    ["Resources", ["Help centre", "Guides", "Community", "Status"]],
+  ];
+  return '<footer class="blk-section" style="padding-top:0;padding-bottom:40px"><div class="blk-inner"><hr class="blk-rule">'
+    + '<div class="blk-footer-grid"><div><p style="font-size:1.125rem;font-weight:700;letter-spacing:-0.025em;margin:0">Fieldbook</p>'
+    + '<p class="blk-muted" style="line-height:1.55;margin:12px 0 0;max-width:320px">A project journal for small studios: notes, decisions, and files on one calm page.</p></div>'
+    + '<nav class="blk-footer-cols" aria-label="Footer">' + columns.map((c) => "<div><h3>" + c[0] + "</h3><ul>" + c[1].map((l) => '<li><a href="#">' + l + "</a></li>").join("") + "</ul></div>").join("") + "</nav></div>"
+    + '<hr class="blk-rule"><div class="blk-legal"><p style="margin:0">Copyright 2026 Fieldbook Studio. All rights reserved.</p>'
+    + '<p class="blk-legal-links" style="margin:0"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Licence</a></p></div>'
+    + "</div></footer>";
+}
+
+function blkDemoLogin() {
+  const field = (id, label, type, auto, hint) => '<div class="field"><label for="' + id + '">' + label + '</label><input id="' + id + '" type="' + type + '" autocomplete="' + auto + '" data-blk-field="' + id + '">' + (hint ? '<p class="hint">' + hint + "</p>" : "") + '<p class="error" role="status" data-blk-err="' + id + '" hidden></p></div>';
+  const alert = '<div class="site-alert alert-danger" role="alert" data-blk-alert hidden style="margin-bottom:20px"><p style="margin:0;flex:1">We could not sign you in. Check the fields below and try again.</p></div>';
+  const providers = '<div class="blk-divider"><hr class="blk-rule"><span class="muted" style="font-size:0.875rem">or continue with</span><hr class="blk-rule"></div>'
+    + '<button type="button" class="btn btn-secondary blk-full-btn" style="margin-top:0">Continue with Google</button>'
+    + '<button type="button" class="btn btn-secondary blk-full-btn">Continue with Microsoft</button>';
+  const signin = '<form data-blk-authform novalidate>' + alert
+    + field("blkEmail", "Email address", "email", "email", "")
+    + '<div style="margin-top:16px">' + field("blkPassword", "Password", "password", "current-password", "") + "</div>"
+    + '<div style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px"><label style="display:flex;gap:12px;align-items:center;min-height:44px"><input type="checkbox" style="width:20px;height:20px;accent-color:var(--color-accent)"> <span>Remember me</span></label><a href="#" style="margin-left:auto;font-weight:600">Forgot password</a></div>'
+    + '<button type="submit" class="btn btn-primary blk-full-btn">Sign in</button></form>';
+  const create = '<form data-blk-authform novalidate>' + alert
+    + field("blkName", "Your name", "text", "name", "")
+    + '<div style="margin-top:16px">' + field("blkEmail2", "Email address", "email", "email", "") + "</div>"
+    + '<div style="margin-top:16px">' + field("blkPassword2", "Password", "password", "new-password", "At least 12 characters, or a passphrase you can remember.") + "</div>"
+    + '<button type="submit" class="btn btn-primary blk-full-btn">Create account</button></form>';
+  return '<section class="blk-section"><div class="blk-login-wrap"><div class="blk-card">'
+    + '<h2 style="font-size:1.5rem;font-weight:500;margin:0" data-blk-auth-title>Sign in</h2>'
+    + '<p class="blk-muted" style="line-height:1.55;margin:12px 0 24px" data-blk-auth-sub>Welcome back. Pick up your projects where you left them.</p>'
+    + '<div class="tablist" role="tablist" aria-label="Account mode">'
+    + '<button type="button" class="tab-btn active" role="tab" aria-selected="true" data-blk-authtab="signin">Sign in</button>'
+    + '<button type="button" class="tab-btn" role="tab" aria-selected="false" data-blk-authtab="create">Create account</button></div>'
+    + '<div data-blk-authpanel="signin" style="padding-top:20px">' + signin + providers + "</div>"
+    + '<div data-blk-authpanel="create" style="padding-top:20px" hidden>' + create + providers + "</div>"
+    + '</div><p class="muted" style="text-align:center;font-size:0.875rem;line-height:1.55;margin:24px 0 0" data-blk-auth-foot>New to Fieldbook? <a href="#" style="font-weight:600">Create an account</a> By continuing you agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</p>'
+    + "</div></section>";
+}
+
+function blkDemoBlog() {
+  const posts = [
+    { category: "Process", title: "The one-page project brief", excerpt: "A project brief that fits on one page forces the decisions that matter to the top. Here is the shape our studio uses, and the questions it answers before work starts.", author: "Maya Chen", date: "October 20, 2026", minutes: 6, featured: true },
+    { category: "Process", title: "Decisions are deliverables too", excerpt: "Every project produces decisions as well as files. Recording them where the work lives saves the end-of-project archaeology dig.", author: "Jonas Weber", date: "October 14, 2026", minutes: 4, featured: false },
+    { category: "Studio life", title: "Fewer meetings, longer notes", excerpt: "We replaced the Monday status meeting with a written page update. What changed, and what we had to learn to write clearly.", author: "Priya Nair", date: "October 8, 2026", minutes: 5, featured: false },
+    { category: "Craft", title: "Naming files so future you says thanks", excerpt: "A small convention for file names that survives handovers, clients, and the passage of time. It takes one sentence to state.", author: "Maya Chen", date: "September 30, 2026", minutes: 3, featured: false },
+    { category: "Process", title: "What to write in the weekly update", excerpt: "Three short sections cover a week of project work: what changed, what was decided, what happens next. Anything else is decoration.", author: "Jonas Weber", date: "September 22, 2026", minutes: 4, featured: false },
+    { category: "Craft", title: "Handovers without the handover meeting", excerpt: "A project page that a colleague can pick up cold is a design problem, not a documentation problem. These are the pieces that make it work.", author: "Priya Nair", date: "September 15, 2026", minutes: 7, featured: false },
+  ];
+  const initials = (n) => n.split(" ").map((w) => w[0]).join("");
+  const card = (p) => '<article class="blk-card blk-post" data-blk-post data-cat="' + esc(p.category) + '">'
+    + '<div class="blk-cover"><span class="badge">' + p.category + "</span>" + (p.featured ? '<span class="badge badge-accent">Featured</span>' : "") + "</div>"
+    + '<h3><a href="#" style="color:var(--color-text);text-decoration:none">' + p.title + '</a></h3>'
+    + '<p class="blk-muted" style="line-height:1.55;margin:0">' + p.excerpt + "</p>"
+    + '<p style="margin:16px 0 0;display:flex;align-items:center;gap:12px;font-size:0.875rem" class="muted"><span class="avatar" aria-hidden="true">' + initials(p.author) + "</span><span>" + p.author + " · " + p.date + " · " + p.minutes + " min read</span></p></article>";
+  const cats = ["All", "Process", "Studio life", "Craft"];
+  return '<section class="blk-section"><div class="blk-inner">'
+    + '<h2 class="blk-h2" style="margin-top:0">The Fieldbook journal</h2>'
+    + '<p class="blk-lede">Notes on running small studio projects with less noise: process, craft, and studio life.</p>'
+    + '<hr class="blk-rule" style="margin:32px 0">'
+    + '<div data-blk-blog><div class="tablist" role="tablist" aria-label="Article categories">'
+    + cats.map((c, i) => '<button type="button" class="tab-btn' + (i === 0 ? " active" : "") + '" role="tab" aria-selected="' + (i === 0) + '" data-blk-tab="' + esc(c) + '">' + c + "</button>").join("")
+    + '</div><p class="muted" role="status" data-blk-count style="margin:16px 0 0"></p>'
+    + '<div data-blk-posts>' + posts.map(card).join("") + "</div>"
+    + '<nav class="pagination" aria-label="Pagination" style="margin-top:32px"><button type="button" class="page-btn" data-blk-prev>Previous</button><span data-blk-pages></span><button type="button" class="page-btn" data-blk-next>Next</button></nav></div>'
+    + "</div></section>";
+}
+
+function blkDemoEmptyState() {
+  return '<section class="blk-section"><div class="blk-inner"><div class="blk-card"><h3>Projects</h3>'
+    + '<div class="blk-empty"><p aria-hidden="true" style="font-size:1.875rem;line-height:1;margin:0">○</p>'
+    + '<h3 style="margin-top:12px">No projects yet</h3>'
+    + '<p class="blk-muted" style="line-height:1.55;margin:8px auto 0;max-width:448px">Your first project page will hold its notes, decisions, and files in one place.</p>'
+    + '<p style="margin:20px 0 0"><button type="button" class="btn btn-primary">Create a project</button></p></div>'
+    + "</div></div></section>";
+}
+
+function blockDemoHTML(b) {
+  switch (b.id) {
+    case "announcement-bar": return blkDemoAnnouncementBar();
+    case "navbar": return blkDemoNavbar();
+    case "hero": return blkDemoHero();
+    case "logo-cloud": return blkDemoLogoCloud();
+    case "features-bento": return blkDemoFeatures();
+    case "stats-band": return blkDemoStats();
+    case "pricing": return blkDemoPricing();
+    case "testimonials": return blkDemoTestimonials();
+    case "faq": return blkDemoFaq();
+    case "cta": return blkDemoCta();
+    case "footer": return blkDemoFooter();
+    case "login-auth": return blkDemoLogin();
+    case "blog-list": return blkDemoBlog();
+    case "empty-state-block": return blkDemoEmptyState();
+    default: return "";
+  }
+}
+
+function bindBlockDemos() {
+  const frame = document.querySelector(".block-frame");
+  if (!frame) return;
+  // Placeholder links inside a stage never navigate the docs page away.
+  frame.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener("click", (e) => e.preventDefault()));
+  // Announcement bar: dismiss hides the band for this view.
+  const dismiss = frame.querySelector("[data-blk-dismiss]");
+  if (dismiss) dismiss.addEventListener("click", () => { const band = frame.querySelector("[data-blk-announce]"); if (band) band.hidden = true; });
+  // Navbar mobile menu: toggle the dropdown panel.
+  const menuBtn = frame.querySelector("[data-blk-menu]");
+  if (menuBtn) {
+    const panel = frame.querySelector("[data-blk-menu-panel]");
+    menuBtn.addEventListener("click", () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+    panel.querySelectorAll("[data-blk-menu-item]").forEach((item) => item.addEventListener("click", () => { panel.hidden = true; menuBtn.setAttribute("aria-expanded", "false"); menuBtn.focus(); }));
+  }
+  // Features calendar inset: day buttons move the selection.
+  frame.querySelectorAll("[data-blk-day]").forEach((btn) => btn.addEventListener("click", () => {
+    frame.querySelectorAll("[data-blk-day]").forEach((b2) => { b2.classList.remove("blk-day-selected"); b2.setAttribute("aria-label", b2.getAttribute("aria-label").replace(", selected", "")); });
+    btn.classList.add("blk-day-selected");
+    btn.setAttribute("aria-label", btn.getAttribute("aria-label") + ", selected");
+  }));
+  // Pricing: the billing period radios update every price figure.
+  frame.querySelectorAll('input[name="blk-period"]').forEach((radio) => radio.addEventListener("change", () => {
+    const annual = radio.value === "annual" && radio.checked;
+    const period = frame.querySelector('input[name="blk-period"]:checked');
+    const isAnnual = period && period.value === "annual";
+    frame.querySelectorAll("[data-blk-price]").forEach((el) => { el.textContent = "$" + (isAnnual ? el.dataset.annual : el.dataset.monthly); });
+    frame.querySelectorAll("[data-blk-period-word]").forEach((el) => { el.textContent = isAnnual ? "annually" : "monthly"; });
+  }));
+  // FAQ accordion: one open at a time, matching the component default.
+  frame.querySelectorAll("[data-blk-acc]").forEach((trig) => trig.addEventListener("click", () => {
+    const panel = document.getElementById(trig.getAttribute("aria-controls"));
+    const willOpen = panel.hidden;
+    frame.querySelectorAll("[data-blk-acc]").forEach((t2) => {
+      const p2 = document.getElementById(t2.getAttribute("aria-controls"));
+      if (p2) p2.hidden = true;
+      t2.setAttribute("aria-expanded", "false");
+    });
+    frame.querySelectorAll("[data-blk-acc] .acc-glyph").forEach((g) => { g.textContent = "+"; });
+    if (willOpen) { panel.hidden = false; trig.setAttribute("aria-expanded", "true"); const g = trig.querySelector(".acc-glyph"); if (g) g.textContent = "\u2212"; }
+  }));
+  // Login: mode tabs switch the two forms, heading, subline, foot line.
+  const authTabs = frame.querySelectorAll("[data-blk-authtab]");
+  if (authTabs.length) {
+    const title = frame.querySelector("[data-blk-auth-title]");
+    const sub = frame.querySelector("[data-blk-auth-sub]");
+    const foot = frame.querySelector("[data-blk-auth-foot]");
+    authTabs.forEach((tab) => tab.addEventListener("click", () => {
+      const mode = tab.dataset.blkAuthtab;
+      authTabs.forEach((t2) => { const on = t2 === tab; t2.classList.toggle("active", on); t2.setAttribute("aria-selected", String(on)); });
+      frame.querySelectorAll("[data-blk-authpanel]").forEach((p) => { p.hidden = p.dataset.blkAuthpanel !== mode; });
+      if (mode === "create") {
+        title.textContent = "Create account";
+        sub.textContent = "Start your studio workspace. Set up takes a few minutes.";
+        foot.innerHTML = 'Already have an account? <a href="#" style="font-weight:600">Sign in</a> By continuing you agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.';
+      } else {
+        title.textContent = "Sign in";
+        sub.textContent = "Welcome back. Pick up your projects where you left them.";
+        foot.innerHTML = 'New to Fieldbook? <a href="#" style="font-weight:600">Create an account</a> By continuing you agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.';
+      }
+      foot.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener("click", (e) => e.preventDefault()));
+    }));
+  }
+  // Login forms: submit validates and surfaces the alert plus field errors.
+  frame.querySelectorAll("[data-blk-authform]").forEach((form) => form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let bad = false;
+    form.querySelectorAll("[data-blk-field]").forEach((input) => {
+      const err = form.querySelector('[data-blk-err="' + input.dataset.blkField + '"]');
+      let msg = "";
+      if (input.type === "email" && !input.value.includes("@")) msg = "Enter the email address for your account, including the @ and the domain.";
+      if (input.type === "password" && !input.value) msg = "Enter your password. If you have forgotten it, use the forgot password link below.";
+      if (msg) bad = true;
+      if (err) { err.textContent = msg; err.hidden = !msg; }
+      input.setAttribute("aria-invalid", String(!!msg));
+    });
+    const alert = form.querySelector("[data-blk-alert]");
+    if (alert) alert.hidden = !bad;
+  }));
+  // Blog list: category tabs filter, pagination pages within the filter.
+  const blog = frame.querySelector("[data-blk-blog]");
+  if (blog) {
+    const cards = [...blog.querySelectorAll("[data-blk-post]")];
+    const count = blog.querySelector("[data-blk-count]");
+    const pagesBox = blog.querySelector("[data-blk-pages]");
+    const prev = blog.querySelector("[data-blk-prev]");
+    const next = blog.querySelector("[data-blk-next]");
+    const PAGE_SIZE = 5;
+    let cat = "All", page = 1;
+    const renderBlog = () => {
+      const list = cards.filter((c) => cat === "All" || c.dataset.cat === cat);
+      const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+      if (page > totalPages) page = totalPages;
+      cards.forEach((c) => { c.hidden = true; });
+      list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).forEach((c) => { c.hidden = false; });
+      count.textContent = list.length + (list.length === 1 ? " article" : " articles") + " in " + (cat === "All" ? "all categories" : cat) + ".";
+      pagesBox.innerHTML = "";
+      for (let i = 1; i <= totalPages; i++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "page-btn";
+        b.textContent = String(i);
+        if (i === page) b.setAttribute("aria-current", "page");
+        b.addEventListener("click", () => { page = i; renderBlog(); });
+        pagesBox.appendChild(b);
+      }
+      prev.disabled = page <= 1;
+      next.disabled = page >= totalPages;
+    };
+    blog.querySelectorAll("[data-blk-tab]").forEach((tab) => tab.addEventListener("click", () => {
+      cat = tab.dataset.blkTab;
+      page = 1;
+      blog.querySelectorAll("[data-blk-tab]").forEach((t2) => { const on = t2 === tab; t2.classList.toggle("active", on); t2.setAttribute("aria-selected", String(on)); });
+      renderBlog();
+    }));
+    prev.addEventListener("click", () => { if (page > 1) { page--; renderBlog(); } });
+    next.addEventListener("click", () => { page++; renderBlog(); });
+    renderBlog();
+  }
+}
+
+const blockStageState = { view: "desktop", theme: null };
+function blockStageHTML(b) {
+  const theme = blockStageState.theme || currentTheme();
+  return '<div class="block-tools">'
+    + '<span class="block-tools-group" role="group" aria-label="Preview width">'
+    + '<button type="button" class="stage-btn" data-stage-view="desktop" aria-pressed="' + (blockStageState.view === "desktop") + '">Desktop</button>'
+    + '<button type="button" class="stage-btn" data-stage-view="mobile" aria-pressed="' + (blockStageState.view === "mobile") + '">Mobile</button></span>'
+    + '<span class="block-tools-group" role="group" aria-label="Preview theme">'
+    + '<button type="button" class="stage-btn" data-stage-theme="light" aria-pressed="' + (theme === "light") + '">Light</button>'
+    + '<button type="button" class="stage-btn" data-stage-theme="dark" aria-pressed="' + (theme === "dark") + '">Dark</button></span></div>'
+    + '<div class="block-stage" data-theme="' + theme + '"><div class="block-frame" data-view="' + blockStageState.view + '">' + blockDemoHTML(b) + "</div></div>";
+}
+function bindBlockStage() {
+  const stage = document.querySelector(".block-stage");
+  if (!stage) return;
+  const frame = stage.querySelector(".block-frame");
+  document.querySelectorAll("[data-stage-view]").forEach((btn) => btn.addEventListener("click", () => {
+    blockStageState.view = btn.dataset.stageView;
+    frame.dataset.view = blockStageState.view;
+    document.querySelectorAll("[data-stage-view]").forEach((b2) => b2.setAttribute("aria-pressed", String(b2 === btn)));
+  }));
+  document.querySelectorAll("[data-stage-theme]").forEach((btn) => btn.addEventListener("click", () => {
+    blockStageState.theme = btn.dataset.stageTheme;
+    stage.dataset.theme = blockStageState.theme;
+    document.querySelectorAll("[data-stage-theme]").forEach((b2) => b2.setAttribute("aria-pressed", String(b2 === btn)));
+  }));
+}
+
+function renderBlocksIndex() {
+  let body = '<p class="eyebrow">Library</p><h1>Blocks</h1><p class="lede">Full page sections composed from Topanga components. Every block installs on its own through the registry. Blocks carry their own count: they are not components, and the component count does not move.</p>';
+  if (BLOCKS.length) {
+    body += '<div class="index-list">' + BLOCKS.map((b, i) => '<a class="index-row" href="#/blocks/' + b.id + '"><span><strong>' + esc(b.name) + '</strong><br><span class="muted">' + esc(b.tagline) + '</span></span><span class="pill">' + String(i + 1).padStart(2, "0") + " / " + String(BLOCKS.length).padStart(2, "0") + "</span></a>").join("") + "</div>";
+  } else {
+    body += "<p>No blocks have landed yet. The section, its registry path (<code>r/&lt;id&gt;.json</code>, type registry:block), and its manifest (<code>blocks.json</code>) are in place. Each block below appears here with a staged preview, light and dark, desktop and mobile, as it is composed from the block spec.</p>";
+    body += '<h2>Planned blocks</h2><div class="index-list">' + PLANNED_BLOCKS.map((b) => '<div class="index-row"><span><strong>' + esc(b.name) + '</strong><br><span class="muted">' + esc(b.purpose) + '</span></span><span class="pill">Planned</span></div>').join("") + "</div>";
+  }
+  return body;
+}
+
+function renderBlockNotFound(id) {
+  return '<p class="eyebrow">Blocks</p><h1>Block not found</h1><p class="lede">There is no block called <code>' + esc(id) + '</code> in Topanga yet.</p>'
+    + '<p><a href="#/blocks">Browse all Topanga blocks</a></p>';
+}
+
+function renderBlock(id) {
+  const b = BLOCKS.find((x) => x.id === id);
+  if (!b) return renderBlockNotFound(id);
+  const cli = "npx shadcn@latest add https://oeste.hiddeninwest.com/topanga/r/" + b.id + ".json";
+  const usedNames = b.uses.map((u) => { const c = COMPONENTS.find((x) => x.id === u); return c ? '<a href="#/components/' + c.id + '">' + esc(c.name) + "</a>" : esc(u); }).join(", ");
+  let body = '<p class="eyebrow">Blocks · ' + esc(b.name) + "</p><h1>" + esc(b.name) + '</h1><p class="lede">' + esc(b.tagline) + "</p>";
+  body += blockStageHTML(b);
+  body += "<h2>Built from</h2><p>" + usedNames + ". Nothing else: a block is only its components, composed.</p>";
+  body += "<h2>Install</h2><p>Blocks install through the same registry as components. The registry file inlines every component the block uses, so one command is the whole block.</p>";
+  body += '<div class="code-head"><h3>CLI</h3><button type="button" class="copy-btn" data-copy="' + esc(cli) + '">Copy CLI</button></div><pre>' + esc(cli) + "</pre>";
+  if (b.code) body += '<div class="code-head"><h3>React code</h3><button type="button" class="copy-btn" data-copy="' + esc(b.code) + '">Copy code</button></div><pre>' + esc(b.code) + "</pre>";
+  return body;
+}
+
 function anatomyRows(c) {
   return (c.anatomy || []).map((a) => {
     const m = String(a).match(/^(.*?)\s*\(([^)]+)\)\s*$/);
@@ -1850,6 +2354,7 @@ function render() {
   document.querySelectorAll(".nav-link").forEach((a) => a.classList.remove("active"));
   if (route === "home") view.innerHTML = renderHome();
   else if (route === "components") { view.innerHTML = id ? renderComponent(id, lens) : renderComponentsIndex(); }
+  else if (route === "blocks") { view.innerHTML = id ? renderBlock(id) : renderBlocksIndex(); }
   else if (route === "tokens") view.innerHTML = renderTokens();
   else if (route === "getting-started") view.innerHTML = renderGettingStarted();
   else if (route === "theming") view.innerHTML = renderTheming();
@@ -1867,8 +2372,11 @@ function render() {
   const active = document.querySelector('.nav-link[href="#/' + route + '"]');
   if (active) active.classList.add("active");
   document.querySelectorAll("#componentNav a").forEach((a) => a.classList.toggle("active", route === "components" && a.getAttribute("href").includes(id)));
+  document.querySelectorAll("#blockNav a").forEach((a) => a.classList.toggle("active", route === "blocks" && a.getAttribute("href").includes(id)));
   highlightAll();
   bindDemos();
+  bindBlockStage();
+  bindBlockDemos();
   bindPlayground();
   bindNotFound();
   playOesteEntrance(view);
@@ -1893,6 +2401,7 @@ const SEARCH_DOCS = [
   { title: "Migration", desc: "Adopting Oeste, from scratch or from the earlier preview.", route: "#/migration", keys: "migration upgrade preview" },
   { title: "FAQ", desc: "Is it an npm package? Tailwind v3/v4? React setups? Commercial use?", route: "#/faq", keys: "faq npm package tailwind react commercial license issue bug" },
   { title: "Components", desc: "All components in the library — browse the full index.", route: "#/components", keys: "components list index browse all" },
+  { title: "Blocks", desc: "Full page sections composed from Topanga components. Own count, same registry.", route: "#/blocks", keys: "blocks sections hero pricing navbar footer page template" },
   { title: "Home", desc: "Three libraries. Three lenses.", route: "#/home", keys: "home overview" },
 ];
 const SEARCH_TOKENS = [
@@ -1938,7 +2447,7 @@ function initSearch() {
   const input = document.getElementById("siteSearch");
   const box = document.getElementById("searchResults");
   let facet = "all";
-  const FACETS = [["all", "All"], ["components", "Components"], ["tokens", "Tokens"], ["docs", "Docs"]];
+  const FACETS = [["all", "All"], ["components", "Components"], ["blocks", "Blocks"], ["tokens", "Tokens"], ["docs", "Docs"]];
   function hide() { box.hidden = true; box.innerHTML = ""; input.setAttribute("aria-expanded", "false"); }
   function matches(hay, terms) { return terms.every((t) => hay.includes(t)); }
   function collect(q) {
@@ -1948,6 +2457,12 @@ function initSearch() {
       COMPONENTS.forEach((c) => {
         const hay = (c.name + " " + c.tagline + " " + c.props.map((p) => p[0]).join(" ") + " " + c.invariants.join(" ")).toLowerCase();
         if (matches(hay, terms)) out.push({ group: "Components", title: c.name, sub: c.tagline, route: "#/components/" + c.id });
+      });
+    }
+    if (facet === "all" || facet === "blocks") {
+      BLOCKS.forEach((b) => {
+        const hay = (b.name + " " + b.tagline + " block section " + b.uses.join(" ")).toLowerCase();
+        if (matches(hay, terms)) out.push({ group: "Blocks", title: b.name, sub: b.tagline, route: "#/blocks/" + b.id });
       });
     }
     if (facet === "all" || facet === "tokens") {
@@ -2014,6 +2529,7 @@ function initSearch() {
 function init() {
   ensureOesteDocsStyles();
   document.getElementById("componentNav").innerHTML = COMPONENTS.map((c) => '<a class="nav-link" href="#/components/' + c.id + '">' + esc(c.name) + "</a>").join("");
+  document.getElementById("blockNav").innerHTML = BLOCKS.map((b) => '<a class="nav-link" href="#/blocks/' + b.id + '">' + esc(b.name) + "</a>").join("");
   const saved = localStorage.getItem("oeste-theme");
   setTheme(saved === "dark" ? "dark" : "light");
   document.getElementById("themeToggle").addEventListener("click", () => setTheme(currentTheme() === "light" ? "dark" : "light"));

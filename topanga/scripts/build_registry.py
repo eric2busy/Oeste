@@ -239,7 +239,193 @@ def main():
     if write_if_changed(ROOT / "components.json", json.dumps(manifest, indent=1) + "\n"):
         changed += 1
 
+    # --- blocks (src/blocks.js): full page sections composed from the
+    # components above. Blocks install through the SAME registry path
+    # as components (r/<id>.json, type registry:block; block slugs never
+    # collide with component ids) and carry their OWN manifest
+    # (blocks.json) and count; they never enter components.json or
+    # r/registry.json, so the component count is untouched. Each block
+    # file inlines every component it uses (transitively), same as
+    # components inline their sibling deps, so it stays self-contained.
+    # BLOCK_DOCS `uses` declares the components the block composes:
+    # the ones it renders directly plus any it is responsible for
+    # through a direct dep (Button inside EmptyState, Calendar inside
+    # DatePicker). The builder fails if the code renders a component
+    # directly without declaring it, or declares one that never
+    # reaches the file; the full transitive closure is recorded as
+    # `includes` / registryDependencies. ---
+    BLOCK_HEADER = """// Oeste {name} — Topanga block (v{version}).
+// A full page section composed from Oeste components, inlined below so
+// this file is self-contained. Copy-paste ready. Requires: React 18+,
+// Tailwind with dark: variant, JSX transform.
+// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).
+// Source: https://github.com/eric2busy/Oeste/blob/main/src/blocks.js
+// Docs: https://oeste.hiddeninwest.com/#/blocks/{id}
+"""
+    blocks_path = ROOT / "src" / "blocks.js"
+    block_items = []
+    # Previous manifest: the builder owns the flat r/<block-id>.json
+    # files of ids it emitted before, so a removed block leaves no stale
+    # registry item behind. Component ids are never touched.
+    prev_block_ids = []
+    if (ROOT / "blocks.json").exists():
+        try:
+            prev_block_ids = [b["id"] for b in
+                              json.loads((ROOT / "blocks.json").read_text()).get("blocks", [])]
+        except Exception:
+            prev_block_ids = []
+    if blocks_path.exists():
+        btext = blocks_path.read_text()
+        bfn_names = re.findall(r"^export function (\w+)\(", btext, re.M)
+        bfn_src = {name: extract_top_level(btext, rf"^export function {name}\(") for name in bfn_names}
+        bconst_names = re.findall(r"^const (\w+) = ", btext, re.M)
+        bconst_src = {name: extract_top_level(btext, rf"^const {name} = ") for name in bconst_names}
+        bmeta = {}
+        if "export const BLOCK_DOCS" in btext:
+            bdocs = btext.split("export const BLOCK_DOCS", 1)[1]
+            for entry in re.split(r"\n  \{\n    id: ", bdocs)[1:]:
+                idm = re.match(r'"([^"]+)"', entry)
+                namem = re.search(r'name: "((?:[^"\\]|\\.)*)"', entry)
+                tagm = re.search(r'tagline: "((?:[^"\\]|\\.)*)"', entry)
+                catm = re.search(r'category: "((?:[^"\\]|\\.)*)"', entry)
+                usem = re.search(r"uses: \[([^\]]*)\]", entry)
+                if not idm or not namem or not tagm or not catm or not usem:
+                    print(f"FAIL: could not parse a BLOCK_DOCS entry near: {entry[:120]!r}", file=sys.stderr)
+                    return 1
+                bmeta[idm.group(1)] = {
+                    "name": namem.group(1), "tagline": tagm.group(1),
+                    "category": catm.group(1),
+                    "uses": re.findall(r'"([^"]+)"', usem.group(1)),
+                }
+        if len(bmeta) != len(bfn_names):
+            print(f"FAIL: BLOCK_DOCS has {len(bmeta)} entries but {len(bfn_names)} block functions", file=sys.stderr)
+            return 1
+        all_fn_src = dict(fn_src)
+        all_fn_src.update(bfn_src)
+        by_norm_all = {norm(n): n for n in all_fn_src}
+        fn_to_cid = {v: k for k, v in ((cid, by_norm.get(norm(cid))) for cid in meta) if v}
+        fn_to_bid = {}
+        for bid in bmeta:
+            fn = by_norm_all.get(norm("Block" + bid))
+            if fn:
+                fn_to_bid[fn] = bid
+        for bid, bm in sorted(bmeta.items()):
+            if bid in meta:
+                print(f"FAIL: block id {bid!r} collides with a component id", file=sys.stderr)
+                return 1
+            export_name = by_norm_all.get(norm("Block" + bid))
+            if not export_name or export_name not in bfn_src:
+                print(f"FAIL: no block export function for block id {bid!r} (expected a Block-prefixed export)", file=sys.stderr)
+                return 1
+            body = bfn_src[export_name]
+            direct = [n for n in all_fn_src
+                      if n != export_name and re.search(rf"<{n}[\s>/]", body)]
+            direct_cids = sorted({fn_to_cid[d] for d in direct if d in fn_to_cid})
+            undeclared = [c for c in direct_cids if c not in bm["uses"]]
+            if undeclared:
+                print(f"FAIL: block {bid!r} directly composes {undeclared} but does not declare them in uses={sorted(bm['uses'])}", file=sys.stderr)
+                return 1
+            seen = set()
+            queue = list(direct)
+            while queue:
+                d = queue.pop(0)
+                if d in seen:
+                    continue
+                seen.add(d)
+                for n2 in all_fn_src:
+                    if n2 != d and n2 not in seen and re.search(rf"<{n2}[\s>/]", all_fn_src[d]):
+                        queue.append(n2)
+            dep_names = sorted(seen)
+            includes = sorted({fn_to_cid[d] for d in dep_names if d in fn_to_cid})
+            phantom = [c for c in bm["uses"] if c not in includes]
+            if phantom:
+                print(f"FAIL: block {bid!r} declares uses {phantom} but they never reach the file (closure is {includes})", file=sys.stderr)
+                return 1
+            dep_bids = sorted({fn_to_bid[d] for d in dep_names if d in fn_to_bid})
+            needed = [c for c in const_names if re.search(rf"\b{c}\b", body)]
+            bneeded = [c for c in bconst_names if re.search(rf"\b{c}\b", body)]
+            dep_bodies = "".join(all_fn_src[d] for d in dep_names)
+            for c in const_names:
+                if c not in needed and re.search(rf"\b{c}\b", dep_bodies):
+                    needed.append(c)
+            for c in bconst_names:
+                if c not in bneeded and re.search(rf"\b{c}\b", dep_bodies):
+                    bneeded.append(c)
+            body_src = ""
+            for c in needed:
+                body_src += "\n" + const_src[c]
+            for c in bneeded:
+                body_src += "\n" + bconst_src[c]
+            for d in dep_names:
+                body_src += "\n" + all_fn_src[d]
+            body_src += "\n" + body
+            content = BLOCK_HEADER.format(name=export_name, version=VERSION, id=bid)
+            if re.search(r"\bReact\.", body_src):
+                content += 'import React from "react";\n'
+            content += body_src
+            for c in const_names + bconst_names:
+                if c not in needed and c not in bneeded and re.search(rf"\b{c}\b", content):
+                    print(f"FAIL: block {export_name} content references {c} without including it", file=sys.stderr)
+                    return 1
+            if re.search(r"\bReact\.", content) and "import React from" not in content:
+                print(f"FAIL: block {export_name} uses React.* without importing React", file=sys.stderr)
+                return 1
+            block_items.append({
+                "id": bid, "name": bm["name"], "export": export_name,
+                "tagline": bm["tagline"], "category": bm["category"],
+                "content": content, "uses": sorted(bm["uses"]),
+                "includes": includes, "deps": sorted(set(includes) | set(dep_bids)),
+            })
+
+    live_block_ids = {it["id"] for it in block_items}
+    for it in block_items:
+        item = {
+            "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+            "name": it["id"],
+            "type": "registry:block",
+            "title": it["export"],
+            "description": it["tagline"],
+            "registryDependencies": it["deps"],
+            "files": [{
+                "path": f"blocks/{it['export']}.jsx",
+                "content": it["content"],
+                "type": "registry:block",
+            }],
+            "docs": f"{SITE_BASE}/#/blocks/{it['id']}",
+            "categories": ["oeste", "blocks", it["category"].lower()],
+        }
+        if write_if_changed(RDIR / f"{it['id']}.json", json.dumps(item, indent=1) + "\n"):
+            changed += 1
+    for old_id in prev_block_ids:
+        if old_id not in live_block_ids and old_id not in meta:
+            stale = RDIR / f"{old_id}.json"
+            if stale.exists():
+                stale.unlink()
+                changed += 1
+
+    blocks_manifest = {
+        "name": "oeste-topanga-blocks",
+        "version": VERSION,
+        "registryBase": SITE_BASE + "/r/",
+        "count": len(block_items),
+        "blocks": [{
+            "id": it["id"],
+            "name": it["name"],
+            "export": it["export"],
+            "description": it["tagline"],
+            "category": it["category"],
+            "registryUrl": f"{SITE_BASE}/r/{it['id']}.json",
+            "githubRawUrl": f"{GITHUB_RAW}{it['id']}.json",
+            "docsUrl": f"#/blocks/{it['id']}",
+            "uses": it["uses"],
+            "includes": it["includes"],
+        } for it in block_items],
+    }
+    if write_if_changed(ROOT / "blocks.json", json.dumps(blocks_manifest, indent=1) + "\n"):
+        changed += 1
+
     print(f"OK: {len(items)} registry items + registry.json + components.json (v{VERSION}, {changed} files changed)")
+    print(f"OK: {len(block_items)} block items + blocks.json (own count; components stay {len(items)})")
     return 0
 
 

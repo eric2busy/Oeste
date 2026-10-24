@@ -1,0 +1,23 @@
+{
+ "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+ "name": "logo-cloud",
+ "type": "registry:block",
+ "title": "BlockLogoCloud",
+ "description": "A ruled band of customer wordmarks set as text.",
+ "registryDependencies": [
+  "separator"
+ ],
+ "files": [
+  {
+   "path": "blocks/BlockLogoCloud.jsx",
+   "content": "// Oeste BlockLogoCloud \u2014 Topanga block (v0.4.8).\n// A full page section composed from Oeste components, inlined below so\n// this file is self-contained. Copy-paste ready. Requires: React 18+,\n// Tailwind with dark: variant, JSX transform.\n// Requires Topanga tokens: import src/tokens.css once (or copy src/tokens.json).\n// Source: https://github.com/eric2busy/Oeste/blob/main/topanga/src/blocks.js\n// Docs: https://oeste.hiddeninwest.com/topanga/#/blocks/logo-cloud\n\nexport function Separator({ orientation = \"horizontal\", decorative = true }) {\n  if (orientation === \"vertical\") {\n    return decorative\n      ? <span aria-hidden=\"true\" className=\"inline-block w-px self-stretch bg-[#1c1917]/10 dark:bg-[#f5f3ef]/10\" />\n      : <span role=\"separator\" aria-orientation=\"vertical\" className=\"inline-block w-px self-stretch bg-[#1c1917]/10 dark:bg-[#f5f3ef]/10\" />;\n  }\n  return decorative\n    ? <hr aria-hidden=\"true\" className=\"my-4 border-0 border-t border-[#1c1917]/10 dark:border-[#f5f3ef]/10\" />\n    : <hr role=\"separator\" aria-orientation=\"horizontal\" className=\"my-4 border-0 border-t border-[#1c1917]/10 dark:border-[#f5f3ef]/10\" />;\n}\n\nexport function BlockLogoCloud() {\n  const marks = [\"Alder Studio\", \"Northlight\", \"Casa Verde\", \"Fern and Co\", \"Bluehour\", \"Atlas Ceramics\"];\n  return (\n    <section aria-label=\"Studios using Fieldbook\" className=\"bg-[#f6f4f1] px-6 py-12 text-[#1c1917] dark:bg-[#121110] dark:text-[#f5f3ef] lg:px-8\">\n      <div className=\"mx-auto max-w-[1200px]\">\n        <p className=\"text-sm text-[#706963] dark:text-[#9e968f]\">Studios that keep their projects in Fieldbook</p>\n        <div className=\"mt-6\">\n          <Separator />\n        </div>\n        <ul className=\"grid list-none grid-cols-2 gap-x-6 gap-y-4 p-0 py-8 sm:grid-cols-3 lg:flex lg:items-center lg:justify-between\">\n          {marks.map((m) => (\n            <li key={m} className=\"text-base font-semibold text-[#706963] dark:text-[#9e968f]\">{m}</li>\n          ))}\n        </ul>\n        <Separator />\n      </div>\n    </section>\n  );\n}\n",
+   "type": "registry:block"
+  }
+ ],
+ "docs": "https://oeste.hiddeninwest.com/topanga/#/blocks/logo-cloud",
+ "categories": [
+  "oeste",
+  "blocks",
+  "marketing"
+ ]
+}

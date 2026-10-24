@@ -1,0 +1,326 @@
+{
+ "name": "oeste-topanga-blocks",
+ "version": "0.4.8",
+ "registryBase": "https://oeste.hiddeninwest.com/topanga/r/",
+ "count": 14,
+ "blocks": [
+  {
+   "id": "announcement-bar",
+   "name": "Announcement Bar",
+   "export": "BlockAnnouncementBar",
+   "description": "A slim persistent band above the navbar with one message and one action.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/announcement-bar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/announcement-bar.json",
+   "docsUrl": "#/blocks/announcement-bar",
+   "uses": [
+    "badge",
+    "button",
+    "separator"
+   ],
+   "includes": [
+    "badge",
+    "button",
+    "separator"
+   ]
+  },
+  {
+   "id": "blog-list",
+   "name": "Blog List",
+   "export": "BlockBlogList",
+   "description": "A list of text-led post cards with category tabs and pagination.",
+   "category": "Content",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/blog-list.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/blog-list.json",
+   "docsUrl": "#/blocks/blog-list",
+   "uses": [
+    "avatar",
+    "badge",
+    "card",
+    "input",
+    "pagination",
+    "separator",
+    "skeleton",
+    "tabs"
+   ],
+   "includes": [
+    "avatar",
+    "badge",
+    "card",
+    "input",
+    "pagination",
+    "separator",
+    "skeleton",
+    "tabs"
+   ]
+  },
+  {
+   "id": "cta",
+   "name": "CTA",
+   "export": "BlockCta",
+   "description": "One closing ask on a single card: heading, one line, one primary action.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/cta.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/cta.json",
+   "docsUrl": "#/blocks/cta",
+   "uses": [
+    "badge",
+    "button",
+    "card"
+   ],
+   "includes": [
+    "badge",
+    "button",
+    "card"
+   ]
+  },
+  {
+   "id": "empty-state-block",
+   "name": "Empty State",
+   "export": "BlockEmptyStateBlock",
+   "description": "A full section empty state with one clear next step.",
+   "category": "Application",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/empty-state-block.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/empty-state-block.json",
+   "docsUrl": "#/blocks/empty-state-block",
+   "uses": [
+    "button",
+    "card",
+    "empty-state"
+   ],
+   "includes": [
+    "button",
+    "card",
+    "empty-state"
+   ]
+  },
+  {
+   "id": "faq",
+   "name": "FAQ",
+   "export": "BlockFaq",
+   "description": "An accordion of questions with a contact route at the foot.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/faq.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/faq.json",
+   "docsUrl": "#/blocks/faq",
+   "uses": [
+    "accordion",
+    "button",
+    "collapsible",
+    "separator"
+   ],
+   "includes": [
+    "accordion",
+    "button",
+    "collapsible",
+    "separator"
+   ]
+  },
+  {
+   "id": "features-bento",
+   "name": "Features",
+   "export": "BlockFeaturesBento",
+   "description": "A bento grid of feature tiles led by headings, with live component insets.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/features-bento.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/features-bento.json",
+   "docsUrl": "#/blocks/features-bento",
+   "uses": [
+    "badge",
+    "calendar",
+    "card",
+    "chart",
+    "progress",
+    "table"
+   ],
+   "includes": [
+    "badge",
+    "calendar",
+    "card",
+    "chart",
+    "progress",
+    "table"
+   ]
+  },
+  {
+   "id": "footer",
+   "name": "Footer",
+   "export": "BlockFooter",
+   "description": "The closing index: link columns, a wordmark, and a legal line.",
+   "category": "Navigation",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/footer.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/footer.json",
+   "docsUrl": "#/blocks/footer",
+   "uses": [
+    "button",
+    "input",
+    "separator"
+   ],
+   "includes": [
+    "button",
+    "input",
+    "separator"
+   ]
+  },
+  {
+   "id": "hero",
+   "name": "Hero",
+   "export": "BlockHero",
+   "description": "The opening statement: headline, lede, two actions, and one composed product panel.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/hero.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/hero.json",
+   "docsUrl": "#/blocks/hero",
+   "uses": [
+    "avatar",
+    "badge",
+    "button",
+    "card",
+    "chart",
+    "progress",
+    "separator"
+   ],
+   "includes": [
+    "avatar",
+    "badge",
+    "button",
+    "card",
+    "chart",
+    "progress",
+    "separator"
+   ]
+  },
+  {
+   "id": "login-auth",
+   "name": "Login",
+   "export": "BlockLoginAuth",
+   "description": "A sign-in card with labelled fields, an error alert, and an account switch.",
+   "category": "Application",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/login-auth.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/login-auth.json",
+   "docsUrl": "#/blocks/login-auth",
+   "uses": [
+    "alert",
+    "button",
+    "card",
+    "checkbox",
+    "input",
+    "separator",
+    "tabs"
+   ],
+   "includes": [
+    "alert",
+    "button",
+    "card",
+    "checkbox",
+    "input",
+    "separator",
+    "tabs"
+   ]
+  },
+  {
+   "id": "logo-cloud",
+   "name": "Logo Cloud",
+   "export": "BlockLogoCloud",
+   "description": "A ruled band of customer wordmarks set as text.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/logo-cloud.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/logo-cloud.json",
+   "docsUrl": "#/blocks/logo-cloud",
+   "uses": [
+    "separator"
+   ],
+   "includes": [
+    "separator"
+   ]
+  },
+  {
+   "id": "navbar",
+   "name": "Navbar",
+   "export": "BlockNavbar",
+   "description": "The top bar: wordmark, section links, one action, and an account menu.",
+   "category": "Navigation",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/navbar.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/navbar.json",
+   "docsUrl": "#/blocks/navbar",
+   "uses": [
+    "avatar",
+    "badge",
+    "button",
+    "dropdown-menu",
+    "separator"
+   ],
+   "includes": [
+    "avatar",
+    "badge",
+    "button",
+    "dropdown-menu",
+    "separator"
+   ]
+  },
+  {
+   "id": "pricing",
+   "name": "Pricing",
+   "export": "BlockPricing",
+   "description": "Plan cards with a billing period control and an optional comparison table.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/pricing.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/pricing.json",
+   "docsUrl": "#/blocks/pricing",
+   "uses": [
+    "badge",
+    "button",
+    "card",
+    "radiogroup",
+    "separator",
+    "table"
+   ],
+   "includes": [
+    "badge",
+    "button",
+    "card",
+    "radiogroup",
+    "separator",
+    "table"
+   ]
+  },
+  {
+   "id": "stats-band",
+   "name": "Stats Band",
+   "export": "BlockStatsBand",
+   "description": "A ruled band of three or four labelled figures.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/stats-band.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/stats-band.json",
+   "docsUrl": "#/blocks/stats-band",
+   "uses": [
+    "badge",
+    "separator"
+   ],
+   "includes": [
+    "badge",
+    "separator"
+   ]
+  },
+  {
+   "id": "testimonials",
+   "name": "Testimonials",
+   "export": "BlockTestimonials",
+   "description": "Quote cards with initial avatars, names, and roles.",
+   "category": "Marketing",
+   "registryUrl": "https://oeste.hiddeninwest.com/topanga/r/testimonials.json",
+   "githubRawUrl": "https://raw.githubusercontent.com/eric2busy/Oeste/main/topanga/r/testimonials.json",
+   "docsUrl": "#/blocks/testimonials",
+   "uses": [
+    "avatar",
+    "badge",
+    "card"
+   ],
+   "includes": [
+    "avatar",
+    "badge",
+    "card"
+   ]
+  }
+ ]
+}
